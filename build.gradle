@@ -61,15 +61,13 @@ subprojects {
         maven { url = "https://maven.cafeteria.dev/releases" } // Fake Player API
         maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
 //        maven { url = "https://cursemaven.com" } //it has some issue, what's happened?
+
     }
 
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         // The following line declares the mojmap mappings, you may use other mappings as well
-        mappings(loom.layered {
-            officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-1.18.2:2022.09.04@zip")
-        })
+        mappings loom.officialMojangMappings()
 
         implementation("org.joml:joml:1.10.4") { transitive = false }
         implementation("org.joml:joml-primitives:1.10.0") { transitive = false }
