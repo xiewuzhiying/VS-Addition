@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "io.github.xiewuzhiying.vs_addition.forge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "plugin": "io.github.xiewuzhiying.vs_addition.forge.mixin.ValkyrienForgeMixinConfigPlugin",
+  "mixins": [
+    "cbcmodernwarfare.CompactCannonMountBlockEntityAccessor",
+    "computercraft.TileComputerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

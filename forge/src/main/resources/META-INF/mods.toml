@@ -1,0 +1,77 @@
+modLoader = "kotlinforforge"
+loaderVersion = "[3.12.0,)"
+issueTrackerURL = "https://github.com/xiewuzhiying/VS-Addition/issues"
+license = "Apache-2.0"
+
+[[mods]]
+modId = "vs_addition"
+version = "${version}"
+displayName = "VS Addition"
+authors = ["xiewuzhiying"]
+description = '''
+Some little addition for VS2 and other mods.
+'''
+logoFile = "icon.png"
+
+[[dependencies.vs_addition]]
+modId = "forge"
+mandatory = true
+versionRange = "[40.1.69,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.vs_addition]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18.2,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.vs_addition]]
+modId = "valkyrienskies"
+mandatory = false
+versionRange = "[2.1.1-beta.5,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.vs_addition]]
+modId = "create"
+mandatory = false
+versionRange = "[0.5.1,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.vs_addition]]
+modId = "createbigcannons"
+mandatory = false
+versionRange = "[0.5.2,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.vs_addition]]
+modId = "framedblocks"
+mandatory = false
+versionRange = "[5,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.vs_addition]]
+modId = "computercraft"
+mandatory = false
+versionRange = "*"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.vs_addition]]
+modId = "vs_clockwork"
+mandatory = false
+versionRange = "[0.1,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.vs_addition]]
+modId = "copycats"
+mandatory = false
+versionRange = "[1.2.5,)"
+ordering = "AFTER"
+side = "BOTH"

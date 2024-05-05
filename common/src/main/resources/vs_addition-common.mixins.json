@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "package": "io.github.xiewuzhiying.vs_addition.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "computercraft.MixinRedstoneAPI",
+    "computercraft.MixinWirelessModemPeripheral",
+    "create.MixinCopycatBlock",
+    "create.MixinCopycatBlockEntity",
+    "create.MixinDisplayLinkBlockItem",
+    "create.MixinTreeFertilizerItem",
+    "createbigcannons.CannonMountBlockEntityAccessor",
+    "createbigcannons.MixinMountedAutoCannonContraption",
+    "createbigcannons.MixinMountedBigCannonContraption",
+    "minecraft.EntityAccessor",
+    "vs_eureka.ShipHelmBlockEntityAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

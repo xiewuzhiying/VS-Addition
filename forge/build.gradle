@@ -1,0 +1,171 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        // Make sure this version matches the one included in Kotlin for Forge
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
+        // OPTIONAL Gradle plugin for Kotlin Serialization
+        classpath 'org.jetbrains.kotlin:kotlin-serialization:1.6.10'
+    }
+}
+
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "com.matthewprenger.cursegradle"
+    id "com.modrinth.minotaur"
+}
+
+apply from: '../gradle-scripts/publish-curseforge.gradle'
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    forge {
+        convertAccessWideners = true
+        mixinConfig "vs_addition.mixins.json"
+        mixinConfig "vs_addition-common.mixins.json"
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+    }
+}
+
+configurations {
+    common
+    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+    compileClasspath.extendsFrom common
+            runtimeClasspath.extendsFrom common
+            developmentForge.extendsFrom common
+}
+
+dependencies {
+    forge "net.minecraftforge:forge:$forge_version"
+
+    // Architectury API
+    include(modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}")
+
+    //Mixin Extras
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5"))
+    implementation(include("io.github.llamalad7:mixinextras-forge:0.3.5"))
+
+    // Valkyrien Skies 2
+    modApi("org.valkyrienskies:valkyrienskies-118-forge:$vs2_version") { transitive = false }
+
+    // VS Core
+    implementation("org.valkyrienskies.core:api:$vs_core_version")
+    implementation("org.valkyrienskies.core:api-game:$vs_core_version")
+    implementation("org.valkyrienskies.core:util:$vs_core_version")
+    implementation("org.valkyrienskies.core:impl:$vs_core_version")
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+
+    // Kotlin for Forge
+    implementation "thedarkcolour:kotlinforforge:$forge_kotlin_version"
+
+    // Create compats
+    modImplementation("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
+    modImplementation("com.jozufozu.flywheel:flywheel-forge-${minecraft_version}:${flywheel_version}")
+    modImplementation("com.tterrag.registrate:Registrate:${registrate_version}")
+
+    // CC Tweaked
+    modCompileOnly("maven.modrinth:cc-tweaked:1.18.2-1.101.3")
+
+    //Framed blocks
+    modCompileOnly("maven.modrinth:framedblocks:5.11.5")
+
+    //Copycat+
+
+    modImplementation("maven.modrinth:copycats:1.18.2-1.2.5")
+
+    //CBC
+    modCompileOnly("maven.modrinth:create-big-cannons:0.5.4")
+    modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-c5d3ea1+1.18.2-forge") { transitive = false }
+
+    //CBC Modern Warfare
+    modCompileOnly files("jars/cbcmodernwarfare-forge-1.18.2-0.0.4a.jar")
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version, "vs2_version": project.vs2_version.substring(0, project.vs2_version.indexOf('+'))
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
+    it.options.release = 17
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+    exclude "architectury.common.json"
+
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier.set "dev-shadow"
+}
+
+remapJar {
+    input.set shadowJar.archiveFile
+            dependsOn shadowJar
+    archiveClassifier.set null
+}
+
+jar {
+    archiveClassifier.set "dev"
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+            from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+publishing {
+    publications {
+        mavenCommon(MavenPublication) {
+            groupId = "org.valkyrienskies.eureka"
+            version = project.version
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        if (project.vs_maven_username && project.vs_maven_password) {
+            println "Publishing to VS Maven"
+            maven {
+                url = project.vs_maven_url
+                credentials {
+                    username = project.vs_maven_username
+                    password = project.vs_maven_password
+                }
+            }
+        }
+        // Add repositories to publish to here.
+        if (System.getenv("GITHUB_ACTOR") != null) {
+            println "Publishing to Github Packages"
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/ValkyrienSkies/Eureka")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+    }
+}

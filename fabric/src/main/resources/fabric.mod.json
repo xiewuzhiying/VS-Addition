@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "vs_addition",
+  "version": "${version}",
+  "name": "VS Addition",
+  "description": "Some little addition for VS2 and other mods.",
+  "authors": [
+    "xiewuzhying"
+  ],
+  "contact": {
+    "homepage": "https://valkyrienskies.org/",
+    "sources": "https://github.com/xiewuzhiying/VS-Addition"
+  },
+  "license": "Apache-2.0",
+  "icon": "assets/vs_addition/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.xiewuzhiying.vs_addition.fabric.VSAdditionModFabric"
+    ],
+    "preLaunch": [
+      "io.github.xiewuzhiying.vs_addition.fabric.ValkyrienPreLaunch"
+    ]
+  },
+  "mixins": [
+    "vs_addition-common.mixins.json",
+    "vs_addition.mixins.json"
+  ],
+  "accessWidener" : "vs_addition-common.accesswidener",
+  "depends": {
+    "minecraft": ">=1.18.2",
+    "fabricloader": ">=0.14.21"
+  },
+  "suggests": {
+    "valkyrienskies": ">=2.1.1-beta.5",
+    "create": ">=0.5.1",
+    "createbigcannons": ">=0.5.2",
+    "computercraft": "*",
+    "vs_clockwork": ">=0.1",
+    "copycats": ">=1.2.5"
+  }
+}

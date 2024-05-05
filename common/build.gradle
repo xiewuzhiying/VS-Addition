@@ -1,0 +1,93 @@
+architectury {
+    common(rootProject.enabled_platforms.split(","))
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/vs_addition.accesswidener")
+}
+
+dependencies {
+    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
+    // Do NOT use other classes from fabric loader
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+
+    // Architectury API
+    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+
+    //Mixin Extras
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5"))
+
+    // Valkyrien Skies 2
+    modApi("org.valkyrienskies:valkyrienskies-118-common:${rootProject.vs2_version}")
+
+    // VS Core
+    compileOnly("org.valkyrienskies.core:api:${rootProject.vs_core_version}")
+    compileOnly("org.valkyrienskies.core:api-game:${rootProject.vs_core_version}")
+    compileOnly("org.valkyrienskies.core:util:${rootProject.vs_core_version}")
+    compileOnly("org.valkyrienskies.core:impl:${rootProject.vs_core_version}")
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10"
+    api "org.jetbrains.kotlin:kotlin-reflect:1.9.10"
+
+    //Common create compats,
+    //We just use a version from a platform and hope the classes exist on both versions and mixins apply correctly
+    modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}")
+            { exclude group: 'com.github.AlphaMode', module: 'fakeconfigtoml' }
+    modCompileOnly("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
+    modCompileOnly("com.jozufozu.flywheel:flywheel-fabric-${minecraft_version}:${flywheel_version_fabric}")
+    modCompileOnly("io.github.fabricators_of_create:Porting-Lib:${port_lib_version}+${minecraft_version}")
+
+    // CBC
+    // Change the previous section
+    modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-c5d3ea1+1.18.2-common") { transitive = false }
+    modCompileOnly("maven.modrinth:create-big-cannons:eLFsS1Ui")
+
+    //ComputerCraft
+    modCompileOnly("maven.modrinth:cc-restitched:1.100.8+1.18.2")
+
+    //Eureka
+    modCompileOnly("maven.modrinth:eureka:1.18.2-fabric-1.4.0-beta.1")
+
+    //Clockwork
+    modCompileOnly("maven.modrinth:create-clockwork:8JdnD9wo")
+
+    //Copycat+
+    modCompileOnly("maven.modrinth:copycats:g3m9RPx3")
+}
+
+publishing {
+    publications {
+        mavenCommon(MavenPublication) {
+            groupId = "org.valkyrienskies.eureka"
+            version = project.version
+            artifactId = rootProject.archives_base_name + "-" + project.name
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        if (project.vs_maven_username && project.vs_maven_password) {
+            println "Publishing to VS Maven"
+            maven {
+                url = project.vs_maven_url
+                credentials {
+                    username = project.vs_maven_username
+                    password = project.vs_maven_password
+                }
+            }
+        }
+        // Add repositories to publish to here.
+        if (System.getenv("GITHUB_ACTOR") != null) {
+            println "Publishing to Github Packages"
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/ValkyrienSkies/Eureka")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+    }
+}
