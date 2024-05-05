@@ -5,6 +5,7 @@
   "plugin": "io.github.xiewuzhiying.vs_addition.forge.mixin.ValkyrienForgeMixinConfigPlugin",
   "mixins": [
     "cbcmodernwarfare.CompactCannonMountBlockEntityAccessor",
+    "cbcmodernwarfare.MixinMountedMediumcannonContraption",
     "computercraft.TileComputerMixin"
   ],
   "injectors": {
