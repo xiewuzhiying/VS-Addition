@@ -29,7 +29,7 @@ side = "BOTH"
 
 [[dependencies.vs_addition]]
 modId = "valkyrienskies"
-mandatory = false
+mandatory = true
 versionRange = "[2.1.1-beta.5,)"
 ordering = "AFTER"
 side = "BOTH"
