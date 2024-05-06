@@ -14,7 +14,7 @@ public class FlapBearingPeripheral implements IPeripheral {
     private final String type ;
     private final FlapBearingBlockEntity tileEntity;
 
-    public FlapBearingPeripheral(String type, FlapBearingBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
+    public FlapBearingPeripheral(String type, FlapBearingBlockEntity tileEntity, Level level, BlockPos blockPos) {
         this.type = type;
         this.tileEntity = tileEntity;
     }

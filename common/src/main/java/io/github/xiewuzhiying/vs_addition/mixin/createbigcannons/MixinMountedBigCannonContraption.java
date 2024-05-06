@@ -40,7 +40,7 @@ public abstract class MixinMountedBigCannonContraption extends AbstractMountedCa
             )
     )
     public void getShip(ServerLevel level, PitchOrientedContraptionEntity entity, CallbackInfo ci){
-        vs_addition$serverShip = (ServerShip) VSGameUtilsKt.getShipObjectManagingPos(entity.level, VectorConversionsMCKt.toJOML(entity.getAnchorVec()));
+        vs_addition$serverShip = (ServerShip) VSGameUtilsKt.getShipObjectManagingPos(((EntityAccessor) entity).getLevel(), VectorConversionsMCKt.toJOML(entity.getAnchorVec()));
     }
 
     @Redirect(

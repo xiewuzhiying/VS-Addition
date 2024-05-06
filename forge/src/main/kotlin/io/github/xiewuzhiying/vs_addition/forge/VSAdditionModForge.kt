@@ -1,7 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.forge
 
 import com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours
-import dan200.computercraft.api.ComputerCraftAPI
+import dan200.computercraft.impl.Peripherals
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.init
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
@@ -60,11 +60,11 @@ class VSAdditionModForge {
                         VSAdditionMod.MOD_ID,
                         "framed_sign_display_target"
                     ), FramedSignDisplayTarget()
-                ), FBContent.blockEntityTypeFramedSign.get()
+                ), FBContent.BE_TYPE_FRAMED_SIGN.get()
             )
 
         if(CC_ACTIVE)
-            ComputerCraftAPI.registerPeripheralProvider(ForgePeripheralProvider())
+            Peripherals.register(ForgePeripheralProvider());
     }
 
 

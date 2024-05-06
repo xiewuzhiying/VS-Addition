@@ -3,8 +3,6 @@ package io.github.xiewuzhiying.vs_addition.mixin.create;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.decoration.copycat.CopycatBlockEntity;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
-import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import java.util.List;
 import kotlin.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
@@ -24,6 +22,8 @@ import org.valkyrienskies.core.apigame.world.chunks.BlockType;
 import org.valkyrienskies.mod.common.BlockStateInfo;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 import org.valkyrienskies.mod.common.util.DimensionIdProvider;
+
+import java.util.List;
 
 @Mixin(CopycatBlockEntity.class)
 public abstract class MixinCopycatBlockEntity extends SmartBlockEntity{

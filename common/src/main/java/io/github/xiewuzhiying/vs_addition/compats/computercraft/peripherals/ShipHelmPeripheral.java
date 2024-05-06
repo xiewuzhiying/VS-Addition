@@ -19,7 +19,7 @@ public class ShipHelmPeripheral implements IPeripheral {
 
     private final EurekaShipControl shipControl;
 
-    public ShipHelmPeripheral(String type, ShipHelmBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
+    public ShipHelmPeripheral(String type, ShipHelmBlockEntity tileEntity, Level level, BlockPos blockPos) {
         this.type = type;
         this.tileEntity = tileEntity;
         this.shipControl = ((ShipHelmBlockEntityAccessor)(Object) this.tileEntity).GetControl();

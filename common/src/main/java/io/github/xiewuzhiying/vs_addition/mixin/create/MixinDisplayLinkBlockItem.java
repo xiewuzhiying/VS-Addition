@@ -46,7 +46,7 @@ public abstract class MixinDisplayLinkBlockItem extends BlockItem {
         if (player == null)
             return InteractionResult.FAIL;
 
-        if (player.isShiftKeyDown() && stack.hasTag()) {
+        if (player.isSteppingCarefully() && stack.hasTag()) {
             if (level.isClientSide)
                 return InteractionResult.SUCCESS;
             player.displayClientMessage(Lang.translateDirect("display_link.clear"), true);
@@ -68,8 +68,7 @@ public abstract class MixinDisplayLinkBlockItem extends BlockItem {
         CompoundTag teTag = new CompoundTag();
 
         BlockPos selectedPos = NbtUtils.readBlockPos(tag.getCompound("SelectedPos"));
-        BlockPos placedPos = pos.relative(pContext.getClickedFace(), state.getMaterial()
-                .isReplaceable() ? 0 : 1);
+        BlockPos placedPos = pos.relative(pContext.getClickedFace(), state.canBeReplaced() ? 0 : 1);
 
         if (!selectedPos.closerThan(placedPos, AllConfigs.server().logistics.displayLinkRange.get())) {
             player.displayClientMessage(Lang.translateDirect("display_link.too_far")
@@ -91,6 +90,7 @@ public abstract class MixinDisplayLinkBlockItem extends BlockItem {
                 .withStyle(ChatFormatting.GREEN), true);
         return useOn;
     }
+
 
     @Redirect(
             method = "useOn",

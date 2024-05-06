@@ -2,37 +2,20 @@ package io.github.xiewuzhiying.vs_addition.mixin.create;
 
 import com.simibubi.create.content.equipment.TreeFertilizerItem;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.valkyrienskies.core.api.ships.ServerShip;
-import org.valkyrienskies.core.api.world.ServerShipWorld;
-import org.valkyrienskies.core.apigame.VSCore;
-import org.valkyrienskies.core.util.datastructures.DenseBlockPosSet;
-import org.valkyrienskies.eureka.util.ShipAssembler;
-import org.valkyrienskies.mod.common.ValkyrienSkiesMod;
-import org.valkyrienskies.mod.common.util.VectorConversionsMCKt;
-import org.valkyrienskies.core.apigame.ShipTeleportData;
-import org.valkyrienskies.core.impl.game.ShipTeleportDataImpl;
-
-import java.util.Collections;
-import java.util.List;
-
-import static org.valkyrienskies.mod.common.assembly.ShipAssemblyKt.createNewShipWithBlocks;
 
 @Mixin(TreeFertilizerItem.class)
 public abstract class MixinTreeFertilizerItem extends Item {

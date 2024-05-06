@@ -31,28 +31,27 @@ dependencies {
 
     //Common create compats,
     //We just use a version from a platform and hope the classes exist on both versions and mixins apply correctly
-//    modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}")
-//            { exclude group: 'com.github.AlphaMode', module: 'fakeconfigtoml' }
-//    modCompileOnly("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
-//    modCompileOnly("com.jozufozu.flywheel:flywheel-fabric-${minecraft_version}:${flywheel_version_fabric}")
-//    modCompileOnly("io.github.fabricators_of_create:Porting-Lib:${port_lib_version}+${minecraft_version}")
-//
-//    // CBC
-//    // Change the previous section
-//    modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-c5d3ea1+1.18.2-common") { transitive = false }
-//    modCompileOnly("maven.modrinth:create-big-cannons:eLFsS1Ui")
-//
-//    //ComputerCraft
-//    modCompileOnly("maven.modrinth:cc-restitched:1.100.8+1.18.2")
-//
-//    //Eureka
-//    modCompileOnly("maven.modrinth:eureka:1.18.2-fabric-1.4.0-beta.1")
-//
-//    //Clockwork
-//    modCompileOnly("maven.modrinth:create-clockwork:8JdnD9wo")
-//
-//    //Copycat+
-//    modCompileOnly("maven.modrinth:copycats:g3m9RPx3")
+    modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}")
+            { exclude group: 'com.github.AlphaMode', module: 'fakeconfigtoml' }
+    modCompileOnly("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
+    modCompileOnly("com.jozufozu.flywheel:flywheel-fabric-${minecraft_version}:${flywheel_version_fabric}")
+
+    // CBC
+    // Change the previous section
+    modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-369e88d+1.20.1-common") { transitive = false }
+    modCompileOnly("maven.modrinth:create-big-cannons:HdgdrH1E")
+
+    //ComputerCraft
+    modCompileOnly("maven.modrinth:cc-tweaked:ekffpGYP")
+
+    //Eureka
+    modCompileOnly("maven.modrinth:eureka:1.20.1-fabric-1.5.0-beta.3")
+
+    //Clockwork
+    modCompileOnly("maven.modrinth:create-clockwork:EvNWNIMY")
+
+    //Copycat+
+    modCompileOnly("maven.modrinth:copycats:1.20.1-1.2.6")
 }
 
 publishing {

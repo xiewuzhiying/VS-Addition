@@ -1,8 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.fabric;
 
-import dan200.computercraft.api.ComputerCraftAPI;
+import dan200.computercraft.api.peripheral.PeripheralLookup;
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod;
-import io.github.xiewuzhiying.vs_addition.fabric.compat.computercraft.FabricPeripheralProvider;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -10,6 +9,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import org.valkyrienskies.mod.fabric.common.ValkyrienSkiesModFabric;
 
+import static com.simibubi.create.compat.computercraft.implementation.ComputerBehaviour.peripheralProvider;
 import static io.github.xiewuzhiying.vs_addition.VSAdditionMod.init;
 import static io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient;
 
@@ -27,7 +27,7 @@ public class VSAdditionModFabric implements ModInitializer {
         init();
 
         if(VSAdditionMod.getCC_ACTIVE())
-            ComputerCraftAPI.registerPeripheralProvider(new FabricPeripheralProvider());
+            PeripheralLookup.get().registerFallback((level, blockPos, blockState, blockEntity, direction) -> peripheralProvider(level, blockPos));
     }
 
     @Environment(EnvType.CLIENT)

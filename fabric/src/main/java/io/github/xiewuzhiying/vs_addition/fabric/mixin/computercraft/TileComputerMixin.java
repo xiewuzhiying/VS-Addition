@@ -1,6 +1,6 @@
 package io.github.xiewuzhiying.vs_addition.fabric.mixin.computercraft;
 
-import dan200.computercraft.shared.computer.blocks.TileComputer;
+import dan200.computercraft.shared.computer.blocks.ComputerBlockEntity;
 import dan200.computercraft.shared.computer.core.ServerComputer;
 import io.github.xiewuzhiying.vs_addition.compats.computercraft.VSAdditionCC;
 import net.minecraft.server.level.ServerLevel;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(TileComputer.class)
+@Mixin(ComputerBlockEntity.class)
 public abstract class TileComputerMixin {
     @Inject(
             method = "createComputer",
@@ -18,7 +18,7 @@ public abstract class TileComputerMixin {
             cancellable = true,
             remap = false
     )
-    private void cc_vs$addAPI(int instanceID, int id, CallbackInfoReturnable<ServerComputer> cir) {
+    private void cc_vs$addAPI(int id, CallbackInfoReturnable<ServerComputer> cir) {
         ServerComputer computer = cir.getReturnValue();
         Level level = computer.getLevel();
 
