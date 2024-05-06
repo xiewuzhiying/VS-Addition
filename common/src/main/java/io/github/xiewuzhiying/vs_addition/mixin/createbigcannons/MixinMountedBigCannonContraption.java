@@ -1,5 +1,6 @@
 package io.github.xiewuzhiying.vs_addition.mixin.createbigcannons;
 
+import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import io.github.xiewuzhiying.vs_addition.mixin.minecraft.EntityAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -73,7 +74,7 @@ public abstract class MixinMountedBigCannonContraption extends AbstractMountedCa
     public void recoil(ServerLevel level, PitchOrientedContraptionEntity entity, CallbackInfo ci) {
         if (vs_addition$serverShip != null) {
             GameTickForceApplier applier = vs_addition$serverShip.getAttachment(GameTickForceApplier.class);
-            double recoilForce = vs_addition$speed * 50000.0d;
+            double recoilForce = vs_addition$speed * VSAdditionConfig.SERVER.getBigCannonRecoilForce();
             applier.applyInvariantForceToPos(vs_addition$serverShip.getTransform().getShipToWorldRotation().transform(VectorConversionsMCKt.toJOML(vs_addition$vector).negate().normalize()).mul(recoilForce), VectorConversionsMCKt.toJOML(entity.getAnchorVec().add(0.5, 0.5, 0.5)).sub(vs_addition$serverShip.getTransform().getPositionInShip()));
         }
     }

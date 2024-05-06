@@ -1,6 +1,7 @@
 package io.github.xiewuzhiying.vs_addition
 
 import dev.architectury.platform.Platform
+import org.valkyrienskies.core.impl.config.VSConfigClass
 
 object VSAdditionMod {
     const val MOD_ID = "vs_addition"
@@ -18,6 +19,8 @@ object VSAdditionMod {
         CLOCKWORK_ACTIVE = Platform.isModLoaded("vs_clockwork")
         CBC_ACTIVE = Platform.isModLoaded("createbigcannons")
         EUREKA_ACTIVE = Platform.isModLoaded("eureka")
+
+        VSConfigClass.registerConfig("vs_addition", VSAdditionConfig::class.java)
     }
 
     @JvmStatic
