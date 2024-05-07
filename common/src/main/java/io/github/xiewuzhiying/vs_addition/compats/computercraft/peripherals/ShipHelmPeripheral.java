@@ -5,8 +5,7 @@ import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -18,8 +17,6 @@ import org.valkyrienskies.eureka.ship.EurekaShipControl;
 import org.valkyrienskies.eureka.util.ShipAssembler;
 import org.valkyrienskies.mod.api.SeatedControllingPlayer;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
-
-import java.util.Map;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
@@ -68,7 +65,7 @@ public class ShipHelmPeripheral implements IPeripheral {
             ServerShip builtShip = ShipAssembler.INSTANCE.collectBlocks(
                     (ServerLevel) this.level,
                     this.pos,
-                    blockState -> !blockState.isAir() && !EurekaConfig.SERVER.getBlockBlacklist().contains(Registry.BLOCK.getKey(blockState.getBlock()).toString())
+                    blockState -> !blockState.isAir() && !EurekaConfig.SERVER.getBlockBlacklist().contains(BuiltInRegistries.BLOCK.getKey(blockState.getBlock()).toString())
             );
             if(builtShip == null)
                 throw new LuaException("Ship is too big! Max size is" + EurekaConfig.SERVER.getMaxShipBlocks() + "blocks (changable in the config)");
