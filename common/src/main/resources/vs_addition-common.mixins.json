@@ -13,7 +13,6 @@
     "createbigcannons.MixinMountedAutoCannonContraption",
     "createbigcannons.MixinMountedBigCannonContraption",
     "minecraft.EntityAccessor",
-    "vs_eureka.ShipHelmBlockEntityAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

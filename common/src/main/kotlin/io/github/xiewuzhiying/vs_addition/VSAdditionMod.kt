@@ -18,7 +18,7 @@ object VSAdditionMod {
         CC_ACTIVE = Platform.isModLoaded("computercraft")
         CLOCKWORK_ACTIVE = Platform.isModLoaded("vs_clockwork")
         CBC_ACTIVE = Platform.isModLoaded("createbigcannons")
-        EUREKA_ACTIVE = Platform.isModLoaded("eureka")
+        EUREKA_ACTIVE = Platform.isModLoaded("vs_eureka")
 
         VSConfigClass.registerConfig("vs_addition", VSAdditionConfig::class.java)
     }
