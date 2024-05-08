@@ -13,15 +13,14 @@ import rbasamoyai.createbigcannons.cannon_control.cannon_mount.CannonMountBlockE
 
 public class CannonMountPeripheral implements IPeripheral {
 
-    private final String type ;
-    private final CannonMountBlockEntity tileEntity;
+    public final String type ;
+    public final CannonMountBlockEntity tileEntity;
 
-    private final Level level;
+    public final Level level;
 
-    private final BlockPos worldPosition;
+    public final BlockPos worldPosition;
 
-
-    public CannonMountPeripheral(String type, CannonMountBlockEntity tileEntity, Level level, BlockPos blockPos) {
+    public CannonMountPeripheral(String type, CannonMountBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
         this.type = type;
         this.tileEntity = tileEntity;
         this.level = level;
@@ -42,19 +41,6 @@ public class CannonMountPeripheral implements IPeripheral {
     @Override
     public Object getTarget() {
         return this.tileEntity;
-    }
-
-
-    @LuaFunction(mainThread = true)
-    public final void setPitch(double value){
-        if(this.isRunning())
-            this.tileEntity.setPitch((float) value);
-    }
-
-    @LuaFunction(mainThread = true)
-    public final void setYaw(double value){
-        if(this.isRunning())
-            this.tileEntity.setYaw((float) value);
     }
 
     @LuaFunction(mainThread = true)

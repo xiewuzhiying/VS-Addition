@@ -22,12 +22,12 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 public class ShipHelmPeripheral implements IPeripheral {
 
-    private final String type ;
-    private final ShipHelmBlockEntity tileEntity;
+    public final String type ;
+    public final ShipHelmBlockEntity tileEntity;
 
-    private final Level level;
+    public final Level level;
 
-    private final BlockPos pos;
+    public final BlockPos pos;
 
     public ShipHelmPeripheral(String type, ShipHelmBlockEntity tileEntity, Level level, BlockPos blockPos) {
         this.type = type;

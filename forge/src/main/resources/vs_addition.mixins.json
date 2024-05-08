@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "io.github.xiewuzhiying.vs_addition.forge.mixin.ValkyrienForgeMixinConfigPlugin",
   "mixins": [
-    "computercraft.TileComputerMixin"
+    "computercraft.ItemPocketComputerMixin",
+    "computercraft.TileComputerMixin",
+    "computercraft.TileTurtleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
