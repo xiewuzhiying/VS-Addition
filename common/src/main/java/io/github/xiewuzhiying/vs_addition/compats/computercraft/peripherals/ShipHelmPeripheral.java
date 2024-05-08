@@ -19,18 +19,16 @@ import org.valkyrienskies.eureka.util.ShipAssembler;
 import org.valkyrienskies.mod.api.SeatedControllingPlayer;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
-import java.util.Map;
-
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 public class ShipHelmPeripheral implements IPeripheral {
 
-    private final String type ;
-    private final ShipHelmBlockEntity tileEntity;
+    public final String type ;
+    public final ShipHelmBlockEntity tileEntity;
 
-    private final Level level;
+    public final Level level;
 
-    private final BlockPos pos;
+    public final BlockPos pos;
 
     public ShipHelmPeripheral(String type, ShipHelmBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
         this.type = type;

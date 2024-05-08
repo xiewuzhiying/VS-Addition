@@ -11,8 +11,8 @@ import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlockEn
 
 public class FlapBearingPeripheral implements IPeripheral {
 
-    private final String type ;
-    private final FlapBearingBlockEntity tileEntity;
+    public final String type ;
+    public final FlapBearingBlockEntity tileEntity;
 
     public FlapBearingPeripheral(String type, FlapBearingBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
         this.type = type;
@@ -33,15 +33,6 @@ public class FlapBearingPeripheral implements IPeripheral {
     @Override
     public Object getTarget() {
         return this.tileEntity;
-    }
-
-    @LuaFunction(mainThread = true)
-    public final Object setAngle(double angle){
-        if(this.tileEntity.isRunning()) {
-            this.tileEntity.setAngle((float) angle);
-            return true;
-        }
-        return false;
     }
 
     @LuaFunction(mainThread = true)
