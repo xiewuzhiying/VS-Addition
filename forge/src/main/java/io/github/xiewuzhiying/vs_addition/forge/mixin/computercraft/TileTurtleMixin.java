@@ -1,7 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.forge.mixin.computercraft;
 
 import dan200.computercraft.shared.computer.core.ServerComputer;
-import dan200.computercraft.shared.turtle.blocks.TileTurtle;
+import dan200.computercraft.shared.turtle.blocks.TurtleBlockEntity;
 import io.github.xiewuzhiying.vs_addition.compats.computercraft.VSAdditionCC;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(TileTurtle.class)
+@Mixin(TurtleBlockEntity.class)
 public abstract class TileTurtleMixin {
     @Inject(
             method = "createComputer",

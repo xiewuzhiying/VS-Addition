@@ -1,7 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.fabric.mixin.computercraft;
 
 import dan200.computercraft.shared.pocket.core.PocketServerComputer;
-import dan200.computercraft.shared.pocket.items.ItemPocketComputer;
+import dan200.computercraft.shared.pocket.items.PocketComputerItem;
 import io.github.xiewuzhiying.vs_addition.compats.computercraft.VSAdditionCC;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ItemPocketComputer.class)
+@Mixin(PocketComputerItem.class)
 public class ItemPocketComputerMixin {
     @Inject(
             method = "createServerComputer",
@@ -21,11 +21,10 @@ public class ItemPocketComputerMixin {
             cancellable = true,
             remap = false
     )
-    private void cc_vs$addAPI(Level world, Container inventory, Entity entity, ItemStack stack, CallbackInfoReturnable<PocketServerComputer> cir) {
+    private void cc_vs$addAPI(ServerLevel level, Entity entity, Container inventory, ItemStack stack, CallbackInfoReturnable<PocketServerComputer> cir) {
         PocketServerComputer computer = cir.getReturnValue();
-        Level level = computer.getLevel();
 
-        VSAdditionCC.applyCCAPIs(computer, (ServerLevel) level);
+        VSAdditionCC.applyCCAPIs(computer, level);
 
         cir.setReturnValue(computer);
     }
