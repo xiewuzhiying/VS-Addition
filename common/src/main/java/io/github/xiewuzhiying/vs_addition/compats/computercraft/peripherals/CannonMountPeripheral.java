@@ -20,7 +20,7 @@ public class CannonMountPeripheral implements IPeripheral {
 
     public final BlockPos worldPosition;
 
-    public CannonMountPeripheral(String type, CannonMountBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
+    public CannonMountPeripheral(String type, CannonMountBlockEntity tileEntity, Level level, BlockPos blockPos) {
         this.type = type;
         this.tileEntity = tileEntity;
         this.level = level;

@@ -5,7 +5,7 @@ import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -65,7 +65,7 @@ public class ShipHelmPeripheral implements IPeripheral {
             ServerShip builtShip = ShipAssembler.INSTANCE.collectBlocks(
                     (ServerLevel) this.level,
                     this.pos,
-                    blockState -> !blockState.isAir() && !EurekaConfig.SERVER.getBlockBlacklist().contains(BuiltInRegistries.BLOCK.getKey(blockState.getBlock()).toString())
+                    blockState -> !blockState.isAir() && !EurekaConfig.SERVER.getBlockBlacklist().contains(Registry.BLOCK.getKey(blockState.getBlock()).toString())
             );
             if(builtShip == null)
                 throw new LuaException("Ship is too big! Max size is" + EurekaConfig.SERVER.getMaxShipBlocks() + "blocks (changable in the config)");

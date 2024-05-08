@@ -7,8 +7,8 @@ import net.minecraft.world.level.Level;
 import rbasamoyai.createbigcannons.cannon_control.cannon_mount.CannonMountBlockEntity;
 
 public class CheatCannonMountPeripheral extends CannonMountPeripheral{
-    public CheatCannonMountPeripheral(String type, CannonMountBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
-        super(type, tileEntity, level, blockPos, direction);
+    public CheatCannonMountPeripheral(String type, CannonMountBlockEntity tileEntity, Level level, BlockPos blockPos) {
+        super(type, tileEntity, level, blockPos);
     }
 
     @LuaFunction(mainThread = true)

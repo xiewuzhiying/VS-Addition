@@ -4,11 +4,8 @@ package io.github.xiewuzhiying.vs_addition.compats.computercraft;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod;
-import io.github.xiewuzhiying.vs_addition.compats.computercraft.peripherals.CannonMountPeripheral;
-import io.github.xiewuzhiying.vs_addition.compats.computercraft.peripherals.FlapBearingPeripheral;
-import io.github.xiewuzhiying.vs_addition.compats.computercraft.peripherals.ShipHelmPeripheral;
+import io.github.xiewuzhiying.vs_addition.compats.computercraft.peripherals.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -34,21 +31,21 @@ public class PeripheralCommon {
         } else if (VSAdditionMod.getCLOCKWORK_ACTIVE() && c(s, ClockworkBlocks.FLAP_BEARING.get())) {
             return VSAdditionConfig.SERVER.getEnableCheatFlapBearingPeripheral() ? new CheatFlapBearingPeripheral("clockwork_flap_bearing", (FlapBearingBlockEntity) be, level, blockPos) : new FlapBearingPeripheral("clockwork_flap_bearing", (FlapBearingBlockEntity) be, level, blockPos);
         } else if (VSAdditionMod.getEUREKA_ACTIVE() && c(s, EurekaBlocks.INSTANCE.getACACIA_SHIP_HELM().get())) {
-            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos, direction);
+            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos);
         } else if (VSAdditionMod.getEUREKA_ACTIVE() && c(s, EurekaBlocks.INSTANCE.getCRIMSON_SHIP_HELM().get())) {
-            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos, direction);
+            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos);
         } else if (VSAdditionMod.getEUREKA_ACTIVE() && c(s, EurekaBlocks.INSTANCE.getBIRCH_SHIP_HELM().get())) {
-            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos, direction);
+            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos);
         } else if (VSAdditionMod.getEUREKA_ACTIVE() && c(s, EurekaBlocks.INSTANCE.getSPRUCE_SHIP_HELM().get())) {
-            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos, direction);
+            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos);
         } else if (VSAdditionMod.getEUREKA_ACTIVE() && c(s, EurekaBlocks.INSTANCE.getWARPED_SHIP_HELM().get())) {
-            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos, direction);
+            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos);
         } else if (VSAdditionMod.getEUREKA_ACTIVE() && c(s, EurekaBlocks.INSTANCE.getJUNGLE_SHIP_HELM().get())) {
-            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos, direction);
+            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos);
         } else if (VSAdditionMod.getEUREKA_ACTIVE() && c(s, EurekaBlocks.INSTANCE.getOAK_SHIP_HELM().get())) {
-            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos, direction);
+            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos);
         } else if (VSAdditionMod.getEUREKA_ACTIVE() && c(s, EurekaBlocks.INSTANCE.getDARK_OAK_SHIP_HELM().get())) {
-            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos, direction);
+            return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, blockPos);
         } else {
             return null;
         }
