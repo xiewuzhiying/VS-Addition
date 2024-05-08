@@ -6,7 +6,9 @@
   "mixins": [
     "cbcmodernwarfare.CompactCannonMountBlockEntityAccessor",
     "cbcmodernwarfare.MixinMountedMediumcannonContraption",
-    "computercraft.TileComputerMixin"
+    "computercraft.ItemPocketComputerMixin",
+    "computercraft.TileComputerMixin",
+    "computercraft.TileTurtleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
