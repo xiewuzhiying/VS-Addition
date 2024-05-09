@@ -5,6 +5,10 @@
   "mixins": [
     "computercraft.MixinRedstoneAPI",
     "computercraft.MixinWirelessModemPeripheral",
+    "create.ArmInteractionPointAccessor",
+    "create.MixinArmBlockEntity",
+    "create.MixinArmInteractionPoint",
+    "create.MixinArmInteractionPointHandler",
     "create.MixinCopycatBlock",
     "create.MixinCopycatBlockEntity",
     "create.MixinDisplayLinkBlockItem",
@@ -12,7 +16,7 @@
     "createbigcannons.CannonMountBlockEntityAccessor",
     "createbigcannons.MixinMountedAutoCannonContraption",
     "createbigcannons.MixinMountedBigCannonContraption",
-    "minecraft.EntityAccessor",
+    "minecraft.EntityAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

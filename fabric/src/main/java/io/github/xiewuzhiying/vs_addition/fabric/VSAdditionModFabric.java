@@ -29,13 +29,4 @@ public class VSAdditionModFabric implements ModInitializer {
         if(VSAdditionMod.getCC_ACTIVE())
             PeripheralLookup.get().registerFallback((level, blockPos, blockState, blockEntity, direction) -> peripheralProvider(level, blockPos));
     }
-
-    @Environment(EnvType.CLIENT)
-    public static class Client implements ClientModInitializer {
-        @Override
-        public void onInitializeClient() {
-
-            initClient();
-        }
-    }
 }
