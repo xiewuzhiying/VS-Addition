@@ -18,6 +18,9 @@
     "main": [
       "io.github.xiewuzhiying.vs_addition.fabric.VSAdditionModFabric"
     ],
+    "client": [
+      "io.github.xiewuzhiying.vs_addition.fabric.VSAdditionModFabricClient"
+    ],
     "preLaunch": [
       "io.github.xiewuzhiying.vs_addition.fabric.ValkyrienPreLaunch"
     ]

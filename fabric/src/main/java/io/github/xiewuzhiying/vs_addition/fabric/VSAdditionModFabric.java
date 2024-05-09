@@ -29,13 +29,4 @@ public class VSAdditionModFabric implements ModInitializer {
         if(VSAdditionMod.getCC_ACTIVE())
             ComputerCraftAPI.registerPeripheralProvider(new FabricPeripheralProvider());
     }
-
-    @Environment(EnvType.CLIENT)
-    public static class Client implements ClientModInitializer {
-        @Override
-        public void onInitializeClient() {
-
-            initClient();
-        }
-    }
 }
