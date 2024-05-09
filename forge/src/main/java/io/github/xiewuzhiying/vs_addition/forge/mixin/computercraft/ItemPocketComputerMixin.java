@@ -18,7 +18,6 @@ public class ItemPocketComputerMixin {
     @Inject(
             method = "createServerComputer",
             at = @At("RETURN"),
-            cancellable = true,
             remap = false
     )
     private void cc_vs$addAPI(ServerLevel world, Entity entity, Container inventory, ItemStack stack, CallbackInfoReturnable<PocketServerComputer> cir) {
@@ -27,6 +26,6 @@ public class ItemPocketComputerMixin {
 
         VSAdditionCC.applyCCAPIs(computer, (ServerLevel) level);
 
-        cir.setReturnValue(computer);
+//        cir.setReturnValue(computer);
     }
 }

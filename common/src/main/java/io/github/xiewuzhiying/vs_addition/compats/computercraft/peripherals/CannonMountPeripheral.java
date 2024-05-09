@@ -6,7 +6,6 @@ import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import io.github.xiewuzhiying.vs_addition.mixin.createbigcannons.CannonMountBlockEntityAccessor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -21,14 +20,11 @@ public class CannonMountPeripheral implements IPeripheral {
 
     public final BlockPos worldPosition;
 
-    public final Direction direction;
-
-    public CannonMountPeripheral(String type, CannonMountBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
+    public CannonMountPeripheral(String type, CannonMountBlockEntity tileEntity, Level level, BlockPos blockPos) {
         this.type = type;
         this.tileEntity = tileEntity;
         this.level = level;
         this.worldPosition = blockPos;
-        this.direction = direction;
     }
 
     @NotNull

@@ -3,7 +3,6 @@ package io.github.xiewuzhiying.vs_addition.compats.computercraft.peripherals;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,7 +13,7 @@ public class FlapBearingPeripheral implements IPeripheral {
     public final String type ;
     public final FlapBearingBlockEntity tileEntity;
 
-    public FlapBearingPeripheral(String type, FlapBearingBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
+    public FlapBearingPeripheral(String type, FlapBearingBlockEntity tileEntity, Level level, BlockPos blockPos) {
         this.type = type;
         this.tileEntity = tileEntity;
     }

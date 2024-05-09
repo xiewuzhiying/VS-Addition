@@ -2,13 +2,12 @@ package io.github.xiewuzhiying.vs_addition.compats.computercraft.peripherals;
 
 import dan200.computercraft.api.lua.LuaFunction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import rbasamoyai.createbigcannons.cannon_control.cannon_mount.CannonMountBlockEntity;
 
 public class CheatCannonMountPeripheral extends CannonMountPeripheral{
-    public CheatCannonMountPeripheral(String type, CannonMountBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
-        super(type, tileEntity, level, blockPos, direction);
+    public CheatCannonMountPeripheral(String type, CannonMountBlockEntity tileEntity, Level level, BlockPos blockPos) {
+        super(type, tileEntity, level, blockPos);
     }
 
     @LuaFunction(mainThread = true)

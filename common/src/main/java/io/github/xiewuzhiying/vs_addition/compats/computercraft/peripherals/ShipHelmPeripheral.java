@@ -5,7 +5,6 @@ import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -30,7 +29,7 @@ public class ShipHelmPeripheral implements IPeripheral {
 
     public final BlockPos pos;
 
-    public ShipHelmPeripheral(String type, ShipHelmBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
+    public ShipHelmPeripheral(String type, ShipHelmBlockEntity tileEntity, Level level, BlockPos blockPos) {
         this.type = type;
         this.tileEntity = tileEntity;
         this.level = level;

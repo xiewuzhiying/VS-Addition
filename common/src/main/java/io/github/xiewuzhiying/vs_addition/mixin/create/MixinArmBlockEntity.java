@@ -53,7 +53,7 @@ public abstract class MixinArmBlockEntity extends KineticBlockEntity implements 
     public boolean searchForDestination(ArmInteractionPoint instance, Operation<Boolean> original, @Local ArmInteractionPoint armInteractionPoint) {
         Vector3d armPos = VSGameUtilsKt.toWorldCoordinates(getLevel(), new Vector3d(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()));
         Vector3d pointPos = VSGameUtilsKt.toWorldCoordinates(getLevel(), new Vector3d(instance.getPos().getX(), instance.getPos().getY(), instance.getPos().getZ()));
-        if(VSGameUtilsKt.squaredDistanceBetweenInclShips(getLevel(), armPos.x, armPos.y, armPos.z, pointPos.x, pointPos.y, pointPos.z) > Mth.square(getRange()))
+        if(armPos.distanceSquared(pointPos) > Mth.square(getRange()))
             return false;
         return original.call(instance);
     }
