@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PeripheralCommon {
-    private final Map<Block, PeripheralSupplier> peripheralMap = new HashMap<>();
+    private static final Map<Block, PeripheralSupplier> peripheralMap = new HashMap<>();
 
     public PeripheralCommon() {
         if (VSAdditionMod.getCBC_ACTIVE()) {
@@ -50,7 +50,7 @@ public class PeripheralCommon {
     }
 
     @Nullable
-    public IPeripheral getPeripheralCommon(Level level, BlockPos blockPos){
+    public static IPeripheral getPeripheralCommon(Level level, BlockPos blockPos){
         BlockState s = level.getBlockState(blockPos);
         BlockEntity be = level.getBlockEntity(blockPos);
         PeripheralSupplier supplier = peripheralMap.get(s.getBlock());
