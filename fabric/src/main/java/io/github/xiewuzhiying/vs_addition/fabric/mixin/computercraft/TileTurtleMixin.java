@@ -15,7 +15,6 @@ public class TileTurtleMixin {
     @Inject(
             method = "createComputer",
             at = @At("RETURN"),
-            cancellable = true,
             remap = false
     )
     private void cc_vs$addAPI(int id, CallbackInfoReturnable<ServerComputer> cir) {
@@ -24,6 +23,6 @@ public class TileTurtleMixin {
 
         VSAdditionCC.applyCCAPIs(computer, (ServerLevel) level);
 
-        cir.setReturnValue(computer);
+//        cir.setReturnValue(computer);
     }
 }

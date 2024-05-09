@@ -2,7 +2,6 @@ package io.github.xiewuzhiying.vs_addition.compats.computercraft.peripherals;
 
 import dan200.computercraft.api.lua.LuaFunction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlockEntity;
 

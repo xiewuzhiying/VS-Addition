@@ -34,7 +34,7 @@ public abstract class MixinArmInteractionPoint {
             at = @At("HEAD")
     )
     public void vs_addition$getTargetAngles(BlockPos armPos, boolean ceiling, CallbackInfoReturnable<ArmAngleTarget> cir) {
-        if (VSGameUtilsKt.isBlockInShipyard(getLevel(), armPos) || VSGameUtilsKt.isBlockInShipyard(getLevel(), getInteractionPositionVector())) {
+        if (!(VSGameUtilsKt.getShipManagingPos(getLevel(), armPos) == VSGameUtilsKt.getShipManagingPos(getLevel(), getInteractionPositionVector()))) {
             ClientShip armShip = VSClientGameUtils.getClientShip(armPos.getX(), armPos.getY(), armPos.getZ());
             Vector3d target = new Vector3d();
             if(armShip == null){
