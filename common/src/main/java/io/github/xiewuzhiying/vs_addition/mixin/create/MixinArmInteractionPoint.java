@@ -29,6 +29,8 @@ public abstract class MixinArmInteractionPoint {
 
     @Shadow public abstract Level getLevel();
 
+    @Shadow public abstract BlockPos getPos();
+
     @Inject(
             method = "getTargetAngles",
             at = @At("HEAD")
