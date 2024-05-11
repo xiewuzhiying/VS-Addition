@@ -1,7 +1,8 @@
 package io.github.xiewuzhiying.vs_addition.forge
 
 import com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours
-import dan200.computercraft.api.ComputerCraftAPI
+import dan200.computercraft.impl.Peripherals
+import dev.architectury.platform.forge.EventBuses
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.init
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
+import thedarkcolour.kotlinforforge.forge.MOD_CONTEXT
 import xfacthd.framedblocks.common.FBContent
 
 
