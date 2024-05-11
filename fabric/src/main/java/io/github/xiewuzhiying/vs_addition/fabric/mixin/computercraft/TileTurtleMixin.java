@@ -17,7 +17,7 @@ public class TileTurtleMixin {
             at = @At("RETURN"),
             remap = false
     )
-    private void cc_vs$addAPI(int instanceID, int id, CallbackInfoReturnable<ServerComputer> cir) {
+    private void vs_addition$addAPI(int instanceID, int id, CallbackInfoReturnable<ServerComputer> cir) {
         ServerComputer computer = cir.getReturnValue();
         Level level = computer.getLevel();
 
