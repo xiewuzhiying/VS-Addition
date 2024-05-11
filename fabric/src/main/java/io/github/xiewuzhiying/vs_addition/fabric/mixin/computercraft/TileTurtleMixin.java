@@ -11,13 +11,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(TurtleBlockEntity.class)
-public abstract class TileTurtleMixin {
+public class TileTurtleMixin {
     @Inject(
             method = "createComputer",
             at = @At("RETURN"),
             remap = false
     )
-    private void cc_vs$addAPI(int id, CallbackInfoReturnable<ServerComputer> cir) {
+    private void vs_addition$addAPI(int id, CallbackInfoReturnable<ServerComputer> cir) {
         ServerComputer computer = cir.getReturnValue();
         Level level = computer.getLevel();
 

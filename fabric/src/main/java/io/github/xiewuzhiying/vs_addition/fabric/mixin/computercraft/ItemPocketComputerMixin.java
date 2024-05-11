@@ -20,7 +20,7 @@ public abstract class ItemPocketComputerMixin {
             at = @At("RETURN"),
             remap = false
     )
-    private void cc_vs$addAPI(ServerLevel level, Entity entity, Container inventory, ItemStack stack, CallbackInfoReturnable<PocketServerComputer> cir) {
+    private void vs_addition$addAPI(ServerLevel level, Entity entity, Container inventory, ItemStack stack, CallbackInfoReturnable<PocketServerComputer> cir) {
         PocketServerComputer computer = cir.getReturnValue();
 
         VSAdditionCC.applyCCAPIs(computer, level);

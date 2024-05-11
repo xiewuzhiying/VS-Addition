@@ -14,13 +14,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PocketComputerItem.class)
-public abstract class ItemPocketComputerMixin {
+public class ItemPocketComputerMixin {
     @Inject(
             method = "createServerComputer",
             at = @At("RETURN"),
             remap = false
     )
-    private void cc_vs$addAPI(ServerLevel world, Entity entity, Container inventory, ItemStack stack, CallbackInfoReturnable<PocketServerComputer> cir) {
+    private void vs_addition$addAPI(ServerLevel world, Entity entity, Container inventory, ItemStack stack, CallbackInfoReturnable<PocketServerComputer> cir) {
         PocketServerComputer computer = cir.getReturnValue();
         Level level = computer.getLevel();
 
