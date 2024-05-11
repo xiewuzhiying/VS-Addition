@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PocketComputerItem.class)
-public class ItemPocketComputerMixin {
+public abstract class ItemPocketComputerMixin {
     @Inject(
             method = "createServerComputer",
             at = @At("RETURN"),

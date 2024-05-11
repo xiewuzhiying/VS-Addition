@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(TurtleBlockEntity.class)
-public class TileTurtleMixin {
+public abstract class TileTurtleMixin {
     @Inject(
             method = "createComputer",
             at = @At("RETURN"),
