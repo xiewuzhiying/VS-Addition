@@ -5,6 +5,7 @@
   "mixins": [
     "computercraft.MixinRedstoneAPI",
     "computercraft.MixinWirelessModemPeripheral",
+    "create.ArmBlockEntityAccessor",
     "create.ArmInteractionPointAccessor",
     "create.MixinArmBlockEntity",
     "create.MixinArmInteractionPoint",

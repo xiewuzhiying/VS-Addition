@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Vector3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
 import static com.simibubi.create.content.kinetics.mechanicalArm.ArmBlockEntity.getRange;
@@ -58,4 +60,12 @@ public abstract class MixinArmBlockEntity extends KineticBlockEntity implements 
         return original.call(instance);
     }
 
+    @Inject(
+            method = "lazyTick",
+            at = @At("HEAD"),
+            remap = false
+    )
+    public void updatePoints(CallbackInfo ci){
+        ((ArmBlockEntityAccessor) this).setUpdateInteractionPoints(true);
+    }
 }
