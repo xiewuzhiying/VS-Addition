@@ -1,7 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.forge
 
 import com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours
-import dan200.computercraft.impl.Peripherals
+import dan200.computercraft.api.ComputerCraftAPI
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.init
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
@@ -45,6 +45,8 @@ class VSAdditionModForge {
                 event
             )
         }
+
+        EventBuses.registerModEventBus(VSAdditionMod.MOD_ID, MOD_CONTEXT.getKEventBus())
         init()
     }
 
