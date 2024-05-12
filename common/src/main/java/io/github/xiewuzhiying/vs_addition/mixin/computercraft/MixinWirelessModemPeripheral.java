@@ -19,7 +19,8 @@ public abstract class MixinWirelessModemPeripheral extends ModemPeripheral{
             at = @At(
                     value = "INVOKE",
                     target = "Ldan200/computercraft/shared/peripheral/modem/wireless/WirelessModemPeripheral;getPosition()Lnet/minecraft/world/phys/Vec3;"
-            )
+            ),
+            remap = false
     )
     public Vec3 vs_addition$getPosition(WirelessModemPeripheral instance){
         return VSGameUtilsKt.toWorldCoordinates(instance.getLevel(), instance.getPosition());

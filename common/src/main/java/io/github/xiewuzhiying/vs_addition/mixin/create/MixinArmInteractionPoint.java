@@ -29,11 +29,10 @@ public abstract class MixinArmInteractionPoint {
 
     @Shadow public abstract Level getLevel();
 
-    @Shadow public abstract BlockPos getPos();
-
     @Inject(
             method = "getTargetAngles",
-            at = @At("HEAD")
+            at = @At("HEAD"),
+            remap = false
     )
     public void vs_addition$getTargetAngles(BlockPos armPos, boolean ceiling, CallbackInfoReturnable<ArmAngleTarget> cir) {
         ClientShip armShip = VSClientGameUtils.getClientShip(armPos.getX(), armPos.getY(), armPos.getZ());
