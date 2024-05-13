@@ -79,7 +79,7 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
                 ServerShip selfShip = VSGameUtilsKt.getShipManagingPos((ServerLevel) level, getBlockPos());
                 for (Vector3d posOnShip : ships) {
                     Vector3d blockPos = posOnShip.floor();
-                    if(level.getBlockState(new BlockPos(blockPos.x, blockPos.y, blockPos.z)) == Blocks.AIR.defaultBlockState()) {
+                    if(level.getBlockState(new BlockPos( (int)blockPos.x, (int)blockPos.y, (int)blockPos.z)) == Blocks.AIR.defaultBlockState()) {
                         continue;
                     }
                     ServerShip ship = VSGameUtilsKt.getShipManagingPos((ServerLevel) level, posOnShip);
