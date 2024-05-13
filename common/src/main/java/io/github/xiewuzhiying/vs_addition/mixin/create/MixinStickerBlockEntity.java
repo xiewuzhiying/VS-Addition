@@ -40,7 +40,7 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
     @Shadow public abstract boolean isBlockStateExtended();
 
     @Unique
-    private final List<Integer> constraints = new ArrayList<>();
+    private final List<Integer> vs_addition$constraints = new ArrayList<>();
 
     @Unique
     private static final double vs_addition$compliance = VSAdditionConfig.SERVER.getStickerCompliance();
@@ -51,7 +51,7 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
     private boolean vs_addition$needUpdate = false;
 
     @Unique
-    private boolean wasBlockStateExtended = false;
+    private boolean vs_addition$wasBlockStateExtended = false;
 
     @Inject(
             method = "tick",
@@ -62,13 +62,13 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
             )
     )
     public void stickerConstraints(CallbackInfo ci) {
-        if(isBlockStateExtended() != wasBlockStateExtended) {
+        if(isBlockStateExtended() != vs_addition$wasBlockStateExtended) {
             vs_addition$needUpdate = true;
-            wasBlockStateExtended = isBlockStateExtended();
+            vs_addition$wasBlockStateExtended = isBlockStateExtended();
         }
-        if (vs_addition$needUpdate && wasBlockStateExtended) {
+        if (vs_addition$needUpdate && vs_addition$wasBlockStateExtended) {
             Vector3d selfPosOnShip = new Vector3d(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()).add(0.5, 0.5, 0.5);
-            Quaterniondc rotationQuaternion = getRotationQuaternion(getBlockState().getValue(FACING));
+            Quaterniondc rotationQuaternion = vs_addition$getRotationQuaternion(getBlockState().getValue(FACING));
             Vector3d attachmentOffset1 = rotationQuaternion.transform(new Vector3d(0.0, 0.5625, 0.0));
             Vector3d attachmentLocalPos1 = selfPosOnShip.add(attachmentOffset1);
             Vector3d find = VSGameUtilsKt.toWorldCoordinates(level, attachmentLocalPos1);
@@ -117,8 +117,8 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
                     VSFixedOrientationConstraint rconstraint = new VSFixedOrientationConstraint(objectId1, objectId2, vs_addition$compliance, localRot1.invert(new Quaterniond()), localRot2.invert(new Quaterniond()), vs_addition$maxForce);
                     Integer aconstraintId = serverShipWorldCore.createNewConstraint(aconstraint);
                     Integer rconstraintId = serverShipWorldCore.createNewConstraint(rconstraint);
-                    this.constraints.add(aconstraintId);
-                    this.constraints.add(rconstraintId);
+                    this.vs_addition$constraints.add(aconstraintId);
+                    this.vs_addition$constraints.add(rconstraintId);
                 }
             }
             if(level.isClientSide && ships.size() > 0) {
@@ -130,10 +130,10 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
         if (vs_addition$needUpdate) {
             if(!level.isClientSide) {
                 ServerShipWorldCore serverShipWorldCore = VSGameUtilsKt.getShipObjectWorld((ServerLevel) level);
-                for (Integer constraint : this.constraints) {
+                for (Integer constraint : this.vs_addition$constraints) {
                     serverShipWorldCore.removeConstraint(constraint);
                 }
-                this.constraints.removeAll(this.constraints);
+                this.vs_addition$constraints.removeAll(this.vs_addition$constraints);
             }
             if(level.isClientSide) {
                 playSound(false);
@@ -142,8 +142,19 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
         }
     }
 
+    @Override
+    public void remove() {
+        if(!level.isClientSide) {
+            ServerShipWorldCore serverShipWorldCore = VSGameUtilsKt.getShipObjectWorld((ServerLevel) level);
+            for (Integer constraint : this.vs_addition$constraints) {
+                serverShipWorldCore.removeConstraint(constraint);
+            }
+            this.vs_addition$constraints.removeAll(this.vs_addition$constraints);
+        }
+    }
+
     @Unique
-    private Quaterniondc getRotationQuaternion(Direction facing) {
+    private Quaterniondc vs_addition$getRotationQuaternion(Direction facing) {
         switch (facing) {
             case DOWN -> {
                 return new Quaterniond(new AxisAngle4d(Math.PI, new Vector3d(1.0, 0.0, 0.0)));
