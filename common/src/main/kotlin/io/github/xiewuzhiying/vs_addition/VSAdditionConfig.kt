@@ -32,5 +32,8 @@ object VSAdditionConfig {
 
         @JsonSchema(description = "Max Force of sticker's constraints")
         val stickerMaxForce : Double = 1e300
+
+        @JsonSchema(description = "VS2 default block mass")
+        val defaultBlockMass : Double = 100.0
     }
 }
