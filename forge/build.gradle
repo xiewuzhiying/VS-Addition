@@ -42,6 +42,8 @@ configurations {
             developmentForge.extendsFrom common
 }
 
+version = minecraft_version + "-" + String.valueOf(loader_platform).toLowerCase() + "-" + mod_version
+
 dependencies {
     forge "net.minecraftforge:forge:$forge_version"
 

@@ -14,9 +14,9 @@ plugins {
 }
 
 // Determine the version
-String platform = String.valueOf(loader_platform).toLowerCase()
-
-version = minecraft_version + "-" + platform + "-" + mod_version
+//String platform = String.valueOf(loader_platform).toLowerCase()
+//
+//version = minecraft_version + "-" + platform + "-" + mod_version
 
 architectury {
     minecraft = rootProject.minecraft_version
