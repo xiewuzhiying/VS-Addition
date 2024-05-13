@@ -26,5 +26,11 @@ object VSAdditionConfig {
 
         @JsonSchema(description = "Enable cheat functions on flap bearing peripherals")
         val enableCheatFlapBearingPeripheral = false
+
+        @JsonSchema(description = "Compliance of sticker's constraints")
+        val stickerCompliance : Double = 1e-128
+
+        @JsonSchema(description = "Max Force of sticker's constraints")
+        val stickerMaxForce : Double = 1e300
     }
 }

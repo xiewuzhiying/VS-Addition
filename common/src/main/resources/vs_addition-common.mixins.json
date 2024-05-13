@@ -13,6 +13,7 @@
     "create.MixinCopycatBlock",
     "create.MixinCopycatBlockEntity",
     "create.MixinDisplayLinkBlockItem",
+    "create.MixinStickerBlockEntity",
     "create.MixinTreeFertilizerItem",
     "createbigcannons.CannonMountBlockEntityAccessor",
     "createbigcannons.MixinMountedAutoCannonContraption",
