@@ -22,7 +22,7 @@ object VSAdditionConfig {
         val autoCannonRecoilForce: Double = 800.0
 
         @JsonSchema(description = "Enable mechanical arm item remove unavailable interaction point")
-        val enablePointRemove = true
+        val enablePointRemoval = true
 
         @JsonSchema(description = "Enable cheat functions on cannon mount peripherals")
         val enableCheatCannonMountPeripheral = false

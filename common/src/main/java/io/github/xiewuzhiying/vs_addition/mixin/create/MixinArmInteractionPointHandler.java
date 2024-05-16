@@ -23,7 +23,7 @@ public abstract class MixinArmInteractionPointHandler {
             )
     )
     private static boolean closerThan(BlockPos instance, Vec3i vec3i, double v, @Local(ordinal = 0) ArmInteractionPoint point ) {
-        if(!VSAdditionConfig.SERVER.getEnablePointRemove())
+        if(!VSAdditionConfig.SERVER.getEnablePointRemoval())
             return true;
         return VSGameUtilsKt.squaredDistanceBetweenInclShips(point.getLevel(), instance.getX(), instance.getY(), instance.getZ(), vec3i.getX(), vec3i.getY(), vec3i.getZ()) <= Mth.square(v);
     }
