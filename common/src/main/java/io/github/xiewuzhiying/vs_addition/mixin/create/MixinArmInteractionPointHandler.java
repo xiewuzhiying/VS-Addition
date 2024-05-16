@@ -3,6 +3,7 @@ package io.github.xiewuzhiying.vs_addition.mixin.create;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPoint;
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPointHandler;
+import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
@@ -21,7 +22,9 @@ public abstract class MixinArmInteractionPointHandler {
                     target = "Lnet/minecraft/core/BlockPos;closerThan(Lnet/minecraft/core/Vec3i;D)Z"
             )
     )
-    private static boolean closerThan(BlockPos instance, Vec3i vec3i, double v, @Local ArmInteractionPoint point) {
+    private static boolean closerThan(BlockPos instance, Vec3i vec3i, double v, @Local(ordinal = 0) ArmInteractionPoint point ) {
+        if(!VSAdditionConfig.SERVER.getEnablePointRemove())
+            return true;
         return VSGameUtilsKt.squaredDistanceBetweenInclShips(point.getLevel(), instance.getX(), instance.getY(), instance.getZ(), vec3i.getX(), vec3i.getY(), vec3i.getZ()) <= Mth.square(v);
     }
 }
