@@ -55,7 +55,7 @@ public abstract class MixinMountedAutoCannonContraption extends AbstractMountedC
     )
     public void shoot(AbstractAutocannonProjectile<?> instance, double x, double y, double z, float velocity, float inaccuracy) {
         vs_addition$speed = velocity;
-        vs_addition$vector = (new Vec3(x, y, z)).normalize().add(((EntityAccessor) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy, ((EntityAccessor)(Object) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy, ((EntityAccessor) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy).scale(velocity).add(VectorConversionsMCKt.toMinecraft(vs_addition$serverShip.getVelocity()));
+        vs_addition$vector = (new Vec3(x, y, z)).normalize().add(((EntityAccessor) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy, ((EntityAccessor)(Object) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy, ((EntityAccessor) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy).scale(velocity);
         if (vs_addition$serverShip != null)
             vs_addition$vector = vs_addition$vector.add(VectorConversionsMCKt.toMinecraft(vs_addition$serverShip.getVelocity()));
         instance.setDeltaMovement(vs_addition$vector);
