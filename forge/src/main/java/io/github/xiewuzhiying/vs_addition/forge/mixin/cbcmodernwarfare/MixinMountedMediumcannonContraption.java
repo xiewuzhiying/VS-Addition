@@ -55,8 +55,9 @@ public abstract class MixinMountedMediumcannonContraption extends AbstractMounte
     public void shoot(AbstractMediumcannonProjectile<?> instance, double x, double y, double z, float velocity, float inaccuracy) {
         vs_addition$speed = velocity;
         vs_addition$vector = (new Vec3(x, y, z)).normalize().add(((EntityAccessor) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy, ((EntityAccessor)(Object) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy, ((EntityAccessor)(Object) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy).scale(velocity);
-        Vec3 vec3 = vs_addition$vector.add(VectorConversionsMCKt.toMinecraft(vs_addition$serverShip.getVelocity()));
-        instance.setDeltaMovement(vec3);
+        if (vs_addition$serverShip != null)
+            vs_addition$vector = vs_addition$vector.add(VectorConversionsMCKt.toMinecraft(vs_addition$serverShip.getVelocity()));
+        instance.setDeltaMovement(vs_addition$vector);
         double d = vs_addition$vector.horizontalDistance();
         instance.setYRot((float)(Mth.atan2(vs_addition$vector.x, vs_addition$vector.z) * 57.2957763671875));
         instance.setXRot((float)(Mth.atan2(vs_addition$vector.y, d) * 57.2957763671875));
