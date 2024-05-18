@@ -55,6 +55,9 @@ dependencies {
 
     //Copycat+
     modCompileOnly("maven.modrinth:copycats:g3m9RPx3")
+
+    //CC&A
+    modImplementation("maven.modrinth:createaddition:1.18.2-20230704a")
 }
 
 publishing {

@@ -19,7 +19,8 @@
     "createbigcannons.MixinMountedAutoCannonContraption",
     "createbigcannons.MixinMountedBigCannonContraption",
     "minecraft.EntityAccessor",
-    "valkyrienskies.MixinVSMassDataLoader"
+    "valkyrienskies.MixinVSMassDataLoader",
+    "vs_clockwork.MixinFlapBearingBlockEntity"
   ],
   "injectors": {
     "defaultRequire": 1

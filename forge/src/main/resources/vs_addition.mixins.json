@@ -8,7 +8,9 @@
     "cbcmodernwarfare.MixinMountedMediumcannonContraption",
     "computercraft.ItemPocketComputerMixin",
     "computercraft.TileComputerMixin",
-    "computercraft.TileTurtleMixin"
+    "computercraft.TileTurtleMixin",
+    "createaddition.MixinWireNodeRenderer",
+    "createaddition.MixinWireSpool"
   ],
   "injectors": {
     "defaultRequire": 1

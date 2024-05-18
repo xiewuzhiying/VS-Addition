@@ -5,7 +5,7 @@
   "mixins": [
     "computercraft.ItemPocketComputerMixin",
     "computercraft.TileComputerMixin",
-    "computercraft.TileTurtleMixin",
+    "computercraft.TileTurtleMixin"
   ],
   "client": [
   ],
