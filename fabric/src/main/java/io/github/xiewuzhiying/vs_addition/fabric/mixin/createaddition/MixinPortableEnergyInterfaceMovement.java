@@ -1,11 +1,11 @@
-package io.github.xiewuzhiying.vs_addition.mixin.create;
+package io.github.xiewuzhiying.vs_addition.fabric.mixin.createaddition;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterfaceBlock;
-import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterfaceBlockEntity;
-import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterfaceMovement;
+import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceBlock;
+import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceMovement;
+import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceTileEntity;
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.foundation.utility.VecHelper;
@@ -27,20 +27,21 @@ import org.valkyrienskies.mod.common.util.VectorConversionsMCKt;
 
 import java.util.List;
 
-@Mixin(PortableStorageInterfaceMovement.class)
-public abstract class MixinPortableStorageInterfaceMovement implements MovementBehaviour {
+@Mixin(PortableEnergyInterfaceMovement.class)
+public abstract class MixinPortableEnergyInterfaceMovement implements MovementBehaviour {
 
     @WrapOperation(
             method = "findInterface",
             at = @At(
                     value = "INVOKE",
-                    target = "Lcom/simibubi/create/content/contraptions/actors/psi/PortableStorageInterfaceMovement;findStationaryInterface(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/simibubi/create/content/contraptions/actors/psi/PortableStorageInterfaceBlockEntity;"
-            )
+                    target = "Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceMovement;findStationaryInterface(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceTileEntity;"
+            ),
+            remap = false
     )
-    public PortableStorageInterfaceBlockEntity findStationaryInterface(PortableStorageInterfaceMovement instance, Level level, BlockPos blockPos, BlockState state, Direction direction, Operation<PortableStorageInterfaceBlockEntity> original, @Local(ordinal = 0) MovementContext context) {
+    public PortableEnergyInterfaceTileEntity findStationaryInterface(PortableEnergyInterfaceMovement instance, Level level, BlockPos blockPos, BlockState world, Direction pos, Operation<PortableEnergyInterfaceTileEntity> original, @Local(ordinal = 0) MovementContext context) {
         Ship selfShip = VSGameUtilsKt.getShipManagingPos(level, blockPos);
         Vector3d selfDirectionVec = VectorConversionsMCKt.toJOML(context.rotation.apply(Vec3.atLowerCornerOf(context.state
-                .getValue(PortableStorageInterfaceBlock.FACING).getNormal())));
+                .getValue(PortableEnergyInterfaceBlock.FACING).getNormal())));
 
         for (int i = 0; i < 2; i++) {
 
@@ -52,13 +53,13 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
             ships.add(VSGameUtilsKt.toWorldCoordinates(level, checkPos));
 
             for(Vector3d eachShipPos : ships) {
-                PortableStorageInterfaceBlockEntity psi = findPSI(level, eachShipPos);
+                PortableEnergyInterfaceTileEntity psi = findPSI(level, eachShipPos);
                 if (psi != null) {
                     Vector3d selfVec = selfDirectionVec.normalize().negate();
                     if (selfShip!=null)
                         selfVec = selfVec.rotate(selfShip.getTransform().getShipToWorldRotation());
                     Vector3d directionVec = VectorConversionsMCKt.toJOML(Vec3.atLowerCornerOf(psi.getBlockState()
-                            .getValue(PortableStorageInterfaceBlock.FACING).getNormal())).normalize();
+                            .getValue(PortableEnergyInterfaceBlock.FACING).getNormal())).normalize();
                     Ship ship = VSGameUtilsKt.getShipManagingPos(level, eachShipPos);
                     if (ship!=null)
                         directionVec = directionVec.rotate(ship.getTransform().getShipToWorldRotation());
@@ -78,7 +79,8 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"
-            )
+            ),
+            remap = false
     )
     private static Vec3 getCenterOf(Vec3i pos, Operation<Vec3> original, @Local(ordinal = 0) MovementContext context) {
         Vec3 transfromedPos = VSGameUtilsKt.toWorldCoordinates(context.world, original.call(pos));
@@ -114,10 +116,11 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
             method = "tick",
             at = @At(
                     value = "INVOKE",
-                    target = "Lcom/simibubi/create/content/contraptions/actors/psi/PortableStorageInterfaceMovement;getStationaryInterfaceAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/simibubi/create/content/contraptions/actors/psi/PortableStorageInterfaceBlockEntity;"
-            )
+                    target = "Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceMovement;getStationaryInterfaceAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceTileEntity;"
+            ),
+            remap = false
     )
-    public PortableStorageInterfaceBlockEntity redirectToFindPSI(PortableStorageInterfaceMovement instance, Level level, BlockPos pos, BlockState state, Direction direction) {
+    public PortableEnergyInterfaceTileEntity redirectToFindPSI(PortableEnergyInterfaceMovement instance, Level level, BlockPos pos, BlockState state, Direction direction) {
         return findPSI(level, VectorConversionsMCKt.toJOML(VecHelper.getCenterOf(pos)));
     }
 
@@ -145,9 +148,9 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
 
 
     @Unique
-    public PortableStorageInterfaceBlockEntity findPSI(Level level, Vector3d pos) {
+    public PortableEnergyInterfaceTileEntity findPSI(Level level, Vector3d pos) {
         BlockPos checkThis = new BlockPos(VectorConversionsMCKt.toMinecraft(pos));
-        if(level.getBlockEntity(checkThis) instanceof PortableStorageInterfaceBlockEntity psi) {
+        if(level.getBlockEntity(checkThis) instanceof PortableEnergyInterfaceTileEntity psi) {
             if(psi.isPowered())
                 return null;
 //            level.addParticle(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z,
