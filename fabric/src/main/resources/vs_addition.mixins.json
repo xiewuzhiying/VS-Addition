@@ -5,7 +5,10 @@
   "mixins": [
     "computercraft.ItemPocketComputerMixin",
     "computercraft.TileComputerMixin",
-    "computercraft.TileTurtleMixin"
+    "computercraft.TileTurtleMixin",
+    "create.FluidDrainingBehaviourMixin",
+    "create.FluidFillingBehaviourMixin",
+    "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [
   ],

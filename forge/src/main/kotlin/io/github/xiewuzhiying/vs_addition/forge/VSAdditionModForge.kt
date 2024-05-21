@@ -21,20 +21,11 @@ import xfacthd.framedblocks.common.FBContent
 @Mod(VSAdditionMod.MOD_ID)
 class VSAdditionModForge {
 
-    var CREATE_ACTIVE = false
-    var CC_ACTIVE = false
-    var FRAMEDBLOCKS_ACTIVE = false
-    var COPYCATS_ACTIVE = false
-    var CBC_ACTIVE = false
-    var CBCMF_ACTIVE = false
-
     init {
         CREATE_ACTIVE = ModList.get().isLoaded("create")
         CC_ACTIVE = ModList.get().isLoaded("computercraft")
         FRAMEDBLOCKS_ACTIVE = ModList.get().isLoaded("framedblocks")
-        COPYCATS_ACTIVE = ModList.get().isLoaded("copycats")
-        CBC_ACTIVE = ModList.get().isLoaded("createbigcannnons")
-        CBCMF_ACTIVE = ModList.get().isLoaded("cbcmodernwarfare")
+        CBCMW_ACTIVE = ModList.get().isLoaded("cbcmodernwarfare")
 
         MOD_BUS.addListener { event: FMLClientSetupEvent? ->
             clientSetup(
@@ -73,6 +64,10 @@ class VSAdditionModForge {
 
     companion object {
         fun getModBus(): IEventBus = MOD_BUS
+        var CREATE_ACTIVE = false
+        var CC_ACTIVE = false
+        var FRAMEDBLOCKS_ACTIVE = false
+        var CBCMW_ACTIVE = false
     }
 
 }
