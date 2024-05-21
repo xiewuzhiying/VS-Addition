@@ -1,6 +1,9 @@
 package io.github.xiewuzhiying.vs_addition.forge.compat.computercraft;
 
 import dan200.computercraft.api.peripheral.IPeripheral;
+import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
+import io.github.xiewuzhiying.vs_addition.forge.VSAdditionModForge;
+import io.github.xiewuzhiying.vs_addition.forge.compat.computercraft.peripherals.CheatCompactCannonMountPeripheral;
 import io.github.xiewuzhiying.vs_addition.forge.compat.computercraft.peripherals.CompactCannonMountPeripheral;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,8 +24,10 @@ public class PeripheralForge {
     public IPeripheral getPeripheralForge(Level level, BlockPos blockPos, Direction direction){
         BlockState s = level.getBlockState(blockPos);
         BlockEntity be = level.getBlockEntity(blockPos);
-        if (c(s, CBCModernWarfareBlocks.COMPACT_MOUNT.get())) {
-            return new CompactCannonMountPeripheral("cbcmf_compact_cannon_mount", (CompactCannonMountBlockEntity) be, level, blockPos, direction);
+        if (VSAdditionModForge.Companion.getCBCMW_ACTIVE() && c(s, CBCModernWarfareBlocks.COMPACT_MOUNT.get())) {
+            return VSAdditionConfig.SERVER.getEnableCheatCannonMountPeripheral() ?
+                    new CheatCompactCannonMountPeripheral("cbcmf_compact_cannon_mount", (CompactCannonMountBlockEntity) be, level, blockPos, direction) :
+                    new CompactCannonMountPeripheral("cbcmf_compact_cannon_mount", (CompactCannonMountBlockEntity) be, level, blockPos, direction);
         } else {
             return null;
         }
