@@ -7,19 +7,24 @@
     "computercraft.MixinWirelessModemPeripheral",
     "create.ArmBlockEntityAccessor",
     "create.ArmInteractionPointAccessor",
+    "create.HosePulleyBlockEntityMixin",
     "create.MixinArmBlockEntity",
     "create.MixinArmInteractionPoint",
     "create.MixinArmInteractionPointHandler",
     "create.MixinCopycatBlock",
     "create.MixinCopycatBlockEntity",
+    "create.MixinDisplayLinkBlockEntity",
     "create.MixinDisplayLinkBlockItem",
+    "create.MixinPortableStorageInterfaceMovement",
     "create.MixinStickerBlockEntity",
     "create.MixinTreeFertilizerItem",
     "createbigcannons.CannonMountBlockEntityAccessor",
     "createbigcannons.MixinMountedAutoCannonContraption",
     "createbigcannons.MixinMountedBigCannonContraption",
     "minecraft.EntityAccessor",
-    "valkyrienskies.MixinVSMassDataLoader"
+    "minecraft.MixinExplosion",
+    "valkyrienskies.MixinVSMassDataLoader",
+    "vs_clockwork.MixinFlapBearingBlockEntity"
   ],
   "injectors": {
     "defaultRequire": 1

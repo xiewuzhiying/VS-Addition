@@ -6,6 +6,9 @@
     "computercraft.ItemPocketComputerMixin",
     "computercraft.TileComputerMixin",
     "computercraft.TileTurtleMixin",
+    "create.FluidDrainingBehaviourMixin",
+    "create.FluidFillingBehaviourMixin",
+    "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [
   ],

@@ -82,7 +82,7 @@ dependencies {
 
     //Copycat+
 
-    modImplementation("maven.modrinth:copycats:1.18.2-1.2.5")
+    modCompileOnly("maven.modrinth:copycats:1.18.2-1.2.5")
 
     //CBC
     modCompileOnly("maven.modrinth:create-big-cannons:0.5.4")
@@ -90,6 +90,9 @@ dependencies {
 
     //CBC Modern Warfare
     modCompileOnly files("jars/cbcmodernwarfare-forge-1.18.2-0.0.4a.jar")
+
+    //CC&A
+    modImplementation("maven.modrinth:createaddition:1.18.2-1.0.0")
 }
 
 processResources {

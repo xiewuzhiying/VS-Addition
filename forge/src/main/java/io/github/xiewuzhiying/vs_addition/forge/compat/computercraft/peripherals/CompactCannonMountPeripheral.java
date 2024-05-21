@@ -14,14 +14,14 @@ import riftyboi.cbcmodernwarfare.cannon_control.compact_mount.CompactCannonMount
 
 public class CompactCannonMountPeripheral implements IPeripheral {
 
-    private final String type ;
-    private final CompactCannonMountBlockEntity tileEntity;
+    public final String type ;
+    public final CompactCannonMountBlockEntity tileEntity;
 
-    private final Level level;
+    public final Level level;
 
-    private final BlockPos worldPosition;
+    public final BlockPos worldPosition;
 
-    private final Direction direction;
+    public final Direction direction;
 
     public CompactCannonMountPeripheral(String type, CompactCannonMountBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
         this.type = type;
@@ -45,18 +45,6 @@ public class CompactCannonMountPeripheral implements IPeripheral {
     @Override
     public Object getTarget() {
         return this.tileEntity;
-    }
-
-    @LuaFunction(mainThread = true)
-    public final void setPitch(double value){
-        if(this.isRunning())
-            this.tileEntity.setPitch((float) value);
-    }
-
-    @LuaFunction(mainThread = true)
-    public final void setYaw(double value){
-        if(this.isRunning())
-            this.tileEntity.setYaw((float) value);
     }
 
     @LuaFunction(mainThread = true)
