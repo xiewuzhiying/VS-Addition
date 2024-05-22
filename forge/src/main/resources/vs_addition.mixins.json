@@ -11,9 +11,7 @@
     "computercraft.TileTurtleMixin",
     "create.FluidDrainingBehaviourMixin",
     "create.FluidFillingBehaviourMixin",
-    "createaddition.MixinPortableEnergyInterfaceMovement",
-    "createaddition.MixinWireNodeRenderer",
-    "createaddition.MixinWireSpool"
+    "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "injectors": {
     "defaultRequire": 1
