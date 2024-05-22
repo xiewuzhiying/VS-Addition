@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.valkyrienskies.core.api.ships.Ship;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
+import org.valkyrienskies.mod.common.util.VectorConversionsMCKt;
 
 @Mixin(Explosion.class)
 public abstract class MixinExplosion {
@@ -28,15 +29,15 @@ public abstract class MixinExplosion {
             method = "explode",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/phys/Vec3;add(DDD)Lnet/minecraft/world/phys/Vec3;"
+                    target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"
             )
     )
-    public Vec3 applyShipRot(Vec3 instance, double x, double y, double z, Operation<Vec3> original) {
+    public Vec3 applyShipRot(Vec3 instance, Vec3 vec3, Operation<Vec3> original) {
         Ship ship = VSGameUtilsKt.getShipManagingPos(this.level, this.x, this.y, this.z);
         if(ship!=null) {
-            Vector3d vec = new Vector3d(x, y, z).rotate(ship.getTransform().getShipToWorldRotation());
-            return original.call(instance, vec.x, vec.y, vec.z);
+            Vector3d vec = VectorConversionsMCKt.toJOML(vec3).rotate(ship.getTransform().getShipToWorldRotation());
+            return original.call(instance, VectorConversionsMCKt.toMinecraft(vec));
         }
-        return original.call(instance, x, y, z);
+        return original.call(instance, vec3);
     }
 }

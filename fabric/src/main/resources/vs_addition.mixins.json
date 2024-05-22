@@ -8,6 +8,7 @@
     "computercraft.TileTurtleMixin",
     "create.FluidDrainingBehaviourMixin",
     "create.FluidFillingBehaviourMixin",
+    "create.HosePulleyBlockEntityMixin",
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [

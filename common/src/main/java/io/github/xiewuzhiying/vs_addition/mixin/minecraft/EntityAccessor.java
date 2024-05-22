@@ -1,6 +1,5 @@
 package io.github.xiewuzhiying.vs_addition.mixin.minecraft;
 
-
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;

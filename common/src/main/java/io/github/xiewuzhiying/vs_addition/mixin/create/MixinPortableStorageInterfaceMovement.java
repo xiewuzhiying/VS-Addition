@@ -9,6 +9,7 @@ import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterf
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.foundation.utility.VecHelper;
+import io.github.xiewuzhiying.vs_addition.util.transformUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
@@ -146,7 +147,7 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
 
     @Unique
     public PortableStorageInterfaceBlockEntity findPSI(Level level, Vector3d pos) {
-        BlockPos checkThis = new BlockPos(VectorConversionsMCKt.toMinecraft(pos));
+        BlockPos checkThis = new BlockPos(transformUtils.floorToBlockPos(pos));
         if(level.getBlockEntity(checkThis) instanceof PortableStorageInterfaceBlockEntity psi) {
             if(psi.isPowered())
                 return null;
