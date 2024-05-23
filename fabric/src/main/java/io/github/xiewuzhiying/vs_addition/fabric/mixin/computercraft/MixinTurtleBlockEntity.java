@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(TurtleBlockEntity.class)
-public class TileTurtleMixin {
+public class MixinTurtleBlockEntity {
     @Inject(
             method = "createComputer",
             at = @At(
@@ -22,7 +22,7 @@ public class TileTurtleMixin {
             ),
             remap = false
     )
-    private void vs_addition$addAPI(int instanceID, int id, CallbackInfoReturnable<ServerComputer> cir, @Local ServerComputer computer) {
+    private void vs_addition$addAPI(int id, CallbackInfoReturnable<ServerComputer> cir, @Local ServerComputer computer) {
         Level level = computer.getLevel();
         VSAdditionCC.applyCCAPIs(computer, (ServerLevel) level);
     }

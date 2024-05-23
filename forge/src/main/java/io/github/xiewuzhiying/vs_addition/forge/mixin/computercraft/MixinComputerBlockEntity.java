@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.fabric.mixin.computercraft;
+package io.github.xiewuzhiying.vs_addition.forge.mixin.computercraft;
 
 import dan200.computercraft.shared.computer.blocks.ComputerBlockEntity;
 import dan200.computercraft.shared.computer.core.ServerComputer;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ComputerBlockEntity.class)
-public abstract class TileComputerMixin {
+public abstract class MixinComputerBlockEntity {
     @Inject(
             method = "createComputer",
             at = @At("RETURN"),
