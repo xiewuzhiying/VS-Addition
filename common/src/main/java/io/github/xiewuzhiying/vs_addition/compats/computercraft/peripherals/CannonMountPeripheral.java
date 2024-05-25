@@ -45,7 +45,7 @@ public class CannonMountPeripheral implements IPeripheral {
 
     @LuaFunction(mainThread = true)
     public final Object assemble(){
-        if(!this.isRunning()) {
+        if(!this.tileEntity.isRunning()) {
             ((CannonMountBlockEntityAccessor) this.tileEntity).Assemble();
             return true;
         }
@@ -54,7 +54,7 @@ public class CannonMountPeripheral implements IPeripheral {
 
     @LuaFunction(mainThread = true)
     public final Object disassemble() {
-        if(this.isRunning()) {
+        if(this.tileEntity.isRunning()) {
             this.tileEntity.disassemble();
             this.tileEntity.sendData();
             return true;
@@ -64,47 +64,51 @@ public class CannonMountPeripheral implements IPeripheral {
 
     @LuaFunction(mainThread = true)
     public final void fire() {
-        if(this.isRunning()) {
+        if(this.tileEntity.isRunning()) {
             this.tileEntity.getContraption().tryFiringShot();
         }
     }
 
-    @LuaFunction
+    @LuaFunction(mainThread = true)
     public final boolean isRunning(){
         return this.tileEntity.isRunning();
     }
 
+//    @LuaFunction
+//    public final Object getPitchOffset(IArguments partialTicks) throws LuaException {
+//        if(this.isRunning()) {
+//            double value = partialTicks.optDouble(0).orElse(0.0);
+//            return (double) this.tileEntity.getPitchOffset((float) value);
+//        }
+//        return false;
+//    }
+//
+//    @LuaFunction
+//    public final Object getYawOffset(IArguments partialTicks) throws LuaException {
+//        if(this.isRunning()) {
+//            double value = partialTicks.optDouble(0).orElse(0.0);
+//            return (double) this.tileEntity.getYawOffset((float) value);
+//        }
+//        return false;
+//    }
+
     @LuaFunction
-    public final Object getPitchOffset(IArguments partialTicks) throws LuaException {
-        if(this.isRunning()) {
-            double value = partialTicks.optDouble(0).orElse(0.0);
-            return (double) this.tileEntity.getPitchOffset((float) value);
-        }
-        return false;
+    public final double getPitch() {
+        return ((CannonMountBlockEntityAccessor)this.tileEntity).getCannonPitch();
     }
 
     @LuaFunction
-    public final Object getYawOffset(IArguments partialTicks) throws LuaException {
-        if(this.isRunning()) {
-            double value = partialTicks.optDouble(0).orElse(0.0);
-            return (double) this.tileEntity.getYawOffset((float) value);
-        }
-        return false;
+    public final double getYaw() {
+        return ((CannonMountBlockEntityAccessor)this.tileEntity).getCannonYaw();
     }
 
     @LuaFunction
     public final Object getMaxDepress() {
-        if(this.isRunning()) {
-            return (double) ((CannonMountBlockEntityAccessor) this.tileEntity).GetMaxDepress();
-        }
-        return false;
+        return (double) this.tileEntity.getContraption().maximumDepression();
     }
 
     @LuaFunction
     public final Object getMaxElevate() {
-        if(this.isRunning()) {
-            return (double) ((CannonMountBlockEntityAccessor) this.tileEntity).GetMaxElevate();
-        }
-        return false;
+        return (double) this.tileEntity.getContraption().maximumElevation();
     }
 }
