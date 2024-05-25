@@ -23,6 +23,7 @@
     "minecraft.EntityAccessor",
     "minecraft.MixinExplosion",
     "valkyrienskies.MixinVSMassDataLoader",
+    "vs_clockwork.FlapBearingBlockEntityAccessor",
     "vs_clockwork.MixinFlapBearingBlockEntity"
   ],
   "injectors": {
