@@ -5,16 +5,17 @@
   "mixins": [
     "computercraft.MixinRedstoneAPI",
     "computercraft.MixinWirelessModemPeripheral",
-    "create.ArmBlockEntityAccessor",
-    "create.ArmInteractionPointAccessor",
-    "create.MixinArmBlockEntity",
-    "create.MixinArmInteractionPoint",
-    "create.MixinArmInteractionPointHandler",
+    "create.MechanicalArm.ArmBlockEntityAccessor",
+    "create.MechanicalArm.ArmInteractionPointAccessor",
+    "create.HosePulleyBlockEntityMixin",
+    "create.MechanicalArm.MixinArmBlockEntity",
+    "create.MechanicalArm.MixinArmInteractionPoint",
+    "create.MechanicalArm.MixinArmInteractionPointHandler",
     "create.MixinCopycatBlock",
     "create.MixinCopycatBlockEntity",
     "create.MixinDisplayLinkBlockEntity",
     "create.MixinDisplayLinkBlockItem",
-    "create.MixinPortableStorageInterfaceMovement",
+    "create.PortableInterface.MixinPortableStorageInterfaceMovement",
     "create.MixinStickerBlockEntity",
     "create.MixinTreeFertilizerItem",
     "createbigcannons.CannonMountBlockEntityAccessor",
@@ -24,7 +25,8 @@
     "minecraft.MixinExplosion",
     "valkyrienskies.MixinVSMassDataLoader",
     "vs_clockwork.FlapBearingBlockEntityAccessor",
-    "vs_clockwork.MixinFlapBearingBlockEntity"
+    "xaeros_minimap.MinimapRendererAccessor",
+    "xaeros_minimap.MixinMinimapRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -9,6 +9,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaterniond;
 import org.joml.Vector3d;
+import org.joml.Vector3dc;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -78,16 +79,24 @@ public abstract class MixinMountedAutoCannonContraption extends AbstractMountedC
     )
     public void shoot(AbstractAutocannonProjectile<?> instance, double x, double y, double z, float velocity, float inaccuracy, Operation<Void> original) {
         vs_addition$speed = velocity;
-        vs_addition$vector = (new Vec3(x, y, z)).normalize().add(((EntityAccessor) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy, ((EntityAccessor)(Object) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy, ((EntityAccessor) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy).scale(velocity);
-        Vec3 vec = vs_addition$vector;
-        if (vs_addition$serverShip != null)
-            vec = vec.add(VectorConversionsMCKt.toMinecraft(vs_addition$serverShip.getVelocity().rotate(vs_addition$serverShip.getTransform().getShipToWorldRotation(), new Vector3d())));
-        instance.setDeltaMovement(vec);
-        double d = vec.horizontalDistance();
-        instance.setYRot((float)(Mth.atan2(vec.x, vec.z) * 57.2957763671875));
-        instance.setXRot((float)(Mth.atan2(vec.y, d) * 57.2957763671875));
-        instance.yRotO = instance.getYRot();
-        instance.xRotO = instance.getXRot();
+        vs_addition$vector = (new Vec3(x, y, z)).normalize().add(((EntityAccessor) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy * VSAdditionConfig.SERVER.getSpreadMultiplier(), ((EntityAccessor)(Object) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy * VSAdditionConfig.SERVER.getSpreadMultiplier(), ((EntityAccessor) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy * VSAdditionConfig.SERVER.getSpreadMultiplier()).scale(velocity);
+//        Vec3 vec;
+//        if (vs_addition$serverShip != null){
+//            Vector3d shipVelocity = vs_addition$serverShip.getVelocity().rotate(vs_addition$serverShip.getTransform().getShipToWorldRotation(), new Vector3d());
+//            double vecLength = vs_addition$vector.length();
+//            Vector3d vecUnit = new Vector3d(VectorConversionsMCKt.toJOML(vs_addition$vector)).div(vecLength);
+//            double projectionLength = vecUnit.dot(shipVelocity);
+//            Vector3d projection = new Vector3d(vecUnit).mul(projectionLength);
+//            vec = vs_addition$vector.add(VectorConversionsMCKt.toMinecraft(projection));
+//        } else {
+//            vec = vs_addition$vector;
+//        }
+//        instance.setDeltaMovement(vec);
+//        double d = vec.horizontalDistance();
+//        instance.setYRot((float)(Mth.atan2(vec.x, vec.z) * 57.2957763671875));
+//        instance.setXRot((float)(Mth.atan2(vec.y, d) * 57.2957763671875));
+//        instance.yRotO = instance.getYRot();
+//        instance.xRotO = instance.getXRot();
         original.call(instance,x,y,z,velocity,inaccuracy);
     }
 
