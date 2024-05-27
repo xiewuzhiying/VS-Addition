@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.mixin.create;
+package io.github.xiewuzhiying.vs_addition.mixin.create.MechanicalArm;
 
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
