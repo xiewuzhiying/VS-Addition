@@ -7,7 +7,6 @@
     "computercraft.MixinWirelessModemPeripheral",
     "create.MechanicalArm.ArmBlockEntityAccessor",
     "create.MechanicalArm.ArmInteractionPointAccessor",
-    "create.HosePulleyBlockEntityMixin",
     "create.MechanicalArm.MixinArmBlockEntity",
     "create.MechanicalArm.MixinArmInteractionPoint",
     "create.MechanicalArm.MixinArmInteractionPointHandler",

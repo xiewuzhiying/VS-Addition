@@ -59,7 +59,7 @@ dependencies {
     modImplementation("maven.modrinth:createaddition:fabric-1.20.1-1.2.3")
 
     //Xaero's minimap
-    modCompileOnly("maven.modrinth:xaeros-minimap:24.1.1_Fabric_1.18.2")
+    modCompileOnly("maven.modrinth:xaeros-minimap:24.1.1_Fabric_1.20")
 }
 
 publishing {
