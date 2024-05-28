@@ -12,7 +12,7 @@
     "computercraft.MixinWirelessNetwork",
     "create.MixinFluidDrainingBehaviour",
     "create.MixinFluidFillingBehaviour",
-    "create.HosePulleyBlockEntityMixin",
+    "create.MixinHosePulleyBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "injectors": {

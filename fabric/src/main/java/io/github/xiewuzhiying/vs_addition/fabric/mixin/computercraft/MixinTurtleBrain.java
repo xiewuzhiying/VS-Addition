@@ -27,10 +27,10 @@ import org.valkyrienskies.mod.common.util.VectorConversionsMCKt;
 @Pseudo
 @Mixin(TurtleBrain.class)
 public abstract class MixinTurtleBrain {
-    @Shadow
+    @Shadow(remap = false)
     public abstract TurtleBlockEntity getOwner();
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract void setOwner(TurtleBlockEntity owner);
 
     @Shadow

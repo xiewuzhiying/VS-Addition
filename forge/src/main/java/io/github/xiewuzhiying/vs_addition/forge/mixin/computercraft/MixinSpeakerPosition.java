@@ -16,7 +16,7 @@ import org.valkyrienskies.mod.common.VSGameUtilsKt;
 @Pseudo
 @Mixin(SpeakerPosition.class)
 public abstract class MixinSpeakerPosition {
-    @Shadow
+    @Shadow(remap = false)
     public abstract Level level();
 
     @Inject(method = "position", at = @At("RETURN"), remap = false, cancellable = true)

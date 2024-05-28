@@ -3,16 +3,16 @@
   "package": "io.github.xiewuzhiying.vs_addition.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "computercraft.MixinComputerBlockEntity",
     "computercraft.MixinPocketComputerItem",
     "computercraft.MixinSpeakerPosition",
+    "computercraft.MixinTurtleBlockEntity",
     "computercraft.MixinTurtleBrain",
     "computercraft.MixinTurtleMoveCommand",
     "computercraft.MixinWirelessNetwork",
-    "computercraft.MixinComputerBlockEntity",
-    "computercraft.MixinTurtleBlockEntity",
     "create.MixinFluidDrainingBehaviour",
     "create.MixinFluidFillingBehaviour",
-    "create.HosePulleyBlockEntityMixin",
+    "create.MixinHosePulleyBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [
