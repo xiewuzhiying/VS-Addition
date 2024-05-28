@@ -12,8 +12,6 @@
     "create.MixinDisplayLinkBlockItem",
     "create.MixinStickerBlockEntity",
     "create.MixinTreeFertilizerItem",
-    "create.MechanicalArm.ArmBlockEntityAccessor",
-    "create.MechanicalArm.ArmInteractionPointAccessor",
     "create.MechanicalArm.MixinArmBlockEntity",
     "create.MechanicalArm.MixinArmInteractionPoint",
     "create.MechanicalArm.MixinArmInteractionPointHandler",
