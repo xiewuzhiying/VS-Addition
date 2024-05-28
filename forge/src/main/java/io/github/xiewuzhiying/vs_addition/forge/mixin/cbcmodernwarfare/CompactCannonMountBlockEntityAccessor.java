@@ -7,12 +7,12 @@
 //@Mixin(CompactCannonMountBlockEntity.class)
 //public interface CompactCannonMountBlockEntityAccessor {
 //
-//    @Invoker("assemble")
+//    @Invoker(value = "assemble", remap = false)
 //    void Assemble();
 //
-//    @Invoker("getMaxDepress")
+//    @Invoker(value = "getMaxDepress", remap = false)
 //    float GetMaxDepress();
 //
-//    @Invoker("getMaxElevate")
+//    @Invoker(value = "getMaxElevate", remap = false)
 //    float GetMaxElevate();
 //}

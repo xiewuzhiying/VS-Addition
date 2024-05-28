@@ -29,6 +29,8 @@ public abstract class MixinArmInteractionPoint {
 
     @Shadow public abstract Level getLevel();
 
+    @Shadow(remap = false) protected ArmAngleTarget cachedAngles;
+
     @Inject(
             method = "getTargetAngles",
             at = @At("HEAD"),
@@ -49,7 +51,7 @@ public abstract class MixinArmInteractionPoint {
                 Vector3d destPos = new Vector3d(targetWorldPos.sub(armWorldPos));
                 target = VectorConversionsMCKt.toJOMLD(armPos).add(destPos.rotate(armShipQuat.conjugate()));
             }
-            ((ArmInteractionPointAccessor) this).setCachedAngles(new ArmAngleTarget(armPos, new Vec3(target.x, target.y, target.z) , getInteractionDirection(), ceiling));
+            cachedAngles = new ArmAngleTarget(armPos, new Vec3(target.x, target.y, target.z) , getInteractionDirection(), ceiling);
         }
     }
 }

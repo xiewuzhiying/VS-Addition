@@ -8,6 +8,7 @@ import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import io.github.xiewuzhiying.vs_addition.util.transformUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
@@ -36,7 +37,7 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 @Mixin(StickerBlockEntity.class)
 public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
 
-    @Shadow public abstract boolean isBlockStateExtended();
+    @Shadow(remap = false) public abstract boolean isBlockStateExtended();
 
     @Unique
     private final Map<BlockPos, List<Integer>> map = new HashMap<>();
@@ -71,7 +72,7 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
             List<BlockPos> removal = new ArrayList<>();
             for (Map.Entry<BlockPos, List<Integer>> entry : map.entrySet()) {
                 BlockPos blockPos = entry.getKey();
-                if(isAirOrFluid(level.getBlockState(blockPos))) {
+                if(VSGameUtilsKt.isTickingChunk(level, new ChunkPos(blockPos)) && isAirOrFluid(level.getBlockState(blockPos))) {
                     List<Integer> constraints = entry.getValue();
                     for (Integer constraint : constraints) {
                         serverShipWorldCore.removeConstraint(constraint);
@@ -187,7 +188,7 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
         return state.isAir() || state.getFluidState() != Fluids.EMPTY.defaultFluidState();
     }
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract void playSound(boolean attach);
 }
 

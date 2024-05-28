@@ -21,22 +21,23 @@ import org.valkyrienskies.mod.common.VSGameUtilsKt;
 import java.util.List;
 
 @Mixin(FluidFillingBehaviour.class)
-public abstract class FluidFillingBehaviourMixin extends FluidManipulationBehaviour {
-    public FluidFillingBehaviourMixin(SmartBlockEntity be) {
+public abstract class MixinFluidFillingBehaviour extends FluidManipulationBehaviour {
+    public MixinFluidFillingBehaviour(SmartBlockEntity be) {
         super(be);
     }
-    @Inject(method = "tryDeposit",at = @At(value = "HEAD"),remap = false)
-    public void tryDeposit(Fluid fluid, BlockPos root, boolean simulate, CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) LocalRef<BlockPos> blockPosLocalRef){
+
+    @Inject(method = "tryDeposit", at = @At(value = "HEAD"), remap = false)
+    public void tryDeposit(Fluid fluid, BlockPos root, boolean simulate, CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) LocalRef<BlockPos> blockPosLocalRef) {
         Vec3 vec3 = transformUtils.getFront(Direction.DOWN, root);
-        Ship ship = VSGameUtilsKt.getShipManagingPos(this.getWorld(),vec3);
-        if(ship!=null){
-            vec3=transformUtils.toWorldVec3(ship,vec3);
+        Ship ship = VSGameUtilsKt.getShipManagingPos(this.getWorld(), vec3);
+        if (ship != null) {
+            vec3 = transformUtils.toWorldVec3(ship, vec3);
         }
-        List<Vector3d> ships = VSGameUtilsKt.transformToNearbyShipsAndWorld(this.getWorld(),vec3.x,vec3.y,vec3.z,0.1);
-        if(!ships.isEmpty()){
-            Ship rootShip = VSGameUtilsKt.getShipManagingPos(this.getWorld(),ships.get(0));
-            if(rootShip!=null){
-                blockPosLocalRef.set(transformUtils.floorToBlockPos(transformUtils.toShipyardCoordinates(rootShip,vec3)));
+        List<Vector3d> ships = VSGameUtilsKt.transformToNearbyShipsAndWorld(this.getWorld(), vec3.x, vec3.y, vec3.z, 0.1);
+        if (!ships.isEmpty()) {
+            Ship rootShip = VSGameUtilsKt.getShipManagingPos(this.getWorld(), ships.get(0));
+            if (rootShip != null) {
+                blockPosLocalRef.set(transformUtils.floorToBlockPos(transformUtils.toShipyardCoordinates(rootShip, vec3)));
                 return;
             }
         }

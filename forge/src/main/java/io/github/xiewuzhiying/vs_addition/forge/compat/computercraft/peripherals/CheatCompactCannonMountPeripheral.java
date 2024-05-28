@@ -6,20 +6,20 @@
 //import net.minecraft.world.level.Level;
 //import riftyboi.cbcmodernwarfare.cannon_control.compact_mount.CompactCannonMountBlockEntity;
 //
-//public class CheatCompactCannonMountPeripheral extends CompactCannonMountPeripheral{
+//public class CheatCompactCannonMountPeripheral extends CompactCannonMountPeripheral {
 //    public CheatCompactCannonMountPeripheral(String type, CompactCannonMountBlockEntity tileEntity, Level level, BlockPos blockPos, Direction direction) {
 //        super(type, tileEntity, level, blockPos, direction);
 //    }
 //
 //    @LuaFunction(mainThread = true)
-//    public final void setPitch(double value){
-//        if(this.isRunning())
+//    public final void setPitch(double value) {
+//        if (this.isRunning())
 //            this.tileEntity.setPitch((float) value);
 //    }
 //
 //    @LuaFunction(mainThread = true)
-//    public final void setYaw(double value){
-//        if(this.isRunning())
+//    public final void setYaw(double value) {
+//        if (this.isRunning())
 //            this.tileEntity.setYaw((float) value);
 //    }
 //}

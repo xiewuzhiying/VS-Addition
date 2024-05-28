@@ -10,8 +10,8 @@
     "computercraft.MixinTurtleBlockEntity",
     "computercraft.MixinTurtleMoveCommand",
     "computercraft.MixinWirelessNetwork",
-    "create.FluidDrainingBehaviourMixin",
-    "create.FluidFillingBehaviourMixin",
+    "create.MixinFluidDrainingBehaviour",
+    "create.MixinFluidFillingBehaviour",
     "create.HosePulleyBlockEntityMixin",
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
