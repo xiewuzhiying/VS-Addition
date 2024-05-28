@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(HosePulleyBlockEntity.class)
 public abstract class HosePulleyBlockEntityMixin extends KineticBlockEntity {
 
-    @Shadow
+    @Shadow(remap = false)
     LerpedFloat offset;
 
     public HosePulleyBlockEntityMixin(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {

@@ -7,6 +7,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(ArmInteractionPoint.class)
 public interface ArmInteractionPointAccessor {
-    @Accessor("cachedAngles")
+    @Accessor(remap = false)
     void setCachedAngles(ArmAngleTarget cachedAngles);
 }

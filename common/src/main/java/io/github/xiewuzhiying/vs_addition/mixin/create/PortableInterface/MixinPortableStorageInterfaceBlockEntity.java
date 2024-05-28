@@ -23,22 +23,30 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+
 import java.util.List;
 
 @Mixin(PortableStorageInterfaceBlockEntity.class)
 public abstract class MixinPortableStorageInterfaceBlockEntity extends SmartBlockEntity implements IPSIBehavior {
-    @Shadow protected float distance;
-    @Shadow public abstract void startConnecting();
-    @Shadow abstract boolean isConnected();
-    @Shadow protected abstract Integer getTransferTimeout();
+    @Shadow(remap = false) protected float distance;
+    @Shadow(remap = false) public abstract void startConnecting();
+    @Shadow(remap = false) abstract boolean isConnected();
+    @Shadow(remap = false) protected abstract Integer getTransferTimeout();
 
-    @Shadow @Final public static int ANIMATION;
-    @Shadow public int keepAlive;
-    @Shadow protected int transferTimer;
-    @Shadow protected boolean powered;
-    @Shadow protected LerpedFloat connectionAnimation;
+    @Shadow(remap = false) public int keepAlive;
+    @Shadow(remap = false) protected int transferTimer;
+    @Shadow(remap = false) protected boolean powered;
+    @Shadow(remap = false) protected LerpedFloat connectionAnimation;
+
+    @Shadow(remap = false) @Final public static int ANIMATION;
+    @Unique
     private boolean isPassive;
+
+    @Unique
     private PortableStorageInterfaceBlockEntity connectedPI;
+
+    @Unique
+    protected ScrollOptionBehaviour<IPSIBehavior.WorkigMode> workingMode;
 
 
     public MixinPortableStorageInterfaceBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -51,10 +59,12 @@ public abstract class MixinPortableStorageInterfaceBlockEntity extends SmartBloc
 
     @Inject(
             method = "tick",
-            at = @At("HEAD")
+            at = @At("HEAD"),
+            remap = false,
+            cancellable = true
     )
     public void tick(CallbackInfo ci) {
-        if(false) {
+        if(((IPSIBehavior)this).getWorkingMode().get() == IPSIBehavior.WorkigMode.WITH_SHIP) {
             ci.cancel();
             super.tick();
             boolean wasConnected = isConnected();
@@ -124,9 +134,6 @@ public abstract class MixinPortableStorageInterfaceBlockEntity extends SmartBloc
             stopTransferring();
         return connectedPI != null && isConnected();
     }
-
-    @Unique
-    protected ScrollOptionBehaviour<IPSIBehavior.WorkigMode> workingMode;
 
     @Inject(
             method = "addBehaviours",

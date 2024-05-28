@@ -38,7 +38,7 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 @Mixin(StickerBlockEntity.class)
 public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
 
-    @Shadow public abstract boolean isBlockStateExtended();
+    @Shadow(remap = false) public abstract boolean isBlockStateExtended();
 
     @Unique
     private final Map<BlockPos, List<Integer>> map = new HashMap<>();
@@ -189,7 +189,7 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
         return state.isAir() || state.getFluidState() != Fluids.EMPTY.defaultFluidState();
     }
 
-    @Shadow
+    @Shadow(remap = false)
     public abstract void playSound(boolean attach);
 }
 

@@ -12,7 +12,7 @@ public abstract class MixinRedstoneAPI{
 
     @Mutable
     @Final
-    @Shadow
+    @Shadow(remap = false)
     private final IAPIEnvironment environment;
 
     public MixinRedstoneAPI(IAPIEnvironment environment) {

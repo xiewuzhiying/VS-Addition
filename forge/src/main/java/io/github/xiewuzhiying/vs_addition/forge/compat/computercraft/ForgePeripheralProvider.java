@@ -13,9 +13,9 @@ public class ForgePeripheralProvider implements IPeripheralProvider {
     @NotNull
     @Override
     public LazyOptional<IPeripheral> getPeripheral(@NotNull Level level, @NotNull BlockPos blockPos, @NotNull Direction direction) {
-        IPeripheral peripheral = (new PeripheralCommon()).getPeripheralCommon(level,blockPos);
-        if(peripheral==null) peripheral = (new PeripheralForge().getPeripheralForge(level,blockPos,direction));
-        if(peripheral==null) return LazyOptional.empty();
+        IPeripheral peripheral = (new PeripheralCommon()).getPeripheralCommon(level, blockPos);
+        if (peripheral == null) peripheral = (new PeripheralForge().getPeripheralForge(level, blockPos, direction));
+        if (peripheral == null) return LazyOptional.empty();
         IPeripheral finalPeripheral = peripheral;
         return LazyOptional.of(() -> finalPeripheral);
     }

@@ -33,6 +33,22 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
             method = "findInterface",
             at = @At(
                     value = "INVOKE",
+                    target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"
+            ),
+            remap = false
+    )
+    private static Vec3 getCenterOf(Vec3i pos, Operation<Vec3> original, @Local(ordinal = 0) MovementContext context) {
+        Vec3 transfromedPos = VSGameUtilsKt.toWorldCoordinates(context.world, original.call(pos));
+        Ship ship = VSGameUtilsKt.getShipManagingPos(context.world, context.position);
+        if (ship != null)
+            transfromedPos = VectorConversionsMCKt.toMinecraft(ship.getTransform().getWorldToShip().transformPosition(VectorConversionsMCKt.toJOML(transfromedPos)));
+        return transfromedPos;
+    }
+
+    @WrapOperation(
+            method = "findInterface",
+            at = @At(
+                    value = "INVOKE",
                     target = "Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceMovement;findStationaryInterface(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceBlockEntity;"
             ),
             remap = false
@@ -45,24 +61,24 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
         for (int i = 0; i < 2; i++) {
 
             Vector3d checkPos = VSGameUtilsKt.toWorldCoordinates(level, new Vector3d(blockPos.getX(), blockPos.getY(), blockPos.getZ()).add(0.5, 0.5, 0.5));
-            if (i!=0){
-                checkPos = checkPos.add(selfDirectionVec.mul(i-0.125));
+            if (i != 0) {
+                checkPos = checkPos.add(selfDirectionVec.mul(i - 0.125));
             }
             List<Vector3d> ships = VSGameUtilsKt.transformToNearbyShipsAndWorld(level, checkPos.x, checkPos.y, checkPos.z, 2);
             ships.add(VSGameUtilsKt.toWorldCoordinates(level, checkPos));
 
-            for(Vector3d eachShipPos : ships) {
+            for (Vector3d eachShipPos : ships) {
                 PortableEnergyInterfaceBlockEntity psi = findPSI(level, eachShipPos);
                 if (psi != null) {
                     Vector3d selfVec = selfDirectionVec.normalize().negate();
-                    if (selfShip!=null)
+                    if (selfShip != null)
                         selfVec = selfVec.rotate(selfShip.getTransform().getShipToWorldRotation());
                     Vector3d directionVec = VectorConversionsMCKt.toJOML(Vec3.atLowerCornerOf(psi.getBlockState()
                             .getValue(PortableEnergyInterfaceBlock.FACING).getNormal())).normalize();
                     Ship ship = VSGameUtilsKt.getShipManagingPos(level, eachShipPos);
-                    if (ship!=null)
+                    if (ship != null)
                         directionVec = directionVec.rotate(ship.getTransform().getShipToWorldRotation());
-                    if (directionVec.sub(selfVec).length()  <= 0.25)
+                    if (directionVec.sub(selfVec).length() <= 0.25)
                         return psi;
                 }
             }
@@ -71,22 +87,6 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
 //                    0, 0, 0);
         }
         return null;
-    }
-
-    @WrapOperation(
-            method = "findInterface",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"
-            ),
-            remap = false
-    )
-    private static Vec3 getCenterOf(Vec3i pos, Operation<Vec3> original, @Local(ordinal = 0) MovementContext context) {
-        Vec3 transfromedPos = VSGameUtilsKt.toWorldCoordinates(context.world, original.call(pos));
-        Ship ship = VSGameUtilsKt.getShipManagingPos(context.world, context.position);
-        if(ship!=null)
-            transfromedPos = VectorConversionsMCKt.toMinecraft(ship.getTransform().getWorldToShip().transformPosition(VectorConversionsMCKt.toJOML(transfromedPos)));
-        return transfromedPos;
     }
 
     @Redirect(
@@ -149,8 +149,8 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
     @Unique
     public PortableEnergyInterfaceBlockEntity findPSI(Level level, Vector3d pos) {
         BlockPos checkThis = new BlockPos(VectorConversionsMCKt.toMinecraft(pos));
-        if(level.getBlockEntity(checkThis) instanceof PortableEnergyInterfaceBlockEntity psi) {
-            if(psi.isPowered())
+        if (level.getBlockEntity(checkThis) instanceof PortableEnergyInterfaceBlockEntity psi) {
+            if (psi.isPowered())
                 return null;
 //            level.addParticle(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z,
 //                    0, 0, 0);

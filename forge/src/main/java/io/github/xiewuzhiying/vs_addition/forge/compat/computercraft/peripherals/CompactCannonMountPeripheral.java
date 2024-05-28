@@ -1,10 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.forge.compat.computercraft.peripherals;
 
-import dan200.computercraft.api.lua.IArguments;
-import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
-import io.github.xiewuzhiying.vs_addition.forge.mixin.cbcmodernwarfare.CompactCannonMountBlockEntityAccessor;
 import io.github.xiewuzhiying.vs_addition.mixin.createbigcannons.CannonMountBlockEntityAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,7 +12,7 @@ import riftyboi.cbcmodernwarfare.cannon_control.compact_mount.CompactCannonMount
 
 public class CompactCannonMountPeripheral implements IPeripheral {
 
-    public final String type ;
+    public final String type;
     public final CompactCannonMountBlockEntity tileEntity;
 
     public final Level level;
@@ -49,8 +46,8 @@ public class CompactCannonMountPeripheral implements IPeripheral {
     }
 
     @LuaFunction(mainThread = true)
-    public final Object assemble(){
-        if(!this.tileEntity.isRunning()) {
+    public final Object assemble() {
+        if (!this.tileEntity.isRunning()) {
             ((CannonMountBlockEntityAccessor) this.tileEntity).Assemble();
             return true;
         }
@@ -59,7 +56,7 @@ public class CompactCannonMountPeripheral implements IPeripheral {
 
     @LuaFunction(mainThread = true)
     public final Object disassemble() {
-        if(this.tileEntity.isRunning()) {
+        if (this.tileEntity.isRunning()) {
             this.tileEntity.disassemble();
             this.tileEntity.sendData();
             return true;
@@ -69,13 +66,13 @@ public class CompactCannonMountPeripheral implements IPeripheral {
 
     @LuaFunction(mainThread = true)
     public final void fire() {
-        if(this.tileEntity.isRunning()) {
+        if (this.tileEntity.isRunning()) {
             this.tileEntity.getContraption().tryFiringShot();
         }
     }
 
     @LuaFunction(mainThread = true)
-    public final boolean isRunning(){
+    public final boolean isRunning() {
         return this.tileEntity.isRunning();
     }
 
@@ -99,12 +96,12 @@ public class CompactCannonMountPeripheral implements IPeripheral {
 
     @LuaFunction
     public final double getPitch() {
-        return ((CannonMountBlockEntityAccessor)this.tileEntity).getCannonPitch();
+        return ((CannonMountBlockEntityAccessor) this.tileEntity).getCannonPitch();
     }
 
     @LuaFunction
     public final double getYaw() {
-        return ((CannonMountBlockEntityAccessor)this.tileEntity).getCannonYaw();
+        return ((CannonMountBlockEntityAccessor) this.tileEntity).getCannonYaw();
     }
 
     @LuaFunction

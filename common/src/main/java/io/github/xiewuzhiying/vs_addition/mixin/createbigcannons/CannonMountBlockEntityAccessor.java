@@ -9,18 +9,18 @@ import rbasamoyai.createbigcannons.cannon_control.cannon_mount.CannonMountBlockE
 @Mixin(CannonMountBlockEntity.class)
 public interface CannonMountBlockEntityAccessor {
 
-    @Invoker("assemble")
+    @Invoker(value = "assemble", remap = false)
     void Assemble();
 
-    @Invoker("getMaxDepress")
+    @Invoker(value = "getMaxDepress", remap = false)
     float GetMaxDepress();
 
-    @Invoker("getMaxElevate")
+    @Invoker(value = "getMaxElevate", remap = false)
     float GetMaxElevate();
 
-    @Accessor
+    @Accessor(remap = false)
     float getCannonYaw();
 
-    @Accessor
+    @Accessor(remap = false)
     float getCannonPitch();
 }

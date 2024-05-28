@@ -6,6 +6,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(ArmBlockEntity.class)
 public interface ArmBlockEntityAccessor {
-    @Accessor("updateInteractionPoints")
+    @Accessor(remap = false)
     void setUpdateInteractionPoints(boolean updateInteractionPoints);
 }

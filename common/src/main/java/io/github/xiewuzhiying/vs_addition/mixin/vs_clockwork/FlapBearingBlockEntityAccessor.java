@@ -6,6 +6,6 @@ import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlockEn
 
 @Mixin(FlapBearingBlockEntity.class)
 public interface FlapBearingBlockEntityAccessor {
-    @Accessor
+    @Accessor(remap = false)
     float getBearingAngle();
 }
