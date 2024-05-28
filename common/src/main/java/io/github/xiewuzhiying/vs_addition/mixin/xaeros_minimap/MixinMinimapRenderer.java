@@ -7,6 +7,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import org.joml.Quaterniond;
 import org.joml.Vector3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,6 +17,9 @@ import xaero.common.minimap.render.MinimapRenderer;
 
 @Mixin(MinimapRenderer.class)
 public abstract class MixinMinimapRenderer {
+
+    private Quaterniond shipQuat = new Quaterniond();
+    private double shipRotAngle = 0;
 
     @WrapOperation(
             method = "getRenderAngle",
@@ -35,9 +39,10 @@ public abstract class MixinMinimapRenderer {
             ClientShip ship = VSClientGameUtils.getClientShip(vehicle.position().x, vehicle.position().y, vehicle.position().z);
             if (ship != null) {
                 Vector3d vec = new Vector3d(0, 0, 1);
-                Vector3d shipRot = new Vector3d(vec).rotate(ship.getRenderTransform().getShipToWorldRotation());
+                Vector3d shipRot = new Vector3d(vec).rotate((new Quaterniond(shipQuat).invert()).mul(ship.getRenderTransform().getShipToWorldRotation()));
                 shipRot.y = 0;
-                double shipRotAngle = Math.toDegrees(Math.acos(vec.dot(shipRot)) * Math.signum(vec.cross(shipRot).y));
+                shipQuat = (Quaterniond) ship.getRenderTransform().getShipToWorldRotation();
+                shipRotAngle = shipRotAngle + Math.toDegrees(Math.acos(vec.dot(shipRot)) * Math.signum(vec.cross(shipRot).y));
                 return original.call(instance) + shipRotAngle;
             } else {
                 return original.call(instance);
