@@ -18,12 +18,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(HosePulleyBlockEntity.class)
-public abstract class HosePulleyBlockEntityMixin extends KineticBlockEntity {
+public abstract class MixinHosePulleyBlockEntity extends KineticBlockEntity {
 
     @Shadow(remap = false)
     LerpedFloat offset;
 
-    public HosePulleyBlockEntityMixin(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
+    public MixinHosePulleyBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
     }
     @ModifyExpressionValue(method = "tick",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/Material;isReplaceable()Z"))

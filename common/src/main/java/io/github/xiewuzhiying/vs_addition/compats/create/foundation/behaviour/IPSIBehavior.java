@@ -7,15 +7,15 @@ import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.utility.Lang;
 
 public interface IPSIBehavior {
-    default ScrollOptionBehaviour<WorkigMode> getWorkingMode() {
+    default ScrollOptionBehaviour<WorkigMode> vs_addition$getWorkingMode() {
         return null;
     }
 
-    default void startTransferringTo(PortableStorageInterfaceBlockEntity pi, float distance){}
+    default void vs_addition$startTransferringTo(PortableStorageInterfaceBlockEntity pi, float distance){}
 
-    default void stopTransferring() {}
+    default void vs_addition$stopTransferring() {}
 
-    default boolean canTransfer() { return false; }
+    default boolean vs_addition$canTransfer() { return false; }
     static enum WorkigMode implements INamedIconOptions {
 
         ORIGINAL(AllIcons.I_MOVE_PLACE_RETURNED),

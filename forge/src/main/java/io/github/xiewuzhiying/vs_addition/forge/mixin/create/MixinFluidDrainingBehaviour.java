@@ -20,8 +20,8 @@ import org.valkyrienskies.mod.common.VSGameUtilsKt;
 import java.util.List;
 
 @Mixin(FluidDrainingBehaviour.class)
-public abstract class FluidDrainingBehaviourMixin extends FluidManipulationBehaviour {
-    public FluidDrainingBehaviourMixin(SmartBlockEntity be) {
+public abstract class MixinFluidDrainingBehaviour extends FluidManipulationBehaviour {
+    public MixinFluidDrainingBehaviour(SmartBlockEntity be) {
         super(be);
     }
 

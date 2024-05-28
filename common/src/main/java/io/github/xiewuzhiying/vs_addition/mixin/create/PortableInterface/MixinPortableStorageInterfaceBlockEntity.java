@@ -54,66 +54,64 @@ public abstract class MixinPortableStorageInterfaceBlockEntity extends SmartBloc
         this.connectedPI = null;
         this.isPassive = false;
     }
-
-
-
-    @Inject(
-            method = "tick",
-            at = @At("HEAD"),
-            remap = false,
-            cancellable = true
-    )
-    public void tick(CallbackInfo ci) {
-        if(((IPSIBehavior)this).getWorkingMode().get() == IPSIBehavior.WorkigMode.WITH_SHIP) {
-            ci.cancel();
-            super.tick();
-            boolean wasConnected = isConnected();
-            int timeUnit = getTransferTimeout();
-            int animation = ANIMATION;
-
-            if (keepAlive > 0) {
-                keepAlive--;
-                if (keepAlive == 0 && !level.isClientSide) {
-                    stopTransferring();
-                    transferTimer = ANIMATION - 1;
-                    sendData();
-                    return;
-                }
-            }
-
-            transferTimer = Math.min(transferTimer, ANIMATION * 2 + timeUnit);
-
-            boolean timerCanDecrement = transferTimer > ANIMATION || transferTimer > 0 && keepAlive == 0
-                    && (isVirtual() || !level.isClientSide || transferTimer != ANIMATION);
-
-            if (timerCanDecrement && (!isVirtual() || transferTimer != ANIMATION)) {
-                transferTimer--;
-                if (transferTimer == ANIMATION - 1)
-                    sendData();
-                if (transferTimer <= 0 || powered)
-                    stopTransferring();
-            }
-
-            boolean isConnected = isConnected();
-            if (wasConnected != isConnected && !level.isClientSide)
-                setChanged();
-
-            float progress = 0;
-            if (isConnected)
-                progress = 1;
-            else if (transferTimer >= timeUnit + animation)
-                progress = Mth.lerp((transferTimer - timeUnit - animation) / (float) animation, 1, 0);
-            else if (transferTimer < animation)
-                progress = Mth.lerp(transferTimer / (float) animation, 0, 1);
-            connectionAnimation.setValue(progress);
-        }
-    }
-
-
+//
+//    @Inject(
+//            method = "tick",
+//            at = @At("HEAD"),
+//            remap = false,
+//            cancellable = true
+//    )
+//    public void tick(CallbackInfo ci) {
+//        if(((IPSIBehavior)this).vs_addition$getWorkingMode().get() == IPSIBehavior.WorkigMode.WITH_SHIP) {
+//            ci.cancel();
+//            super.tick();
+//            boolean wasConnected = isConnected();
+//            int timeUnit = getTransferTimeout();
+//            int animation = ANIMATION;
+//
+//            if (keepAlive > 0) {
+//                keepAlive--;
+//                if (keepAlive == 0 && !level.isClientSide) {
+//                    vs_addition$stopTransferring();
+//                    transferTimer = ANIMATION - 1;
+//                    sendData();
+//                    return;
+//                }
+//            }
+//
+//            transferTimer = Math.min(transferTimer, ANIMATION * 2 + timeUnit);
+//
+//            boolean timerCanDecrement = transferTimer > ANIMATION || transferTimer > 0 && keepAlive == 0
+//                    && (isVirtual() || !level.isClientSide || transferTimer != ANIMATION);
+//
+//            if (timerCanDecrement && (!isVirtual() || transferTimer != ANIMATION)) {
+//                transferTimer--;
+//                if (transferTimer == ANIMATION - 1)
+//                    sendData();
+//                if (transferTimer <= 0 || powered)
+//                    vs_addition$stopTransferring();
+//            }
+//
+//            boolean isConnected = isConnected();
+//            if (wasConnected != isConnected && !level.isClientSide)
+//                setChanged();
+//
+//            float progress = 0;
+//            if (isConnected)
+//                progress = 1;
+//            else if (transferTimer >= timeUnit + animation)
+//                progress = Mth.lerp((transferTimer - timeUnit - animation) / (float) animation, 1, 0);
+//            else if (transferTimer < animation)
+//                progress = Mth.lerp(transferTimer / (float) animation, 0, 1);
+//            connectionAnimation.setValue(progress);
+//        }
+//    }
+//
+//
 
 
     @Override
-    public void startTransferringTo(PortableStorageInterfaceBlockEntity pi, float distance) {
+    public void vs_addition$startTransferringTo(PortableStorageInterfaceBlockEntity pi, float distance) {
         if (connectedPI == pi)
             return;
         this.distance = Math.min(2, distance);
@@ -123,15 +121,15 @@ public abstract class MixinPortableStorageInterfaceBlockEntity extends SmartBloc
     }
 
     @Override
-    public void stopTransferring() {
+    public void vs_addition$stopTransferring() {
         connectedPI = null;
         level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
     }
 
     @Override
-    public boolean canTransfer() {
+    public boolean vs_addition$canTransfer() {
         if (connectedPI != null)
-            stopTransferring();
+            vs_addition$stopTransferring();
         return connectedPI != null && isConnected();
     }
 
@@ -141,11 +139,12 @@ public abstract class MixinPortableStorageInterfaceBlockEntity extends SmartBloc
             remap = false
     )
     public void behaviour(List<BlockEntityBehaviour> behaviours, CallbackInfo ci) {
-        this.workingMode = new ScrollOptionBehaviour<>(IPSIBehavior.WorkigMode.class, Lang.translateDirect("psi.working_mode"), (PortableStorageInterfaceBlockEntity)(Object) this, getMovementModeSlot());
+        this.workingMode = new ScrollOptionBehaviour<>(IPSIBehavior.WorkigMode.class, Lang.translateDirect("psi.working_mode"), (PortableStorageInterfaceBlockEntity)(Object) this, vs_addition$getMovementModeSlot());
         behaviours.add(this.workingMode);
     }
 
-    private ValueBoxTransform getMovementModeSlot() {
+    @Unique
+    private ValueBoxTransform vs_addition$getMovementModeSlot() {
         return new DirectionalExtenderScrollOptionSlot((state, d) -> {
             Direction.Axis axis = d.getAxis();
             Direction.Axis bearingAxis = state.getValue(PortableStorageInterfaceBlock.FACING)
@@ -155,7 +154,7 @@ public abstract class MixinPortableStorageInterfaceBlockEntity extends SmartBloc
     }
 
     @Override
-    public ScrollOptionBehaviour<IPSIBehavior.WorkigMode> getWorkingMode() {
+    public ScrollOptionBehaviour<IPSIBehavior.WorkigMode> vs_addition$getWorkingMode() {
         return workingMode;
     }
 }

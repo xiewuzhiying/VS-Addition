@@ -24,7 +24,7 @@ import static com.simibubi.create.content.kinetics.mechanicalArm.ArmBlockEntity.
 @Mixin(ArmBlockEntity.class)
 public abstract class MixinArmBlockEntity extends KineticBlockEntity implements ITransformableBlockEntity {
 
-    @Shadow
+    @Shadow(remap = false)
     boolean updateInteractionPoints;
 
     public MixinArmBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {

@@ -31,7 +31,7 @@ public abstract class MixinArmInteractionPoint {
 
     @Shadow public abstract BlockPos getPos();
 
-    @Shadow protected ArmAngleTarget cachedAngles;
+    @Shadow(remap = false) protected ArmAngleTarget cachedAngles;
 
     @Inject(
             method = "getTargetAngles",

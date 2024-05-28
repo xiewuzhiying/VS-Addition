@@ -5,7 +5,7 @@
   "mixins": [
     "computercraft.MixinRedstoneAPI",
     "computercraft.MixinWirelessModemPeripheral",
-    "create.HosePulleyBlockEntityMixin",
+    "create.MixinHosePulleyBlockEntity",
     "create.MixinCopycatBlock",
     "create.MixinCopycatBlockEntity",
     "create.MixinDisplayLinkBlockEntity",
