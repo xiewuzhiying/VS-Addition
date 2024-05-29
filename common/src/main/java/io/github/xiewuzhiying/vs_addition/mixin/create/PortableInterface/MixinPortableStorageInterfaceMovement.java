@@ -68,9 +68,6 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
                         return psi;
                 }
             }
-
-//            level.addParticle(ParticleTypes.END_ROD, checkPos.x, checkPos.y, checkPos.z,
-//                    0, 0, 0);
         }
         return null;
     }
@@ -152,8 +149,6 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
         if(level.getBlockEntity(checkThis) instanceof PortableStorageInterfaceBlockEntity psi) {
             if(psi.isPowered() || ((IPSIBehavior)psi).vs_addition$getWorkingMode().get() == IPSIBehavior.WorkigMode.WITH_SHIP)
                 return null;
-//            level.addParticle(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z,
-//                    0, 0, 0);
             return psi;
         }
         return null;
