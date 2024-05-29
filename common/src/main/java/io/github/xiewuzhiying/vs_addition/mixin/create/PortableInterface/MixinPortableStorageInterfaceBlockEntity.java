@@ -12,7 +12,6 @@ import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import io.github.xiewuzhiying.vs_addition.compats.create.foundation.behaviour.IPSIBehavior;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
@@ -22,7 +21,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 
 import java.util.List;
 
@@ -112,25 +110,30 @@ public abstract class MixinPortableStorageInterfaceBlockEntity extends SmartBloc
 
     @Override
     public void vs_addition$startTransferringTo(PortableStorageInterfaceBlockEntity pi, float distance) {
-        if (connectedPI == pi)
+        if (this.connectedPI == pi)
             return;
         this.distance = Math.min(2, distance);
-        connectedPI = pi;
+        this.connectedPI = pi;
         startConnecting();
         notifyUpdate();
     }
 
     @Override
     public void vs_addition$stopTransferring() {
-        connectedPI = null;
+        this.connectedPI = null;
         level.updateNeighborsAt(worldPosition, getBlockState().getBlock());
     }
 
     @Override
     public boolean vs_addition$canTransfer() {
-        if (connectedPI != null)
+        if (this.connectedPI != null)
             vs_addition$stopTransferring();
-        return connectedPI != null && isConnected();
+        return this.connectedPI != null && isConnected();
+    }
+
+    @Override
+    public PortableStorageInterfaceBlockEntity vs_addition$getConnectedPI() {
+        return this.connectedPI;
     }
 
     @Inject(

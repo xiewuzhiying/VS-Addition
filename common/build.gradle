@@ -61,6 +61,9 @@ dependencies {
 
     //Xaero's minimap
     modCompileOnly("maven.modrinth:xaeros-minimap:24.1.1_Fabric_1.18.2")
+
+    //Kontraption
+    modCompileOnly("maven.modrinth:kontraption:0.0.2")
 }
 
 publishing {

@@ -16,6 +16,9 @@ public interface IPSIBehavior {
     default void vs_addition$stopTransferring() {}
 
     default boolean vs_addition$canTransfer() { return false; }
+
+    default PortableStorageInterfaceBlockEntity vs_addition$getConnectedPI() {return null;}
+
     static enum WorkigMode implements INamedIconOptions {
 
         ORIGINAL(AllIcons.I_MOVE_PLACE_RETURNED),
