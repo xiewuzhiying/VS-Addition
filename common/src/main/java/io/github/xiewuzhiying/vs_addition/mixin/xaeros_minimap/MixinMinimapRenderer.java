@@ -3,13 +3,12 @@ package io.github.xiewuzhiying.vs_addition.mixin.xaeros_minimap;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.client.Camera;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import org.joml.Quaterniond;
+import org.joml.Matrix4d;
+import org.joml.Matrix4dc;
 import org.joml.Vector3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.valkyrienskies.core.api.ships.ClientShip;
 import org.valkyrienskies.mod.common.VSClientGameUtils;
@@ -18,8 +17,11 @@ import xaero.common.minimap.render.MinimapRenderer;
 @Mixin(MinimapRenderer.class)
 public abstract class MixinMinimapRenderer {
 
-    private Quaterniond shipQuat = new Quaterniond();
-    private double shipRotAngle = 0;
+    @Unique
+    private Matrix4dc latestMatrix4d = new Matrix4d();
+
+    @Unique
+    private double shipYawAngle = 0;
 
     @WrapOperation(
             method = "getRenderAngle",
@@ -30,20 +32,15 @@ public abstract class MixinMinimapRenderer {
             remap = false
     )
     public double getActualAngle(MinimapRenderer instance, Operation<Double> original) {
-        Minecraft mc = ((MinimapRendererAccessor) instance).getMinecraft();
-        Camera camera = mc.gameRenderer.getMainCamera();
-        Player player = (Player) camera.getEntity();
-        Entity vehicle = player.getVehicle();
+        Entity vehicle = ((MinimapRendererAccessor) instance).getMinecraft().gameRenderer.getMainCamera().getEntity().getVehicle();
 
         if(vehicle != null){
             ClientShip ship = VSClientGameUtils.getClientShip(vehicle.position().x, vehicle.position().y, vehicle.position().z);
             if (ship != null) {
-                Vector3d vec = new Vector3d(0, 0, 1);
-                Vector3d shipRot = new Vector3d(vec).rotate((new Quaterniond(shipQuat).invert()).mul(ship.getRenderTransform().getShipToWorldRotation()));
-                shipRot.y = 0;
-                shipQuat = (Quaterniond) ship.getRenderTransform().getShipToWorldRotation();
-                shipRotAngle = shipRotAngle + Math.toDegrees(Math.acos(vec.dot(shipRot)) * Math.signum(vec.cross(shipRot).y));
-                return original.call(instance) + shipRotAngle;
+                Matrix4d matrix = ship.getRenderTransform().getShipToWorld().invert(new Matrix4d()).mul(latestMatrix4d);
+                latestMatrix4d = ship.getRenderTransform().getShipToWorld();
+                shipYawAngle = shipYawAngle + Math.toDegrees(Math.atan2(-matrix.getRow(0, new Vector3d()).z, matrix.getRow(2, new Vector3d()).z));
+                return original.call(instance) + shipYawAngle;
             } else {
                 return original.call(instance);
             }

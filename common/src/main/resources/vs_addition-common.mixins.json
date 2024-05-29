@@ -19,6 +19,7 @@
     "createbigcannons.CannonMountBlockEntityAccessor",
     "createbigcannons.MixinMountedAutoCannonContraption",
     "createbigcannons.MixinMountedBigCannonContraption",
+    "kontraption.MixinKontraptionClientTickHandler",
     "minecraft.EntityAccessor",
     "minecraft.MixinExplosion",
     "valkyrienskies.MixinVSMassDataLoader",
