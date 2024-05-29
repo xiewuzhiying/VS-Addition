@@ -44,7 +44,7 @@ dependencies {
     modCompileOnly("maven.modrinth:create-big-cannons:HdgdrH1E")
 
     //ComputerCraft
-    modCompileOnly("maven.modrinth:cc-tweaked:ekffpGYP")
+    modCompileOnly("maven.modrinth:cc-tweaked:1.111.0")
 
     //Eureka
     modCompileOnly("maven.modrinth:eureka:1.20.1-fabric-1.5.0-beta.3")
@@ -62,7 +62,7 @@ dependencies {
     modCompileOnly("maven.modrinth:xaeros-minimap:24.1.1_Fabric_1.20")
 
     //Kontraption
-    modCompileOnly("maven.modrinth:kontraption:kontraption")
+    modCompileOnly("maven.modrinth:kontraption:x3oh2lqe")
 }
 
 publishing {

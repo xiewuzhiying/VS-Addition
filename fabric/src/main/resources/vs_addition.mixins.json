@@ -9,6 +9,7 @@
     "computercraft.MixinTurtleBlockEntity",
     "computercraft.MixinTurtleBrain",
     "computercraft.MixinTurtleMoveCommand",
+    "computercraft.MixinWirelessModemPeripheral",
     "computercraft.MixinWirelessNetwork",
     "create.MixinFluidDrainingBehaviour",
     "create.MixinFluidFillingBehaviour",

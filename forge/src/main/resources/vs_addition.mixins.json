@@ -9,11 +9,12 @@
     "computercraft.MixinSpeakerPosition",
     "computercraft.MixinTurtleBlockEntity",
     "computercraft.MixinTurtleMoveCommand",
+    "computercraft.MixinWirelessModemPeripheral",
     "computercraft.MixinWirelessNetwork",
     "create.MixinFluidDrainingBehaviour",
     "create.MixinFluidFillingBehaviour",
-    "create.MixinPortableItemInterfaceBlockEntity",
     "create.MixinHosePulleyBlockEntity",
+    "create.MixinPortableItemInterfaceBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "injectors": {

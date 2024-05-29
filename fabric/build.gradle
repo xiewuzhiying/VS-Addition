@@ -64,7 +64,7 @@ dependencies {
     modCompileOnly("io.github.tropheusj:milk-lib:${milk_lib_version}")
 
     //ComputerCraft
-    modCompileOnly("maven.modrinth:cc-tweaked:ekffpGYP")
+    modCompileOnly("maven.modrinth:cc-tweaked:1.111.0")
 
     // CBC
     modCompileOnly("maven.modrinth:create-big-cannons:HdgdrH1E")

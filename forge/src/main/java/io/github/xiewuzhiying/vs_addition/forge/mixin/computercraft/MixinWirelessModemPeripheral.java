@@ -1,12 +1,13 @@
-package io.github.xiewuzhiying.vs_addition.mixin.computercraft;
+package io.github.xiewuzhiying.vs_addition.forge.mixin.computercraft;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dan200.computercraft.shared.peripheral.modem.ModemPeripheral;
 import dan200.computercraft.shared.peripheral.modem.ModemState;
 import dan200.computercraft.shared.peripheral.modem.wireless.WirelessModemPeripheral;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
 @Mixin(WirelessModemPeripheral.class)
@@ -14,7 +15,7 @@ public abstract class MixinWirelessModemPeripheral extends ModemPeripheral{
     protected MixinWirelessModemPeripheral(ModemState state) {
         super(state);
     }
-    @Redirect(
+    @WrapOperation(
             method = "getRange",
             at = @At(
                     value = "INVOKE",
@@ -22,7 +23,7 @@ public abstract class MixinWirelessModemPeripheral extends ModemPeripheral{
             ),
             remap = false
     )
-    public Vec3 vs_addition$getPosition(WirelessModemPeripheral instance){
-        return VSGameUtilsKt.toWorldCoordinates(instance.getLevel(), instance.getPosition());
+    public Vec3 vs_addition$getPosition(WirelessModemPeripheral instance, Operation<Vec3> original){
+        return VSGameUtilsKt.toWorldCoordinates(instance.getLevel(), original.call(instance));
     }
 }

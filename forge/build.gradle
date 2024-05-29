@@ -75,7 +75,7 @@ dependencies {
     modImplementation("com.tterrag.registrate:Registrate:${registrate_version}")
 
     // ComputerCraft
-    modCompileOnly("maven.modrinth:cc-tweaked:1.110.3")
+    modCompileOnly("maven.modrinth:cc-tweaked:eMzJxUoQ")
 
     //Framed blocks
     modCompileOnly("maven.modrinth:framedblocks:9.2.2")
