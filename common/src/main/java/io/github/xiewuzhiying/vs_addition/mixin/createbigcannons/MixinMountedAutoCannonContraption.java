@@ -24,7 +24,11 @@ import rbasamoyai.createbigcannons.cannon_control.contraption.AbstractMountedCan
 import rbasamoyai.createbigcannons.cannon_control.contraption.ItemCannon;
 import rbasamoyai.createbigcannons.cannon_control.contraption.MountedAutocannonContraption;
 import rbasamoyai.createbigcannons.cannon_control.contraption.PitchOrientedContraptionEntity;
+import rbasamoyai.createbigcannons.cannons.autocannon.breech.AbstractAutocannonBreechBlockEntity;
 import rbasamoyai.createbigcannons.munitions.autocannon.AbstractAutocannonProjectile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mixin(MountedAutocannonContraption.class)
 public abstract class MixinMountedAutoCannonContraption extends AbstractMountedCannonContraption implements ItemCannon {
@@ -37,6 +41,9 @@ public abstract class MixinMountedAutoCannonContraption extends AbstractMountedC
 
     @Unique
     private ServerShip vs_addition$serverShip;
+
+    @Unique
+    private final List<Integer> FIRE_RATES = VSAdditionConfig.SERVER.getCustomFireRates();
 
     @Inject(
             method = "fireShot",
@@ -116,6 +123,33 @@ public abstract class MixinMountedAutoCannonContraption extends AbstractMountedC
             GameTickForceApplier applier = vs_addition$serverShip.getAttachment(GameTickForceApplier.class);
             double recoilForce = vs_addition$speed * VSAdditionConfig.SERVER.getAutoCannonRecoilForce();
             applier.applyInvariantForceToPos(vs_addition$serverShip.getTransform().getShipToWorldRotation().transform(VectorConversionsMCKt.toJOML(vs_addition$vector).negate().normalize()).mul(recoilForce), VectorConversionsMCKt.toJOML(entity.getAnchorVec().add(0.5, 0.5, 0.5)).sub(vs_addition$serverShip.getTransform().getPositionInShip()));
+        }
+    }
+
+    @WrapOperation(
+            method = "getReferencedFireRate",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lrbasamoyai/createbigcannons/cannons/autocannon/breech/AbstractAutocannonBreechBlockEntity;getActualFireRate()I"
+            )
+    )
+    public int getActualFireRate(AbstractAutocannonBreechBlockEntity instance, Operation<Integer> original) {
+        if (((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() < 1 || ((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() > 15) return 0;
+        int cooldown = FIRE_RATES.get(((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() - 1);
+        return 1200 / cooldown;
+    }
+
+    @WrapOperation(
+            method = "fireShot",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lrbasamoyai/createbigcannons/cannons/autocannon/breech/AbstractAutocannonBreechBlockEntity;handleFiring()V"
+            )
+    )
+    public void handleFiring1(AbstractAutocannonBreechBlockEntity instance, Operation<Void> original) {
+        if (((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() > 0 && ((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() <= VSAdditionConfig.SERVER.getCustomFireRates().toArray().length) {
+            ((AbstractAutocannonBreechBlockEntityAccessor)instance).setFiringCooldown(FIRE_RATES.get(((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() - 1));
+            ((AbstractAutocannonBreechBlockEntityAccessor)instance).setAnimateTicks(0);
         }
     }
 }

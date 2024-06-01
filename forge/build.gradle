@@ -54,6 +54,10 @@ dependencies {
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5"))
     implementation(include("io.github.llamalad7:mixinextras-forge:0.3.5"))
 
+    //Mixin Squared
+    compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:0.2.0-beta.3"))
+    implementation(include("com.github.bawnorton.mixinsquared:mixinsquared-forge:0.1.2-beta.5"))
+
     // Valkyrien Skies 2
     modApi("org.valkyrienskies:valkyrienskies-120-forge:$vs2_version") { transitive = false }
 

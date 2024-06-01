@@ -9,8 +9,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(KontraptionClientTickHandler.class)
 public class MixinKontraptionClientTickHandler {
     @Inject(
-            method = "tickStart",
+            method = "onTick",
             at = @At("HEAD"),
+            cancellable = true,
             remap = false
     )
     public void cancelThisSpam(CallbackInfo ci) {
