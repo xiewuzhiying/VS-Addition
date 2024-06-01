@@ -33,7 +33,7 @@ public abstract class MixinAbstractArrow extends Entity implements IEntityDraggi
         Consumer<AABB> consumer = aabb1 -> {
             if (noShipCollision[0]) {
                 noShipCollision[0] = level.noCollision(aabb1);
-                Ship ship = VSGameUtilsKt.getShipManagingPos(this.level, aabb1.getCenter());
+                Ship ship = VSGameUtilsKt.getShipManagingPos(this.level(), aabb1.getCenter());
                 if(ship!=null)
                     this.getDraggingInformation().setLastShipStoodOn(ship.getId());
             }
