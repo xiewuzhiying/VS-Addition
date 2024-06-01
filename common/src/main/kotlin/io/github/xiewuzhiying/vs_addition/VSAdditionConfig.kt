@@ -9,7 +9,10 @@ object VSAdditionConfig {
     @JvmField
     val SERVER = Server()
 
-    class Client
+    class Client {
+        @JsonSchema(description = "Enable mechanical arm item remove unavailable interaction point")
+        val enablePointRemoval = true
+    }
 
     class Server {
         @JsonSchema(description = "The force of recoil produced by big cannon fire on a ship")
@@ -21,11 +24,11 @@ object VSAdditionConfig {
         @JsonSchema(description = "The force of recoil produced by auto cannon fire on a ship")
         val autoCannonRecoilForce: Double = 800.0
 
+        @JsonSchema(description = "Custom autocannon breech fire rates")
+        val customFireRates = listOf(120, 80, 60, 48, 40, 30, 24, 20, 15, 12, 10, 8, 6, 5, 4)
+
         @JsonSchema(description = "I hope cannons will no longer destroy airplane cockpits")
         val spreadMultiplier : Double = 1.0
-
-        @JsonSchema(description = "Enable mechanical arm item remove unavailable interaction point")
-        val enablePointRemoval = true
 
         @JsonSchema(description = "Enable cheat functions on cannon mount peripherals")
         val enableCheatCannonMountPeripheral = false
