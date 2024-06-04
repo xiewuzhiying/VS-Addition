@@ -15,10 +15,13 @@
     "create.MixinFluidFillingBehaviour",
     "create.MixinHosePulleyBlockEntity",
     "create.MixinPortableItemInterfaceBlockEntity",
-    "createaddition.MixinPortableEnergyInterfaceMovement"
+    "createaddition.MixinPortableEnergyInterfaceMovement",
+    "tacz.MixinEntityKineticBullet"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "minVersion": "0.8"
+  "minVersion": "0.8",
+  "client": [
+  ]
 }
