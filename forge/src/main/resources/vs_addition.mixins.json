@@ -17,7 +17,7 @@
     "tacz.MixinEntityKineticBullet",
     "create.HosePulley.MixinFluidDrainingBehaviour",
     "create.HosePulley.MixinFluidFillingBehaviour",
-    "createaddition.MixinPortableEnergyInterfaceMovement"
+    "createaddition.MixinPortableEnergyInterfaceMovement",
     "createaddition.MixinPortableEnergyInterfaceMovement",
     "netmusic.MixinNetworkHandler"
   ],
