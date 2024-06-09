@@ -45,14 +45,29 @@ public abstract class MixinDeployerBlockEntity extends KineticBlockEntity implem
     private ValueBoxTransform vs_addition$getMovementModeSlot() {
         return new DirectionalExtenderScrollOptionSlot((state, d) -> {
             Direction.Axis axis = d.getAxis();
-            Direction.Axis bearingAxis = state.getValue(DeployerBlock.FACING)
-                    .getAxis();
-            return bearingAxis != axis;
+
+            return axis == getSlot(state.getValue(DeployerBlock.FACING).getAxis(),
+                    state.getValue(DeployerBlock.AXIS_ALONG_FIRST_COORDINATE));
         });
     }
 
     @Override
     public ScrollOptionBehaviour<IDeployerBehavior.WorkigMode> vs_addition$getWorkingMode() {
         return workingMode;
+    }
+
+    @Unique
+    public Direction.Axis getSlot(Direction.Axis axis, boolean b) {
+        switch (axis) {
+            case Y -> {
+                return b ? Direction.Axis.Z : Direction.Axis.X;
+            }
+            case X -> {
+                return b ? Direction.Axis.Z : Direction.Axis.Y;
+            }
+            default -> {
+                return b ? Direction.Axis.Y : Direction.Axis.X;
+            }
+        }
     }
 }
