@@ -7,6 +7,7 @@ import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,9 +27,10 @@ public abstract class MixinNetMusicSound extends AbstractTickableSoundInstance {
     @Unique
     private boolean vs_addition$isInShipyard = false;
 
-    protected MixinNetMusicSound(SoundEvent arg, SoundSource arg2) {
-        super(arg, arg2);
+    protected MixinNetMusicSound(SoundEvent arg, SoundSource arg2, RandomSource arg3) {
+        super(arg, arg2, arg3);
     }
+
 
     @Inject(
             method = "<init>",

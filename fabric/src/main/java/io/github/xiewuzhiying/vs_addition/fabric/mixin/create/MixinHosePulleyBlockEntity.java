@@ -26,13 +26,13 @@ public abstract class MixinHosePulleyBlockEntity extends KineticBlockEntity {
     public MixinHosePulleyBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
     }
-    @ModifyExpressionValue(method = "tick",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/Material;isReplaceable()Z"))
+    @ModifyExpressionValue(method = "tick",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;canBeReplaced()Z"))
     public boolean tick(boolean original, @Local(ordinal = 0) float newOffset){
         original = !original;
         Level level = this.level;
         Vec3 vec3From = transformUtils.toWorldVec3(level,transformUtils.vec3Below(transformUtils.getFront(Direction.DOWN,this.worldPosition),this.offset.getValue()));
         Vec3 vec3To = transformUtils.toWorldVec3(level,transformUtils.vec3Below(transformUtils.getFront(Direction.DOWN,this.worldPosition),newOffset));
-        boolean unReplaced = !level.getBlockState(level.clip(new ClipContext(vec3From,vec3To, ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY,null)).getBlockPos()).getMaterial().isReplaceable();
+        boolean unReplaced = !level.getBlockState(level.clip(new ClipContext(vec3From,vec3To, ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY,null)).getBlockPos()).canBeReplaced();
         return !(original||unReplaced);
     }
 }

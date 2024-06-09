@@ -21,7 +21,7 @@ public class MixinNetworkHandler {
     )
     private static double redirectToWorld(ServerPlayer instance, double x, double y, double z, Operation<Double> original) {
         return VSGameUtilsKt.squaredDistanceBetweenInclShips(
-                instance.getLevel(), instance.getX(), instance.getY(), instance.getZ(),
+                instance.level(), instance.getX(), instance.getY(), instance.getZ(),
                 x, y, z
         );
     }
