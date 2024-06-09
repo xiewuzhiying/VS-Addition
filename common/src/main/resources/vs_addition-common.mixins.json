@@ -9,6 +9,7 @@
     "create.MixinHosePulleyBlockEntity",
     "create.MixinStickerBlockEntity",
     "create.MixinTreeFertilizerItem",
+    "create.Deployer.MixinDeployerBlockEntity",
     "create.Deployer.MixinDeployerHandler",
     "create.DisplayLink.MixinDisplayLinkBlockEntity",
     "create.DisplayLink.MixinDisplayLinkBlockItem",

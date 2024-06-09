@@ -1,26 +1,60 @@
 package io.github.xiewuzhiying.vs_addition.mixin.create.Deployer;
 
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.simibubi.create.content.kinetics.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.kinetics.deployer.DeployerHandler;
+import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Deployer.IDeployerBehavior;
+import io.github.xiewuzhiying.vs_addition.util.transformUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 import org.valkyrienskies.mod.common.world.RaycastUtilsKt;
 
 @Mixin(DeployerHandler.class)
-public class MixinDeployerHandler {
+public abstract class MixinDeployerHandler {
+    @ModifyExpressionValue(
+            method = "activateInner",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;",
+                    ordinal = 0
+            )
+    )
+    private static Vec3 setRayOrigin(Vec3 original, @Local(argsOnly = true, ordinal = 0) DeployerFakePlayer player, @Local(argsOnly = true, ordinal = 0) Vec3 vec3, @Share("mode") LocalBooleanRef working_mode) {
+        working_mode.set(((IDeployerBehavior)(player.getLevel().getBlockEntity(transformUtils.floorToBlockPos(vec3)))).vs_addition$getWorkingMode().get() == IDeployerBehavior.WorkigMode.WITH_SHIP);
+        if(working_mode.get())
+            return VSGameUtilsKt.toWorldCoordinates(player.getLevel(), original);
+        return original;
+    }
+
+    @ModifyExpressionValue(
+            method = "activateInner",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/phys/Vec3;add(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;",
+                    ordinal = 1
+            )
+    )
+    private static Vec3 setRayTarget(Vec3 original, @Local(argsOnly = true, ordinal = 0) DeployerFakePlayer player, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return VSGameUtilsKt.toWorldCoordinates(player.getLevel(), original);
+        return original;
+    }
+
     @ModifyArg(
             method = "activateInner",
             at = @At(
@@ -29,11 +63,13 @@ public class MixinDeployerHandler {
             ),
             index = 1
     )
-    private static AABB aabbToWorld(AABB par2, @Local(ordinal = 0) ServerLevel world) {
-        return VSGameUtilsKt.transformAabbToWorld(world, par2);
+    private static AABB aabbToWorld(AABB par2, @Local(ordinal = 0) ServerLevel world, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return VSGameUtilsKt.transformAabbToWorld(world, par2);
+        return par2;
     }
 
-    @WrapOperation(
+    @ModifyArg(
             method = "activateInner",
             at = @At(
                     value = "INVOKE",
@@ -41,26 +77,10 @@ public class MixinDeployerHandler {
                     ordinal = 1
             )
     )
-    private static Vec3 scale(Vec3 instance, double factor, Operation<Vec3> original) {
-        return original.call(instance, factor+2/64f);
-    }
-
-    @ModifyVariable(
-            method = "activateInner",
-            at = @At("STORE"),
-            ordinal = 2
-    )
-    private static Vec3 setRayOrigin(Vec3 value, @Local(argsOnly = true, ordinal = 0) DeployerFakePlayer player) {
-        return VSGameUtilsKt.toWorldCoordinates(player.getLevel(), value);
-    }
-
-    @ModifyVariable(
-            method = "activateInner",
-            at = @At("STORE"),
-            ordinal = 3
-    )
-    private static Vec3 setRayTarget(Vec3 value, @Local(argsOnly = true, ordinal = 0) DeployerFakePlayer player) {
-        return VSGameUtilsKt.toWorldCoordinates(player.getLevel(), value);
+    private static double scale(double factor, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return factor+2/64f;
+        return factor;
     }
 
     @WrapOperation(
@@ -70,19 +90,28 @@ public class MixinDeployerHandler {
                     target = "Lnet/minecraft/server/level/ServerLevel;clip(Lnet/minecraft/world/level/ClipContext;)Lnet/minecraft/world/phys/BlockHitResult;"
             )
     )
-    private static BlockHitResult clip(ServerLevel instance, ClipContext clipContext, Operation<BlockHitResult> original) {
-        return RaycastUtilsKt.clipIncludeShips(instance, clipContext, true);
+    private static BlockHitResult clip(ServerLevel instance, ClipContext clipContext, Operation<BlockHitResult> original, @Local(argsOnly = true, ordinal = 0) Vec3 vec, @Local(argsOnly = true, ordinal = 1) Vec3 extensionVector, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get()) {
+            BlockHitResult result = RaycastUtilsKt.clipIncludeShips(instance, clipContext, true);
+            if (result.getType() == HitResult.Type.MISS) {
+                return RaycastUtilsKt.clipIncludeShips(instance, new ClipContext(clipContext.getFrom(), VSGameUtilsKt.toWorldCoordinates(instance, vec.add(extensionVector.scale(5 / 2f - 1 / 64f))), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null), true);
+            }
+            return RaycastUtilsKt.clipIncludeShips(instance, clipContext, true);
+        }
+        return original.call(instance, clipContext);
     }
 
-    @WrapOperation(
+    @ModifyExpressionValue(
             method = "activateInner",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/phys/BlockHitResult;getBlockPos()Lnet/minecraft/core/BlockPos;"
             )
     )
-    private static BlockPos redirectToTrue(BlockHitResult instance, Operation<BlockPos> original, @Local(argsOnly = true, ordinal = 0) BlockPos clickedPos) {
-        return clickedPos;
+    private static BlockPos redirectToTrue(BlockPos original, @Local(argsOnly = true, ordinal = 0) BlockPos clickedPos, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return clickedPos;
+        return original;
     }
 
     @ModifyArg(
@@ -94,8 +123,10 @@ public class MixinDeployerHandler {
             ),
             index = 0
     )
-    private static BlockPos replace1(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace1(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -107,8 +138,10 @@ public class MixinDeployerHandler {
             ),
             index = 1
     )
-    private static BlockPos replace2(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace2(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -120,8 +153,10 @@ public class MixinDeployerHandler {
             ),
             index = 1
     )
-    private static BlockPos replace3(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace3(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -133,8 +168,10 @@ public class MixinDeployerHandler {
             ),
             index = 2
     )
-    private static BlockPos replace4(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace4(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -146,8 +183,10 @@ public class MixinDeployerHandler {
             ),
             index = 1
     )
-    private static BlockPos replace5(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace5(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -159,8 +198,10 @@ public class MixinDeployerHandler {
             ),
             index = 2
     )
-    private static BlockPos replace6(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace6(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -172,8 +213,10 @@ public class MixinDeployerHandler {
             ),
             index = 1
     )
-    private static BlockPos replace7(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace7(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -185,8 +228,10 @@ public class MixinDeployerHandler {
             ),
             index = 2
     )
-    private static BlockPos replace8(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace8(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -198,8 +243,10 @@ public class MixinDeployerHandler {
             ),
             index = 1
     )
-    private static BlockPos replace9(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace9(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -211,8 +258,10 @@ public class MixinDeployerHandler {
             ),
             index = 1
     )
-    private static BlockPos replace10(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace10(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -224,8 +273,10 @@ public class MixinDeployerHandler {
             index = 0,
             remap = false
     )
-    private static Object replace11(Object par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static Object replace11(Object par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -237,8 +288,10 @@ public class MixinDeployerHandler {
             ),
             index = 1
     )
-    private static BlockPos replace12(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace12(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -249,8 +302,10 @@ public class MixinDeployerHandler {
             ),
             index = 2
     )
-    private static BlockPos replace13(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace13(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 
     @ModifyArg(
@@ -261,7 +316,9 @@ public class MixinDeployerHandler {
             ),
             index = 1
     )
-    private static BlockPos replace14(BlockPos par1, @Local(ordinal = 0) BlockHitResult result) {
-        return result.getBlockPos();
+    private static BlockPos replace14(BlockPos par1, @Local(ordinal = 0) BlockHitResult result, @Share("mode") LocalBooleanRef working_mode) {
+        if(working_mode.get())
+            return result.getBlockPos();
+        return par1;
     }
 }

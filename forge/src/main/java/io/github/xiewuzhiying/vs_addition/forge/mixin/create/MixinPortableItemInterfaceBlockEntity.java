@@ -2,7 +2,7 @@ package io.github.xiewuzhiying.vs_addition.forge.mixin.create;
 
 import com.simibubi.create.content.contraptions.actors.psi.PortableItemInterfaceBlockEntity;
 import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterfaceBlockEntity;
-import io.github.xiewuzhiying.vs_addition.compats.create.foundation.behaviour.IPSIBehavior;
+import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.PortableStorageInterface.IPSIBehavior;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;

@@ -9,7 +9,7 @@ import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterf
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.foundation.utility.VecHelper;
-import io.github.xiewuzhiying.vs_addition.compats.create.foundation.behaviour.IPSIBehavior;
+import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.PortableStorageInterface.IPSIBehavior;
 import io.github.xiewuzhiying.vs_addition.util.transformUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
