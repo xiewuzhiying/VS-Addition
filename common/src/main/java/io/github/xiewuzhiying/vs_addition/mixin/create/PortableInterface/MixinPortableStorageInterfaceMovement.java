@@ -64,7 +64,7 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
                     Ship ship = VSGameUtilsKt.getShipManagingPos(level, eachShipPos);
                     if (ship!=null)
                         directionVec = directionVec.rotate(ship.getTransform().getShipToWorldRotation());
-                    if (Math.toDegrees(Math.acos(new Vector3d(directionVec).dot(new Vector3d(selfVec))))  <= 10)
+                    if (Math.toDegrees(Math.acos(new Vector3d(directionVec).dot(new Vector3d(selfVec))))  <= 22.5)
                         return psi;
                 }
             }
