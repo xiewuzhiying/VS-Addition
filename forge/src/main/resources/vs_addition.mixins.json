@@ -9,8 +9,8 @@
     "computercraft.ItemPocketComputerMixin",
     "computercraft.TileComputerMixin",
     "computercraft.TileTurtleMixin",
-    "create.MixinFluidDrainingBehaviour",
-    "create.MixinFluidFillingBehaviour",
+    "create.HosePulley.MixinFluidDrainingBehaviour",
+    "create.HosePulley.MixinFluidFillingBehaviour",
     "create.MixinPortableItemInterfaceBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],

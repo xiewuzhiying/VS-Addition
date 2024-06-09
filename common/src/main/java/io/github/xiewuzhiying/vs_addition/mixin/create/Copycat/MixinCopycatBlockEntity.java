@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.mixin.create;
+package io.github.xiewuzhiying.vs_addition.mixin.create.Copycat;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.decoration.copycat.CopycatBlockEntity;
