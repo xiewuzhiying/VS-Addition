@@ -170,7 +170,7 @@ public abstract class MixinPortableStorageInterfaceBlockEntity extends SmartBloc
             remap = false
     )
     public void behaviour(List<BlockEntityBehaviour> behaviours, CallbackInfo ci) {
-        this.workingMode = new ScrollOptionBehaviour<>(IPSIBehavior.WorkigMode.class, Lang.translateDirect("psi.working_mode"), (PortableStorageInterfaceBlockEntity)(Object) this, vs_addition$getMovementModeSlot());
+        this.workingMode = new ScrollOptionBehaviour<>(IPSIBehavior.WorkigMode.class, Lang.translateDirect("vs_addition.working_mode"), (PortableStorageInterfaceBlockEntity)(Object) this, vs_addition$getMovementModeSlot());
         behaviours.add(this.workingMode);
     }
 

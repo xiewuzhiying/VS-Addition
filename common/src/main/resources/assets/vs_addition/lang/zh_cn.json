@@ -1,5 +1,5 @@
 {
-  "create.psi.working_mode" : "工作模式",
-  "create.psi.working_mode.original" : "与动态结构交互",
-  "create.psi.working_mode.with_ship" : "与船舶交互"
+  "create.vs_addition.working_mode" : "工作模式",
+  "create.vs_addition.working_mode.original" : "原行为",
+  "create.vs_addition.working_mode.with_ship" : "为瓦尔基里天空的另一种行为"
 }
