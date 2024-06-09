@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.forge.mixin.create;
+package io.github.xiewuzhiying.vs_addition.fabric.mixin.create.HosePulley;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
@@ -6,6 +6,7 @@ import com.simibubi.create.content.fluids.transfer.FluidDrainingBehaviour;
 import com.simibubi.create.content.fluids.transfer.FluidManipulationBehaviour;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import io.github.xiewuzhiying.vs_addition.util.transformUtils;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
@@ -24,19 +25,18 @@ public abstract class MixinFluidDrainingBehaviour extends FluidManipulationBehav
     public MixinFluidDrainingBehaviour(SmartBlockEntity be) {
         super(be);
     }
-
-    @Inject(method = "pullNext", at = @At(value = "HEAD"), remap = false)
-    public void pullNext(BlockPos root, boolean simulate, CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) LocalRef<BlockPos> blockPosLocalRef) {
+    @Inject(method = "pullNext",at = @At(value = "HEAD"),remap = false)
+    public void pullNext(BlockPos root, TransactionContext ctx, CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) LocalRef<BlockPos> blockPosLocalRef){
         Vec3 vec3 = transformUtils.getFront(Direction.DOWN, root);
-        Ship ship = VSGameUtilsKt.getShipManagingPos(this.getWorld(), vec3);
-        if (ship != null) {
-            vec3 = transformUtils.toWorldVec3(ship, vec3);
+        Ship ship = VSGameUtilsKt.getShipManagingPos(this.getWorld(),vec3);
+        if(ship!=null){
+            vec3=transformUtils.toWorldVec3(ship,vec3);
         }
-        List<Vector3d> ships = VSGameUtilsKt.transformToNearbyShipsAndWorld(this.getWorld(), vec3.x, vec3.y, vec3.z, 0.1);
-        if (!ships.isEmpty()) {
-            Ship rootShip = VSGameUtilsKt.getShipManagingPos(this.getWorld(), ships.get(0));
-            if (rootShip != null) {
-                blockPosLocalRef.set(transformUtils.floorToBlockPos(transformUtils.toShipyardCoordinates(rootShip, vec3)));
+        List<Vector3d> ships = VSGameUtilsKt.transformToNearbyShipsAndWorld(this.getWorld(),vec3.x,vec3.y,vec3.z,0.1);
+        if(!ships.isEmpty()){
+            Ship rootShip = VSGameUtilsKt.getShipManagingPos(this.getWorld(),ships.get(0));
+            if(rootShip!=null){
+                blockPosLocalRef.set(transformUtils.floorToBlockPos(transformUtils.toShipyardCoordinates(rootShip,vec3)));
                 return;
             }
         }

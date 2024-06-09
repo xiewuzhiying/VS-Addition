@@ -17,11 +17,15 @@
     "create.MixinPortableItemInterfaceBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement",
     "tacz.MixinEntityKineticBullet"
+    "create.HosePulley.MixinFluidDrainingBehaviour",
+    "create.HosePulley.MixinFluidFillingBehaviour",
+    "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "minVersion": "0.8",
   "client": [
+    "netmusic.MixinNetMusicSound"
   ]
 }

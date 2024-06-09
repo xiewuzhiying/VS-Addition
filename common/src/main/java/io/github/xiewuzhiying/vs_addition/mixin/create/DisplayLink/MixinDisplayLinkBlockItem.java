@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.mixin.create;
+package io.github.xiewuzhiying.vs_addition.mixin.create.DisplayLink;
 
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockItem;
 import net.minecraft.core.BlockPos;

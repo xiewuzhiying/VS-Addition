@@ -9,7 +9,7 @@ import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterf
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.foundation.utility.VecHelper;
-import io.github.xiewuzhiying.vs_addition.compats.create.foundation.behaviour.IPSIBehavior;
+import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.PortableStorageInterface.IPSIBehavior;
 import io.github.xiewuzhiying.vs_addition.util.transformUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -64,7 +64,7 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
                     Ship ship = VSGameUtilsKt.getShipManagingPos(level, eachShipPos);
                     if (ship!=null)
                         directionVec = directionVec.rotate(ship.getTransform().getShipToWorldRotation());
-                    if (Math.toDegrees(Math.acos(new Vector3d(directionVec).dot(new Vector3d(selfVec))))  <= 10)
+                    if (Math.toDegrees(Math.acos(new Vector3d(directionVec).dot(new Vector3d(selfVec))))  <= 22.5)
                         return psi;
                 }
             }

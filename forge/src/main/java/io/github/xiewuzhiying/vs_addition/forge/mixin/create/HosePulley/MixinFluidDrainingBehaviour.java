@@ -1,14 +1,13 @@
-package io.github.xiewuzhiying.vs_addition.forge.mixin.create;
+package io.github.xiewuzhiying.vs_addition.forge.mixin.create.HosePulley;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import com.simibubi.create.content.fluids.transfer.FluidFillingBehaviour;
+import com.simibubi.create.content.fluids.transfer.FluidDrainingBehaviour;
 import com.simibubi.create.content.fluids.transfer.FluidManipulationBehaviour;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import io.github.xiewuzhiying.vs_addition.util.transformUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,14 +19,14 @@ import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
 import java.util.List;
 
-@Mixin(FluidFillingBehaviour.class)
-public abstract class MixinFluidFillingBehaviour extends FluidManipulationBehaviour {
-    public MixinFluidFillingBehaviour(SmartBlockEntity be) {
+@Mixin(FluidDrainingBehaviour.class)
+public abstract class MixinFluidDrainingBehaviour extends FluidManipulationBehaviour {
+    public MixinFluidDrainingBehaviour(SmartBlockEntity be) {
         super(be);
     }
 
-    @Inject(method = "tryDeposit", at = @At(value = "HEAD"), remap = false)
-    public void tryDeposit(Fluid fluid, BlockPos root, boolean simulate, CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) LocalRef<BlockPos> blockPosLocalRef) {
+    @Inject(method = "pullNext", at = @At(value = "HEAD"), remap = false)
+    public void pullNext(BlockPos root, boolean simulate, CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) LocalRef<BlockPos> blockPosLocalRef) {
         Vec3 vec3 = transformUtils.getFront(Direction.DOWN, root);
         Ship ship = VSGameUtilsKt.getShipManagingPos(this.getWorld(), vec3);
         if (ship != null) {

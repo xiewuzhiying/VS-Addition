@@ -103,6 +103,9 @@ dependencies {
 
     //TaCZ
     modCompileOnly("maven.modrinth:timeless-and-classics-zero:1.0.0-hotfix2")
+
+    //Net Music
+    modCompileOnly("maven.modrinth:net-music:1IkUTusQ")
 }
 
 processResources {
