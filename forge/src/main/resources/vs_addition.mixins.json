@@ -9,13 +9,16 @@
     "computercraft.ItemPocketComputerMixin",
     "computercraft.TileComputerMixin",
     "computercraft.TileTurtleMixin",
+    "create.MixinPortableItemInterfaceBlockEntity",
     "create.HosePulley.MixinFluidDrainingBehaviour",
     "create.HosePulley.MixinFluidFillingBehaviour",
-    "create.MixinPortableItemInterfaceBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "minVersion": "0.8"
+  "minVersion": "0.8",
+  "client": [
+    "netmusic.MixinNetMusicSound"
+  ]
 }
