@@ -22,7 +22,7 @@ public interface IDeployerBehavior {
 
         WorkigMode(AllIcons icon) {
             this.icon = icon;
-            translationKey = "deployer.working_mode." + Lang.asId(name());
+            translationKey = "vs_addition.working_mode." + Lang.asId(name());
         }
 
         public com.simibubi.create.foundation.gui.AllIcons getIcon() {
