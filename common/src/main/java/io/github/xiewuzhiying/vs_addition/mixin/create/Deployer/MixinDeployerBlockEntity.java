@@ -37,7 +37,13 @@ public abstract class MixinDeployerBlockEntity extends KineticBlockEntity implem
             remap = false
     )
     public void behaviour(List<BlockEntityBehaviour> behaviours, CallbackInfo ci) {
-        this.workingMode = new ScrollOptionBehaviour<>(IDeployerBehavior.WorkigMode.class, Lang.translateDirect("psi.working_mode"), (DeployerBlockEntity)(Object) this, vs_addition$getMovementModeSlot());
+        this.workingMode = new ScrollOptionBehaviour<>(
+                IDeployerBehavior.WorkigMode.class,
+                Lang.translateDirect("vs_addition.working_mode"),
+                (DeployerBlockEntity)(Object) this,
+                vs_addition$getMovementModeSlot()
+        );
+        this.workingMode.requiresWrench();
         behaviours.add(this.workingMode);
     }
 
