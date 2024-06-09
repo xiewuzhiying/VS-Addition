@@ -24,7 +24,7 @@ public abstract class MixinNetMusicSound extends AbstractTickableSoundInstance {
     @Shadow(remap = false) @Final private BlockPos pos;
 
     @Unique
-    private boolean vs_addition$isOnShip = false;
+    private boolean vs_addition$isInShipyard = false;
 
     protected MixinNetMusicSound(SoundEvent arg, SoundSource arg2) {
         super(arg, arg2);
@@ -36,10 +36,10 @@ public abstract class MixinNetMusicSound extends AbstractTickableSoundInstance {
     )
     private void set(BlockPos pos, URL songUrl, int timeSecond, CallbackInfo ci) {
         if(VSGameUtilsKt.isBlockInShipyard(Minecraft.getInstance().level, this.pos)) {
-            this.vs_addition$isOnShip = true;
+            this.vs_addition$isInShipyard = true;
             Vec3 vec = VSGameUtilsKt.toWorldCoordinates(Minecraft.getInstance().level, transformUtils.getCenterOf(this.pos));
             this.x = vec.x;
-            this.y = vec.z;
+            this.y = vec.y;
             this.z = vec.z;
         }
     }
@@ -49,10 +49,10 @@ public abstract class MixinNetMusicSound extends AbstractTickableSoundInstance {
             at = @At("HEAD")
     )
     private void updatePos(CallbackInfo ci) {
-        if(this.vs_addition$isOnShip) {
+        if(this.vs_addition$isInShipyard){
             Vec3 vec = VSGameUtilsKt.toWorldCoordinates(Minecraft.getInstance().level, transformUtils.getCenterOf(this.pos));
             this.x = vec.x;
-            this.y = vec.z;
+            this.y = vec.y;
             this.z = vec.z;
         }
     }
