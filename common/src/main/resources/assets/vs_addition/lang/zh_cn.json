@@ -1,5 +1,5 @@
 {
   "create.vs_addition.working_mode" : "工作模式",
-  "create.vs_addition.working_mode.original" : "原行为",
-  "create.vs_addition.working_mode.with_ship" : "为瓦尔基里天空的另一种行为"
+  "create.vs_addition.working_mode.original" : "原始行为",
+  "create.vs_addition.working_mode.with_ship" : "为船只的另一种行为"
 }
