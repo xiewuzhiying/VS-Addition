@@ -31,7 +31,7 @@ public interface IPSIBehavior {
 
         private WorkigMode(AllIcons icon) {
             this.icon = icon;
-            translationKey = "psi.working_mode." + Lang.asId(name());
+            translationKey = "vs_addition.working_mode." + Lang.asId(name());
         }
 
         public com.simibubi.create.foundation.gui.AllIcons getIcon() {
