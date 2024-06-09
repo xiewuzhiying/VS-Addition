@@ -6,6 +6,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.joml.*;
+import org.lwjgl.system.CallbackI;
 import org.valkyrienskies.core.api.ships.Ship;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 import org.valkyrienskies.mod.common.util.VectorConversionsMCKt;
@@ -88,5 +89,9 @@ public class transformUtils {
             default -> new Vec3(blockPos.getX()+0.5, blockPos.getY(), blockPos.getZ()+0.5);
 
         };
+    }
+
+    public static Vec3 getCenterOf(BlockPos blockPos) {
+        return new Vec3(blockPos.getX()+0.5, blockPos.getY()+0.5, blockPos.getZ()+0.5);
     }
 }
