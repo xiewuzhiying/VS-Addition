@@ -11,9 +11,9 @@
     "computercraft.MixinTurtleMoveCommand",
     "computercraft.MixinWirelessModemPeripheral",
     "computercraft.MixinWirelessNetwork",
-    "create.MixinFluidDrainingBehaviour",
-    "create.MixinFluidFillingBehaviour",
     "create.MixinHosePulleyBlockEntity",
+    "create.HosePulley.MixinFluidDrainingBehaviour",
+    "create.HosePulley.MixinFluidFillingBehaviour",
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [
