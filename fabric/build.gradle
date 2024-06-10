@@ -52,6 +52,12 @@ dependencies {
     // CC Restitched
     modImplementation("maven.modrinth:cc-restitched:1.100.8+1.18.2")
 
+    //Eureka
+    modImplementation("maven.modrinth:eureka:1.18.2-fabric-1.4.0-beta.1")
+
+    //Clockwork
+    modImplementation("maven.modrinth:create-clockwork:8JdnD9wo")
+
     // Create compats
     modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}") {
         exclude group: 'com.github.AlphaMode', module: 'fakeconfigtoml'
@@ -66,11 +72,11 @@ dependencies {
     modImplementation("io.github.tropheusj:milk-lib:${milk_lib_version}")
 
     // CBC
-    modCompileOnly("maven.modrinth:create-big-cannons:eLFsS1Ui")
+    modImplementation("maven.modrinth:create-big-cannons:eLFsS1Ui")
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-c5d3ea1+1.18.2-fabric") { transitive = false }
 
     //Copycat+
-    modCompileOnly("maven.modrinth:copycats:g3m9RPx3")
+    modImplementation("maven.modrinth:copycats:g3m9RPx3")
 
     //CC&A
     modImplementation("maven.modrinth:createaddition:1.18.2-20230704a")

@@ -79,30 +79,36 @@ dependencies {
     modImplementation("com.tterrag.registrate:Registrate:${registrate_version}")
 
     // CC Tweaked
-    modCompileOnly("maven.modrinth:cc-tweaked:1.18.2-1.101.3")
+    modImplementation("maven.modrinth:cc-tweaked:1.18.2-1.101.3")
+
+    //Eureka
+    modImplementation("maven.modrinth:eureka:1.18.2-forge-1.5.1-beta.1")
+
+    //Clockwork
+    modImplementation("maven.modrinth:create-clockwork:1.18.2-0.1.16")
 
     //Framed blocks
-    modCompileOnly("maven.modrinth:framedblocks:5.11.5")
+    modImplementation("maven.modrinth:framedblocks:5.11.5")
 
     //Copycat+
 
-    modCompileOnly("maven.modrinth:copycats:1.18.2-1.2.5")
+    modImplementation("maven.modrinth:copycats:1.18.2-1.2.5")
 
     //CBC
-    modCompileOnly("maven.modrinth:create-big-cannons:0.5.4")
+    modImplementation("maven.modrinth:create-big-cannons:0.5.4")
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-c5d3ea1+1.18.2-forge") { transitive = false }
 
     //CBC Modern Warfare
-    modCompileOnly files("jars/cbcmodernwarfare-forge-1.18.2-0.0.4a.jar")
+    modImplementation files("jars/cbcmodernwarfare-forge-1.18.2-0.0.4a.jar")
 
     //CC&A
-    modCompileOnly("maven.modrinth:createaddition:1.18.2-1.0.0")
+    modImplementation("maven.modrinth:createaddition:1.18.2-1.0.0")
 
     //Create Tweaked Controllers
-    modCompileOnly("maven.modrinth:create-tweaked-controllers:1.18.2-1.2.4")
+    modImplementation("maven.modrinth:create-tweaked-controllers:1.18.2-1.2.4")
 
     //Net Music
-    modCompileOnly("maven.modrinth:net-music:FQqAhlVb")
+    modImplementation("maven.modrinth:net-music:FQqAhlVb")
 }
 
 processResources {
