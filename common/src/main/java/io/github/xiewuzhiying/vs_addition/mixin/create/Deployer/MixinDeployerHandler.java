@@ -37,7 +37,7 @@ public abstract class MixinDeployerHandler {
             )
     )
     private static Vec3 setRayOrigin(Vec3 original, @Local(argsOnly = true, ordinal = 0) DeployerFakePlayer player, @Local(argsOnly = true, ordinal = 0) Vec3 vec3, @Share("mode") LocalBooleanRef working_mode) {
-        BlockEntity blockEntity = player.getLevel().getBlockEntity(transformUtils.floorToBlockPos(vec3));
+        BlockEntity blockEntity = player.level().getBlockEntity(transformUtils.floorToBlockPos(vec3));
         if(blockEntity != null)
             working_mode.set(((IDeployerBehavior)blockEntity).vs_addition$getWorkingMode().get() == IDeployerBehavior.WorkigMode.WITH_SHIP);
         else
