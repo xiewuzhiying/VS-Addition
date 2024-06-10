@@ -14,6 +14,7 @@ import io.github.xiewuzhiying.vs_addition.util.transformUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -35,7 +36,11 @@ public abstract class MixinDeployerHandler {
             )
     )
     private static Vec3 setRayOrigin(Vec3 original, @Local(argsOnly = true, ordinal = 0) DeployerFakePlayer player, @Local(argsOnly = true, ordinal = 0) Vec3 vec3, @Share("mode") LocalBooleanRef working_mode) {
-        working_mode.set(((IDeployerBehavior)(player.getLevel().getBlockEntity(transformUtils.floorToBlockPos(vec3)))).vs_addition$getWorkingMode().get() == IDeployerBehavior.WorkigMode.WITH_SHIP);
+        BlockEntity blockEntity = player.getLevel().getBlockEntity(transformUtils.floorToBlockPos(vec3));
+        if(blockEntity != null)
+            working_mode.set(((IDeployerBehavior)blockEntity).vs_addition$getWorkingMode().get() == IDeployerBehavior.WorkigMode.WITH_SHIP);
+        else
+            working_mode.set(false);
         if(working_mode.get())
             return VSGameUtilsKt.toWorldCoordinates(player.getLevel(), original);
         return original;
