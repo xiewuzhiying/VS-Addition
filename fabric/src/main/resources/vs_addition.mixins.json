@@ -2,6 +2,7 @@
   "required": true,
   "package": "io.github.xiewuzhiying.vs_addition.fabric.mixin",
   "compatibilityLevel": "JAVA_17",
+  "plugin": "io.github.xiewuzhiying.vs_addition.fabric.mixin.VSAdditionFabricMixinConfigPlugin",
   "mixins": [
     "computercraft.MixinComputerBlockEntity",
     "computercraft.MixinPocketComputerItem",

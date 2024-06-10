@@ -31,9 +31,9 @@
   ],
   "accessWidener" : "vs_addition-common.accesswidener",
   "depends": {
-    "minecraft": ">=1.20.1",
+    "minecraft": "=1.20.1",
     "fabricloader": ">=0.15.7",
-    "valkyrienskies": ">=2.1.3-beta.1"
+    "valkyrienskies": ">=2.1.3"
   },
   "suggests": {
     "create": ">=0.5.1",

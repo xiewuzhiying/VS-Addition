@@ -11,14 +11,16 @@ object VSAdditionMod {
     @JvmStatic var CLOCKWORK_ACTIVE = false
     @JvmStatic var CBC_ACTIVE = false
     @JvmStatic var EUREKA_ACTIVE = false
+    @JvmStatic var INTERACTIVE_ACTIVE = false
 
-    @JvmStatic
+        @JvmStatic
     fun init() {
         CREATE_ACTIVE = Platform.isModLoaded("create")
         CC_ACTIVE = Platform.isModLoaded("computercraft")
         CLOCKWORK_ACTIVE = Platform.isModLoaded("vs_clockwork")
         CBC_ACTIVE = Platform.isModLoaded("createbigcannons")
         EUREKA_ACTIVE = Platform.isModLoaded("vs_eureka")
+        INTERACTIVE_ACTIVE = Platform.isModLoaded("create_interactive")
 
         VSConfigClass.registerConfig("vs_addition", VSAdditionConfig::class.java)
     }
