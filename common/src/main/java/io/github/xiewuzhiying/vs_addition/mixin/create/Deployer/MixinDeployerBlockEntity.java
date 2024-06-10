@@ -1,6 +1,5 @@
 package io.github.xiewuzhiying.vs_addition.mixin.create.Deployer;
 
-import com.simibubi.create.content.contraptions.DirectionalExtenderScrollOptionSlot;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.deployer.DeployerBlock;
 import com.simibubi.create.content.kinetics.deployer.DeployerBlockEntity;
@@ -8,6 +7,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollOptionBehaviour;
 import com.simibubi.create.foundation.utility.Lang;
+import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Deployer.DeployerScrollOptionSlot;
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Deployer.IDeployerBehavior;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,13 +43,12 @@ public abstract class MixinDeployerBlockEntity extends KineticBlockEntity implem
                 (DeployerBlockEntity)(Object) this,
                 vs_addition$getMovementModeSlot()
         );
-        this.workingMode.requiresWrench();
         behaviours.add(this.workingMode);
     }
 
     @Unique
     private ValueBoxTransform vs_addition$getMovementModeSlot() {
-        return new DirectionalExtenderScrollOptionSlot((state, d) -> {
+        return new DeployerScrollOptionSlot((state, d) -> {
             Direction.Axis axis = d.getAxis();
 
             return axis == getSlot(state.getValue(DeployerBlock.FACING).getAxis(),
