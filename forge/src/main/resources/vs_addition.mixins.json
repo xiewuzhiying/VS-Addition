@@ -2,7 +2,7 @@
   "required": true,
   "package": "io.github.xiewuzhiying.vs_addition.forge.mixin",
   "compatibilityLevel": "JAVA_17",
-  "plugin": "io.github.xiewuzhiying.vs_addition.forge.mixin.ValkyrienForgeMixinConfigPlugin",
+  "plugin": "io.github.xiewuzhiying.vs_addition.forge.mixin.VSAdditionForgeMixinConfigPlugin",
   "mixins": [
     "cbcmodernwarfare.CompactCannonMountBlockEntityAccessor",
     "cbcmodernwarfare.MixinMountedMediumcannonContraption",

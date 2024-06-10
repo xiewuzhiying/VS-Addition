@@ -23,6 +23,10 @@
     ],
     "preLaunch": [
       "io.github.xiewuzhiying.vs_addition.fabric.ValkyrienPreLaunch"
+    ],
+    "mixinsquared": [
+      "io.github.xiewuzhiying.vs_addition.mixin.VSAdditionCommonMixinCanceller",
+      "io.github.xiewuzhiying.vs_addition.fabric.mixin.VSAdditionFabricMixinCanceller"
     ]
   },
   "mixins": [
@@ -31,9 +35,9 @@
   ],
   "accessWidener" : "vs_addition-common.accesswidener",
   "depends": {
-    "minecraft": ">=1.18.2",
+    "minecraft": "=1.18.2",
     "fabricloader": ">=0.14.21",
-    "valkyrienskies": ">=2.1.1-beta.5"
+    "valkyrienskies": ">=2.1.1-beta.1"
   },
   "suggests": {
     "create": ">=0.5.1",

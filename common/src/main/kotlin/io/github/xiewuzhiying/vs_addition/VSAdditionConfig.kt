@@ -9,6 +9,9 @@ object VSAdditionConfig {
     @JvmField
     val SERVER = Server()
 
+    @JvmField
+    val COMMON = Common()
+
     class Client {
         @JsonSchema(description = "Enable mechanical arm item remove unavailable interaction point")
         val enablePointRemoval = true
@@ -44,5 +47,10 @@ object VSAdditionConfig {
 
         @JsonSchema(description = "VS2 default block mass")
         val defaultBlockMass : Double = 100.0
+    }
+
+    class Common {
+        @JsonSchema(description = "Disable Create Interactive deployer mixin to use VS Addition's")
+        val insteadCreateInteractiveDeployer = true
     }
 }

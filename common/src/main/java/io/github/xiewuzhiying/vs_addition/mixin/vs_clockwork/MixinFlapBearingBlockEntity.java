@@ -14,10 +14,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlockEntity;
 
 import java.util.List;
@@ -52,18 +51,28 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
         behaviours.add(this.link_negative);
     }
 
-    @ModifyArgs(
+    @ModifyArg(
             method = "getFlapSpeed",
             at = @At(
                     value = "INVOKE",
                     target = "Lorg/valkyrienskies/clockwork/content/contraptions/flap/FlapBearingBlockEntity;getFlapTarget(ZZ)F"
-            )
+            ),
+            index = 0
     )
-    private void modifyArgs(Args args) {
-        boolean b1 = args.get(0);
-        boolean b2 = args.get(1);
-        args.set(0, b1 || this.receivedSignalNegative!=0);
-        args.set(1, b2 || this.receivedSignalPositive!=0);
+    private boolean modifyNegativeActivated(boolean negativeActivated) {
+        return negativeActivated || this.receivedSignalNegative!=0;
+    }
+
+    @ModifyArg(
+            method = "getFlapSpeed",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lorg/valkyrienskies/clockwork/content/contraptions/flap/FlapBearingBlockEntity;getFlapTarget(ZZ)F"
+            ),
+            index = 1
+    )
+    private boolean modifyReceivedSignalPositive(boolean positiveActivated) {
+        return positiveActivated || this.receivedSignalPositive!=0;
     }
 
     @Inject(
