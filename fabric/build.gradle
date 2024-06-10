@@ -49,11 +49,11 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
     // Create compats
-    modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}") {
+    modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}") {
         exclude group: 'com.github.AlphaMode', module: 'fakeconfigtoml'
     }
-    modCompileOnly("com.jozufozu.flywheel:flywheel-fabric-${minecraft_version}:${flywheel_version_fabric}")
-    modCompileOnly("com.tterrag.registrate_fabric:Registrate:${registrate_version}")
+    modImplementation("com.jozufozu.flywheel:flywheel-fabric-${minecraft_version}:${flywheel_version_fabric}")
+    modImplementation("com.tterrag.registrate_fabric:Registrate:${registrate_version}")
 
     modImplementation("io.github.fabricators_of_create.Porting-Lib:Porting-Lib:$port_lib_version")
 //    for (String module in port_lib_modules.split(",")) {
