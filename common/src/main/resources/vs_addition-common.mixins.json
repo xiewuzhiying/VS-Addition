@@ -26,6 +26,8 @@
     "minecraft.MixinExplosion",
     "valkyrienskies.MixinVSMassDataLoader",
     "vs_clockwork.FlapBearingBlockEntityAccessor",
+    "vs_clockwork.MixinFlapBearingBlockEntity",
+    "vs_clockwork.MixinFlapBearingRenderer",
     "xaeros_minimap.MinimapRendererAccessor",
     "xaeros_minimap.MixinMinimapRenderer"
   ],

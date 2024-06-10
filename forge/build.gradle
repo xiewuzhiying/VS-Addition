@@ -79,17 +79,23 @@ dependencies {
     modImplementation("com.tterrag.registrate:Registrate:${registrate_version}")
 
     // ComputerCraft
-    modCompileOnly("maven.modrinth:cc-tweaked:eMzJxUoQ")
+    modImplementation("maven.modrinth:cc-tweaked:eMzJxUoQ")
+
+    //Eureka
+    modImplementation("maven.modrinth:eureka:1.20.1-forge-1.5.1-beta.3")
+
+    //Clockwork
+    modImplementation("maven.modrinth:create-clockwork:1.20.1-0.1.16")
 
     //Framed blocks
-    modCompileOnly("maven.modrinth:framedblocks:9.2.2")
+    modImplementation("maven.modrinth:framedblocks:9.2.2")
 
     //Copycat+
 
     modImplementation("maven.modrinth:copycats:BYUGDUG0")
 
     //CBC
-    modCompileOnly("maven.modrinth:create-big-cannons:cqmtHAOe")
+    modImplementation("maven.modrinth:create-big-cannons:cqmtHAOe")
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-369e88d+1.20.1-forge") { transitive = false }
 
 //    //CBC Modern Warfare
@@ -99,13 +105,13 @@ dependencies {
     modImplementation("maven.modrinth:createaddition:1.20.1-1.0.0b")
 
     //Create Tweaked Controllers
-    modCompileOnly("maven.modrinth:create-tweaked-controllers:1.20.1-1.2.4")
+    modImplementation("maven.modrinth:create-tweaked-controllers:1.20.1-1.2.4")
 
     //TaCZ
-    modCompileOnly("maven.modrinth:timeless-and-classics-zero:1.0.0-hotfix2")
+    modImplementation("maven.modrinth:timeless-and-classics-zero:1.0.0-hotfix2")
 
     //Net Music
-    modCompileOnly("maven.modrinth:net-music:1IkUTusQ")
+    modImplementation("maven.modrinth:net-music:1IkUTusQ")
 }
 
 processResources {

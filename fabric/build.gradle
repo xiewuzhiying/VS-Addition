@@ -48,7 +48,6 @@ dependencies {
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
-
     // Create compats
     modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}") {
         exclude group: 'com.github.AlphaMode', module: 'fakeconfigtoml'
@@ -66,15 +65,21 @@ dependencies {
     modCompileOnly("dev.cafeteria:fake-player-api:${fake_player_api_version}")
     modCompileOnly("io.github.tropheusj:milk-lib:${milk_lib_version}")
 
+    //Eureka
+    modImplementation("maven.modrinth:eureka:1.18.2-fabric-1.4.0-beta.1")
+
+    //Clockwork
+    modImplementation("maven.modrinth:create-clockwork:8JdnD9wo")
+
     //ComputerCraft
-    modCompileOnly("maven.modrinth:cc-tweaked:1.111.0")
+    modImplementation("maven.modrinth:cc-tweaked:1.111.0")
 
     // CBC
-    modCompileOnly("maven.modrinth:create-big-cannons:HdgdrH1E")
+    modImplementation("maven.modrinth:create-big-cannons:HdgdrH1E")
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-369e88d+1.20.1-fabric") { transitive = false }
 
     //Copycat+
-    modCompileOnly("maven.modrinth:copycats:1.20.1-1.2.6")
+    modImplementation("maven.modrinth:copycats:1.20.1-1.2.6")
 
     //CC&A
     modImplementation("maven.modrinth:createaddition:fabric-1.20.1-1.2.3")
