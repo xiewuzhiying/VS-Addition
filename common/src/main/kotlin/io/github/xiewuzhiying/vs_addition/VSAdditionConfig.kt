@@ -47,6 +47,9 @@ object VSAdditionConfig {
 
         @JsonSchema(description = "VS2 default block mass")
         val defaultBlockMass : Double = 100.0
+
+        @JsonSchema(description = "Disable some annoying console logs :)")
+        val disableSomeWarnings = true
     }
 
     class Common {
