@@ -38,8 +38,8 @@ public class FlapBearingLinkFrequencySlotNegative extends FlapBearingLinkFrequen
     public void rotate(BlockState state, PoseStack ms) {
         Direction facing = state.getValue(FlapBearingBlock.FACING);
         float yRot = facing.getAxis()
-                .isVertical() ? -90 : AngleHelper.horizontalAngle(facing) + -270;
+                .isVertical() ? 90 : AngleHelper.horizontalAngle(facing) + 270;
         TransformStack.cast(ms)
-                .rotateY(yRot);
+                .rotateY(-yRot);
     }
 }
