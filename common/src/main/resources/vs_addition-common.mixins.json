@@ -5,7 +5,6 @@
   "plugin": "io.github.xiewuzhiying.vs_addition.mixin.VSAdditionCommonMixinConfigPlugin",
   "mixins": [
     "computercraft.MixinRedstoneAPI",
-    "create.MixinAirCurrent",
     "create.MixinStickerBlockEntity",
     "create.MixinTreeFertilizerItem",
     "create.Deployer.MixinDeployerBlockEntity",
@@ -26,9 +25,10 @@
     "minecraft.MixinAbstractArrow",
     "minecraft.MixinExplosion",
     "valkyrienskies.MixinVSMassDataLoader",
-    "vs_clockwork.FlapBearingBlockEntityAccessor",
-    "vs_clockwork.MixinFlapBearingBlockEntity",
-    "vs_clockwork.MixinFlapBearingRenderer",
+    "valkyrienskies.disableLogs.MixinShipObjectServerWorld",
+    "vs_clockwork.FlapBearing.FlapBearingBlockEntityAccessor",
+    "vs_clockwork.FlapBearing.MixinFlapBearingBlockEntity",
+    "vs_clockwork.FlapBearing.MixinFlapBearingRenderer",
     "xaeros_minimap.MinimapRendererAccessor",
     "xaeros_minimap.MixinMinimapRenderer"
   ],

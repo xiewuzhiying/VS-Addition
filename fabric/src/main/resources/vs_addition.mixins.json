@@ -13,6 +13,7 @@
     "computercraft.MixinWirelessModemPeripheral",
     "computercraft.MixinWirelessNetwork",
     "create.HosePulley.MixinHosePulleyBlockEntity",
+    "create.MixinClientEvents",
     "create.HosePulley.MixinFluidDrainingBehaviour",
     "create.HosePulley.MixinFluidFillingBehaviour",
     "createaddition.MixinPortableEnergyInterfaceMovement"

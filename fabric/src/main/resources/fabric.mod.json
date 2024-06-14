@@ -23,6 +23,10 @@
     ],
     "preLaunch": [
       "io.github.xiewuzhiying.vs_addition.fabric.ValkyrienPreLaunch"
+    ],
+    "mixinsquared": [
+      "io.github.xiewuzhiying.vs_addition.mixin.VSAdditionCommonMixinCanceller",
+      "io.github.xiewuzhiying.vs_addition.fabric.mixin.VSAdditionFabricMixinCanceller"
     ]
   },
   "mixins": [
@@ -33,7 +37,7 @@
   "depends": {
     "minecraft": "=1.20.1",
     "fabricloader": ">=0.15.7",
-    "valkyrienskies": ">=2.1.3"
+    "valkyrienskies": ">=2.1.3-beta.1"
   },
   "suggests": {
     "create": ">=0.5.1",

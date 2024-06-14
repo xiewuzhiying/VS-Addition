@@ -1,6 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.mixin;
 
 import com.llamalad7.mixinextras.MixinExtrasBootstrap;
+import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -13,6 +14,7 @@ public class VSAdditionCommonMixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public void onLoad(String mixinPackage) {
         MixinExtrasBootstrap.init();
+
     }
 
     @Override
@@ -23,7 +25,7 @@ public class VSAdditionCommonMixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (mixinClassName.contains("io.github.xiewuzhiying.vs_addition.mixin.create.Deployer")) {
-            return !VSAdditionMod.getINTERACTIVE_ACTIVE();
+            return !(VSAdditionMod.getINTERACTIVE_ACTIVE() && !VSAdditionConfig.COMMON.getInsteadCreateInteractiveDeployer());
         }
         return true;
     }

@@ -1,7 +1,9 @@
-package io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork;
+package io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork.FlapBearing;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.redstone.link.LinkBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Link.SecondLinkBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.FlapBearing.FlapBearingLinkFrequencySlot;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.FlapBearing.FlapBearingLinkFrequencySlotNegative;
@@ -14,10 +16,9 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlockEntity;
 
 import java.util.List;
@@ -29,16 +30,22 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
     @Unique
     protected LinkBehaviour link_positive;
     @Unique
-    protected LinkBehaviour link_negative;
+    protected SecondLinkBehaviour link_negative;
     @Unique
     protected boolean receivedSignalChanged;
     @Unique
     protected int receivedSignalPositive;
     @Unique
     protected int receivedSignalNegative;
+    @Unique
+    protected boolean receivedSignalPositiveActive;
+    @Unique
+    protected boolean receivedSignalNegativeActive;
 
     public MixinFlapBearingBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
+        this.receivedSignalPositiveActive = false;
+        this.receivedSignalNegativeActive = false;
     }
 
     @Inject(
@@ -46,24 +53,34 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
             at = @At("RETURN"),
             remap = false
     )
-    private void addBehaviour(List<LinkBehaviour> behaviours, CallbackInfo ci) {
+    private void addBehaviours(List<BlockEntityBehaviour> behaviours, CallbackInfo ci) throws NoSuchFieldException, IllegalAccessException {
         createLink();
         behaviours.add(this.link_positive);
         behaviours.add(this.link_negative);
     }
 
-    @ModifyArgs(
+    @ModifyArg(
             method = "getFlapSpeed",
             at = @At(
                     value = "INVOKE",
                     target = "Lorg/valkyrienskies/clockwork/content/contraptions/flap/FlapBearingBlockEntity;getFlapTarget(ZZ)F"
-            )
+            ),
+            index = 0
     )
-    private void modifyArgs(Args args) {
-        boolean b1 = args.get(0);
-        boolean b2 = args.get(1);
-        args.set(0, b1 || this.receivedSignalNegative!=0);
-        args.set(1, b2 || this.receivedSignalPositive!=0);
+    private boolean modifyNegativeActivated(boolean negativeActivated) {
+        return negativeActivated || this.receivedSignalNegativeActive;
+    }
+
+    @ModifyArg(
+            method = "getFlapSpeed",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lorg/valkyrienskies/clockwork/content/contraptions/flap/FlapBearingBlockEntity;getFlapTarget(ZZ)F"
+            ),
+            index = 1
+    )
+    private boolean modifyReceivedSignalPositive(boolean positiveActivated) {
+        return positiveActivated || this.receivedSignalPositiveActive;
     }
 
     @Inject(
@@ -91,7 +108,7 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
         this.link_positive = LinkBehaviour.receiver(this, slots_positive, this::setSignalPositive);
         Pair<ValueBoxTransform, ValueBoxTransform> slots_negative =
                 ValueBoxTransform.Dual.makeSlots(FlapBearingLinkFrequencySlotNegative::new);
-        this.link_negative = LinkBehaviour.receiver(this, slots_negative, this::setSignalNegative);
+        this.link_negative = SecondLinkBehaviour.receiver(this, slots_negative, this::setSignalNegative);
     }
 
     @Unique
@@ -99,6 +116,7 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
         if (receivedSignalPositive != power)
             receivedSignalChanged = true;
         receivedSignalPositive = power;
+        receivedSignalPositiveActive = receivedSignalPositive != 0;
     }
 
     @Unique
@@ -106,5 +124,6 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
         if (receivedSignalNegative != power)
             receivedSignalChanged = true;
         receivedSignalNegative = power;
+        receivedSignalNegativeActive = receivedSignalNegative != 0;
     }
 }

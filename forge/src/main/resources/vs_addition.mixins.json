@@ -12,6 +12,7 @@
     "computercraft.MixinWirelessModemPeripheral",
     "computercraft.MixinWirelessNetwork",
     "create.HosePulley.MixinHosePulleyBlockEntity",
+    "create.MixinClientEvents",
     "create.MixinPortableItemInterfaceBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement",
     "tacz.MixinEntityKineticBullet",
