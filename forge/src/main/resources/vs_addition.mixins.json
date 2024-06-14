@@ -11,7 +11,7 @@
     "computercraft.MixinTurtleMoveCommand",
     "computercraft.MixinWirelessModemPeripheral",
     "computercraft.MixinWirelessNetwork",
-    "create.MixinHosePulleyBlockEntity",
+    "create.HosePulley.MixinHosePulleyBlockEntity",
     "create.MixinPortableItemInterfaceBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement",
     "tacz.MixinEntityKineticBullet",

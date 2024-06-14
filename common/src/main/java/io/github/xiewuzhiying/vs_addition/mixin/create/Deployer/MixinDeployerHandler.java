@@ -69,7 +69,7 @@ public abstract class MixinDeployerHandler {
             ),
             index = 1
     )
-    private static AABB aabbToWorld(AABB par2, @Local(ordinal = 0) ServerLevel world, @Share("mode") LocalBooleanRef working_mode) {
+    private static AABB aabbToWorld(AABB par2, @Local(ordinal = 0) Level world, @Share("mode") LocalBooleanRef working_mode) {
         if(working_mode.get())
             return VSGameUtilsKt.transformAabbToWorld(world, par2);
         return par2;

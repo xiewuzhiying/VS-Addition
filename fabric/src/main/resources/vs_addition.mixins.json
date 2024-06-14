@@ -12,7 +12,7 @@
     "computercraft.MixinTurtleMoveCommand",
     "computercraft.MixinWirelessModemPeripheral",
     "computercraft.MixinWirelessNetwork",
-    "create.MixinHosePulleyBlockEntity",
+    "create.HosePulley.MixinHosePulleyBlockEntity",
     "create.HosePulley.MixinFluidDrainingBehaviour",
     "create.HosePulley.MixinFluidFillingBehaviour",
     "createaddition.MixinPortableEnergyInterfaceMovement"
