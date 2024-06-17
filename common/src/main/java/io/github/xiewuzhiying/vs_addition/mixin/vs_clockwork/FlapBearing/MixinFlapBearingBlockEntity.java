@@ -3,7 +3,7 @@ package io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork.FlapBearing;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.redstone.link.LinkBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Link.SecondLinkBehaviour;
+import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Link.DualLinkBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.FlapBearing.FlapBearingLinkFrequencySlot;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.FlapBearing.FlapBearingLinkFrequencySlotNegative;
@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlock;
@@ -33,7 +32,7 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
     @Unique
     protected LinkBehaviour link_positive;
     @Unique
-    protected SecondLinkBehaviour link_negative;
+    protected DualLinkBehaviour link_negative;
     @Unique
     protected boolean receivedSignalChanged;
     @Unique
@@ -133,7 +132,7 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
         this.link_positive = LinkBehaviour.receiver(this, slots_positive, this::setSignalPositive);
         Pair<ValueBoxTransform, ValueBoxTransform> slots_negative =
                 ValueBoxTransform.Dual.makeSlots(FlapBearingLinkFrequencySlotNegative::new);
-        this.link_negative = SecondLinkBehaviour.receiver(this, slots_negative, this::setSignalNegative);
+        this.link_negative = DualLinkBehaviour.receiver(this, slots_negative, this::setSignalNegative);
     }
 
     @Unique

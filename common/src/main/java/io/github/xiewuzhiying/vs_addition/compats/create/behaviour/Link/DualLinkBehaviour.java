@@ -23,8 +23,8 @@ import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 
-public class SecondLinkBehaviour extends BlockEntityBehaviour implements IRedstoneLinkable, ClipboardCloneable {
-    public static final BehaviourType<SecondLinkBehaviour> TYPE = new BehaviourType<>();
+public class DualLinkBehaviour extends BlockEntityBehaviour implements IRedstoneLinkable, ClipboardCloneable {
+    public static final BehaviourType<DualLinkBehaviour> TYPE = new BehaviourType<>();
 
     enum Mode {
         TRANSMIT, RECEIVE
@@ -41,7 +41,7 @@ public class SecondLinkBehaviour extends BlockEntityBehaviour implements IRedsto
     private IntSupplier transmission;
     private IntConsumer signalCallback;
 
-    protected SecondLinkBehaviour(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots) {
+    protected DualLinkBehaviour(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots) {
         super(be);
         frequencyFirst = RedstoneLinkNetworkHandler.Frequency.EMPTY;
         frequencyLast = RedstoneLinkNetworkHandler.Frequency.EMPTY;
@@ -51,28 +51,28 @@ public class SecondLinkBehaviour extends BlockEntityBehaviour implements IRedsto
         newPosition = true;
     }
 
-    public static SecondLinkBehaviour receiver(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots,
-                                         IntConsumer signalCallback) {
-        SecondLinkBehaviour behaviour = new SecondLinkBehaviour(be, slots);
+    public static DualLinkBehaviour receiver(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots,
+                                             IntConsumer signalCallback) {
+        DualLinkBehaviour behaviour = new DualLinkBehaviour(be, slots);
         behaviour.signalCallback = signalCallback;
         behaviour.mode = Mode.RECEIVE;
         return behaviour;
     }
 
-    public static SecondLinkBehaviour transmitter(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots,
-                                            IntSupplier transmission) {
-        SecondLinkBehaviour behaviour = new SecondLinkBehaviour(be, slots);
+    public static DualLinkBehaviour transmitter(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots,
+                                                IntSupplier transmission) {
+        DualLinkBehaviour behaviour = new DualLinkBehaviour(be, slots);
         behaviour.transmission = transmission;
         behaviour.mode = Mode.TRANSMIT;
         return behaviour;
     }
 
-    public SecondLinkBehaviour moveText(Vec3 shift) {
+    public DualLinkBehaviour moveText(Vec3 shift) {
         textShift = shift;
         return this;
     }
 
-    public void copyItemsFrom(SecondLinkBehaviour behaviour) {
+    public void copyItemsFrom(DualLinkBehaviour behaviour) {
         if (behaviour == null)
             return;
         frequencyFirst = behaviour.frequencyFirst;

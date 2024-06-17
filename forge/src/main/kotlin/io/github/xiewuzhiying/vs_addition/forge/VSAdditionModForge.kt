@@ -6,10 +6,12 @@ import dev.architectury.platform.forge.EventBuses
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.init
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
+import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Link.DualLinkRenderer
 import io.github.xiewuzhiying.vs_addition.forge.compat.computercraft.ForgePeripheralProvider
-import io.github.xiewuzhiying.vs_addition.forge.compat.create.behaviour.Link.SecondLinkHandler
+import io.github.xiewuzhiying.vs_addition.forge.compat.create.behaviour.Link.DualLinkHandler
 import io.github.xiewuzhiying.vs_addition.forge.content.redstone.displayLink.target.FramedSignDisplayTarget
 import net.minecraft.resources.ResourceLocation
+import net.minecraftforge.event.TickEvent.ClientTickEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock
 import net.minecraftforge.eventbus.api.IEventBus
 import net.minecraftforge.fml.ModList
@@ -45,10 +47,13 @@ class VSAdditionModForge {
 
         init()
 
-        FORGE_BUS.addListener { event: RightClickBlock ->
+        FORGE_BUS.addListener { event: RightClickBlock? ->
             rightClickBlock(
                 event
             )
+        }
+        FORGE_BUS.addListener { event: ClientTickEvent? ->
+            clientTick(event)
         }
     }
 
@@ -71,9 +76,14 @@ class VSAdditionModForge {
             ComputerCraftAPI.registerPeripheralProvider(ForgePeripheralProvider())
     }
 
-    private fun rightClickBlock(event: RightClickBlock) {
+    private fun rightClickBlock(event: RightClickBlock?) {
         if(CREATE_ACTIVE)
-            SecondLinkHandler.onBlockActivated(event)
+            DualLinkHandler.onBlockActivated(event)
+    }
+
+    private fun clientTick(event: ClientTickEvent?) {
+        if(CREATE_ACTIVE)
+            DualLinkRenderer.tick()
     }
 
     companion object {

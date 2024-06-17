@@ -37,9 +37,17 @@ public class FlapBearingLinkFrequencySlot extends ValueBoxTransform.Dual {
     @Override
     public void rotate(BlockState state, PoseStack ms) {
         Direction facing = state.getValue(FlapBearingBlock.FACING);
-        float yRot = facing.getAxis()
-                .isVertical() ? -90 : AngleHelper.horizontalAngle(facing) + 270;
+        float xRot;
+        float yRot;
+        if(facing.getAxis().isVertical()) {
+            yRot = 270;
+            xRot = AngleHelper.verticalAngle(facing);
+        } else {
+            yRot = AngleHelper.horizontalAngle(facing) + 270;
+            xRot = 0;
+        }
         TransformStack.cast(ms)
+                .rotateX(xRot)
                 .rotateY(yRot);
     }
 

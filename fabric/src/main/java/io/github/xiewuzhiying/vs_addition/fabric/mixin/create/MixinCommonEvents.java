@@ -2,7 +2,7 @@ package io.github.xiewuzhiying.vs_addition.fabric.mixin.create;
 
 
 import com.simibubi.create.foundation.events.CommonEvents;
-import io.github.xiewuzhiying.vs_addition.fabric.compat.create.behaviour.Link.SecondLinkHandler;
+import io.github.xiewuzhiying.vs_addition.fabric.compat.create.behaviour.Link.DualLinkHandler;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,7 +17,7 @@ public class MixinCommonEvents {
             remap = false
     )
     private static void SecondLinkHandlerRegister(CallbackInfo ci) {
-        UseBlockCallback.EVENT.register(SecondLinkHandler::onBlockActivated);
+        UseBlockCallback.EVENT.register(DualLinkHandler::onBlockActivated);
     }
     
 }

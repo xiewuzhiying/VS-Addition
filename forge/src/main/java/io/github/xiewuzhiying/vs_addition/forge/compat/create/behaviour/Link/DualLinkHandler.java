@@ -1,10 +1,9 @@
-package io.github.xiewuzhiying.vs_addition.fabric.compat.create.behaviour.Link;
+package io.github.xiewuzhiying.vs_addition.forge.compat.create.behaviour.Link;
 
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.AdventureUtil;
 import com.simibubi.create.foundation.utility.RaycastHelper;
-import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Link.SecondLinkBehaviour;
+import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Link.DualLinkBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -16,32 +15,37 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.LogicalSide;
 
 import java.util.Arrays;
 
-public class SecondLinkHandler {
+public class DualLinkHandler {
 
-    public static InteractionResult onBlockActivated(Player player, Level world, InteractionHand hand, BlockHitResult blockRayTraceResult) {
-        BlockPos pos = blockRayTraceResult.getBlockPos();
+    public static void onBlockActivated(PlayerInteractEvent.RightClickBlock event) {
+        Level world = event.getWorld();
+        BlockPos pos = event.getPos();
+        Player player = event.getPlayer();
+        InteractionHand hand = event.getHand();
+
         if (player.isShiftKeyDown() || player.isSpectator())
-            return InteractionResult.PASS;
+            return;
 
-        SecondLinkBehaviour behaviour = BlockEntityBehaviour.get(world, pos, SecondLinkBehaviour.TYPE);
+        DualLinkBehaviour behaviour = BlockEntityBehaviour.get(world, pos, DualLinkBehaviour.TYPE);
         if (behaviour == null)
-            return InteractionResult.PASS;
-        if (AdventureUtil.isAdventure(player))
-            return InteractionResult.PASS;
+            return;
 
         ItemStack heldItem = player.getItemInHand(hand);
         BlockHitResult ray = RaycastHelper.rayTraceRange(world, player, 10);
         if (ray == null)
-            return InteractionResult.PASS;
+            return;
         if (AllItems.LINKED_CONTROLLER.isIn(heldItem))
-            return InteractionResult.PASS;
+            return;
         if (AllItems.WRENCH.isIn(heldItem))
-            return InteractionResult.PASS;
+            return;
 
-        boolean fakePlayer = player.isFake();
+        boolean fakePlayer = player instanceof FakePlayer;
         boolean fakePlayerChoice = false;
 
         if (fakePlayer) {
@@ -57,13 +61,13 @@ public class SecondLinkHandler {
 
         for (boolean first : Arrays.asList(false, true)) {
             if (behaviour.testHit(first, ray.getLocation()) || fakePlayer && fakePlayerChoice == first) {
-                if (!world.isClientSide)
+                if (event.getSide() != LogicalSide.CLIENT)
                     behaviour.setFrequency(first, heldItem);
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
                 world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, .25f, .1f);
-                return InteractionResult.SUCCESS;
             }
         }
-        return InteractionResult.PASS;
     }
 
 }

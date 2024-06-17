@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlock;
 
-public class FlapBearingLinkFrequencySlotNegative extends ValueBoxTransform.Dual {
+public class FlapBearingLinkFrequencySlotNegative extends FlapBearingLinkFrequencySlot {
     public FlapBearingLinkFrequencySlotNegative(boolean first) {
         super(first);
     }
@@ -36,16 +36,8 @@ public class FlapBearingLinkFrequencySlotNegative extends ValueBoxTransform.Dual
 
     @Override
     public void rotate(BlockState state, PoseStack ms) {
-        Direction facing = state.getValue(FlapBearingBlock.FACING);
-        float yRot = facing.getAxis()
-                .isVertical() ? 90 : AngleHelper.horizontalAngle(facing) + 90;
-        TransformStack.cast(ms)
-                .rotateY(yRot);
-    }
-
-    @Override
-    public float getScale() {
-        return .4975f;
+        super.rotate(state, ms);
+        TransformStack.cast(ms).rotateY(-180);
     }
 
 }

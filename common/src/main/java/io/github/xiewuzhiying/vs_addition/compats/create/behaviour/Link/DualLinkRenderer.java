@@ -24,11 +24,12 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SecondLinkRenderer {
+public class DualLinkRenderer {
 
     public static void tick() {
         Minecraft mc = Minecraft.getInstance();
@@ -40,7 +41,7 @@ public class SecondLinkRenderer {
         ClientLevel world = mc.level;
         BlockPos pos = result.getBlockPos();
 
-        SecondLinkBehaviour behaviour = BlockEntityBehaviour.get(world, pos, SecondLinkBehaviour.TYPE);
+        DualLinkBehaviour behaviour = BlockEntityBehaviour.get(world, pos, DualLinkBehaviour.TYPE);
         if (behaviour == null)
             return;
 
@@ -84,11 +85,12 @@ public class SecondLinkRenderer {
 
         Entity cameraEntity = Minecraft.getInstance().cameraEntity;
         float max = AllConfigs.client().filterItemRenderDistance.getF();
-        if (!be.isVirtual() && cameraEntity != null && cameraEntity.position()
+        Vec3 result = VSGameUtilsKt.toShipRenderCoordinates(Minecraft.getInstance().level, VecHelper.getCenterOf(be.getBlockPos()), cameraEntity.position());
+        if (!be.isVirtual() && cameraEntity != null && result
                 .distanceToSqr(VecHelper.getCenterOf(be.getBlockPos())) > (max * max))
             return;
 
-        SecondLinkBehaviour behaviour = be.getBehaviour(SecondLinkBehaviour.TYPE);
+        DualLinkBehaviour behaviour = be.getBehaviour(DualLinkBehaviour.TYPE);
         if (behaviour == null)
             return;
 
