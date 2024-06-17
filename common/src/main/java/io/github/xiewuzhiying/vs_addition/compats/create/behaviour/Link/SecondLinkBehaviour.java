@@ -225,26 +225,26 @@ public class SecondLinkBehaviour extends BlockEntityBehaviour implements IRedsto
 
     @Override
     public String getClipboardKey() {
-        return "SecondFrequencies";
+        return "Frequencies";
     }
 
     @Override
     public boolean writeToClipboard(CompoundTag tag, Direction side) {
-        tag.put("SecondFirst", frequencyFirst.getStack()
+        tag.put("First", frequencyFirst.getStack()
                 .save(new CompoundTag()));
-        tag.put("SecondLast", frequencyLast.getStack()
+        tag.put("Last", frequencyLast.getStack()
                 .save(new CompoundTag()));
         return true;
     }
 
     @Override
     public boolean readFromClipboard(CompoundTag tag, Player player, Direction side, boolean simulate) {
-        if (!tag.contains("SecondFirst") || !tag.contains("SecondLast"))
+        if (!tag.contains("First") || !tag.contains("Last"))
             return false;
         if (simulate)
             return true;
-        setFrequency(true, ItemStack.of(tag.getCompound("SecondFirst")));
-        setFrequency(false, ItemStack.of(tag.getCompound("SecondLast")));
+        setFrequency(true, ItemStack.of(tag.getCompound("First")));
+        setFrequency(false, ItemStack.of(tag.getCompound("Last")));
         return true;
     }
 

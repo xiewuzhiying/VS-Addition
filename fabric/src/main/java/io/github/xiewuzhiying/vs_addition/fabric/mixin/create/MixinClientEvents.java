@@ -13,10 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinClientEvents {
     @Inject(
             method = "onTick",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/simibubi/create/content/redstone/link/LinkRenderer;tick()V"
-            ),
+            at = @At("TAIL"),
             remap = false
     )
     private static void addSecondLinkRender(Minecraft client, CallbackInfo ci) {

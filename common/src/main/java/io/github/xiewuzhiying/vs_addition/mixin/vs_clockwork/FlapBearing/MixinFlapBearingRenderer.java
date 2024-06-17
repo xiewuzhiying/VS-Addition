@@ -21,8 +21,7 @@ public abstract class MixinFlapBearingRenderer extends KineticBlockEntityRendere
 
     @Inject(
             method = "renderSafe(Lorg/valkyrienskies/clockwork/content/contraptions/flap/FlapBearingBlockEntity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;II)V",
-            at = @At("RETURN"),
-            remap = false
+            at = @At("RETURN")
     )
     private void renderLinkSlots(FlapBearingBlockEntity te, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay, CallbackInfo ci) {
         LinkRenderer.renderOnBlockEntity(te, partialTicks, ms, buffer, light, overlay);

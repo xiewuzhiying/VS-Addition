@@ -8,6 +8,7 @@
     "computercraft.TileComputerMixin",
     "computercraft.TileTurtleMixin",
     "create.MixinClientEvents",
+    "create.MixinCommonEvents",
     "create.HosePulley.MixinFluidDrainingBehaviour",
     "create.HosePulley.MixinFluidFillingBehaviour",
     "createaddition.MixinPortableEnergyInterfaceMovement"
