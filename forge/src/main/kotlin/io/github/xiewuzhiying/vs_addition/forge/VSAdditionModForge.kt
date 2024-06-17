@@ -7,13 +7,16 @@ import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.init
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
 import io.github.xiewuzhiying.vs_addition.forge.compat.computercraft.ForgePeripheralProvider
+import io.github.xiewuzhiying.vs_addition.forge.compat.create.behaviour.Link.SecondLinkHandler
 import io.github.xiewuzhiying.vs_addition.forge.content.redstone.displayLink.target.FramedSignDisplayTarget
 import net.minecraft.resources.ResourceLocation
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock
 import net.minecraftforge.eventbus.api.IEventBus
 import net.minecraftforge.fml.ModList
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
+import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 import thedarkcolour.kotlinforforge.forge.MOD_CONTEXT
 import xfacthd.framedblocks.common.FBContent
@@ -39,7 +42,14 @@ class VSAdditionModForge {
         }
 
         EventBuses.registerModEventBus(VSAdditionMod.MOD_ID, MOD_CONTEXT.getKEventBus())
+
         init()
+
+        FORGE_BUS.addListener { event: RightClickBlock ->
+            rightClickBlock(
+                event
+            )
+        }
     }
 
     private fun clientSetup(event: FMLClientSetupEvent?) {
@@ -61,6 +71,10 @@ class VSAdditionModForge {
             ComputerCraftAPI.registerPeripheralProvider(ForgePeripheralProvider())
     }
 
+    private fun rightClickBlock(event: RightClickBlock) {
+        if(CREATE_ACTIVE)
+            SecondLinkHandler.onBlockActivated(event)
+    }
 
     companion object {
         fun getModBus(): IEventBus = MOD_BUS
