@@ -9,6 +9,6 @@ import java.util.Random;
 
 @Mixin(Entity.class)
 public interface EntityAccessor {
-    @Accessor("random")
+    @Accessor
     Random getRandom();
 }

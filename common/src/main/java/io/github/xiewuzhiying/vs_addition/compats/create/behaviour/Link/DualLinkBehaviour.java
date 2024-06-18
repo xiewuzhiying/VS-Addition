@@ -23,8 +23,8 @@ import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 
-public class SecondLinkBehaviour extends BlockEntityBehaviour implements IRedstoneLinkable, ClipboardCloneable {
-    public static final BehaviourType<SecondLinkBehaviour> TYPE = new BehaviourType<>();
+public class DualLinkBehaviour extends BlockEntityBehaviour implements IRedstoneLinkable, ClipboardCloneable {
+    public static final BehaviourType<DualLinkBehaviour> TYPE = new BehaviourType<>();
 
     enum Mode {
         TRANSMIT, RECEIVE
@@ -41,7 +41,7 @@ public class SecondLinkBehaviour extends BlockEntityBehaviour implements IRedsto
     private IntSupplier transmission;
     private IntConsumer signalCallback;
 
-    protected SecondLinkBehaviour(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots) {
+    protected DualLinkBehaviour(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots) {
         super(be);
         frequencyFirst = RedstoneLinkNetworkHandler.Frequency.EMPTY;
         frequencyLast = RedstoneLinkNetworkHandler.Frequency.EMPTY;
@@ -51,28 +51,28 @@ public class SecondLinkBehaviour extends BlockEntityBehaviour implements IRedsto
         newPosition = true;
     }
 
-    public static SecondLinkBehaviour receiver(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots,
-                                         IntConsumer signalCallback) {
-        SecondLinkBehaviour behaviour = new SecondLinkBehaviour(be, slots);
+    public static DualLinkBehaviour receiver(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots,
+                                             IntConsumer signalCallback) {
+        DualLinkBehaviour behaviour = new DualLinkBehaviour(be, slots);
         behaviour.signalCallback = signalCallback;
         behaviour.mode = Mode.RECEIVE;
         return behaviour;
     }
 
-    public static SecondLinkBehaviour transmitter(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots,
-                                            IntSupplier transmission) {
-        SecondLinkBehaviour behaviour = new SecondLinkBehaviour(be, slots);
+    public static DualLinkBehaviour transmitter(SmartBlockEntity be, Pair<ValueBoxTransform, ValueBoxTransform> slots,
+                                                IntSupplier transmission) {
+        DualLinkBehaviour behaviour = new DualLinkBehaviour(be, slots);
         behaviour.transmission = transmission;
         behaviour.mode = Mode.TRANSMIT;
         return behaviour;
     }
 
-    public SecondLinkBehaviour moveText(Vec3 shift) {
+    public DualLinkBehaviour moveText(Vec3 shift) {
         textShift = shift;
         return this;
     }
 
-    public void copyItemsFrom(SecondLinkBehaviour behaviour) {
+    public void copyItemsFrom(DualLinkBehaviour behaviour) {
         if (behaviour == null)
             return;
         frequencyFirst = behaviour.frequencyFirst;
@@ -130,11 +130,11 @@ public class SecondLinkBehaviour extends BlockEntityBehaviour implements IRedsto
     @Override
     public void write(CompoundTag nbt, boolean clientPacket) {
         super.write(nbt, clientPacket);
-        nbt.put("SecondFrequencyFirst", frequencyFirst.getStack()
+        nbt.put("DualFrequencyFirst", frequencyFirst.getStack()
                 .save(new CompoundTag()));
-        nbt.put("SecondFrequencyLast", frequencyLast.getStack()
+        nbt.put("DualFrequencyLast", frequencyLast.getStack()
                 .save(new CompoundTag()));
-        nbt.putLong("SecondLastKnownPosition", blockEntity.getBlockPos()
+        nbt.putLong("DualLastKnownPosition", blockEntity.getBlockPos()
                 .asLong());
     }
 
@@ -142,12 +142,12 @@ public class SecondLinkBehaviour extends BlockEntityBehaviour implements IRedsto
     public void read(CompoundTag nbt, boolean clientPacket) {
         long positionInTag = blockEntity.getBlockPos()
                 .asLong();
-        long positionKey = nbt.getLong("SecondLastKnownPosition");
+        long positionKey = nbt.getLong("DualLastKnownPosition");
         newPosition = positionInTag != positionKey;
 
         super.read(nbt, clientPacket);
-        frequencyFirst = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(nbt.getCompound("SecondFrequencyFirst")));
-        frequencyLast = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(nbt.getCompound("SecondFrequencyLast")));
+        frequencyFirst = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(nbt.getCompound("DualFrequencyFirst")));
+        frequencyLast = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(nbt.getCompound("DualFrequencyLast")));
     }
 
     public void setFrequency(boolean first, ItemStack stack) {
@@ -225,26 +225,26 @@ public class SecondLinkBehaviour extends BlockEntityBehaviour implements IRedsto
 
     @Override
     public String getClipboardKey() {
-        return "SecondFrequencies";
+        return "Frequencies";
     }
 
     @Override
     public boolean writeToClipboard(CompoundTag tag, Direction side) {
-        tag.put("SecondFirst", frequencyFirst.getStack()
+        tag.put("First", frequencyFirst.getStack()
                 .save(new CompoundTag()));
-        tag.put("SecondLast", frequencyLast.getStack()
+        tag.put("Last", frequencyLast.getStack()
                 .save(new CompoundTag()));
         return true;
     }
 
     @Override
     public boolean readFromClipboard(CompoundTag tag, Player player, Direction side, boolean simulate) {
-        if (!tag.contains("SecondFirst") || !tag.contains("SecondLast"))
+        if (!tag.contains("First") || !tag.contains("Last"))
             return false;
         if (simulate)
             return true;
-        setFrequency(true, ItemStack.of(tag.getCompound("SecondFirst")));
-        setFrequency(false, ItemStack.of(tag.getCompound("SecondLast")));
+        setFrequency(true, ItemStack.of(tag.getCompound("First")));
+        setFrequency(false, ItemStack.of(tag.getCompound("Last")));
         return true;
     }
 
