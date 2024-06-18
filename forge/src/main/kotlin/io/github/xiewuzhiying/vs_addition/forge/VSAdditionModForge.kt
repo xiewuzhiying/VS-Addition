@@ -32,12 +32,12 @@ class VSAdditionModForge {
         FRAMEDBLOCKS_ACTIVE = ModList.get().isLoaded("framedblocks")
         CBCMW_ACTIVE = ModList.get().isLoaded("cbcmodernwarfare")
 
-        MOD_BUS.addListener { event: FMLClientSetupEvent? ->
+        getModBus().addListener { event: FMLClientSetupEvent? ->
             clientSetup(
                 event
             )
         }
-        MOD_BUS.addListener { event: FMLCommonSetupEvent? ->
+        getModBus().addListener { event: FMLCommonSetupEvent? ->
             serverSetup(
                 event
             )
@@ -47,12 +47,12 @@ class VSAdditionModForge {
 
         init()
 
-        FORGE_BUS.addListener { event: RightClickBlock? ->
+        getForgeBus().addListener { event: RightClickBlock? ->
             rightClickBlock(
                 event
             )
         }
-        FORGE_BUS.addListener { event: ClientTickEvent? ->
+        getForgeBus().addListener { event: ClientTickEvent? ->
             clientTick(event)
         }
     }
@@ -77,17 +77,22 @@ class VSAdditionModForge {
     }
 
     private fun rightClickBlock(event: RightClickBlock?) {
+        if(event==null)
+            return
         if(CREATE_ACTIVE)
             DualLinkHandler.onBlockActivated(event)
     }
 
     private fun clientTick(event: ClientTickEvent?) {
+        if(event==null)
+            return
         if(CREATE_ACTIVE)
             DualLinkRenderer.tick()
     }
 
     companion object {
         fun getModBus(): IEventBus = MOD_BUS
+        fun getForgeBus(): IEventBus = FORGE_BUS
         var CREATE_ACTIVE = false
         var CC_ACTIVE = false
         var FRAMEDBLOCKS_ACTIVE = false

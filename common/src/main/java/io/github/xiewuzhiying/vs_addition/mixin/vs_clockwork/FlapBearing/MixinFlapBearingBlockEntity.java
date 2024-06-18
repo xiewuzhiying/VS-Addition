@@ -1,18 +1,24 @@
 package io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork.FlapBearing;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.simibubi.create.content.contraptions.ControlledContraptionEntity;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.redstone.link.LinkBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.utility.AngleHelper;
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Link.DualLinkBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.FlapBearing.FlapBearingLinkFrequencySlot;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.FlapBearing.FlapBearingLinkFrequencySlotNegative;
+import kotlin.jvm.internal.Intrinsics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -24,17 +30,20 @@ import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlock;
 import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlockEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mixin(FlapBearingBlockEntity.class)
 public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
 
     @Shadow(remap = false) private BlockPos redstonePos;
+    @Shadow(remap = false) private float clientAngleDiff;
+    @Shadow(remap = false)
+    @Nullable
+    private ControlledContraptionEntity flap;
     @Unique
     protected LinkBehaviour link_positive;
     @Unique
     protected DualLinkBehaviour link_negative;
-    @Unique
-    protected boolean receivedSignalChanged;
     @Unique
     protected int receivedSignalPositive;
     @Unique
@@ -44,10 +53,12 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
     @Unique
     protected boolean receivedSignalNegativeActive;
 
+
     public MixinFlapBearingBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
         super(typeIn, pos, state);
         this.receivedSignalPositiveActive = false;
         this.receivedSignalNegativeActive = false;
+        this.stress = 0.0F;
     }
 
     @Inject(
@@ -74,56 +85,54 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
             Direction.Axis axis = direction.getAxis();
             if(axis.isHorizontal()) {
                 Direction.Axis relativeAxis = axis == Direction.Axis.X ? Direction.Axis.Z : Direction.Axis.X;
-                this.redstonePos = pos.relative(relativeAxis, isNegative ? 1 : -1);
+                this.redstonePos = pos.relative(relativeAxis, isNegative ? -1 : 1);
             } else {
-                this.redstonePos = pos.relative(Direction.Axis.X, isNegative ? 1 : -1);
+                this.redstonePos = pos.relative(Direction.Axis.X, isNegative ? -1 : 1);
             }
             cir.setReturnValue(isNegative ? receivedSignalNegative : receivedSignalPositive);
         }
     }
 
+    @Inject(
+            method = "getFlapSpeed",
+            at = @At("HEAD"),
+            remap = false,
+            cancellable = true
+    )
+    private void setReturnValue(CallbackInfoReturnable<Float> cir) {
+        if(this.level.isClientSide) {
+            cir.setReturnValue(this.clientAngleDiff);
+        }
+    }
 
-//    @ModifyArg(
-//            method = "getFlapSpeed",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lorg/valkyrienskies/clockwork/content/contraptions/flap/FlapBearingBlockEntity;getFlapTarget(ZZ)F"
-//            ),
-//            index = 0
-//    )
-//    private boolean modifyNegativeActivated(boolean negativeActivated) {
-//        return negativeActivated || this.receivedSignalNegativeActive;
-//    }
-//
-//    @ModifyArg(
-//            method = "getFlapSpeed",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lorg/valkyrienskies/clockwork/content/contraptions/flap/FlapBearingBlockEntity;getFlapTarget(ZZ)F"
-//            ),
-//            index = 1
-//    )
-//    private boolean modifyReceivedSignalPositive(boolean positiveActivated) {
-//        return positiveActivated || this.receivedSignalPositiveActive;
-//    }
-//
-//    @Inject(
-//            method = "getFlapTarget",
-//            at = @At("HEAD"),
-//            cancellable = true,
-//            remap = false
-//    )
-//    private void useReceivedSignal(boolean negativeActivated, boolean positiveActivated, CallbackInfoReturnable<Float> cir) {
-//        if (negativeActivated && !positiveActivated) {
-//            cir.setReturnValue((-22.5f) * (Math.max(this.redstoneLevel, this.receivedSignalNegative) / 15));
-//            return;
-//        }
-//        if (positiveActivated && !negativeActivated) {
-//            cir.setReturnValue(22.5f * (Math.max(this.redstoneLevel, this.receivedSignalPositive) / 15));
-//            return;
-//        }
-//        cir.setReturnValue(0.0f);
-//    }
+    @Inject(
+            method = "lazyTick",
+            at = @At("HEAD"),
+            remap = false,
+            cancellable = true
+    )
+    public void lazyTick(CallbackInfo ci) {
+        ci.cancel();
+        super.lazyTick();
+    }
+
+    @Inject(
+            method = "tick",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/simibubi/create/content/kinetics/base/KineticBlockEntity;tick()V"
+            ),
+            remap = false
+    )
+    public void sendData(CallbackInfo ci) {
+        if (this.flap != null) {
+            Level var10000 = this.level;
+            Intrinsics.checkNotNull(var10000);
+            if (!var10000.isClientSide) {
+                this.sendData();
+            }
+        }
+    }
 
     @Unique
     protected void createLink() {
@@ -137,17 +146,12 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
 
     @Unique
     public void setSignalPositive(int power) {
-        if (receivedSignalPositive != power)
-            receivedSignalChanged = true;
         receivedSignalPositive = power;
         receivedSignalPositiveActive = receivedSignalPositive != 0;
     }
 
     @Unique
     public void setSignalNegative(int power) {
-        if (receivedSignalNegative != power) {
-            receivedSignalChanged = true;
-        }
         receivedSignalNegative = power;
         receivedSignalNegativeActive = receivedSignalNegative != 0;
     }

@@ -130,11 +130,11 @@ public class DualLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     @Override
     public void write(CompoundTag nbt, boolean clientPacket) {
         super.write(nbt, clientPacket);
-        nbt.put("SecondFrequencyFirst", frequencyFirst.getStack()
+        nbt.put("DualFrequencyFirst", frequencyFirst.getStack()
                 .save(new CompoundTag()));
-        nbt.put("SecondFrequencyLast", frequencyLast.getStack()
+        nbt.put("DualFrequencyLast", frequencyLast.getStack()
                 .save(new CompoundTag()));
-        nbt.putLong("SecondLastKnownPosition", blockEntity.getBlockPos()
+        nbt.putLong("DualLastKnownPosition", blockEntity.getBlockPos()
                 .asLong());
     }
 
@@ -142,12 +142,12 @@ public class DualLinkBehaviour extends BlockEntityBehaviour implements IRedstone
     public void read(CompoundTag nbt, boolean clientPacket) {
         long positionInTag = blockEntity.getBlockPos()
                 .asLong();
-        long positionKey = nbt.getLong("SecondLastKnownPosition");
+        long positionKey = nbt.getLong("DualLastKnownPosition");
         newPosition = positionInTag != positionKey;
 
         super.read(nbt, clientPacket);
-        frequencyFirst = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(nbt.getCompound("SecondFrequencyFirst")));
-        frequencyLast = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(nbt.getCompound("SecondFrequencyLast")));
+        frequencyFirst = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(nbt.getCompound("DualFrequencyFirst")));
+        frequencyLast = RedstoneLinkNetworkHandler.Frequency.of(ItemStack.of(nbt.getCompound("DualFrequencyLast")));
     }
 
     public void setFrequency(boolean first, ItemStack stack) {

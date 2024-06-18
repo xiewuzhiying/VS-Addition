@@ -33,12 +33,14 @@ public class DualLinkRenderer {
 
     public static void tick() {
         Minecraft mc = Minecraft.getInstance();
+        ClientLevel world = mc.level;
+        if(world==null)
+            return;
         HitResult target = mc.hitResult;
         if (target == null || !(target instanceof BlockHitResult))
             return;
 
         BlockHitResult result = (BlockHitResult) target;
-        ClientLevel world = mc.level;
         BlockPos pos = result.getBlockPos();
 
         DualLinkBehaviour behaviour = BlockEntityBehaviour.get(world, pos, DualLinkBehaviour.TYPE);
