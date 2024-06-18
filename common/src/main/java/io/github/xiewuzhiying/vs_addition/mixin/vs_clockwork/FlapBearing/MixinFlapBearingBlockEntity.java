@@ -1,14 +1,11 @@
 package io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork.FlapBearing;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.contraptions.ControlledContraptionEntity;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.redstone.link.LinkBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.AngleHelper;
-import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Link.DualLinkBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
+import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Link.DualLinkBehaviour;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.FlapBearing.FlapBearingLinkFrequencySlot;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.FlapBearing.FlapBearingLinkFrequencySlotNegative;
 import kotlin.jvm.internal.Intrinsics;
@@ -30,7 +27,6 @@ import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlock;
 import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlockEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 @Mixin(FlapBearingBlockEntity.class)
 public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
@@ -58,7 +54,6 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
         super(typeIn, pos, state);
         this.receivedSignalPositiveActive = false;
         this.receivedSignalNegativeActive = false;
-        this.stress = 0.0F;
     }
 
     @Inject(

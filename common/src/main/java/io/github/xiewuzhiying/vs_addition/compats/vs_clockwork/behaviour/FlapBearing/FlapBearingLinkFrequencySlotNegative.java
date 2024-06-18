@@ -2,8 +2,6 @@ package io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.FlapBe
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
-import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
