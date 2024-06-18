@@ -14,6 +14,7 @@
     "computercraft.MixinWirelessNetwork",
     "create.HosePulley.MixinHosePulleyBlockEntity",
     "create.MixinClientEvents",
+    "create.MixinCommonEvents",
     "create.HosePulley.MixinFluidDrainingBehaviour",
     "create.HosePulley.MixinFluidFillingBehaviour",
     "createaddition.MixinPortableEnergyInterfaceMovement"
