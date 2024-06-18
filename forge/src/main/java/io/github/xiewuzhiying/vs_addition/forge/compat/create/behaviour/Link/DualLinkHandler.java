@@ -24,9 +24,9 @@ import java.util.Arrays;
 public class DualLinkHandler {
 
     public static void onBlockActivated(PlayerInteractEvent.RightClickBlock event) {
-        Level world = event.getWorld();
+        Level world = event.getLevel();
         BlockPos pos = event.getPos();
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         InteractionHand hand = event.getHand();
 
         if (player.isShiftKeyDown() || player.isSpectator())
