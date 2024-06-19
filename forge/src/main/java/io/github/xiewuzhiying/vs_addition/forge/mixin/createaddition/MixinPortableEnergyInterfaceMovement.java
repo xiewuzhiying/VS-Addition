@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceBlock;
 import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceBlockEntity;
 import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceMovement;
+import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterfaceBlock;
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.foundation.utility.VecHelper;
@@ -71,14 +72,14 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
                 PortableEnergyInterfaceBlockEntity psi = findPSI(level, eachShipPos);
                 if (psi != null) {
                     Vector3d selfVec = selfDirectionVec.normalize().negate();
-                    if (selfShip != null)
+                    if (selfShip!=null)
                         selfVec = selfVec.rotate(selfShip.getTransform().getShipToWorldRotation());
                     Vector3d directionVec = VectorConversionsMCKt.toJOML(Vec3.atLowerCornerOf(psi.getBlockState()
-                            .getValue(PortableEnergyInterfaceBlock.FACING).getNormal())).normalize();
+                            .getValue(PortableStorageInterfaceBlock.FACING).getNormal())).normalize();
                     Ship ship = VSGameUtilsKt.getShipManagingPos(level, eachShipPos);
-                    if (ship != null)
+                    if (ship!=null)
                         directionVec = directionVec.rotate(ship.getTransform().getShipToWorldRotation());
-                    if (directionVec.sub(selfVec).length() <= 0.25)
+                    if (Math.toDegrees(Math.acos(new Vector3d(directionVec).dot(new Vector3d(selfVec))))  <= 22.5)
                         return psi;
                 }
             }
