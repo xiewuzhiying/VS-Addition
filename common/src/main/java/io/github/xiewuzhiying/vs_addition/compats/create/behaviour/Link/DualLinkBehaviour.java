@@ -18,6 +18,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.tuple.Pair;
+import org.valkyrienskies.core.api.ships.Ship;
+import org.valkyrienskies.mod.common.VSGameUtilsKt;
+import org.valkyrienskies.mod.common.util.VectorConversionsMCKt;
 
 import java.util.function.Function;
 import java.util.function.IntConsumer;
@@ -201,7 +204,26 @@ public class DualLinkBehaviour extends BlockEntityBehaviour implements IRedstone
 
     public boolean testHit(Boolean first, Vec3 hit) {
         BlockState state = blockEntity.getBlockState();
-        Vec3 localHit = hit.subtract(Vec3.atLowerCornerOf(blockEntity.getBlockPos()));
+
+        Level level = this.getWorld();
+        Vec3 pos1 = hit;
+        Vec3 pos2 = Vec3.atLowerCornerOf(blockEntity.getBlockPos());
+
+        if (level != null) {
+            Ship ship1 = VSGameUtilsKt.getShipManagingPos(level, pos1.x, pos1.y, pos1.z);
+            Ship ship2 = VSGameUtilsKt.getShipManagingPos(level, pos2.x, pos2.y, pos2.z);
+            if (ship1 != null && ship2 == null) {
+                pos2 = VectorConversionsMCKt.toMinecraft(
+                        ship1.getWorldToShip().transformPosition(VectorConversionsMCKt.toJOML(pos2))
+                );
+            } else if (ship1 == null && ship2 != null) {
+                pos1 = VectorConversionsMCKt.toMinecraft(
+                        ship2.getWorldToShip().transformPosition(VectorConversionsMCKt.toJOML(pos1))
+                );
+            }
+        }
+
+        Vec3 localHit = pos1.subtract(pos2);
         return (first ? firstSlot : secondSlot).testHit(state, localHit);
     }
 
