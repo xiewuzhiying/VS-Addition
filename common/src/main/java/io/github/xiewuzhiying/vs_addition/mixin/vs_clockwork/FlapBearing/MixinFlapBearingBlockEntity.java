@@ -79,8 +79,8 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
             Direction direction = worldIn.getBlockState(pos).getValue(FlapBearingBlock.FACING);
             Direction.Axis axis = direction.getAxis();
             if(axis.isHorizontal()) {
-                Direction.Axis relativeAxis = axis == Direction.Axis.X ? Direction.Axis.Z : Direction.Axis.X;
-                this.redstonePos = pos.relative(relativeAxis, isNegative ? -1 : 1);
+                Direction.Axis relativeAxis = direction.getClockWise().getAxis();
+                this.redstonePos = pos.relative(relativeAxis, (isNegative ? -1 : 1) * -direction.getNormal().get(axis));
             } else {
                 this.redstonePos = pos.relative(Direction.Axis.X, isNegative ? -1 : 1);
             }
