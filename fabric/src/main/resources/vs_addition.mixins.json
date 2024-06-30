@@ -6,20 +6,20 @@
   "mixins": [
     "computercraft.MixinComputerBlockEntity",
     "computercraft.MixinPocketComputerItem",
-    "computercraft.MixinSpeakerPosition",
     "computercraft.MixinTurtleBlockEntity",
     "computercraft.MixinTurtleBrain",
     "computercraft.MixinTurtleMoveCommand",
     "computercraft.MixinWirelessModemPeripheral",
     "computercraft.MixinWirelessNetwork",
-    "create.HosePulley.MixinHosePulleyBlockEntity",
     "create.MixinClientEvents",
     "create.MixinCommonEvents",
     "create.HosePulley.MixinFluidDrainingBehaviour",
     "create.HosePulley.MixinFluidFillingBehaviour",
+    "create.HosePulley.MixinHosePulleyBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [
+    "computercraft.MixinSpeakerSound"
   ],
   "injectors": {
     "defaultRequire": 1
