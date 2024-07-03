@@ -82,7 +82,7 @@ dependencies {
     modImplementation("maven.modrinth:copycats:1.20.1-1.2.6")
 
     //CC&A
-    modImplementation("maven.modrinth:createaddition:fabric-1.20.1-1.2.3")
+    modImplementation("maven.modrinth:createaddition:vV4bZmhm")
 }
 
 processResources {
