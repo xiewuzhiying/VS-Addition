@@ -2,7 +2,7 @@ package io.github.xiewuzhiying.vs_addition.forge.compat.computercraft.peripheral
 
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
-import io.github.xiewuzhiying.vs_addition.mixin.createbigcannons.CannonMountBlockEntityAccessor;
+import io.github.xiewuzhiying.vs_addition.forge.mixin.cbcmodernwarfare.CompactCannonMountBlockEntityAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -48,7 +48,7 @@ public class CompactCannonMountPeripheral implements IPeripheral {
     @LuaFunction(mainThread = true)
     public final Object assemble() {
         if (!this.tileEntity.isRunning()) {
-            ((CannonMountBlockEntityAccessor) this.tileEntity).Assemble();
+            ((CompactCannonMountBlockEntityAccessor) this.tileEntity).Assemble();
             return true;
         }
         return false;
@@ -96,12 +96,12 @@ public class CompactCannonMountPeripheral implements IPeripheral {
 
     @LuaFunction
     public final double getPitch() {
-        return ((CannonMountBlockEntityAccessor) this.tileEntity).getCannonPitch();
+        return ((CompactCannonMountBlockEntityAccessor) this.tileEntity).getCannonPitch();
     }
 
     @LuaFunction
     public final double getYaw() {
-        return ((CannonMountBlockEntityAccessor) this.tileEntity).getCannonYaw();
+        return ((CompactCannonMountBlockEntityAccessor) this.tileEntity).getCannonYaw();
     }
 
     @LuaFunction

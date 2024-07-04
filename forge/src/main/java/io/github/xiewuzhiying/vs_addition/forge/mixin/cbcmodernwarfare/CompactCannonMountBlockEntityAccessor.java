@@ -1,6 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.forge.mixin.cbcmodernwarfare;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import riftyboi.cbcmodernwarfare.cannon_control.compact_mount.CompactCannonMountBlockEntity;
 
@@ -15,4 +16,10 @@ public interface CompactCannonMountBlockEntityAccessor {
 
     @Invoker(value = "getMaxElevate", remap = false)
     float GetMaxElevate();
+
+    @Accessor(remap = false)
+    float getCannonYaw();
+
+    @Accessor(remap = false)
+    float getCannonPitch();
 }
