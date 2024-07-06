@@ -15,15 +15,14 @@ public abstract class MixinWirelessModemPeripheral extends ModemPeripheral{
     protected MixinWirelessModemPeripheral(ModemState state) {
         super(state);
     }
-//    @WrapOperation(
-//            method = "getRange",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Ldan200/computercraft/shared/peripheral/modem/wireless/WirelessModemPeripheral;getPosition()Lnet/minecraft/world/phys/Vec3;"
-//            ),
-//            remap = false
-//    )
-//    public Vec3 vs_addition$getPosition(WirelessModemPeripheral instance, Operation<Vec3> original){
-//        return VSGameUtilsKt.toWorldCoordinates(instance.getLevel(), original.call(instance));
-//    }
+    @WrapOperation(
+            method = "getRange",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ldan200/computercraft/shared/peripheral/modem/wireless/WirelessModemPeripheral;getPosition()Lnet/minecraft/world/phys/Vec3;"
+            )
+    )
+    public Vec3 vs_addition$getPosition(WirelessModemPeripheral instance, Operation<Vec3> original){
+        return VSGameUtilsKt.toWorldCoordinates(instance.getLevel(), original.call(instance));
+    }
 }
