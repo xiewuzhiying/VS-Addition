@@ -33,7 +33,8 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"
-            )
+            ),
+            remap = false
     )
     private static Vec3 getCenterOf(Vec3 original, @Local(ordinal = 0) MovementContext context) {
         Vec3 transfromedPos = VSGameUtilsKt.toWorldCoordinates(context.world, original);
@@ -48,7 +49,8 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceMovement;findStationaryInterface(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceBlockEntity;"
-            )
+            ),
+            remap = false
     )
     public PortableEnergyInterfaceBlockEntity findStationaryInterface(PortableEnergyInterfaceMovement instance, Level level, BlockPos blockPos, BlockState world, Direction pos, @Local(ordinal = 0) MovementContext context) {
         Ship selfShip = VSGameUtilsKt.getShipManagingPos(level, blockPos);
