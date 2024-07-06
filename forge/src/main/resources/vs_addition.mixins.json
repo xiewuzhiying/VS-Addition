@@ -15,6 +15,8 @@
     "create.HosePulley.MixinFluidFillingBehaviour",
     "create.HosePulley.MixinHosePulleyBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement",
+    "netmusic.MixinMusicToClientMessage",
+    "netmusic.MusicToClientMessageAccessor",
     "tacz.MixinEntityKineticBullet"
   ],
   "injectors": {
@@ -22,7 +24,6 @@
   },
   "minVersion": "0.8",
   "client": [
-    "computercraft.MixinSpeakerSound",
-    "netmusic.MixinNetMusicSound"
+    "computercraft.MixinSpeakerSound"
   ]
 }
