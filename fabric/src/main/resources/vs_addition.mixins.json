@@ -11,7 +11,8 @@
     "create.MixinCommonEvents",
     "create.HosePulley.MixinFluidDrainingBehaviour",
     "create.HosePulley.MixinFluidFillingBehaviour",
-    "createaddition.MixinPortableEnergyInterfaceMovement"
+    "createaddition.MixinPortableEnergyInterfaceMovement",
+    "voxelmap.MixinGameVariableAccessShim"
   ],
   "client": [
   ],
