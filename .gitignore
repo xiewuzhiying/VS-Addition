@@ -18,6 +18,6 @@ classes/
 .settings
 *.launch
 
-.architectury-transformer
 jars/cbcmodernwarfare*.jar
-/.architectury-transformer/
+.architectury-transformer/
+

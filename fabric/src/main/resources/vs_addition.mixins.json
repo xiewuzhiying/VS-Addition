@@ -16,7 +16,9 @@
     "create.HosePulley.MixinFluidDrainingBehaviour",
     "create.HosePulley.MixinFluidFillingBehaviour",
     "create.HosePulley.MixinHosePulleyBlockEntity",
-    "createaddition.MixinPortableEnergyInterfaceMovement"
+    "createaddition.MixinPortableEnergyInterfaceMovement",
+    "createaddition.MixinPortableEnergyInterfaceMovement",
+    "voxelmap.MixinGameVariableAccessShim"
   ],
   "client": [
     "computercraft.MixinSpeakerSound"

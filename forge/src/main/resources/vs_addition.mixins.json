@@ -17,7 +17,9 @@
     "createaddition.MixinPortableEnergyInterfaceMovement",
     "netmusic.MixinMusicToClientMessage",
     "netmusic.MusicToClientMessageAccessor",
-    "tacz.MixinEntityKineticBullet"
+    "tacz.MixinEntityKineticBullet",
+    "createaddition.MixinPortableEnergyInterfaceMovement",
+    "embeddiumplus.MixinEmbyTools"
   ],
   "injectors": {
     "defaultRequire": 1

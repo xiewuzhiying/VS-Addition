@@ -112,6 +112,10 @@ dependencies {
 
     //Net Music
     modImplementation("maven.modrinth:net-music:1IkUTusQ")
+
+    //Embeddium
+    modImplementation("maven.modrinth:embeddium:0.3.18+mc1.20.1")
+    modImplementation("maven.modrinth:embeddiumplus:1.20.1-v1.2.13")
 }
 
 processResources {

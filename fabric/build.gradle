@@ -83,6 +83,9 @@ dependencies {
 
     //CC&A
     modImplementation("maven.modrinth:createaddition:vV4bZmhm")
+
+    //VoxelMap Updated
+    modImplementation("maven.modrinth:voxelmap-updated:1.20.1-1.12.13")
 }
 
 processResources {
