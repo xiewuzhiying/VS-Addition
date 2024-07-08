@@ -12,7 +12,8 @@
     "create.MixinPortableItemInterfaceBlockEntity",
     "create.HosePulley.MixinFluidDrainingBehaviour",
     "create.HosePulley.MixinFluidFillingBehaviour",
-    "createaddition.MixinPortableEnergyInterfaceMovement"
+    "createaddition.MixinPortableEnergyInterfaceMovement",
+    "embeddiumplus.MixinEmbyTools"
   ],
   "injectors": {
     "defaultRequire": 1
