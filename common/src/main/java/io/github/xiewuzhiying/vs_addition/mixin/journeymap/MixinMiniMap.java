@@ -28,7 +28,7 @@ public abstract class MixinMiniMap {
     private Ship ship = null;
 
     @ModifyExpressionValue(
-            method = "drawMap(Lcom/mojang/blaze3d/vertex/PoseStack;Z)V",
+            method = "drawMap(Lnet/minecraft/client/gui/GuiGraphics;Z)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/player/LocalPlayer;getYRot()F"
@@ -47,7 +47,7 @@ public abstract class MixinMiniMap {
     }
 
     @ModifyExpressionValue(
-            method = "drawMap(Lcom/mojang/blaze3d/vertex/PoseStack;Z)V",
+            method = "drawMap(Lnet/minecraft/client/gui/GuiGraphics;Z)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/player/LocalPlayer;getYRot()F",
@@ -62,7 +62,7 @@ public abstract class MixinMiniMap {
     }
 
     @ModifyExpressionValue(
-            method = "drawMap(Lcom/mojang/blaze3d/vertex/PoseStack;Z)V",
+            method = "drawMap(Lnet/minecraft/client/gui/GuiGraphics;Z)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/player/LocalPlayer;getYRot()F",
@@ -77,7 +77,7 @@ public abstract class MixinMiniMap {
     }
 
     @ModifyExpressionValue(
-            method = "drawMap(Lcom/mojang/blaze3d/vertex/PoseStack;Z)V",
+            method = "drawMap(Lnet/minecraft/client/gui/GuiGraphics;Z)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/player/LocalPlayer;getYRot()F",
@@ -92,7 +92,7 @@ public abstract class MixinMiniMap {
     }
 
     @ModifyExpressionValue(
-            method = "drawMap(Lcom/mojang/blaze3d/vertex/PoseStack;Z)V",
+            method = "drawMap(Lnet/minecraft/client/gui/GuiGraphics;Z)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/player/LocalPlayer;getYRot()F",

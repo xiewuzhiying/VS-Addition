@@ -65,10 +65,10 @@ dependencies {
     modCompileOnly("maven.modrinth:xaeros-minimap:24.1.1_Fabric_1.20")
 
     //JourneyMap
-    modCompileOnly("maven.modrinth:journeymap:1.18.2-5.9.8-fabric")
+    modCompileOnly("maven.modrinth:journeymap:1.20.1-5.10.0-fabric")
 
     //FTB Chunks
-    modCompileOnly files("jars/ftb-chunks-fabric-1802.3.19-build.362.jar")
+    modCompileOnly files("jars/ftb-chunks-fabric-2001.3.1.jar")
 
     //Kontraption
     modCompileOnly("maven.modrinth:kontraption:x3oh2lqe")
