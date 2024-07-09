@@ -15,11 +15,11 @@
     "create.HosePulley.MixinFluidFillingBehaviour",
     "create.HosePulley.MixinHosePulleyBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement",
+    "embeddium.MixinDefaultChunkRenderer",
+    "embeddiumplus.MixinEmbyTools",
     "netmusic.MixinMusicToClientMessage",
     "netmusic.MusicToClientMessageAccessor",
-    "tacz.MixinEntityKineticBullet",
-    "createaddition.MixinPortableEnergyInterfaceMovement",
-    "embeddiumplus.MixinEmbyTools"
+    "tacz.MixinEntityKineticBullet"
   ],
   "injectors": {
     "defaultRequire": 1
