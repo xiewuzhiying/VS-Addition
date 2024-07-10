@@ -12,7 +12,7 @@ import org.valkyrienskies.mod.common.VSGameUtilsKt;
 @Mixin(EmbyTools.class)
 public abstract class MixinEmbyTools {
     @ModifyVariable(
-            method = "isEntityInRange(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/Vec3;II)Z",
+            method = "isEntityInRange(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;II)Z",
             at = @At("HEAD"),
             ordinal = 0,
             argsOnly = true,
