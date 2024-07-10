@@ -50,6 +50,9 @@ object VSAdditionConfig {
 
         @JsonSchema(description = "Disable some annoying console logs :)")
         val disableSomeWarnings = true
+
+        @JsonSchema(description = "Multiplier of Clockwork encased fan force")
+        val fanMultiplier: Double = 1.0
     }
 
     class Common {
