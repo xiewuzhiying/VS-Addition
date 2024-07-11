@@ -28,7 +28,7 @@ object VSAdditionConfig {
         val autoCannonRecoilForce: Double = 800.0
 
         @JsonSchema(description = "Custom autocannon breech fire rates")
-        val customFireRates = listOf(120, 80, 60, 48, 40, 30, 24, 20, 15, 12, 10, 8, 6, 5, 4)
+        val customAutoCannonFireRates = listOf(120, 80, 60, 48, 40, 30, 24, 20, 15, 12, 10, 8, 6, 5, 4)
 
         @JsonSchema(description = "I hope cannons will no longer destroy airplane cockpits")
         val spreadMultiplier : Double = 1.0
@@ -48,11 +48,20 @@ object VSAdditionConfig {
         @JsonSchema(description = "VS2 default block mass")
         val defaultBlockMass : Double = 100.0
 
+        @JsonSchema(description = "VS2 default block elasticity")
+        val defaultBlockElasticity : Double = 0.3
+
+        @JsonSchema(description = "VS2 default block friction")
+        val defaultBlockFriction : Double = 0.5
+
+        @JsonSchema(description = "VS2 default block hardness")
+        val defaultBlockHardness : Double = 1.0
+
         @JsonSchema(description = "Disable some annoying console logs :)")
         val disableSomeWarnings = true
 
         @JsonSchema(description = "Multiplier of Clockwork encased fan force")
-        val fanMultiplier: Double = 1.0
+        val fanForceMultiplier: Double = 1.0
     }
 
     class Common {
