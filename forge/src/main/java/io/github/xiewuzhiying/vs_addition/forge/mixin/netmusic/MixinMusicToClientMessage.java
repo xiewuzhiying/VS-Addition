@@ -22,7 +22,7 @@ public abstract class MixinMusicToClientMessage {
             cancellable = true,
             remap = false
     )
-    private static void man(MusicToClientMessage message, URL url, final CallbackInfoReturnable<SoundInstance> cir) {
+    private static void checkIfOnShip(MusicToClientMessage message, URL url, final CallbackInfoReturnable<SoundInstance> cir) {
         BlockPos pos = ((MusicToClientMessageAccessor)message).getPos();
         final Ship ship = VSGameUtilsKt.getShipManagingPos(Minecraft.getInstance().level, pos.getX(), pos.getY(), pos.getZ());
         if (ship != null) {
