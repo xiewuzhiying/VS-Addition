@@ -5,16 +5,11 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import io.github.xiewuzhiying.vs_addition.mixin.minecraft.EntityAccessor;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Quaterniond;
-import org.joml.Vector3d;
-import org.joml.Vector3dc;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.valkyrienskies.core.api.ships.ServerShip;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
@@ -27,7 +22,6 @@ import rbasamoyai.createbigcannons.cannon_control.contraption.PitchOrientedContr
 import rbasamoyai.createbigcannons.cannons.autocannon.breech.AbstractAutocannonBreechBlockEntity;
 import rbasamoyai.createbigcannons.munitions.autocannon.AbstractAutocannonProjectile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(MountedAutocannonContraption.class)
@@ -43,7 +37,7 @@ public abstract class MixinMountedAutoCannonContraption extends AbstractMountedC
     private ServerShip vs_addition$serverShip;
 
     @Unique
-    private final List<Integer> FIRE_RATES = VSAdditionConfig.SERVER.getCustomFireRates();
+    private final List<Integer> FIRE_RATES = VSAdditionConfig.SERVER.getCustomAutoCannonFireRates();
 
     @Inject(
             method = "fireShot",
@@ -147,7 +141,7 @@ public abstract class MixinMountedAutoCannonContraption extends AbstractMountedC
             )
     )
     public void handleFiring1(AbstractAutocannonBreechBlockEntity instance, Operation<Void> original) {
-        if (((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() > 0 && ((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() <= VSAdditionConfig.SERVER.getCustomFireRates().toArray().length) {
+        if (((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() > 0 && ((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() <= VSAdditionConfig.SERVER.getCustomAutoCannonFireRates().toArray().length) {
             ((AbstractAutocannonBreechBlockEntityAccessor)instance).setFiringCooldown(FIRE_RATES.get(((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() - 1));
             ((AbstractAutocannonBreechBlockEntityAccessor)instance).setAnimateTicks(0);
         }
