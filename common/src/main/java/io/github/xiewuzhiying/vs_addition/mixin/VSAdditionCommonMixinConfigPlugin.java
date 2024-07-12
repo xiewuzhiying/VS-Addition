@@ -23,7 +23,7 @@ public class VSAdditionCommonMixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (mixinClassName.contains("io.github.xiewuzhiying.vs_addition.mixin.create.Deployer")) {
+        if (mixinClassName.contains("io.github.xiewuzhiying.vs_addition.mixin.create.deployer")) {
             return !(VSAdditionMod.getINTERACTIVE_ACTIVE() && !VSAdditionConfig.COMMON.getInsteadCreateInteractiveDeployer());
         }
         return true;

@@ -2,7 +2,7 @@ package io.github.xiewuzhiying.vs_addition.compats.computercraft.peripherals;
 
 import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.IPeripheral;
-import io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork.FlapBearing.FlapBearingBlockEntityAccessor;
+import io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork.flap_bearing.FlapBearingBlockEntityAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;

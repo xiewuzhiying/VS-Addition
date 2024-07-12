@@ -6,10 +6,10 @@ import dev.architectury.platform.forge.EventBuses
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.init
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
-import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.Link.DualLinkRenderer
-import io.github.xiewuzhiying.vs_addition.forge.compat.computercraft.ForgePeripheralProvider
-import io.github.xiewuzhiying.vs_addition.forge.compat.create.behaviour.Link.DualLinkHandler
-import io.github.xiewuzhiying.vs_addition.forge.content.redstone.displayLink.target.FramedSignDisplayTarget
+import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkRenderer
+import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.ForgePeripheralProvider
+import io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.link.DualLinkHandler
+import io.github.xiewuzhiying.vs_addition.forge.content.redstone.display_link.target.FramedSignDisplayTarget
 import net.minecraft.resources.ResourceLocation
 import net.minecraftforge.event.TickEvent.ClientTickEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock

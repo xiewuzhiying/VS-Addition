@@ -7,14 +7,14 @@
     "computercraft.ItemPocketComputerMixin",
     "computercraft.TileComputerMixin",
     "computercraft.TileTurtleMixin",
-    "create.MixinClientEvents",
     "create.MixinCommonEvents",
-    "create.HosePulley.MixinFluidDrainingBehaviour",
-    "create.HosePulley.MixinFluidFillingBehaviour",
-    "createaddition.MixinPortableEnergyInterfaceMovement",
-    "voxelmap.MixinGameVariableAccessShim"
+    "create.hose_pulley.MixinFluidDrainingBehaviour",
+    "create.hose_pulley.MixinFluidFillingBehaviour",
+    "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [
+    "create.client.MixinClientEvents",
+    "voxelmap.client.MixinGameVariableAccessShim"
   ],
   "injectors": {
     "defaultRequire": 1
