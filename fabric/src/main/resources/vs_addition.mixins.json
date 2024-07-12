@@ -11,17 +11,17 @@
     "computercraft.MixinTurtleMoveCommand",
     "computercraft.MixinWirelessModemPeripheral",
     "computercraft.MixinWirelessNetwork",
-    "create.MixinClientEvents",
     "create.MixinCommonEvents",
-    "create.HosePulley.MixinFluidDrainingBehaviour",
-    "create.HosePulley.MixinFluidFillingBehaviour",
-    "create.HosePulley.MixinHosePulleyBlockEntity",
+    "create.hose_pulley.MixinFluidDrainingBehaviour",
+    "create.hose_pulley.MixinFluidFillingBehaviour",
+    "create.hose_pulley.MixinHosePulleyBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement",
-    "createaddition.MixinPortableEnergyInterfaceMovement",
-    "voxelmap.MixinGameVariableAccessShim"
+    "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [
-    "computercraft.MixinSpeakerSound"
+    "create.client.MixinClientEvents",
+    "computercraft.client.MixinSpeakerSound",
+    "voxelmap.client.MixinGameVariableAccessShim"
   ],
   "injectors": {
     "defaultRequire": 1

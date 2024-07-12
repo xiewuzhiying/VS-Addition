@@ -7,22 +7,17 @@
     "computercraft.MixinRedstoneAPI",
     "create.MixinStickerBlockEntity",
     "create.MixinTreeFertilizerItem",
-    "create.Deployer.MixinDeployerBlockEntity",
-    "create.Deployer.MixinDeployerHandler",
-    "create.DisplayLink.MixinDisplayLinkBlockEntity",
-    "create.DisplayLink.MixinDisplayLinkBlockItem",
-    "create.MechanicalArm.MixinArmBlockEntity",
-    "create.MechanicalArm.MixinArmInteractionPoint",
-    "create.MechanicalArm.MixinArmInteractionPointHandler",
-    "create.PortableInterface.MixinPortableStorageInterfaceBlockEntity",
-    "create.PortableInterface.MixinPortableStorageInterfaceMovement",
+    "create.deployer.MixinDeployerBlockEntity",
+    "create.deployer.MixinDeployerHandler",
+    "create.display_link.MixinDisplayLinkBlockEntity",
+    "create.display_link.MixinDisplayLinkBlockItem",
+    "create.mechanical_arm.MixinArmBlockEntity",
+    "create.portable_interface.MixinPortableStorageInterfaceBlockEntity",
+    "create.portable_interface.MixinPortableStorageInterfaceMovement",
     "createbigcannons.AbstractAutocannonBreechBlockEntityAccessor",
     "createbigcannons.CannonMountBlockEntityAccessor",
     "createbigcannons.MixinMountedAutoCannonContraption",
     "createbigcannons.MixinMountedBigCannonContraption",
-    "ftbchunks.MixinFTBChunksClient",
-    "journeymap.MixinMiniMap",
-    "kontraption.MixinKontraptionClientTickHandler",
     "minecraft.EntityAccessor",
     "minecraft.MixinAbstractArrow",
     "minecraft.MixinEntity",
@@ -33,16 +28,21 @@
     "vs_clockwork.fan.MixinEncasedFanCreateData",
     "vs_clockwork.fan.MixinEncasedFanData",
     "vs_clockwork.fan.MixinEncasedFanUpdateData",
-    "vs_clockwork.FlapBearing.FlapBearingBlockEntityAccessor",
-    "vs_clockwork.FlapBearing.MixinFlapBearingBlockEntity",
-    "vs_clockwork.FlapBearing.MixinFlapBearingRenderer",
-    "waterframes.MixinTextureDisplay",
-    "xaeros_minimap.MixinMinimapRenderer"
+    "vs_clockwork.flap_bearing.FlapBearingBlockEntityAccessor",
+    "vs_clockwork.flap_bearing.MixinFlapBearingBlockEntity"
+  ],
+  "client": [
+    "create.client.mechanical_arm.MixinArmInteractionPoint",
+    "create.client.mechanical_arm.MixinArmInteractionPointHandler",
+    "ftbchunks.client.MixinFTBChunksClient",
+    "journeymap.client.MixinMiniMap",
+    "kontraption.client.MixinKontraptionClientTickHandler",
+    "vs_clockwork.client.flap_bearing.MixinFlapBearingRenderer",
+    "waterframes.client.MixinTextureDisplay",
+    "xaeros_minimap.client.MixinMinimapRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "minVersion": "0.8",
-  "client": [
-  ]
+  "minVersion": "0.8"
 }

@@ -11,14 +11,10 @@
     "computercraft.MixinWirelessModemPeripheral",
     "computercraft.MixinWirelessNetwork",
     "create.MixinPortableItemInterfaceBlockEntity",
-    "create.HosePulley.MixinFluidDrainingBehaviour",
-    "create.HosePulley.MixinFluidFillingBehaviour",
-    "create.HosePulley.MixinHosePulleyBlockEntity",
+    "create.hose_pulley.MixinFluidDrainingBehaviour",
+    "create.hose_pulley.MixinFluidFillingBehaviour",
+    "create.hose_pulley.MixinHosePulleyBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement",
-    "embeddium.MixinDefaultChunkRenderer",
-    "embeddiumplus.MixinEmbyTools",
-    "netmusic.MixinMusicToClientMessage",
-    "netmusic.MusicToClientMessageAccessor",
     "tacz.MixinEntityKineticBullet"
   ],
   "injectors": {
@@ -26,6 +22,10 @@
   },
   "minVersion": "0.8",
   "client": [
-    "computercraft.MixinSpeakerSound"
+    "computercraft.client.MixinSpeakerSound",
+    "embeddium.client.MixinDefaultChunkRenderer",
+    "embeddiumplus.client.MixinEmbyTools",
+    "netmusic.MixinMusicToClientMessage",
+    "netmusic.MusicToClientMessageAccessor"
   ]
 }
