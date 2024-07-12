@@ -38,6 +38,7 @@
     "vs_clockwork.FlapBearing.FlapBearingBlockEntityAccessor",
     "vs_clockwork.FlapBearing.MixinFlapBearingBlockEntity",
     "vs_clockwork.FlapBearing.MixinFlapBearingRenderer",
+    "waterframes.MixinTextureDisplay",
     "xaeros_minimap.MixinMinimapRenderer"
   ],
   "injectors": {
