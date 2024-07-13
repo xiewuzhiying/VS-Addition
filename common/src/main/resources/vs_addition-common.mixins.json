@@ -25,6 +25,7 @@
     "valkyrienskies.MixinDefaultBlockStateInfoProvider",
     "valkyrienskies.MixinMassDatapackResolver",
     "valkyrienskies.disableLogs.MixinShipObjectServerWorld",
+    "vs_clockwork.fan.MixinEncasedFanBlockEntity",
     "vs_clockwork.fan.MixinEncasedFanCreateData",
     "vs_clockwork.fan.MixinEncasedFanData",
     "vs_clockwork.fan.MixinEncasedFanUpdateData",
