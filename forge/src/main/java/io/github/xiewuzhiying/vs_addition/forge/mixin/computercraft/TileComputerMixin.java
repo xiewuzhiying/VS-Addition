@@ -19,10 +19,7 @@ public abstract class TileComputerMixin {
     )
     private void vs_addition$addAPI(int id, CallbackInfoReturnable<ServerComputer> cir) {
         ServerComputer computer = cir.getReturnValue();
-        Level level = computer.getLevel();
-
-        VSAdditionCC.applyCCAPIs(computer, (ServerLevel) level);
-
-//        cir.setReturnValue(computer);
+        ServerLevel level = computer.getLevel();
+        VSAdditionCC.applyCCAPIs(computer, level);
     }
 }

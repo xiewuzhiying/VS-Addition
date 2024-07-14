@@ -22,10 +22,6 @@ public abstract class ItemPocketComputerMixin {
     )
     private void vs_addition$addAPI(ServerLevel world, Entity entity, Container inventory, ItemStack stack, CallbackInfoReturnable<PocketServerComputer> cir) {
         PocketServerComputer computer = cir.getReturnValue();
-        Level level = computer.getLevel();
-
-        VSAdditionCC.applyCCAPIs(computer, (ServerLevel) level);
-
-//        cir.setReturnValue(computer);
+        VSAdditionCC.applyCCAPIs(computer, world);
     }
 }

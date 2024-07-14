@@ -15,15 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class TileTurtleMixin {
     @Inject(
             method = "createComputer",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Ldan200/computercraft/shared/computer/core/ServerComputer;addAPI(Ldan200/computercraft/api/lua/ILuaAPI;)V",
-                    shift = At.Shift.AFTER
-            ),
+            at = @At("RETURN"),
             remap = false
     )
-    private void vs_addition$addAPI(int instanceID, int id, CallbackInfoReturnable<ServerComputer> cir, @Local ServerComputer computer) {
-        Level level = computer.getLevel();
-        VSAdditionCC.applyCCAPIs(computer, (ServerLevel) level);
+    private void vs_addition$addAPI(int instanceID, int id, CallbackInfoReturnable<ServerComputer> cir) {
+        ServerComputer computer = cir.getReturnValue();
+        ServerLevel level = (ServerLevel) computer.getLevel();
+        VSAdditionCC.applyCCAPIs(computer, level);
     }
 }

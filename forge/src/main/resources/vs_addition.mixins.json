@@ -19,6 +19,7 @@
   },
   "minVersion": "0.8",
   "client": [
+    "computercraft.client.MixinSpeakerSound",
     "embeddiumplus.client.MixinEmbyTools",
     "netmusic.MixinMusicToClientMessage",
     "netmusic.MusicToClientMessageAccessor"
