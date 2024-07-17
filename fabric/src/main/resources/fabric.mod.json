@@ -27,6 +27,9 @@
     "mixinsquared": [
       "io.github.xiewuzhiying.vs_addition.mixin.VSAdditionCommonMixinCanceller",
       "io.github.xiewuzhiying.vs_addition.fabric.mixin.VSAdditionFabricMixinCanceller"
+    ],
+    "modmenu": [
+      "io.xiewuzhiying.vs_addition.fabric.compats.modmenu.VSAdditionModMenu"
     ]
   },
   "mixins": [

@@ -3,6 +3,7 @@ package io.github.xiewuzhiying.vs_addition.forge
 import com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours
 import dan200.computercraft.api.ComputerCraftAPI
 import dev.architectury.platform.forge.EventBuses
+import io.github.xiewuzhiying.vs_addition.VSAdditionConfig
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.init
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
@@ -11,13 +12,17 @@ import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.ForgePerip
 import io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.link.DualLinkHandler
 import io.github.xiewuzhiying.vs_addition.forge.content.redstone.display_link.target.FramedSignDisplayTarget
 import net.minecraft.resources.ResourceLocation
+import net.minecraftforge.client.ConfigGuiHandler
 import net.minecraftforge.event.TickEvent.ClientTickEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock
 import net.minecraftforge.eventbus.api.IEventBus
 import net.minecraftforge.fml.ModList
+import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
+import org.valkyrienskies.core.impl.config.VSConfigClass
+import org.valkyrienskies.mod.compat.clothconfig.VSClothConfig
 import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 import thedarkcolour.kotlinforforge.forge.MOD_CONTEXT
@@ -46,6 +51,15 @@ class VSAdditionModForge {
         EventBuses.registerModEventBus(VSAdditionMod.MOD_ID, MOD_CONTEXT.getKEventBus())
 
         init()
+
+        ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory::class.java) {
+            ConfigGuiHandler.ConfigGuiFactory { _, parent ->
+                VSClothConfig.createConfigScreenFor(
+                    parent,
+                    VSConfigClass.getRegisteredConfig(VSAdditionConfig::class.java)
+                )
+            }
+        }
 
         getForgeBus().addListener { event: RightClickBlock? ->
             rightClickBlock(
