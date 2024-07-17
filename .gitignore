@@ -1,23 +1,23 @@
-build/
+build
 *.ipr
-run/
+run
 *.iws
-out/
+out
 *.iml
-.gradle/
-output/
-bin/
-libs/
+.gradle
+output
+bin
+libs
 
 .classpath
 .project
-.idea/
-classes/
+.idea
+classes
 .metadata
 .vscode
 .settings
 *.launch
 
 jars/cbcmodernwarfare*.jar
-.architectury-transformer/
+.architectury-transformer
 

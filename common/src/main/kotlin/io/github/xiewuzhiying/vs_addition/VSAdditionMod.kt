@@ -13,7 +13,7 @@ object VSAdditionMod {
     @JvmStatic var EUREKA_ACTIVE = false
     @JvmStatic var INTERACTIVE_ACTIVE = false
 
-        @JvmStatic
+    @JvmStatic
     fun init() {
         CREATE_ACTIVE = Platform.isModLoaded("create")
         CC_ACTIVE = Platform.isModLoaded("computercraft")
