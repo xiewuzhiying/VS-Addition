@@ -24,6 +24,7 @@
     "minecraft.MixinAbstractArrow",
     "minecraft.MixinEntity",
     "minecraft.MixinExplosion",
+    "minecraft.MixinPlayer",
     "valkyrienskies.MixinDefaultBlockStateInfoProvider",
     "valkyrienskies.MixinMassDatapackResolver",
     "valkyrienskies.disableLogs.MixinShipObjectServerWorld",
