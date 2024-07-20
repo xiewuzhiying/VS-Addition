@@ -57,7 +57,7 @@ dependencies {
     modCompileOnly("maven.modrinth:create-clockwork:8JdnD9wo")
 
     //Copycat+
-    modCompileOnly("maven.modrinth:copycats:g3m9RPx3")
+    modCompileOnly("maven.modrinth:copycats:2.0.4+mc.1.18.2-fabric")
 
     //CC&A
     modImplementation("maven.modrinth:createaddition:1.18.2-20230704a")

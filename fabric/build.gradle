@@ -76,7 +76,7 @@ dependencies {
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-c5d3ea1+1.18.2-fabric") { transitive = false }
 
     //Copycat+
-    modImplementation("maven.modrinth:copycats:g3m9RPx3")
+    modImplementation("maven.modrinth:copycats:2.0.4+mc.1.18.2-fabric")
 
     //CC&A
     modImplementation("maven.modrinth:createaddition:1.18.2-20230704a")

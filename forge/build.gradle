@@ -91,8 +91,7 @@ dependencies {
     modImplementation("maven.modrinth:framedblocks:5.11.5")
 
     //Copycat+
-
-    modImplementation("maven.modrinth:copycats:1.18.2-1.2.5")
+    modImplementation("maven.modrinth:copycats:2.0.4+mc.1.18.2-forge")
 
     //CBC
     modImplementation("maven.modrinth:create-big-cannons:0.5.4")
