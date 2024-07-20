@@ -9,7 +9,7 @@ import io.github.xiewuzhiying.vs_addition.VSAdditionMod.init
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkRenderer
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.ForgePeripheralProvider
-import io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.Link.DualLinkHandler
+import io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.link.DualLinkHandler
 import io.github.xiewuzhiying.vs_addition.forge.content.redstone.display_link.target.FramedSignDisplayTarget
 import net.minecraft.resources.ResourceLocation
 import net.minecraftforge.client.ConfigScreenHandler
@@ -88,7 +88,7 @@ class VSAdditionModForge {
             )
 
         if(CC_ACTIVE)
-            Peripherals.register(ForgePeripheralProvider());
+            Peripherals.register(ForgePeripheralProvider);
     }
 
     private fun rightClickBlock(event: RightClickBlock?) {

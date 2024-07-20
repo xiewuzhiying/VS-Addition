@@ -2,7 +2,7 @@ package io.github.xiewuzhiying.vs_addition.fabric.mixin.create;
 
 
 import com.simibubi.create.foundation.events.CommonEvents;
-import io.github.xiewuzhiying.vs_addition.fabric.compats.create.behaviour.Link.DualLinkHandler;
+import io.github.xiewuzhiying.vs_addition.fabric.compats.create.behaviour.link.DualLinkHandler;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

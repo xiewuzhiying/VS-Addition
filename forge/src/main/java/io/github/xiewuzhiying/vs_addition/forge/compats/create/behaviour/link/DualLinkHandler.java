@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.Link;
+package io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.link;
 
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
