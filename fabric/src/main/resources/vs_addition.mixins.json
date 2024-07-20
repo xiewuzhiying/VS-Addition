@@ -15,13 +15,13 @@
     "create.hose_pulley.MixinFluidDrainingBehaviour",
     "create.hose_pulley.MixinFluidFillingBehaviour",
     "create.hose_pulley.MixinHosePulleyBlockEntity",
-    "createaddition.MixinPortableEnergyInterfaceMovement",
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [
-    "create.client.MixinClientEvents",
     "computercraft.client.MixinSpeakerSound",
-    "voxelmap.client.MixinGameVariableAccessShim"
+    "create.client.MixinClientEvents",
+    "voxelmap.client.MixinGameVariableAccessShim",
+    "sodium.client.MixinDefaultChunkRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

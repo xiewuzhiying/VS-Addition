@@ -86,6 +86,9 @@ dependencies {
 
     //VoxelMap Updated
     modImplementation("maven.modrinth:voxelmap-updated:1.20.1-1.12.13")
+
+    //Sodium
+    modImplementation("maven.modrinth:sodium:mc1.20.1-0.5.11")
 }
 
 processResources {
