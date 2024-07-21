@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.mixin.create;
+package io.github.xiewuzhiying.vs_addition.mixin.create.fan;
 
 import com.simibubi.create.content.kinetics.fan.NozzleBlockEntity;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
