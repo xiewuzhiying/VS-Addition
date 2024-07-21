@@ -41,7 +41,6 @@
     "journeymap.client.MixinMiniMap",
     "kontraption.client.MixinKontraptionClientTickHandler",
     "vs_clockwork.client.flap_bearing.MixinFlapBearingRenderer",
-    "waterframes.client.MixinTextureDisplay",
     "xaeros_minimap.client.MixinMinimapRenderer"
   ],
   "injectors": {
