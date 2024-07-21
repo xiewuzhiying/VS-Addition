@@ -73,9 +73,6 @@ dependencies {
 
     //Kontraption
     modCompileOnly("maven.modrinth:kontraption:0.0.2")
-
-    //WATERFrAMES
-    modCompileOnly("maven.modrinth:waterframes:FORGE-mc1.18.2-v2.0.11a")
 }
 
 publishing {
