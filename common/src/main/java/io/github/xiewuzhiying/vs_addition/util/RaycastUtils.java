@@ -111,7 +111,7 @@ public class RaycastUtils {
             Vec3 start = context1.getFrom();
             Vec3 end = context1.getTo();
             Vec3 vec3d = start.subtract(end);
-            return BlockHitResult.miss(end, Direction.getNearest(vec3d.x, vec3d.y, vec3d.z), BlockPos.containing(end));
+            return BlockHitResult.miss(end, Direction.getNearest(vec3d.x, vec3d.y, vec3d.z), TransformUtils.floorToBlockPos(end));
         });
     }
 }
