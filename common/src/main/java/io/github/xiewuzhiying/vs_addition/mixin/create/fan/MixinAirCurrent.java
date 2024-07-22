@@ -147,6 +147,12 @@ public abstract class MixinAirCurrent {
                             }
                             this.affectedItemHandlers.add(Pair.of(behaviour, type));
                         }
+                    } else if (direction == Direction.DOWN) {
+                        FanProcessingType type = FanProcessingType.getAt(level, pos);
+                        if (type.equals(AllFanProcessingTypes.NONE)) {
+                            type = segmentType;
+                        }
+                        this.affectedItemHandlers.add(Pair.of(behaviour, type));
                     }
                 }
             }
