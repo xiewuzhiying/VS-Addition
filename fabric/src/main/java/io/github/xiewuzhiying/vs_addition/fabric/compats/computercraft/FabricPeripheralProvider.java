@@ -15,6 +15,6 @@ public class FabricPeripheralProvider implements IPeripheralProvider {
     @Nullable
     @Override
     public IPeripheral getPeripheral(@Nonnull Level level, @Nonnull BlockPos blockPos, @Nonnull Direction direction) {
-        return (new PeripheralCommon()).getPeripheralCommon(level, blockPos);
+        return PeripheralCommon.getPeripheralCommon(level, blockPos);
     }
 }

@@ -18,12 +18,12 @@ import javax.annotation.Nullable;
 
 public class PeripheralForge {
 
-    private boolean c(BlockState arg1, Block arg2) {
+    private static boolean c(BlockState arg1, Block arg2) {
         return arg1.getBlock() == arg2;
     }
 
     @Nullable
-    public IPeripheral getPeripheralForge(Level level, BlockPos blockPos, Direction direction) {
+    public static IPeripheral getPeripheralForge(Level level, BlockPos blockPos, Direction direction) {
         BlockState s = level.getBlockState(blockPos);
         BlockEntity be = level.getBlockEntity(blockPos);
         if (VSAdditionModForge.Companion.getCBCMW_ACTIVE() && c(s, CBCModernWarfareBlocks.COMPACT_MOUNT.get())) {

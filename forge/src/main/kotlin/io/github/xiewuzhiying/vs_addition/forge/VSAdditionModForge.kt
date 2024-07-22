@@ -87,7 +87,7 @@ class VSAdditionModForge {
             )
 
         if(CC_ACTIVE)
-            ComputerCraftAPI.registerPeripheralProvider(ForgePeripheralProvider())
+            ComputerCraftAPI.registerPeripheralProvider(ForgePeripheralProvider)
     }
 
     private fun rightClickBlock(event: RightClickBlock?) {
