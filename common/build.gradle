@@ -44,7 +44,7 @@ dependencies {
     // CBC
     // Change the previous section
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-369e88d+1.20.1-common") { transitive = false }
-    modCompileOnly("maven.modrinth:create-big-cannons:HdgdrH1E")
+    modCompileOnly files("jars/createbigcannons-5.5.0-dev+mc.1.20.1-fabric-build.50.jar")
 
     //ComputerCraft
     modCompileOnly("maven.modrinth:cc-tweaked:1.111.0")

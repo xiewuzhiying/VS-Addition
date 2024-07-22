@@ -75,7 +75,7 @@ dependencies {
     modImplementation("maven.modrinth:cc-tweaked:1.111.0")
 
     // CBC
-    modImplementation("maven.modrinth:create-big-cannons:HdgdrH1E")
+    modImplementation files("jars/createbigcannons-5.5.0-dev+mc.1.20.1-fabric-build.50.jar")
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-369e88d+1.20.1-fabric") { transitive = false }
 
     //Copycat+
