@@ -4,6 +4,8 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "io.github.xiewuzhiying.vs_addition.forge.mixin.VSAdditionForgeMixinConfigPlugin",
   "mixins": [
+    "cbcmodernwarfare.CompactCannonMountBlockEntityAccessor",
+    "cbcmodernwarfare.MixinMountedMediumcannonContraption",
     "computercraft.MixinComputerBlockEntity",
     "computercraft.MixinPocketComputerItem",
     "computercraft.MixinTurtleBlockEntity",

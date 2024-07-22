@@ -97,8 +97,8 @@ dependencies {
     modImplementation("maven.modrinth:create-big-cannons:cqmtHAOe")
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-369e88d+1.20.1-forge") { transitive = false }
 
-//    //CBC Modern Warfare
-//    modCompileOnly files("jars/cbcmodernwarfare-forge-1.18.2-0.0.4a.jar")
+    //CBC Modern Warfare
+    modCompileOnly files("jars/cbcmodernwarfare-0.0.5b+mc.1.20.1-forge.jar")
 
     //CC&A
     modImplementation("maven.modrinth:createaddition:1.20.1-1.2.4d")
