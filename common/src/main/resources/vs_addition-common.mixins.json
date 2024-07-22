@@ -12,6 +12,8 @@
     "create.deployer.MixinDeployerHandler",
     "create.display_link.MixinDisplayLinkBlockEntity",
     "create.display_link.MixinDisplayLinkBlockItem",
+    "create.fan.MixinAirCurrent",
+    "create.fan.MixinNozzleBlockEntity",
     "create.mechanical_arm.MixinArmBlockEntity",
     "create.portable_interface.MixinPortableStorageInterfaceBlockEntity",
     "create.portable_interface.MixinPortableStorageInterfaceMovement",
