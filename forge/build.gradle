@@ -98,7 +98,7 @@ dependencies {
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:1.0.0-c5d3ea1+1.18.2-forge") { transitive = false }
 
     //CBC Modern Warfare
-    modImplementation files("jars/cbcmodernwarfare-forge-1.18.2-0.0.4a.jar")
+    modImplementation files("jars/cbcmodernwarfare-0.0.5b+mc.1.18.2-forge.jar")
 
     //CC&A
     modImplementation("maven.modrinth:createaddition:1.18.2-1.0.0")
