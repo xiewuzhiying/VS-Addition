@@ -51,7 +51,7 @@ public abstract class MixinMountedBigCannonContraption extends AbstractMountedCa
                     target = "Lrbasamoyai/createbigcannons/munitions/big_cannon/AbstractBigCannonProjectile;shoot(DDDFF)V"
             )
     )
-    public void shoot(AbstractBigCannonProjectile<?> instance, double x, double y, double z, float velocity, float inaccuracy, Operation<Void> original) {        vs_addition$speed = velocity;
+    public void shoot(AbstractBigCannonProjectile instance, double x, double y, double z, float velocity, float inaccuracy, Operation<Void> original) {        vs_addition$speed = velocity;
         vs_addition$speed = velocity;
         vs_addition$vector = (new Vec3(x, y, z)).normalize().add(((EntityAccessor) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy * VSAdditionConfig.SERVER.getSpreadMultiplier(), ((EntityAccessor)(Object) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy * VSAdditionConfig.SERVER.getSpreadMultiplier(), ((EntityAccessor) instance).getRandom().nextGaussian() * 0.007499999832361937 * (double)inaccuracy * VSAdditionConfig.SERVER.getSpreadMultiplier()).scale(velocity);
         original.call(instance,x,y,z,velocity,inaccuracy);
