@@ -21,6 +21,7 @@
     "computercraft.client.MixinSpeakerSound",
     "create.client.MixinClientEvents",
     "sodium.client.MixinDefaultChunkRenderer",
+    "sodium.client.RenderRegionAccessor",
     "voxelmap.client.MixinGameVariableAccessShim"
   ],
   "injectors": {
