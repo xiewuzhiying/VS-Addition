@@ -62,6 +62,12 @@ object VSAdditionConfig {
 
         @JsonSchema(description = "Multiplier of Clockwork encased fan force")
         val fanForceMultiplier: Double = 1.0
+
+        @JsonSchema(description = "Compliance of phys bearing's constraints")
+        val physBearingCompliance : Double = 1e-10
+
+        @JsonSchema(description = "Max Force of phys bearing's constraints")
+        val physBearingMaxForce : Double = 1e10
     }
 
     class Common {
