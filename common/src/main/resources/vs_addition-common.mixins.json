@@ -37,6 +37,7 @@
     "vs_clockwork.fan.MixinEncasedFanUpdateData",
     "vs_clockwork.flap_bearing.FlapBearingBlockEntityAccessor",
     "vs_clockwork.flap_bearing.MixinFlapBearingBlockEntity",
+    "vs_clockwork.phys_bearing.MixinBearingController",
     "vs_clockwork.phys_bearing.MixinPhysBearingBlockEntity"
   ],
   "client": [
