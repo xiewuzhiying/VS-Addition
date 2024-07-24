@@ -1,12 +1,9 @@
 package io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork.phys_bearing;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.valkyrienskies.clockwork.content.contraptions.phys.bearing.PhysBearingBlockEntity;
 
 @Mixin(PhysBearingBlockEntity.class)
@@ -15,7 +12,8 @@ public abstract class MixinPhysBearingBlockEntity {
             method = "assemble",
             at = @At(
                     value = "CONSTANT",
-                    args = "doubleValue=1.0E-10"
+                    args = "doubleValue=1.0E-10",
+                    shift = At.Shift.AFTER
             ),
             remap = false
     )
@@ -27,7 +25,8 @@ public abstract class MixinPhysBearingBlockEntity {
             method = "assemble",
             at = @At(
                     value = "CONSTANT",
-                    args = "doubleValue=1.0E10"
+                    args = "doubleValue=1.0E10",
+                    shift = At.Shift.AFTER
             ),
             remap = false
     )
