@@ -27,7 +27,7 @@ public class PeripheralCommon {
     public PeripheralCommon() {
         if (VSAdditionMod.getCBC_ACTIVE()) {
             peripheralMap.put(CBCBlocks.CANNON_MOUNT.get(), (be, level, pos) -> {
-                if (VSAdditionConfig.SERVER.getEnableCheatCannonMountPeripheral()) {
+                if (VSAdditionConfig.SERVER.getComputercraft().getEnableCheatCannonMountPeripheral()) {
                     return new CheatCannonMountPeripheral("cbc_cannon_mount", (CannonMountBlockEntity) be, level, pos);
                 } else {
                     return new CannonMountPeripheral("cbc_cannon_mount", (CannonMountBlockEntity) be, level, pos);
@@ -35,17 +35,17 @@ public class PeripheralCommon {
             });
         }
         if (VSAdditionMod.getCLOCKWORK_ACTIVE()) {
-            peripheralMap.put(ClockworkBlocks.FLAP_BEARING.get(), (be, level, pos) -> VSAdditionConfig.SERVER.getEnableCheatFlapBearingPeripheral() ? new CheatFlapBearingPeripheral("clockwork_flap_bearing", (FlapBearingBlockEntity) be, level, pos) : new FlapBearingPeripheral("clockwork_flap_bearing", (FlapBearingBlockEntity) be, level, pos));
+            peripheralMap.put(ClockworkBlocks.FLAP_BEARING.get(), (be, level, pos) -> VSAdditionConfig.SERVER.getComputercraft().getEnableCheatFlapBearingPeripheral() ? new CheatFlapBearingPeripheral("clockwork_flap_bearing", (FlapBearingBlockEntity) be, level, pos) : new FlapBearingPeripheral("clockwork_flap_bearing", (FlapBearingBlockEntity) be, level, pos));
         }
         if (VSAdditionMod.getEUREKA_ACTIVE()) {
-            peripheralMap.put(EurekaBlocks.INSTANCE.getACACIA_SHIP_HELM().get(), (be, level, pos) -> { return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos); });
-            peripheralMap.put(EurekaBlocks.INSTANCE.getCRIMSON_SHIP_HELM().get(), (be, level, pos) -> { return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos); });
-            peripheralMap.put(EurekaBlocks.INSTANCE.getBIRCH_SHIP_HELM().get(), (be, level, pos) -> { return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos); });
-            peripheralMap.put(EurekaBlocks.INSTANCE.getSPRUCE_SHIP_HELM().get(), (be, level, pos) -> { return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos); });
-            peripheralMap.put(EurekaBlocks.INSTANCE.getWARPED_SHIP_HELM().get(), (be, level, pos) -> { return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos); });
-            peripheralMap.put(EurekaBlocks.INSTANCE.getJUNGLE_SHIP_HELM().get(), (be, level, pos) -> { return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos); });
-            peripheralMap.put(EurekaBlocks.INSTANCE.getOAK_SHIP_HELM().get(), (be, level, pos) -> { return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos); });
-            peripheralMap.put(EurekaBlocks.INSTANCE.getDARK_OAK_SHIP_HELM().get(), (be, level, pos) -> { return new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos); });
+            peripheralMap.put(EurekaBlocks.INSTANCE.getACACIA_SHIP_HELM().get(), (be, level, pos) -> new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos));
+            peripheralMap.put(EurekaBlocks.INSTANCE.getCRIMSON_SHIP_HELM().get(), (be, level, pos) -> new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos));
+            peripheralMap.put(EurekaBlocks.INSTANCE.getBIRCH_SHIP_HELM().get(), (be, level, pos) -> new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos));
+            peripheralMap.put(EurekaBlocks.INSTANCE.getSPRUCE_SHIP_HELM().get(), (be, level, pos) -> new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos));
+            peripheralMap.put(EurekaBlocks.INSTANCE.getWARPED_SHIP_HELM().get(), (be, level, pos) -> new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos));
+            peripheralMap.put(EurekaBlocks.INSTANCE.getJUNGLE_SHIP_HELM().get(), (be, level, pos) -> new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos));
+            peripheralMap.put(EurekaBlocks.INSTANCE.getOAK_SHIP_HELM().get(), (be, level, pos) -> new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos));
+            peripheralMap.put(EurekaBlocks.INSTANCE.getDARK_OAK_SHIP_HELM().get(), (be, level, pos) -> new ShipHelmPeripheral("eureka_ship_helm", (ShipHelmBlockEntity) be, level, pos));
         }
     }
 

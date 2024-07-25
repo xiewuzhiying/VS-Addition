@@ -12,25 +12,23 @@ public abstract class MixinPhysBearingBlockEntity {
             method = "assemble",
             at = @At(
                     value = "CONSTANT",
-                    args = "doubleValue=1.0E-10",
-                    shift = At.Shift.AFTER
+                    args = "doubleValue=1.0E-10"
             ),
             remap = false
     )
     private double customCompliance(double constant) {
-        return VSAdditionConfig.SERVER.getPhysBearingCompliance();
+        return VSAdditionConfig.SERVER.getPhysBearing().getPhysBearingCompliance();
     }
 
     @ModifyExpressionValue(
             method = "assemble",
             at = @At(
                     value = "CONSTANT",
-                    args = "doubleValue=1.0E10",
-                    shift = At.Shift.AFTER
+                    args = "doubleValue=1.0E10"
             ),
             remap = false
     )
     private double customMaxForce(double constant) {
-        return VSAdditionConfig.SERVER.getPhysBearingMaxForce();
+        return VSAdditionConfig.SERVER.getPhysBearing().getPhysBearingMaxForce();
     }
 }

@@ -43,9 +43,9 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
     private final Map<BlockPos, List<Integer>> map = new HashMap<>();
 
     @Unique
-    private final double compliance = VSAdditionConfig.SERVER.getStickerCompliance();
+    private final double compliance = VSAdditionConfig.SERVER.getCreate().getStickerCompliance();
     @Unique
-    private final double maxForce = VSAdditionConfig.SERVER.getStickerMaxForce();
+    private final double maxForce = VSAdditionConfig.SERVER.getCreate().getStickerMaxForce();
 
     @Unique
     private boolean needUpdate = false;
