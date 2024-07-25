@@ -27,7 +27,7 @@ public class PeripheralForge {
         BlockState s = level.getBlockState(blockPos);
         BlockEntity be = level.getBlockEntity(blockPos);
         if (VSAdditionModForge.Companion.getCBCMW_ACTIVE() && c(s, CBCModernWarfareBlocks.COMPACT_MOUNT.get())) {
-            return VSAdditionConfig.SERVER.getEnableCheatCannonMountPeripheral() ?
+            return VSAdditionConfig.SERVER.getComputercraft().getEnableCheatCannonMountPeripheral() ?
                     new CheatCompactCannonMountPeripheral("cbcmf_compact_cannon_mount", (CompactCannonMountBlockEntity) be, level, blockPos, direction) :
                     new CompactCannonMountPeripheral("cbcmf_compact_cannon_mount", (CompactCannonMountBlockEntity) be, level, blockPos, direction);
         } else {
