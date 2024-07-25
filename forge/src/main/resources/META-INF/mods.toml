@@ -28,11 +28,37 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.vs_addition]]
+modId = "kotlinforforge"
+mandatory = true
+versionRange = "[4,)"
+ordering = "AFTER"
+side = "BOTH"
+[dependencies.vs_addition.mc-publish]
+ignore=false
+modrinth="kotlin-for-forge"
+curseforge="kotlin-for-forge"
+
+[[dependencies.vs_addition]]
+modId = "architectury"
+mandatory = true
+versionRange = "[9,)"
+ordering = "AFTER"
+side = "BOTH"
+[dependencies.vs_addition.mc-publish]
+ignore=false
+modrinth="architectury-api"
+curseforge="architectury-api"
+
+[[dependencies.vs_addition]]
 modId = "valkyrienskies"
 mandatory = true
 versionRange = "[2.1.3-beta.1,)"
 ordering = "AFTER"
 side = "BOTH"
+[dependencies.vs_addition.mc-publish]
+ignore=false
+modrinth="valkyrien-skies"
+curseforge="valkyrien-skies"
 
 [[dependencies.vs_addition]]
 modId = "create"
@@ -47,6 +73,10 @@ mandatory = false
 versionRange = "[0.5.2,)"
 ordering = "AFTER"
 side = "BOTH"
+[dependencies.vs_addition.mc-publish]
+ignore=false
+modrinth="create-big-cannons"
+curseforge="create-big-cannons"
 
 [[dependencies.vs_addition]]
 modId = "framedblocks"
@@ -68,6 +98,10 @@ mandatory = false
 versionRange = "[0.1,)"
 ordering = "AFTER"
 side = "BOTH"
+[dependencies.vs_addition.mc-publish]
+ignore=false
+modrinth="create-clockwork"
+curseforge="create-clockwork"
 
 [[dependencies.vs_addition]]
 modId = "copycats"
@@ -75,3 +109,19 @@ mandatory = false
 versionRange = "[1.2.5,)"
 ordering = "AFTER"
 side = "BOTH"
+[dependencies.vs_addition.mc-publish]
+ignore=true
+modrinth="copycats"
+curseforge="copycats"
+
+[mc-publish]
+# This dependency declaration will be merged with everything written above.
+# It's useful if you want to provide information about dependency types not supported by Forge.
+# Or if you want to attach platform-specific aliases to one of the dependencies above.
+dependencies=[
+    "valkyrienskies@>=2.1.3(required)",
+    "kotlin-for-forge@>=4.10.0(required)",
+    "architectury-api@>=9.0.0(embedded)",
+    "create-clockwork@>=0.5.1(optional)",
+    "create-big-cannons@>=5.5.0(optional)"
+]
