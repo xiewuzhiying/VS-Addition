@@ -23,6 +23,6 @@ public abstract class MixinEncasedFanData {
             remap = false
     )
     private void fanSpeedMultiplier(Vector3dc fanPos, Vector3dc fanDir, double fanSpeed, CallbackInfo ci) {
-        this.fanSpeed = fanSpeed * VSAdditionConfig.SERVER.getFanForceMultiplier();
+        this.fanSpeed = fanSpeed * VSAdditionConfig.SERVER.getCreate().getFanForceMultiplier();
     }
 }

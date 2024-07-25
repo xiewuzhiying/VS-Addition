@@ -18,33 +18,6 @@ object VSAdditionConfig {
     }
 
     class Server {
-        @JsonSchema(description = "The force of recoil produced by big cannon fire on a ship")
-        val bigCannonRecoilForce: Double = 100000.0
-
-        @JsonSchema(description = "The force of recoil produced by medium cannon fire on a ship")
-        val mediumCannonRecoilForce: Double = 21600.0
-
-        @JsonSchema(description = "The force of recoil produced by auto cannon fire on a ship")
-        val autoCannonRecoilForce: Double = 800.0
-
-        @JsonSchema(description = "Custom autocannon breech fire rates")
-        val customAutoCannonFireRates = listOf(120, 80, 60, 48, 40, 30, 24, 20, 15, 12, 10, 8, 6, 5, 4)
-
-        @JsonSchema(description = "I hope cannons will no longer destroy airplane cockpits")
-        val spreadMultiplier : Double = 1.0
-
-        @JsonSchema(description = "Enable cheat functions on cannon mount peripherals")
-        val enableCheatCannonMountPeripheral = false
-
-        @JsonSchema(description = "Enable cheat functions on flap bearing peripherals")
-        val enableCheatFlapBearingPeripheral = false
-
-        @JsonSchema(description = "Compliance of sticker's constraints")
-        val stickerCompliance : Double = 1e-128
-
-        @JsonSchema(description = "Max Force of sticker's constraints")
-        val stickerMaxForce : Double = 1e300
-
         @JsonSchema(description = "VS2 default block mass")
         val defaultBlockMass : Double = 100.0
 
@@ -60,14 +33,64 @@ object VSAdditionConfig {
         @JsonSchema(description = "Disable some annoying console logs :)")
         val disableSomeWarnings = true
 
-        @JsonSchema(description = "Multiplier of Clockwork encased fan force")
-        val fanForceMultiplier: Double = 1.0
+        val create = CREATE()
 
-        @JsonSchema(description = "Compliance of phys bearing's constraints")
-        val physBearingCompliance : Double = 1e-10
+        class CREATE {
+            @JsonSchema(description = "Compliance of sticker's constraints")
+            val stickerCompliance : Double = 1e-128
 
-        @JsonSchema(description = "Max Force of phys bearing's constraints")
-        val physBearingMaxForce : Double = 1e10
+            @JsonSchema(description = "Max Force of sticker's constraints")
+            val stickerMaxForce : Double = 1e300
+
+            @JsonSchema(description = "Multiplier of Clockwork encased fan force")
+            val fanForceMultiplier: Double = 1.0
+        }
+
+        val createBigCannons = CREATEBIGCANNONS()
+
+        class CREATEBIGCANNONS {
+            @JsonSchema(description = "The force of recoil produced by big cannon fire on a ship")
+            val bigCannonRecoilForce: Double = 100000.0
+
+            @JsonSchema(description = "The force of recoil produced by medium cannon fire on a ship")
+            val mediumCannonRecoilForce: Double = 21600.0
+
+            @JsonSchema(description = "The force of recoil produced by auto cannon fire on a ship")
+            val autoCannonRecoilForce: Double = 800.0
+
+            @JsonSchema(description = "Custom autocannon breech fire rates")
+            val customAutoCannonFireRates = listOf(120, 80, 60, 48, 40, 30, 24, 20, 15, 12, 10, 8, 6, 5, 4)
+
+            @JsonSchema(description = "I hope cannons will no longer destroy airplane cockpits")
+            val spreadMultiplier : Double = 1.0
+        }
+
+
+        val physBearing = PHYSBEARING()
+
+        class PHYSBEARING {
+            @JsonSchema(description = "Compliance of phys bearing's constraints")
+            val physBearingCompliance : Double = 1e-10
+
+            @JsonSchema(description = "Max Force of phys bearing's constraints")
+            val physBearingMaxForce : Double = 1e10
+
+            @JsonSchema(description = "Omega error multiplier of phys bearing's force")
+            val physBearingOmegaErrorMultiplier : Double = 1.0
+
+            @JsonSchema(description = "Angle error multiplier of locked mode phys bearing's force")
+            val physBearingAngleErrorMultiplier : Double = 1.0
+        }
+
+        val computercraft = COMPUTERCRAFT()
+
+        class COMPUTERCRAFT {
+            @JsonSchema(description = "Enable cheat functions on cannon mount peripherals")
+            val enableCheatCannonMountPeripheral = false
+
+            @JsonSchema(description = "Enable cheat functions on flap bearing peripherals")
+            val enableCheatFlapBearingPeripheral = false
+        }
     }
 
     class Common {
