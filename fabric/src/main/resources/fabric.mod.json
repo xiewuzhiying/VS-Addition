@@ -39,6 +39,7 @@
   "accessWidener" : "vs_addition-common.accesswidener",
   "depends": {
     "minecraft": "=1.18.2",
+    "architectury": ">=9.0.0",
     "fabricloader": ">=0.14.21",
     "valkyrienskies": ">=2.1.1-beta.1"
   },
@@ -46,7 +47,17 @@
     "create": ">=0.5.1",
     "createbigcannons": ">=0.5.2",
     "computercraft": "*",
-    "vs_clockwork": ">=0.1",
-    "copycats": ">=1.2.5"
+    "vs_clockwork": ">=0.1"
+  },
+  "custom": {
+    "mc-publish": {
+      "dependencies": [
+        "valkyrienskies@>=2.1.1(required)",
+        "fabric-api@>=0.77.0+1.18.2(required)",
+        "architectury-api@>=4.10.86(embedded)",
+        "create-clockwork@>=0.5.1(optional)",
+        "create-big-cannons@>=5.5.0(optional)"
+      ]
+    }
   }
 }
