@@ -83,9 +83,9 @@ public abstract class MixinAirCurrent {
         }
         return FanProcessingType.getAt(level,pos);
     }
-    @Redirect(method = "tickAffectedEntities",at = @At(value = "INVOKE", target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"), remap = false)
-    public Vec3 transformPosToWorld(Vec3i pos, @Local(argsOnly = true) Level world){
-        return TransformUtils.toWorldVec3(world,VecHelper.getCenterOf(pos));
+    @ModifyExpressionValue(method = "tickAffectedEntities",at = @At(value = "INVOKE", target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"), remap = false)
+    public Vec3 transformPosToWorld(Vec3 original, @Local(argsOnly = true) Level world){
+        return TransformUtils.toWorldVec3(world,original);
     }
     @Redirect(method = "tickAffectedEntities",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V"))
     public void harvester(Entity instance, Vec3 pDeltaMovement,@Local(ordinal = 2) float acceleration,@Local Vec3i flow){

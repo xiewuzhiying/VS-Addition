@@ -36,7 +36,7 @@ jobs:
         run: |
           MOD_VERSION=$(grep 'mod_version' gradle.properties | cut -d'=' -f2)
           echo "VERSION=$MOD_VERSION" >> $GITHUB_ENV
-            MINECRAFT_VERSION=$(grep 'mod_version' gradle.properties | cut -d'=' -f2)
+          MINECRAFT_VERSION=$(grep 'minecraft_version' gradle.properties | cut -d'=' -f2)
           echo "MINECRAFT_VERSION=$MINECRAFT_VERSION" >> $GITHUB_ENV
 
       - name: Download CBC common
