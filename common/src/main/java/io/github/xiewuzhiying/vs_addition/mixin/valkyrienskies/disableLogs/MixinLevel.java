@@ -12,8 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class MixinLevel {
     @TargetHandler(
             mixin = "org.valkyrienskies.mod.mixin.feature.get_entities.MixinLevel",
-            name = "Lorg/valkyrienskies/mod/mixin/feature/get_entities/MixinLevel;lambda$check1$0(Lnet/minecraft/world/phys/AABB;)V",
-            prefix = "handler"
+            name = "lambda$check1$0"
     )
     @WrapWithCondition(
             method = "@MixinSquared:Handler",
@@ -23,14 +22,13 @@ public abstract class MixinLevel {
             ),
             remap = false
     )
-    private boolean cancelLogging1(Logger instance, Object message) {
+    private static boolean cancelLogging1(Logger instance, Object message) {
         return !VSAdditionConfig.SERVER.getDisableSomeWarnings();
     }
 
     @TargetHandler(
             mixin = "org.valkyrienskies.mod.mixin.feature.get_entities.MixinLevel",
-            name = "Lorg/valkyrienskies/mod/mixin/feature/get_entities/MixinLevel;lambda$check2$1(Lnet/minecraft/world/phys/AABB;)V",
-            prefix = "handler"
+            name = "lambda$check2$1"
     )
     @WrapWithCondition(
             method = "@MixinSquared:Handler",
@@ -40,7 +38,7 @@ public abstract class MixinLevel {
             ),
             remap = false
     )
-    private boolean cancelLogging2(Logger instance, Object message) {
+    private static boolean cancelLogging2(Logger instance, Object message) {
         return !VSAdditionConfig.SERVER.getDisableSomeWarnings();
     }
 }
