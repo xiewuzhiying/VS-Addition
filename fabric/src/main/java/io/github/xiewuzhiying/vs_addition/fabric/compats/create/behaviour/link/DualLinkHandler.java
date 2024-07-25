@@ -4,7 +4,7 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.AdventureUtil;
 import com.simibubi.create.foundation.utility.RaycastHelper;
-import dan200.computercraft.api.turtle.FakePlayer;
+import io.github.fabricators_of_create.porting_lib.fake_players.FakePlayer;
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
