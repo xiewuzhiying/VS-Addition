@@ -51,12 +51,12 @@ dependencies {
     include(modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}")
 
     //Mixin Extras
-    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5"))
-    implementation(include("io.github.llamalad7:mixinextras-forge:0.3.5"))
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras}"))
+    implementation(include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras}"))
 
     //Mixin Squared
-    compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:0.2.0-beta.3"))
-    implementation(include("com.github.bawnorton.mixinsquared:mixinsquared-forge:0.1.2-beta.5"))
+    compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${rootProject.mixin_squared}"))
+    implementation(include("com.github.bawnorton.mixinsquared:mixinsquared-forge:${rootProject.mixin_squared}"))
 
     // Valkyrien Skies 2
     modApi("org.valkyrienskies:valkyrienskies-120-forge:$vs2_version") { transitive = false }

@@ -17,10 +17,10 @@ dependencies {
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 
     //Mixin Extras
-    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5"))
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras}"))
 
     //Mixin Squared
-    compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:0.2.0-beta.3"))
+    implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${rootProject.mixin_squared}"))
 
     // Valkyrien Skies 2
     modApi("org.valkyrienskies:valkyrienskies-120-common:${rootProject.vs2_version}")
