@@ -26,7 +26,6 @@
   "client": [
     "computercraft.client.MixinSpeakerSound",
     "embeddium.client.MixinDefaultChunkRenderer",
-    "embeddium.client.RenderRegionAccessor",
     "embeddiumplus.client.MixinEmbyTools",
     "netmusic.MixinMusicToClientMessage",
     "netmusic.MusicToClientMessageAccessor"
