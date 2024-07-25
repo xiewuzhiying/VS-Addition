@@ -4,6 +4,7 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.AdventureUtil;
 import com.simibubi.create.foundation.utility.RaycastHelper;
+import dan200.computercraft.api.turtle.FakePlayer;
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -41,7 +42,7 @@ public class DualLinkHandler {
         if (AllItems.WRENCH.isIn(heldItem))
             return InteractionResult.PASS;
 
-        boolean fakePlayer = player.isFake();
+        boolean fakePlayer = player instanceof FakePlayer;
         boolean fakePlayerChoice = false;
 
         if (fakePlayer) {
