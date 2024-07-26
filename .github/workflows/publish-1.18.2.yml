@@ -124,7 +124,7 @@ jobs:
 
           name: "[${{env.MINECRAFT_VERSION}} Forge] ${{env.VERSION}}"                             
           version: "${{env.VERSION}}"
-          version-type: release
+          version-type: beta
           changelog-file: CHANGELOG.md                                      
 
           files: |
