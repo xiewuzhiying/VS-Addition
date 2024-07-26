@@ -119,7 +119,7 @@ curseforge="copycats"
 # It's useful if you want to provide information about dependency types not supported by Forge.
 # Or if you want to attach platform-specific aliases to one of the dependencies above.
 dependencies=[
-    "valkyrienskies@>=2.1.1(required)",
+    "valkyrien-skies@>=2.1.1(required)",
     "kotlin-for-forge@>=3.12.0(required)",
     "architectury-api@>=4.10.86(embedded)",
     "create-clockwork@>=0.5.1(optional)",
