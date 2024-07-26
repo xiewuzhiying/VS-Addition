@@ -1,8 +1,9 @@
-name: Check
+name: Test server
 on:
   push:
     branches:
-      - '1.18.x/*'
+      - '1.18.2/*'
+      - '1.20.1/*'
   pull_request:
     types: [ opened, synchronize, reopened ]
 jobs:
