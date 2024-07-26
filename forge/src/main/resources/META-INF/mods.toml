@@ -30,7 +30,7 @@ side = "BOTH"
 [[dependencies.vs_addition]]
 modId = "kotlinforforge"
 mandatory = true
-versionRange = "[4,)"
+versionRange = "[3,)"
 ordering = "AFTER"
 side = "BOTH"
 [dependencies.vs_addition.mc-publish]
