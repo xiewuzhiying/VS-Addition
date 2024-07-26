@@ -1,0 +1,101 @@
+name: Publish 1.20.1 on GitHub, CurseForge & Modrinth
+ 
+on:
+  push:
+    branches:
+      - '1.18.2/**'
+  pull_request:
+    branches:
+      - '1.18.2/**'
+env:
+  JAVA_VERSION: 17
+  MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
+  CURSEFORGE_TOKEN: ${{ secrets.PUBLISH_CURSEFORGE_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+  CURSEFORGE_ID: 1027757
+  MODRINTH_ID: nR8D9Tc2  
+
+permissions:
+  contents: write
+
+jobs:                                             
+  build:                                          
+    runs-on: ubuntu-latest                        
+    steps:                                        
+      - name: Check Environment Variables
+        run: env
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Read mod_version from gradle.properties
+        id: read_mod_version
+        run: |
+          MOD_VERSION=$(grep 'mod_version' gradle.properties | cut -d'=' -f2)
+          echo "VERSION=$MOD_VERSION" >> $GITHUB_ENV
+          MINECRAFT_VERSION=$(grep 'minecraft_version' gradle.properties | cut -d'=' -f2)
+          echo "MINECRAFT_VERSION=$MINECRAFT_VERSION" >> $GITHUB_ENV
+
+      - name: Download CBC common
+        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
+        with:
+          credentials: ${{ secrets.GSA_CREDENTIALS }}
+          actionType: download
+          localPath: ./common/jars/createbigcannons-5.5.0-dev+mc.1.18.2-fabric-build.48.jar
+          googleFileId: 1gcKE75TdDFl_dJW9dcY-EGwODgjZcXEX
+
+      - name: Download CBC fabric
+        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
+        with:
+          credentials: ${{ secrets.GSA_CREDENTIALS }}
+          actionType: download
+          localPath: ./fabric/jars/createbigcannons-5.5.0-dev+mc.1.18.2-fabric-build.48.jar
+          googleFileId: 1gcKE75TdDFl_dJW9dcY-EGwODgjZcXEX
+
+      - name: Download CBC forge
+        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
+        with:
+          credentials: ${{ secrets.GSA_CREDENTIALS }}
+          actionType: download
+          localPath: ./forge/jars/createbigcannons-5.5.0-dev+mc.1.18.2-forge-build.48.jar
+          googleFileId: 1R0Qp1WwiaE2bama7OvlL_17iQs3kvfsK
+
+      - name: Download Modern Warfare
+        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
+        with:
+          credentials: ${{ secrets.GSA_CREDENTIALS }}
+          actionType: download
+          localPath: ./forge/jars/cbcmodernwarfare-0.0.5b+mc.1.18.2-forge.jar
+          googleFileId: 1YyEqW4UFUF054tp-KxMeC3g4lcFkqAGt
+
+      - name: Download FTB Chunks
+        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
+        with:
+          credentials: ${{ secrets.GSA_CREDENTIALS }}
+          actionType: download
+          localPath: ./common/jars/ftb-chunks-fabric-1802.3.19-build.362.jar
+          googleFileId: 1kKX2CmbByR4nn9QSje2rC4SGApsQF1hg
+
+      - name: Make Gradle Wrapper Executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew clean build
+
+      - name: Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: |
+            ./common/build/libs/*
+            ./fabric/build/libs/*
+            ./forge/build/libs/*
