@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "io.github.xiewuzhiying.vs_addition.mixin.VSAdditionCommonMixinConfigPlugin",
   "mixins": [
+    "computercraft.MixinComputerExecutor",
     "computercraft.MixinRedstoneAPI",
     "create.MixinContraptionCollider",
     "create.MixinStickerBlockEntity",
