@@ -52,7 +52,7 @@
   "custom": {
     "mc-publish": {
       "dependencies": [
-        "valkyrienskies@>=2.1.3(required)",
+        "valkyrien-skies@>=2.1.3(required)",
         "fabric-api@>=0.92.0+1.20.1(required)",
         "architectury-api@>=9.0.0(embedded)",
         "create-clockwork@>=0.5.1(optional)",
