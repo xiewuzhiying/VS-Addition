@@ -104,7 +104,7 @@ jobs:
           changelog-file: CHANGELOG.md                                      
 
           files: |
-            fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+            fabric/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
 
           loaders: fabric
           game-versions: "${{env.MINECRAFT_VERSION}}"
@@ -128,7 +128,7 @@ jobs:
           changelog-file: CHANGELOG.md                                      
 
           files: |
-            forge/build/libs/!(*-@(dev|sources|javadoc)).jar
+            forge/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
 
           loaders: forge
           game-versions: "${{env.MINECRAFT_VERSION}}"
