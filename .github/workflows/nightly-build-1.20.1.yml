@@ -1,4 +1,4 @@
-name: Publish 1.20.1 on GitHub, CurseForge & Modrinth
+name: Build 1.18.2
  
 on:
   push:
