@@ -5,8 +5,8 @@ architectury {
 loom {
     accessWidenerPath = file("src/main/resources/vs_addition.accesswidener")
 }
-
-version = minecraft_version + "-" + String.valueOf(loader_platform).toLowerCase() + "-" + mod_version
+String gitRevision = "git rev-parse HEAD".execute().text.trim()
+version = minecraft_version + "-" + String.valueOf(loader_platform).toLowerCase() + "-" + mod_version + "+" + gitRevision.substring(0, 10)
 
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies

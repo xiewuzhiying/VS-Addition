@@ -41,8 +41,8 @@ configurations {
             runtimeClasspath.extendsFrom common
             developmentForge.extendsFrom common
 }
-
-version = minecraft_version + "-" + String.valueOf(loader_platform).toLowerCase() + "-" + mod_version
+String gitRevision = "git rev-parse HEAD".execute().text.trim()
+version = minecraft_version + "-" + String.valueOf(loader_platform).toLowerCase() + "-" + mod_version + "+" + gitRevision.substring(0, 10)
 
 dependencies {
     forge "net.minecraftforge:forge:$forge_version"
