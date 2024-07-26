@@ -95,7 +95,7 @@ jobs:
           modrinth-id: ${{env.MODRINTH_ID}}
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
           
-          github-tag: "v${{env.VERSION}}"
+          github-tag: "${{env.MINECRAFT_VERSION}}-fabric-{{env.VERSION}}"
           github-token: "${{env.GITHUB_TOKEN}}"
 
           name: "[${{env.MINECRAFT_VERSION}} Fabric] ${{env.VERSION}}"                             
@@ -119,7 +119,7 @@ jobs:
           modrinth-id: ${{env.MODRINTH_ID}}
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
           
-          github-tag: "v${{env.VERSION}}"
+          github-tag: "${{env.MINECRAFT_VERSION}}-forge-{{env.VERSION}}"
           github-token: "${{env.GITHUB_TOKEN}}"
 
           name: "[${{env.MINECRAFT_VERSION}} Forge] ${{env.VERSION}}"                             
