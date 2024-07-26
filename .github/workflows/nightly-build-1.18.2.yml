@@ -1,7 +1,12 @@
 name: Publish 1.20.1 on GitHub, CurseForge & Modrinth
  
-on: [ push, pull_request ]
-
+on:
+  push:
+    branches:
+      - '1.18.2/**'
+  pull_request:
+    branches:
+      - '1.18.2/**'
 env:
   JAVA_VERSION: 17
   MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
@@ -44,40 +49,40 @@ jobs:
         with:
           credentials: ${{ secrets.GSA_CREDENTIALS }}
           actionType: download
-          localPath: ./common/jars/createbigcannons-5.5.0-dev+mc.1.20.1-fabric-build.50.jar
-          googleFileId: 1Nj1TlU_PC_mZuEj6e5lCR3EwRTitOxt-
+          localPath: ./common/jars/createbigcannons-5.5.0-dev+mc.1.18.2-fabric-build.48.jar
+          googleFileId: 1gcKE75TdDFl_dJW9dcY-EGwODgjZcXEX
 
       - name: Download CBC fabric
         uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
         with:
           credentials: ${{ secrets.GSA_CREDENTIALS }}
           actionType: download
-          localPath: ./fabric/jars/createbigcannons-5.5.0-dev+mc.1.20.1-fabric-build.50.jar
-          googleFileId: 1Nj1TlU_PC_mZuEj6e5lCR3EwRTitOxt-
+          localPath: ./fabric/jars/createbigcannons-5.5.0-dev+mc.1.18.2-fabric-build.48.jar
+          googleFileId: 1gcKE75TdDFl_dJW9dcY-EGwODgjZcXEX
 
       - name: Download CBC forge
         uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
         with:
           credentials: ${{ secrets.GSA_CREDENTIALS }}
           actionType: download
-          localPath: ./forge/jars/createbigcannons-5.5.0-dev+mc.1.20.1-forge-build.50.jar
-          googleFileId: 1jKit9IvnzyucbGzooDP0tPWUAux6NYsl
+          localPath: ./forge/jars/createbigcannons-5.5.0-dev+mc.1.18.2-forge-build.48.jar
+          googleFileId: 1R0Qp1WwiaE2bama7OvlL_17iQs3kvfsK
 
       - name: Download Modern Warfare
         uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
         with:
           credentials: ${{ secrets.GSA_CREDENTIALS }}
           actionType: download
-          localPath: ./forge/jars/cbcmodernwarfare-0.0.5b+mc.1.20.1-forge.jar
-          googleFileId: 1wBoucGOURq5dkLx1IvQ_DP29uxB7iQd8
+          localPath: ./forge/jars/cbcmodernwarfare-0.0.5b+mc.1.18.2-forge.jar
+          googleFileId: 1YyEqW4UFUF054tp-KxMeC3g4lcFkqAGt
 
       - name: Download FTB Chunks
         uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
         with:
           credentials: ${{ secrets.GSA_CREDENTIALS }}
           actionType: download
-          localPath: ./common/jars/ftb-chunks-fabric-2001.3.1.jar
-          googleFileId: 1syotEGMA2svNL2vaXp35yF7fD9NyDmZp
+          localPath: ./common/jars/ftb-chunks-fabric-1802.3.19-build.362.jar
+          googleFileId: 1kKX2CmbByR4nn9QSje2rC4SGApsQF1hg
 
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
