@@ -16,6 +16,7 @@
     "create.hose_pulley.MixinFluidDrainingBehaviour",
     "create.hose_pulley.MixinFluidFillingBehaviour",
     "create.hose_pulley.MixinHosePulleyBlockEntity",
+    "createaddition.MixinIWireNode",
     "createaddition.MixinPortableEnergyInterfaceMovement",
     "tacz.MixinEntityKineticBullet"
   ],
@@ -25,6 +26,7 @@
   "minVersion": "0.8",
   "client": [
     "computercraft.client.MixinSpeakerSound",
+    "createaddition.MixinWireNodeRenderer",
     "embeddium.client.MixinDefaultChunkRenderer",
     "embeddiumplus.client.MixinEmbyTools",
     "netmusic.MixinMusicToClientMessage",
