@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
 @Mixin(IWireNode.class)
 public interface MixinIWireNode {
@@ -16,7 +17,7 @@ public interface MixinIWireNode {
      * @author xiewuzhiying
      * @reason I can only do overwrite ¯\_(ツ)_/¯
      */
-    @Overwrite
+    @Overwrite(remap = false)
     static WireConnectResult connect(Level world, BlockPos pos1, int node1, BlockPos pos2, int node2, WireType type) {
         BlockEntity te1 = world.getBlockEntity(pos1);
         BlockEntity te2 = world.getBlockEntity(pos2);
@@ -27,7 +28,7 @@ public interface MixinIWireNode {
                     IWireNode wn2 = (IWireNode)te2;
                     if (node1 >= 0 && node2 >= 0) {
                         int maxLength = Math.min(wn1.getMaxWireLength(), wn2.getMaxWireLength());
-                        if (pos1.distSqr(pos2) > (double)(maxLength * maxLength)) {
+                        if (VSGameUtilsKt.squaredDistanceBetweenInclShips(world, pos1.getX(), pos1.getY(), pos1.getZ(), pos2.getX(), pos2.getY(), pos2.getZ()) > (double)(maxLength * maxLength)) {
                             return WireConnectResult.LONG;
                         }
 
