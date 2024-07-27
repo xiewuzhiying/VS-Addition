@@ -1,26 +1,56 @@
 package io.github.xiewuzhiying.vs_addition.forge.mixin.createaddition;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
+import com.mrh0.createaddition.blocks.connector.ConnectorType;
 import com.mrh0.createaddition.energy.IWireNode;
+import com.mrh0.createaddition.energy.WireConnectResult;
+import com.mrh0.createaddition.energy.WireType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.valkyrienskies.mod.common.VSGameUtilsKt;
+import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(IWireNode.class)
 public interface MixinIWireNode {
-    @WrapOperation(
-            method = "connect",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/core/BlockPos;distSqr(Lnet/minecraft/core/Vec3i;)D"
-            )
-    )
-    private static double man(BlockPos instance, Vec3i vec3i, Operation<Double> original, @Local(argsOnly = true) Level level) {
-        return VSGameUtilsKt.squaredDistanceBetweenInclShips(level, instance.getX(), instance.getY(), instance.getZ(), vec3i.getX(), vec3i.getY(), vec3i.getZ());
+    /**
+     * @author xiewuzhiying
+     * @reason I can only do overwrite ¯\_(ツ)_/¯
+     */
+    @Overwrite
+    static WireConnectResult connect(Level world, BlockPos pos1, int node1, BlockPos pos2, int node2, WireType type) {
+        BlockEntity te1 = world.getBlockEntity(pos1);
+        BlockEntity te2 = world.getBlockEntity(pos2);
+        if (te1 != null && te2 != null && te1 != te2) {
+            if (te1 instanceof IWireNode) {
+                IWireNode wn1 = (IWireNode)te1;
+                if (te2 instanceof IWireNode) {
+                    IWireNode wn2 = (IWireNode)te2;
+                    if (node1 >= 0 && node2 >= 0) {
+                        int maxLength = Math.min(wn1.getMaxWireLength(), wn2.getMaxWireLength());
+                        if (pos1.distSqr(pos2) > (double)(maxLength * maxLength)) {
+                            return WireConnectResult.LONG;
+                        }
+
+                        if (wn1.hasConnectionTo(pos2)) {
+                            return WireConnectResult.EXISTS;
+                        }
+
+                        if (wn1.getConnectorType() == ConnectorType.Large && wn2.getConnectorType() == ConnectorType.Large && type == WireType.COPPER) {
+                            return WireConnectResult.REQUIRES_HIGH_CURRENT;
+                        }
+
+                        wn1.setNode(node1, node2, wn2.getPos(), type);
+                        wn2.setNode(node2, node1, wn1.getPos(), type);
+                        return WireConnectResult.getLink(wn2.isNodeInput(node2), wn2.isNodeOutput(node2));
+                    }
+
+                    return WireConnectResult.COUNT;
+                }
+            }
+
+            return WireConnectResult.INVALID;
+        } else {
+            return WireConnectResult.INVALID;
+        }
     }
 }
