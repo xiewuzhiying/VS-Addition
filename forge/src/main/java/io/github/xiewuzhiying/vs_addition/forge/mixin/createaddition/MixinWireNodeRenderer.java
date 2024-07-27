@@ -46,8 +46,8 @@ public abstract class MixinWireNodeRenderer {
     )
     private void man2(Args args, @Share("tePos") LocalRef<Vec3> tePos, @Share("otherPos") LocalRef<Vec3> otherPos) {
         final Vec3 diff = otherPos.get().subtract(tePos.get());
-        args.set(3, (float)diff.x);
-        args.set(4, (float)diff.y);
-        args.set(5, (float)diff.z);
+        args.set(4, (float)diff.x);
+        args.set(5, (float)diff.y);
+        args.set(6, (float)diff.z);
     }
 }
