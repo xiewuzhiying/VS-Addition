@@ -36,14 +36,6 @@ jobs:
           distribution: "temurin"
           java-version: 17
 
-      - name: Read mod_version from gradle.properties
-        id: read_mod_version
-        run: |
-          MOD_VERSION=$(grep 'mod_version' gradle.properties | cut -d'=' -f2)
-          echo "VERSION=$MOD_VERSION" >> $GITHUB_ENV
-          MINECRAFT_VERSION=$(grep 'minecraft_version' gradle.properties | cut -d'=' -f2)
-          echo "MINECRAFT_VERSION=$MINECRAFT_VERSION" >> $GITHUB_ENV
-
       - name: Download CBC common
         uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
         with:
