@@ -25,7 +25,7 @@ public abstract class MixinWireNodeRenderer {
                     ordinal = 0
             )
     )
-    private void toWorldCoordinates1(Args args, @Local(ordinal = 0) IWireNode te, @Local(ordinal = 0) BlockPos other, @Local(ordinal = 0) Vec3 d1, @Local(ordinal = 1) Vec3 d2, @Share("tePos") LocalRef<Vec3> tePos, @Share("otherPos") LocalRef<Vec3> otherPos) {
+    private void toWorldCoordinates1(Args args, @Local(ordinal = 0) IWireNode te, @Local(ordinal = 0) BlockPos other, @Local(index = 13) Vec3 d1, @Local(index = 14) Vec3 d2, @Share("tePos") LocalRef<Vec3> tePos, @Share("otherPos") LocalRef<Vec3> otherPos) {
         tePos.set(VSGameUtilsKt.toWorldCoordinates(Minecraft.getInstance().level, TransformUtils.getCenterOf(te.getPos()).add(d1)));
         otherPos.set(VSGameUtilsKt.toWorldCoordinates(Minecraft.getInstance().level, TransformUtils.getCenterOf(other).add(d2)));
 
@@ -60,7 +60,7 @@ public abstract class MixinWireNodeRenderer {
                     ordinal = 1
             )
     )
-    private void toWorldCoordinates3(Args args, @Local(ordinal = 0) IWireNode te, @Local(ordinal = 2) Vec3 d1, @Local(ordinal = 3) Vec3 playerPos, @Share("tePos2") LocalRef<Vec3> tePos2) {
+    private void toWorldCoordinates3(Args args, @Local(ordinal = 0) IWireNode te, @Local(index = 9) Vec3 d1, @Local(ordinal = 3) Vec3 playerPos, @Share("tePos2") LocalRef<Vec3> tePos2) {
         tePos2.set(VSGameUtilsKt.toWorldCoordinates(Minecraft.getInstance().level, TransformUtils.getCenterOf(te.getPos())).add(d1));
 
         final Vec3 diff = playerPos.subtract(TransformUtils.toVec3(te.getPos()));
@@ -78,7 +78,7 @@ public abstract class MixinWireNodeRenderer {
             ),
             remap = false
     )
-    private void toWorldCoordinates5(Args args, @Local(ordinal = 3) Vec3 playerPos, @Share("tePos2") LocalRef<Vec3> tePos2) {
+    private void toWorldCoordinates5(Args args, @Local(index = 17) Vec3 playerPos, @Share("tePos2") LocalRef<Vec3> tePos2) {
         final Vec3 diff = tePos2.get().subtract(playerPos);
         args.set(4, (float)diff.x);
         args.set(5, (float)diff.y);
