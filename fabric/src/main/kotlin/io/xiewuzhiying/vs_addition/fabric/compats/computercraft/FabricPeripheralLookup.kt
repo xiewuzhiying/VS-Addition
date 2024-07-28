@@ -6,7 +6,7 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 
 object FabricPeripheralLookup {
-    fun peripheralProvider(level: Level, blockPos: BlockPos?): IPeripheral? {
+    fun peripheralProvider(level: Level, blockPos: BlockPos): IPeripheral? {
         val be = level.getBlockEntity(blockPos)
         if (be is IPeripheral) return be
         return null
