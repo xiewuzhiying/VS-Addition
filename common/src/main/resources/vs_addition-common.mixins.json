@@ -5,6 +5,7 @@
   "plugin": "io.github.xiewuzhiying.vs_addition.mixin.VSAdditionCommonMixinConfigPlugin",
   "mixins": [
     "computercraft.MixinComputerExecutor",
+    "computercraft.MixinComputerThread",
     "computercraft.MixinRedstoneAPI",
     "create.MixinContraptionCollider",
     "create.MixinStickerBlockEntity",

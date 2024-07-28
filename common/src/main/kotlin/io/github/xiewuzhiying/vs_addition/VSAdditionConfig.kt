@@ -88,6 +88,9 @@ object VSAdditionConfig {
             @JsonSchema(description = "Max size of Computer Craft event queue")
             val eventQueueMaxSize: Int = 256
 
+            @JsonSchema(description = "m")
+            val defaultMinPeriod: Long = 5L
+
             @JsonSchema(description = "Enable cheat functions on cannon mount peripherals")
             val enableCheatCannonMountPeripheral = false
 
