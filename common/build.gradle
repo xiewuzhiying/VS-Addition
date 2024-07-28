@@ -73,6 +73,9 @@ dependencies {
 
     //Kontraption
     modCompileOnly("maven.modrinth:kontraption:0.0.2")
+
+    //Unlimited Peripheral Works
+    modCompileOnly("maven.modrinth:unlimitedperipheralworks:1.18.2-0.2.9")
 }
 
 publishing {
