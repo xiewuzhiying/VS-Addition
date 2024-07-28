@@ -1,6 +1,5 @@
 package io.github.xiewuzhiying.vs_addition.forge.mixin.createaddition;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
@@ -53,19 +52,6 @@ public abstract class MixinWireNodeRenderer<T extends BlockEntity> {
         args.set(8, tePos.get().distanceTo(otherPos.get()));
     }
 
-    @ModifyExpressionValue(
-            method = "render",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/mrh0/createaddition/energy/IWireNode;getNodeOffset(I)Lnet/minecraft/world/phys/Vec3;",
-                    ordinal = 2
-            )
-    )
-    private Vec3 man(Vec3 original, @Share("d1") LocalRef<Vec3> d1) {
-        d1.set(original);
-        return original;
-    }
-
     @ModifyArgs(
             method = "render",
             at = @At(
@@ -74,8 +60,8 @@ public abstract class MixinWireNodeRenderer<T extends BlockEntity> {
                     ordinal = 1
             )
     )
-    private void toWorldCoordinates3(Args args, @Local(ordinal = 0) IWireNode te, @Local(index = 17) Vec3 playerPos, @Share("d1") LocalRef<Vec3> d1, @Share("tePos2") LocalRef<Vec3> tePos2) {
-        tePos2.set(VSGameUtilsKt.toWorldCoordinates(Minecraft.getInstance().level, TransformUtils.getCenterOf(te.getPos())).add(d1.get()));
+    private void toWorldCoordinates3(Args args, @Local(ordinal = 0) IWireNode te, @Local(ordinal = 0) Vec3 d1, @Local(ordinal = 1) Vec3 playerPos, @Share("tePos2") LocalRef<Vec3> tePos2) {
+        tePos2.set(VSGameUtilsKt.toWorldCoordinates(Minecraft.getInstance().level, TransformUtils.getCenterOf(te.getPos())).add(d1));
 
         final Vec3 diff = playerPos.subtract(TransformUtils.toVec3(te.getPos()));
         args.set(0, diff.x);
@@ -91,7 +77,7 @@ public abstract class MixinWireNodeRenderer<T extends BlockEntity> {
                     ordinal = 1
             )
     )
-    private void toWorldCoordinates5(Args args, @Local(index = 17) Vec3 playerPos, @Share("tePos2") LocalRef<Vec3> tePos2) {
+    private void toWorldCoordinates5(Args args, @Local(ordinal = 1) Vec3 playerPos, @Share("tePos2") LocalRef<Vec3> tePos2) {
         final Vec3 diff = tePos2.get().subtract(playerPos);
         args.set(4, (float)diff.x);
         args.set(5, (float)diff.y);
