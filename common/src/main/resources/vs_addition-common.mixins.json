@@ -30,6 +30,8 @@
     "minecraft.MixinEntity",
     "minecraft.MixinExplosion",
     "minecraft.MixinPlayer",
+    "minecraft.MixinVibrationListener",
+    "peripheralworks.MixinPeripheralProxyBlockEntity",
     "valkyrienskies.MixinBugFixUtils",
     "valkyrienskies.MixinDefaultBlockStateInfoProvider",
     "valkyrienskies.MixinMassDatapackResolver",
