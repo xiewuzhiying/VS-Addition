@@ -30,6 +30,7 @@
     "minecraft.MixinEntity",
     "minecraft.MixinExplosion",
     "minecraft.MixinPlayer",
+    "valkyrienskies.MixinBugFixUtils",
     "valkyrienskies.MixinDefaultBlockStateInfoProvider",
     "valkyrienskies.MixinMassDatapackResolver",
     "valkyrienskies.disableLogs.MixinLevel",
