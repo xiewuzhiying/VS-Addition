@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
@@ -24,7 +25,7 @@ public abstract class MixinPeripheralProxyMode {
             )
     )
     private boolean betweenInclShips(final PeripheralProxyBlockEntity instance, final BlockPos pos, final Operation<Boolean> original, final @Local(argsOnly = true) Level level) {
-        final BlockPos instancePos = instance.getBlockPos();
+        final BlockPos instancePos = ((BlockEntity)instance).getBlockPos();
         if (pos == instancePos) {
             return false;
         }
