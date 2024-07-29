@@ -33,6 +33,9 @@ object VSAdditionConfig {
         @JsonSchema(description = "Disable some annoying console logs :)")
         val disableSomeWarnings = true
 
+        @JsonSchema(description = "Disable some annoying console logs :)")
+        val getEntitiesAabbSizeLimit = 1000.0
+
         val create = CREATE()
 
         class CREATE {

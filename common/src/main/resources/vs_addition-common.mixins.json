@@ -27,6 +27,7 @@
     "minecraft.MixinAbstractArrow",
     "minecraft.MixinEntity",
     "minecraft.MixinExplosion",
+    "valkyrienskies.MixinBugFixUtils",
     "valkyrienskies.MixinDefaultBlockStateInfoProvider",
     "valkyrienskies.MixinMassDatapackResolver",
     "valkyrienskies.MixinVSCommands",
