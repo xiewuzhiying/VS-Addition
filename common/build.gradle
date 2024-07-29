@@ -74,6 +74,7 @@ dependencies {
     modCompileOnly("maven.modrinth:kontraption:x3oh2lqe")
 
     //Unlimited Peripheral Works
+    modCompileOnly("maven.modrinth:peripheralium:1.20.1-0.6.15")
     modCompileOnly("maven.modrinth:unlimitedperipheralworks:llME0vcm")
 }
 
