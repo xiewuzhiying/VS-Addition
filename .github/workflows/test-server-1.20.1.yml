@@ -17,6 +17,7 @@ jobs:
 
   download:
     name: Download dependencies
+    runs-on: ubuntu-latest
     steps:
       - name: Download CBC common
         uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
