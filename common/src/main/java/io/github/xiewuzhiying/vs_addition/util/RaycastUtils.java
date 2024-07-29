@@ -193,14 +193,14 @@ public class RaycastUtils {
         return closestHit;
     }
 
-    private static BlockHitResult isBlockInLine(BlockGetter blockGetter, ClipBlockStateContext arg) {
-        return (BlockHitResult)traverseBlocks(arg.getFrom(), arg.getTo(), arg, (argx, arg2) -> {
-            BlockState blockstate = blockGetter.getBlockState(arg2);
-            Vec3 vec3 = argx.getFrom().subtract(argx.getTo());
-            return argx.isTargetBlock().test(blockstate) ? new BlockHitResult(argx.getTo(), Direction.getNearest(vec3.x, vec3.y, vec3.z), BlockPos.containing(argx.getTo()), false) : null;
-        }, (argx) -> {
-            Vec3 vec3 = argx.getFrom().subtract(argx.getTo());
-            return BlockHitResult.miss(argx.getTo(), Direction.getNearest(vec3.x, vec3.y, vec3.z), BlockPos.containing(argx.getTo()));
+    private static BlockHitResult isBlockInLine(BlockGetter blockGetter, ClipBlockStateContext context) {
+        return (BlockHitResult)traverseBlocks(context.getFrom(), context.getTo(), context, (clipBlockStateContext, blockPos) -> {
+            BlockState blockState = blockGetter.getBlockState(blockPos);
+            Vec3 vec3 = clipBlockStateContext.getFrom().subtract(clipBlockStateContext.getTo());
+            return clipBlockStateContext.isTargetBlock().test(blockState) ? new BlockHitResult(clipBlockStateContext.getTo(), Direction.getNearest(vec3.x, vec3.y, vec3.z), new BlockPos(clipBlockStateContext.getTo()), false) : null;
+        }, (clipBlockStateContext) -> {
+            Vec3 vec3 = clipBlockStateContext.getFrom().subtract(clipBlockStateContext.getTo());
+            return BlockHitResult.miss(clipBlockStateContext.getTo(), Direction.getNearest(vec3.x, vec3.y, vec3.z), new BlockPos(clipBlockStateContext.getTo()));
         });
     }
 }
