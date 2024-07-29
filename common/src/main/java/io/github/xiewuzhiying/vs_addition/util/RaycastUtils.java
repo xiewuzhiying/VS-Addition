@@ -131,7 +131,7 @@ public class RaycastUtils {
     }
 
     public static BlockHitResult isBlockInLineIncludeShips(Level level, ClipBlockStateContext clipBlockStateContext, boolean shouldTransformHitPos) {
-        return isBlockInLineIncludeShips(level, clipBlockStateContext, shouldTransformHitPos, null);
+        return isBlockInLineIncludeShips(level, clipBlockStateContext, shouldTransformHitPos, Optional.empty());
     }
 
     public static BlockHitResult isBlockInLineIncludeShips(Level level, ClipBlockStateContext clipBlockStateContext, boolean shouldTransformHitPos, Optional<Long> skipShip) {
