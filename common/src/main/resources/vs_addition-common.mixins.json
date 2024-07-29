@@ -46,7 +46,7 @@
   ],
   "client": [
     "create.client.mechanical_arm.MixinArmInteractionPoint",
-    "create.client.mechanical_arm.client.MixinArmInteractionPointHandler",
+    "create.client.mechanical_arm.MixinArmInteractionPointHandler",
     "ftbchunks.client.MixinFTBChunksClient",
     "journeymap.client.MixinMiniMap",
     "kontraption.client.MixinKontraptionClientTickHandler",

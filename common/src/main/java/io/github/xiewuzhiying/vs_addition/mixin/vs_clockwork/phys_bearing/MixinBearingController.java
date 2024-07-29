@@ -5,12 +5,14 @@ import com.llamalad7.mixinextras.sugar.Local;
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import io.github.xiewuzhiying.vs_addition.mixinducks.vs_clockwork.phys_bearing.UpdateIsFacingNegativeDirection;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.valkyrienskies.clockwork.content.contraptions.phys.bearing.data.PhysBearingData;
 import org.valkyrienskies.clockwork.content.forces.contraption.BearingController;
 
+@Pseudo
 @Mixin(BearingController.class)
 public abstract class MixinBearingController implements UpdateIsFacingNegativeDirection {
 

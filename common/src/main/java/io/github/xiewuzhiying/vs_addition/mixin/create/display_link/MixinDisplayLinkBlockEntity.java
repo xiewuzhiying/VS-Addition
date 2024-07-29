@@ -10,9 +10,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
+@Pseudo
 @Mixin(DisplayLinkBlockEntity.class)
 public abstract class MixinDisplayLinkBlockEntity extends SmartBlockEntity {
     public MixinDisplayLinkBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {

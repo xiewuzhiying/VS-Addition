@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.valkyrienskies.core.api.ships.ServerShip;
 import org.valkyrienskies.core.api.world.ServerShipWorld;
@@ -34,6 +35,7 @@ import java.util.List;
 
 import static org.valkyrienskies.mod.common.assembly.ShipAssemblyKt.createNewShipWithBlocks;
 
+@Pseudo
 @Mixin(TreeFertilizerItem.class)
 public abstract class MixinTreeFertilizerItem extends Item {
 

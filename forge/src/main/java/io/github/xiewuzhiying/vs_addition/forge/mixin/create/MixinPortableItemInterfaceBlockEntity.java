@@ -10,9 +10,11 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
+@Pseudo
 @Mixin(PortableItemInterfaceBlockEntity.class)
 public abstract class MixinPortableItemInterfaceBlockEntity extends PortableStorageInterfaceBlockEntity implements IPSIBehavior {
 

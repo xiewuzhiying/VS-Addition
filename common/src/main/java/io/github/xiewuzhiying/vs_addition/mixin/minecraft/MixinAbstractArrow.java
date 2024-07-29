@@ -8,6 +8,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.valkyrienskies.core.api.ships.Ship;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
@@ -15,6 +16,7 @@ import org.valkyrienskies.mod.common.util.IEntityDraggingInformationProvider;
 
 import java.util.function.Consumer;
 
+@Pseudo
 @Mixin(AbstractArrow.class)
 public abstract class MixinAbstractArrow extends Entity implements IEntityDraggingInformationProvider {
     public MixinAbstractArrow(EntityType<?> entityType, Level level) {

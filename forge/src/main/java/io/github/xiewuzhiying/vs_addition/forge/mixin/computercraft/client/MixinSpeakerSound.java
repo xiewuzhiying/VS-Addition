@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,6 +19,7 @@ import org.valkyrienskies.core.api.ships.Ship;
 import org.valkyrienskies.mod.client.audio.VelocityTickableSoundInstance;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
+@Pseudo
 @Mixin(SpeakerSound.class)
 public abstract class MixinSpeakerSound extends AbstractSoundInstance implements VelocityTickableSoundInstance {
     @Unique private SpeakerPosition speakerPosition;

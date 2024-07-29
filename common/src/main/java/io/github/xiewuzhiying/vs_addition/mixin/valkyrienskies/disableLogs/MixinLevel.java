@@ -6,8 +6,10 @@ import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import net.minecraft.world.level.Level;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 
+@Pseudo
 @Mixin(value = Level.class, priority = 1500)
 public abstract class MixinLevel {
     @TargetHandler(

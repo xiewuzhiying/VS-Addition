@@ -16,6 +16,7 @@ import org.joml.Quaterniond;
 import org.joml.Quaterniondc;
 import org.joml.Vector3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,6 +35,7 @@ import java.util.Map;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
+@Pseudo
 @Mixin(StickerBlockEntity.class)
 public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
 
