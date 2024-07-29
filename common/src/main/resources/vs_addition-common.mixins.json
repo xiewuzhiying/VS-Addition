@@ -27,6 +27,8 @@
     "minecraft.MixinAbstractArrow",
     "minecraft.MixinEntity",
     "minecraft.MixinExplosion",
+    "minecraft.MixinVibrationListener",
+    "peripheralworks.MixinPeripheralProxyBlockEntity",
     "valkyrienskies.MixinBugFixUtils",
     "valkyrienskies.MixinDefaultBlockStateInfoProvider",
     "valkyrienskies.MixinMassDatapackResolver",
