@@ -1,9 +1,11 @@
 package io.github.xiewuzhiying.vs_addition.util;
 
 import com.simibubi.create.AllTags;
+import io.github.xiewuzhiying.vs_addition.mixin.minecraft.HitResultAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ClipBlockStateContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -12,18 +14,27 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4dc;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
 import org.joml.primitives.AABBd;
+import org.joml.primitives.AABBdc;
 import org.valkyrienskies.core.api.ships.ClientShip;
 import org.valkyrienskies.core.api.ships.LoadedShip;
+import org.valkyrienskies.core.api.ships.Ship;
+import org.valkyrienskies.core.api.ships.properties.ShipIdKt;
 import org.valkyrienskies.core.api.ships.properties.ShipTransform;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 import org.valkyrienskies.mod.common.util.VectorConversionsMCKt;
 
 import java.util.Iterator;
+import java.util.Optional;
+
+import static net.minecraft.world.level.BlockGetter.traverseBlocks;
 
 public class RaycastUtils {
     public static BlockHitResult clipIncludeShips(@NotNull Level $this$clipIncludeShips, @NotNull ClipContext ctx) {
@@ -94,7 +105,7 @@ public class RaycastUtils {
         }
     }
     private static BlockHitResult clip(Level level,ClipContext context, Vec3 realStart, Vec3 realEnd) {
-        return BlockGetter.traverseBlocks(realStart,realEnd,context,(context1, blockPos)->{
+        return traverseBlocks(realStart,realEnd,context,(context1, blockPos)->{
             BlockState blockState = level.getBlockState(blockPos);
             if(AllTags.AllBlockTags.FAN_TRANSPARENT.matches(blockState)){
                 return null;
@@ -112,6 +123,84 @@ public class RaycastUtils {
             Vec3 end = context1.getTo();
             Vec3 vec3d = start.subtract(end);
             return BlockHitResult.miss(end, Direction.getNearest(vec3d.x, vec3d.y, vec3d.z), BlockPos.containing(end));
+        });
+    }
+
+    public static BlockHitResult isBlockInLineIncludeShips(Level level, ClipBlockStateContext clipBlockStateContext) {
+        return isBlockInLineIncludeShips(level, clipBlockStateContext, true);
+    }
+
+    public static BlockHitResult isBlockInLineIncludeShips(Level level, ClipBlockStateContext clipBlockStateContext, boolean shouldTransformHitPos) {
+        return isBlockInLineIncludeShips(level, clipBlockStateContext, shouldTransformHitPos, null);
+    }
+
+    public static BlockHitResult isBlockInLineIncludeShips(Level level, ClipBlockStateContext clipBlockStateContext, boolean shouldTransformHitPos, Optional<Long> skipShip) {
+        BlockHitResult vanillaHit = isBlockInLine(level, clipBlockStateContext);
+
+        if (VSGameUtilsKt.getShipObjectWorld(level) == null) {
+            Logger logger = LogManager.getLogger("RaycastUtilsKt");
+            logger.error(
+                    "shipObjectWorld was empty for level raytrace, this should not be possible! " +
+                            "Returning vanilla result."
+            );
+            return vanillaHit;
+        }
+
+        BlockHitResult closestHit = vanillaHit;
+        Vec3 closestHitPos = vanillaHit.getLocation();
+        double closestHitDist = closestHitPos.distanceToSqr(clipBlockStateContext.getFrom());
+
+        AABBdc clipAABB = new AABBd(VectorConversionsMCKt.toJOML(clipBlockStateContext.getFrom()), VectorConversionsMCKt.toJOML(clipBlockStateContext.getTo())).correctBounds();
+
+
+        for(Ship ship: VSGameUtilsKt.getShipsIntersecting(level, clipAABB)) {
+            if (skipShip.get() == ship.getId()) {
+                continue;
+            }
+
+            final Matrix4dc worldToShip;
+            if(ship instanceof ClientShip clientShip) {
+                worldToShip = clientShip.getRenderTransform().getWorldToShip();
+            } else {
+                worldToShip = ship.getWorldToShip();
+            }
+
+            final Matrix4dc shipToWorld;
+            if(ship instanceof ClientShip clientShip) {
+                shipToWorld = clientShip.getRenderTransform().getShipToWorld();
+            } else {
+                shipToWorld = ship.getShipToWorld();
+            }
+
+            final Vec3 shipStart = VectorConversionsMCKt.toMinecraft(worldToShip.transformPosition(VectorConversionsMCKt.toJOML(clipBlockStateContext.getFrom())));
+            final Vec3 shipEnd = VectorConversionsMCKt.toMinecraft(worldToShip.transformPosition(VectorConversionsMCKt.toJOML(clipBlockStateContext.getTo())));
+
+            BlockHitResult shipHit = isBlockInLine(level, new ClipBlockStateContext(shipStart, shipEnd, clipBlockStateContext.isTargetBlock()));
+            Vec3 shipHitPos = VectorConversionsMCKt.toMinecraft(shipToWorld.transformPosition(VectorConversionsMCKt.toJOML(shipHit.getLocation())));
+            double shipHitDist = shipHitPos.distanceToSqr(clipBlockStateContext.getFrom());
+
+            if (shipHitDist < closestHitDist && shipHit.getType() != HitResult.Type.MISS) {
+                closestHit = shipHit;
+                closestHitPos = shipHitPos;
+                closestHitDist = shipHitDist;
+            }
+        }
+
+        if (shouldTransformHitPos) {
+            ((HitResultAccessor)closestHit).setLocation(closestHitPos);
+        }
+
+        return closestHit;
+    }
+
+    private static BlockHitResult isBlockInLine(BlockGetter blockGetter, ClipBlockStateContext arg) {
+        return (BlockHitResult)traverseBlocks(arg.getFrom(), arg.getTo(), arg, (argx, arg2) -> {
+            BlockState blockstate = blockGetter.getBlockState(arg2);
+            Vec3 vec3 = argx.getFrom().subtract(argx.getTo());
+            return argx.isTargetBlock().test(blockstate) ? new BlockHitResult(argx.getTo(), Direction.getNearest(vec3.x, vec3.y, vec3.z), BlockPos.containing(argx.getTo()), false) : null;
+        }, (argx) -> {
+            Vec3 vec3 = argx.getFrom().subtract(argx.getTo());
+            return BlockHitResult.miss(argx.getTo(), Direction.getNearest(vec3.x, vec3.y, vec3.z), BlockPos.containing(argx.getTo()));
         });
     }
 }
