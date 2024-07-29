@@ -3,14 +3,20 @@ package io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork.phys_bearing;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
+import io.github.xiewuzhiying.vs_addition.mixinducks.vs_clockwork.phys_bearing.UpdateIsFacingNegativeDirection;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.valkyrienskies.clockwork.content.contraptions.phys.bearing.data.PhysBearingData;
 import org.valkyrienskies.clockwork.content.forces.contraption.BearingController;
 
 @Mixin(BearingController.class)
-public abstract class MixinBearingController {
+public abstract class MixinBearingController implements UpdateIsFacingNegativeDirection {
+
+    @Unique
+    private boolean vs_addition$isFacingNegativeDirection = false;
+
     @ModifyExpressionValue(
             method = "computeLockedRotationalForce",
             at = @At(
@@ -20,7 +26,7 @@ public abstract class MixinBearingController {
             remap = false
     )
     private double fixLockedMode(double original, @Local(argsOnly = true)PhysBearingData data) {
-        if(data.getBearingAxis().x() == -1.0 || data.getBearingAxis().y() == -1.0 || data.getBearingAxis().z() == -1.0) {
+        if(this.vs_addition$isFacingNegativeDirection && (data.getBearingAxis().x() == -1.0 || data.getBearingAxis().y() == -1.0 || data.getBearingAxis().z() == -1.0)) {
             return -original;
         } else {
             return original;
@@ -45,5 +51,10 @@ public abstract class MixinBearingController {
     )
     private double unlockedModeMultiplier(double value) {
         return value * VSAdditionConfig.SERVER.getPhysBearing().getPhysBearingOmegaErrorMultiplier();
+    }
+
+    @Override
+    public void vs_addition$updateIsFacingNegativeDirection(boolean bl) {
+        this.vs_addition$isFacingNegativeDirection = bl;
     }
 }
