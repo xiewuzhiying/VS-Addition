@@ -61,5 +61,6 @@ public abstract class MixinPhysBearingBlockEntity extends GeneratingKineticBlock
         ((UpdateIsFacingNegativeDirection)(Object)instance).vs_addition$updateIsFacingNegativeDirection(
                 direction == Direction.DOWN || direction == Direction.WEST || direction == Direction.NORTH
         );
+        original.call(instance, id, data);
     }
 }
