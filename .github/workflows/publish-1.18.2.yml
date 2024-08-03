@@ -86,11 +86,14 @@ jobs:
       - name: Build
         run: ./gradlew clean build
         
-      - name: Publish Fabric (CurseForge/GitHub)
+      - name: Publish Fabric (CurseForge/Modrinth/GitHub)
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-id: ${{env.CURSEFORGE_ID}}
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
+          
+          modrinth-id: ${{env.MODRINTH_ID}}
+          modrinth-token: "${{env.MODRINTH_TOKEN}}"
           
           github-tag: "v${{env.VERSION}}"
           github-token: "${{env.GITHUB_TOKEN}}"
@@ -107,11 +110,14 @@ jobs:
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
 
-      - name: Publish Forge (CurseForge/GitHub)
+      - name: Publish Forge (CurseForge/Modrinth/GitHub)
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-id: ${{env.CURSEFORGE_ID}}
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
+          
+          modrinth-id: ${{env.MODRINTH_ID}}
+          modrinth-token: "${{env.MODRINTH_TOKEN}}"
           
           github-tag: "v${{env.VERSION}}"
           github-token: "${{env.GITHUB_TOKEN}}"
@@ -120,42 +126,6 @@ jobs:
           version: "${{env.VERSION}}"
           version-type: beta
           changelog-file: CHANGELOG.md                                      
-
-          files: |
-            forge/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
-
-          loaders: forge
-          game-versions: "${{env.MINECRAFT_VERSION}}"
-          java: "${{env.JAVA_VERSION}}"
-
-      - name: Publish Fabric (Modrinth)
-        uses: Kir-Antipov/mc-publish@v2.1
-        with:
-          modrinth-id: ${{env.MODRINTH_ID}}
-          modrinth-token: "${{env.MODRINTH_TOKEN}}"
-
-          name: "[${{env.MINECRAFT_VERSION}} Fabric] ${{env.VERSION}}"
-          version: "${{env.VERSION}}"
-          version-type: beta
-          changelog-file: CHANGELOG.md
-
-          files: |
-            fabric/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
-
-          loaders: fabric
-          game-versions: "${{env.MINECRAFT_VERSION}}"
-          java: "${{env.JAVA_VERSION}}"
-
-      - name: Publish Forge (Modrinth)
-        uses: Kir-Antipov/mc-publish@v2.1
-        with:
-          modrinth-id: ${{env.MODRINTH_ID}}
-          modrinth-token: "${{env.MODRINTH_TOKEN}}"
-
-          name: "[${{env.MINECRAFT_VERSION}} Forge] ${{env.VERSION}}"
-          version: "${{env.VERSION}}"
-          version-type: beta
-          changelog-file: CHANGELOG.md
 
           files: |
             forge/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
