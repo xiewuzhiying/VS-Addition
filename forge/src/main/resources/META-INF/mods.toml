@@ -41,7 +41,7 @@ curseforge="kotlin-for-forge"
 [[dependencies.vs_addition]]
 modId = "architectury"
 mandatory = true
-versionRange = "[9,)"
+versionRange = "[4,)"
 ordering = "AFTER"
 side = "BOTH"
 [dependencies.vs_addition.mc-publish]

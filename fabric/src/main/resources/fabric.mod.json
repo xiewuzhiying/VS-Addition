@@ -39,7 +39,7 @@
   "accessWidener" : "vs_addition-common.accesswidener",
   "depends": {
     "minecraft": "=1.18.2",
-    "architectury": ">=9.0.0",
+    "architectury": ">=4.0.0",
     "fabricloader": ">=0.14.21",
     "valkyrienskies": ">=2.1.1-beta.1"
   },
