@@ -4,9 +4,16 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "io.github.xiewuzhiying.vs_addition.mixin.VSAdditionCommonMixinConfigPlugin",
   "mixins": [
+    "computercraft.MixinComputerBlockEntity",
     "computercraft.MixinComputerExecutor",
     "computercraft.MixinComputerThread",
+    "computercraft.MixinPocketComputerItem",
     "computercraft.MixinRedstoneAPI",
+    "computercraft.MixinTurtleBlockEntity",
+    "computercraft.MixinTurtleBrain",
+    "computercraft.MixinTurtleMoveCommand",
+    "computercraft.MixinWirelessModemPeripheral",
+    "computercraft.MixinWirelessNetwork",
     "create.MixinContraptionCollider",
     "create.MixinStickerBlockEntity",
     "create.MixinTreeFertilizerItem",
@@ -45,6 +52,7 @@
     "vs_clockwork.phys_bearing.MixinPhysBearingBlockEntity"
   ],
   "client": [
+    "computercraft.client.MixinSpeakerSound",
     "create.client.mechanical_arm.MixinArmInteractionPoint",
     "create.client.mechanical_arm.MixinArmInteractionPointHandler",
     "ftbchunks.client.MixinFTBChunksClient",

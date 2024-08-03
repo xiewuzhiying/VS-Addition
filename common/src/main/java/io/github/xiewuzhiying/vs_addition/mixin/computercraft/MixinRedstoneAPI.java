@@ -7,6 +7,7 @@ import dan200.computercraft.core.apis.RedstoneAPI;
 import dan200.computercraft.core.computer.ComputerSide;
 import org.spongepowered.asm.mixin.*;
 
+@Pseudo
 @Mixin(RedstoneAPI.class)
 public abstract class MixinRedstoneAPI{
 

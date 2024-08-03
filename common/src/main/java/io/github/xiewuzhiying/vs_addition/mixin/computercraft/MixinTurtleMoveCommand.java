@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.fabric.mixin.computercraft;
+package io.github.xiewuzhiying.vs_addition.mixin.computercraft;
 
 import dan200.computercraft.api.turtle.TurtleCommandResult;
 import dan200.computercraft.shared.turtle.core.TurtleMoveCommand;

@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.fabric.mixin.computercraft;
+package io.github.xiewuzhiying.vs_addition.mixin.computercraft;
 
 import dan200.computercraft.api.network.PacketReceiver;
 import dan200.computercraft.api.network.PacketSender;

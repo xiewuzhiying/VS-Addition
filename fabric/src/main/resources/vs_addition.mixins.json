@@ -4,13 +4,6 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "io.github.xiewuzhiying.vs_addition.fabric.mixin.VSAdditionFabricMixinConfigPlugin",
   "mixins": [
-    "computercraft.MixinComputerBlockEntity",
-    "computercraft.MixinPocketComputerItem",
-    "computercraft.MixinTurtleBlockEntity",
-    "computercraft.MixinTurtleBrain",
-    "computercraft.MixinTurtleMoveCommand",
-    "computercraft.MixinWirelessModemPeripheral",
-    "computercraft.MixinWirelessNetwork",
     "create.MixinCommonEvents",
     "create.hose_pulley.MixinFluidDrainingBehaviour",
     "create.hose_pulley.MixinFluidFillingBehaviour",
@@ -18,7 +11,6 @@
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [
-    "computercraft.client.MixinSpeakerSound",
     "create.client.MixinClientEvents",
     "sodium.client.MixinDefaultChunkRenderer",
     "voxelmap.client.MixinGameVariableAccessShim"

@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.forge.mixin.computercraft;
+package io.github.xiewuzhiying.vs_addition.mixin.computercraft;
 
 import dan200.computercraft.shared.turtle.blocks.TurtleBlockEntity;
 import dan200.computercraft.shared.turtle.core.TurtleBrain;
@@ -33,14 +33,15 @@ public abstract class MixinTurtleBrain {
     @Shadow(remap = false)
     public abstract void setOwner(TurtleBlockEntity owner);
 
-    @Shadow(remap = false)
+    @Shadow
     public abstract Level getLevel();
 
     @ModifyVariable(
-        method = "Ldan200/computercraft/shared/turtle/core/TurtleBrain;teleportTo(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Z",
-        at = @At(value = "HEAD"),
-        index = 2,
-        remap = false
+            method = "teleportTo(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Z",
+            at = @At(value = "HEAD"),
+            index = 2,
+            argsOnly = true,
+            remap = false
     )
     private BlockPos ValkyrienSkies2$teleportToBlockPos(final BlockPos pos) {
         final TurtleBlockEntity currentOwner = getOwner();

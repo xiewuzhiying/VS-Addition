@@ -6,12 +6,6 @@
   "mixins": [
     "cbcmodernwarfare.CompactCannonMountBlockEntityAccessor",
     "cbcmodernwarfare.MixinMountedMediumcannonContraption",
-    "computercraft.MixinComputerBlockEntity",
-    "computercraft.MixinPocketComputerItem",
-    "computercraft.MixinTurtleBlockEntity",
-    "computercraft.MixinTurtleMoveCommand",
-    "computercraft.MixinWirelessModemPeripheral",
-    "computercraft.MixinWirelessNetwork",
     "create.MixinPortableItemInterfaceBlockEntity",
     "create.hose_pulley.MixinFluidDrainingBehaviour",
     "create.hose_pulley.MixinFluidFillingBehaviour",
@@ -24,7 +18,6 @@
   },
   "minVersion": "0.8",
   "client": [
-    "computercraft.client.MixinSpeakerSound",
     "embeddium.client.MixinDefaultChunkRenderer",
     "embeddiumplus.client.MixinEmbyTools",
     "netmusic.MixinMusicToClientMessage",
