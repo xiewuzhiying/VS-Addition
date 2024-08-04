@@ -6,14 +6,12 @@ import net.minecraft.client.Minecraft;
 import org.joml.Matrix4d;
 import org.joml.Matrix4dc;
 import org.joml.Vector3d;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.valkyrienskies.core.api.ships.Ship;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
+@Pseudo
 @Mixin(MiniMap.class)
 public abstract class MixinMiniMap {
     @Shadow @Final private Minecraft mc;

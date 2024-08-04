@@ -10,9 +10,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+@Pseudo
 @Mixin(NozzleBlockEntity.class)
 public abstract class MixinNozzleBlockEntity extends SmartBlockEntity {
     public MixinNozzleBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {

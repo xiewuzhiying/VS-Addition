@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Vector3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,6 +22,7 @@ import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
 import static com.simibubi.create.content.kinetics.mechanicalArm.ArmBlockEntity.getRange;
 
+@Pseudo
 @Mixin(ArmBlockEntity.class)
 public abstract class MixinArmBlockEntity extends KineticBlockEntity implements ITransformableBlockEntity {
 

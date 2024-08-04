@@ -4,8 +4,10 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
+@Pseudo
 @Mixin(Entity.class)
 public interface EntityAccessor {
     @Accessor("random")

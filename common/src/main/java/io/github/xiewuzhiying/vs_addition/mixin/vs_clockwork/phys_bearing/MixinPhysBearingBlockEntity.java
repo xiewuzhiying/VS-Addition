@@ -12,12 +12,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.*;
 import org.valkyrienskies.clockwork.content.contraptions.phys.bearing.PhysBearingBlockEntity;
 import org.valkyrienskies.clockwork.content.contraptions.phys.bearing.data.PhysBearingUpdateData;
 import org.valkyrienskies.clockwork.content.forces.contraption.BearingController;
 import net.minecraft.world.level.block.state.properties.Property;
 
+@Pseudo
 @Mixin(PhysBearingBlockEntity.class)
 public abstract class MixinPhysBearingBlockEntity extends GeneratingKineticBlockEntity {
     public MixinPhysBearingBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {

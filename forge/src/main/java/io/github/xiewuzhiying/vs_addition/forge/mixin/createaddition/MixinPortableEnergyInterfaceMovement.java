@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -27,6 +28,7 @@ import org.valkyrienskies.mod.common.util.VectorConversionsMCKt;
 
 import java.util.List;
 
+@Pseudo
 @Mixin(PortableEnergyInterfaceMovement.class)
 public abstract class MixinPortableEnergyInterfaceMovement implements MovementBehaviour {
     @ModifyExpressionValue(

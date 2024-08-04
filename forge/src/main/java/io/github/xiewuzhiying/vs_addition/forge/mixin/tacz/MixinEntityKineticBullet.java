@@ -9,9 +9,11 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.valkyrienskies.mod.common.world.RaycastUtilsKt;
 
+@Pseudo
 @Mixin(EntityKineticBullet.class)
 public abstract class MixinEntityKineticBullet extends Projectile{
     protected MixinEntityKineticBullet(EntityType<? extends Projectile> arg, Level arg2) {

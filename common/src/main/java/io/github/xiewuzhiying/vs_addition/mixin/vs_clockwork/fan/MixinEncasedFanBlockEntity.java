@@ -10,11 +10,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.joml.Vector3dc;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.valkyrienskies.clockwork.content.propulsion.singleton.fan.EncasedFanCreateData;
 import org.valkyrienskies.mod.common.util.VectorConversionsMCKt;
 
+@Pseudo
 @Mixin(value = EncasedFanBlockEntity.class, priority = 1500)
 public abstract class MixinEncasedFanBlockEntity extends KineticBlockEntity {
     public MixinEncasedFanBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {

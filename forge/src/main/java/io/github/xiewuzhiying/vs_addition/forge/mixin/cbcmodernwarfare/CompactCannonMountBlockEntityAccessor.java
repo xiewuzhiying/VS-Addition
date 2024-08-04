@@ -1,10 +1,12 @@
 package io.github.xiewuzhiying.vs_addition.forge.mixin.cbcmodernwarfare;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 import riftyboi.cbcmodernwarfare.cannon_control.compact_mount.CompactCannonMountBlockEntity;
 
+@Pseudo
 @Mixin(CompactCannonMountBlockEntity.class)
 public interface CompactCannonMountBlockEntityAccessor {
 

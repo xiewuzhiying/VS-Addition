@@ -7,6 +7,7 @@ import io.github.xiewuzhiying.vs_addition.mixin.minecraft.EntityAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,6 +22,7 @@ import rbasamoyai.createbigcannons.cannon_control.contraption.PitchOrientedContr
 import riftyboi.cbcmodernwarfare.cannon_control.contraption.MountedMediumcannonContraption;
 import riftyboi.cbcmodernwarfare.munitions.medium_cannon.AbstractMediumcannonProjectile;
 
+@Pseudo
 @Mixin(MountedMediumcannonContraption.class)
 public abstract class MixinMountedMediumcannonContraption extends AbstractMountedCannonContraption implements ItemCannon {
 

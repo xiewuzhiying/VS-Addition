@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.valkyrienskies.core.apigame.ShipTeleportData;
@@ -13,6 +14,7 @@ import org.valkyrienskies.core.impl.game.ShipTeleportDataImpl;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 import org.valkyrienskies.mod.common.command.VSCommands;
 
+@Pseudo
 @Mixin(VSCommands.class)
 public abstract class MixinVSCommands {
 

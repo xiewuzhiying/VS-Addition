@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,6 +29,7 @@ import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlockEn
 
 import java.util.List;
 
+@Pseudo
 @Mixin(FlapBearingBlockEntity.class)
 public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
 

@@ -15,8 +15,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 
+@Pseudo
 @Mixin(TreeFertilizerItem.class)
 public abstract class MixinTreeFertilizerItem extends Item {
 
