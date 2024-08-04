@@ -58,7 +58,6 @@
     "ftbchunks.client.MixinFTBChunksClient",
     "journeymap.client.MixinMiniMap",
     "kontraption.client.MixinKontraptionClientTickHandler",
-    "presencefootsteps.client.MixinPFSolver",
     "vs_clockwork.client.flap_bearing.MixinFlapBearingRenderer",
     "xaeros_minimap.client.MixinMinimapRenderer"
   ],
