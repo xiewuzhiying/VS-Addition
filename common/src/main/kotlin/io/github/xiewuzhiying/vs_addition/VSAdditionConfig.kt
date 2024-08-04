@@ -94,10 +94,10 @@ object VSAdditionConfig {
             @JsonSchema(description = "m")
             val defaultMinPeriod: Long = 5L
 
-            @JsonSchema(description = "Enable cheat functions on cannon mount peripherals")
+            @JsonSchema(description = "Enable cheat functions on cannon mount peripheral")
             val enableCheatCannonMountPeripheral = false
 
-            @JsonSchema(description = "Enable cheat functions on flap bearing peripherals")
+            @JsonSchema(description = "Enable cheat functions on flap bearing peripheral")
             val enableCheatFlapBearingPeripheral = false
         }
     }
