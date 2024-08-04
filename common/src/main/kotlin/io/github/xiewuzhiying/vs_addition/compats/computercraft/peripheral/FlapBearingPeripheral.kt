@@ -5,9 +5,9 @@ import dan200.computercraft.api.peripheral.IPeripheral
 import io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork.flap_bearing.FlapBearingBlockEntityAccessor
 import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlockEntity
 
-open class FlapBearingPeripheral(val type: String, val tileEntity: FlapBearingBlockEntity) : IPeripheral {
+open class FlapBearingPeripheral(val peripheralType: String, val tileEntity: FlapBearingBlockEntity) : IPeripheral {
     override fun getType(): String {
-        return type
+        return peripheralType
     }
 
     override fun equals(iPeripheral: IPeripheral?): Boolean {

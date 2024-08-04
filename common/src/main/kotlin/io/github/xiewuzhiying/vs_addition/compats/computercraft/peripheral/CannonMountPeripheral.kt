@@ -6,11 +6,11 @@ import io.github.xiewuzhiying.vs_addition.mixin.createbigcannons.CannonMountBloc
 import rbasamoyai.createbigcannons.cannon_control.cannon_mount.CannonMountBlockEntity
 
 open class CannonMountPeripheral(
-    val type: String,
+    val peripheralType: String,
     val tileEntity: CannonMountBlockEntity
 ) : IPeripheral{
     override fun getType(): String {
-        return type
+        return peripheralType
     }
 
     override fun equals(iPeripheral: IPeripheral?): Boolean {
