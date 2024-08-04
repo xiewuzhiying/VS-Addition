@@ -90,7 +90,7 @@ public class TransformUtils {
         };
     }
 
-    public static Vec3 getCenterOf(BlockPos blockPos) {
-        return new Vec3(blockPos.getX()+0.5, blockPos.getY()+0.5, blockPos.getZ()+0.5);
+    public static Vec3 getCenterOf(Vec3i vec3i) {
+        return new Vec3(vec3i.getX()+0.5, vec3i.getY()+0.5, vec3i.getZ()+0.5);
     }
 }
