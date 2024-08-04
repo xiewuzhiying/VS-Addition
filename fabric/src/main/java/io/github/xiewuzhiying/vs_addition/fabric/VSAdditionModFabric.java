@@ -17,6 +17,6 @@ public class VSAdditionModFabric implements ModInitializer {
         init();
 
         if(VSAdditionMod.getCC_ACTIVE())
-            PeripheralLookup.get().registerFallback((level, blockPos, blockState, blockEntity, direction) -> FabricPeripheralLookup.INSTANCE.peripheralProvider(blockEntity));
+            PeripheralLookup.get().registerFallback((level, blockPos, blockState, blockEntity, direction) -> FabricPeripheralLookup.INSTANCE.peripheralProvider(level, blockPos));
     }
 }
