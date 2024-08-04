@@ -1,12 +1,10 @@
 package io.github.xiewuzhiying.vs_addition.mixin.create.fan;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.simibubi.create.content.kinetics.fan.NozzleBlockEntity;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -20,8 +18,8 @@ public abstract class MixinNozzleBlockEntity extends SmartBlockEntity {
     public MixinNozzleBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
-    @WrapOperation(method = {"tick","lazyTick","canSee"},at = @At(value = "INVOKE", target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"))
-    private Vec3 transformToWorldPos(Vec3i pos, Operation<Vec3> original){
-        return TransformUtils.toWorldVec3(this.level,TransformUtils.getCenterOf(pos));
+    @ModifyExpressionValue(method = {"tick","lazyTick","canSee"},at = @At(value = "INVOKE", target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"))
+    private Vec3 transformToWorldPos(Vec3 original){
+        return TransformUtils.toWorldVec3(this.level, original);
     }
 }

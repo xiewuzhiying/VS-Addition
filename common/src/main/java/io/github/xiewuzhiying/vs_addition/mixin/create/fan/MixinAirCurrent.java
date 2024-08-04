@@ -52,15 +52,15 @@ public abstract class MixinAirCurrent {
     @Shadow(remap = false) public abstract FanProcessingType getTypeAt(float offset);
 
     @Shadow(remap = false) protected List<Pair<TransportedItemStackHandlerBehaviour, FanProcessingType>> affectedItemHandlers;
-    @Unique public Vec3 min;
-    @Unique public Vec3 max;
-    @Unique public AABB aabb;
+    @Unique private Vec3 min;
+    @Unique private Vec3 max;
+    @Unique private AABB aabb;
     @ModifyExpressionValue(method = "tickAffectedEntities",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/phys/AABB;intersects(Lnet/minecraft/world/phys/AABB;)Z"))
-    public boolean removeAABBDetect(boolean original){
+    private boolean removeAABBDetect(boolean original){
         return true;
     }
-    @WrapOperation(method = "rebuild",at = @At(value = "INVOKE", target = "Lcom/simibubi/create/content/kinetics/fan/processing/FanProcessingType;getAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lcom/simibubi/create/content/kinetics/fan/processing/FanProcessingType;"), remap = false)
-    public FanProcessingType getAtInWorld(Level level, BlockPos pos, Operation<FanProcessingType> original){
+    @WrapOperation(method = "rebuild",at = @At(value = "INVOKE", target = "Lcom/simibubi/create/content/kinetics/fan/processing/FanProcessingType;getAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)Lcom/simibubi/create/content/kinetics/fan/processing/FanProcessingType;"))
+    private FanProcessingType getAtInWorld(Level level, BlockPos pos, Operation<FanProcessingType> original){
         Ship ship = VSGameUtilsKt.getShipManagingPos(level,this.source.getAirCurrentPos());
         if(ship!=null && level.getBlockState(pos).isAir()){
             BlockPos newPos = BlockPos.containing(TransformUtils.toWorldVec3(ship, pos.getCenter()));
@@ -83,12 +83,12 @@ public abstract class MixinAirCurrent {
         }
         return original.call(level,pos);
     }
-    @ModifyExpressionValue(method = "tickAffectedEntities",at = @At(value = "INVOKE", target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"), remap = false)
-    public Vec3 transformPosToWorld(Vec3 original, @Local(argsOnly = true) Level world){
+    @ModifyExpressionValue(method = "tickAffectedEntities",at = @At(value = "INVOKE", target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"))
+    private Vec3 transformPosToWorld(Vec3 original, @Local(argsOnly = true) Level world){
         return TransformUtils.toWorldVec3(world,original);
     }
     @WrapOperation(method = "tickAffectedEntities",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V"))
-    public void harvester(Entity instance, Vec3 pDeltaMovement, Operation<Void> original, @Local(ordinal = 2) float acceleration, @Local Vec3i flow){
+    private void harvester(Entity instance, Vec3 pDeltaMovement, Operation<Void> original, @Local(ordinal = 2) float acceleration, @Local Vec3i flow){
         Level level = this.source.getAirCurrentWorld();
         Ship ship = VSGameUtilsKt.getShipManagingPos(level,this.source.getAirCurrentPos());
         if(ship!=null){
@@ -105,7 +105,7 @@ public abstract class MixinAirCurrent {
         }
     }
     @WrapOperation(method = "findEntities",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;getEntities(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"))
-    public List<Entity> findWorldEntities(Level instance, Entity entity, AABB originalAABB, Operation<List> original){
+    private List<Entity> findWorldEntities(Level instance, Entity entity, AABB originalAABB, Operation<List> original){
         if(VSGameUtilsKt.getShipManagingPos(this.source.getAirCurrentWorld(),this.source.getAirCurrentPos())!=null){
             transformWorldAABB();
             return clipEntities(instance,min,max);
@@ -113,7 +113,7 @@ public abstract class MixinAirCurrent {
         return original.call(instance,entity,originalAABB);
     }
     @Inject(method = "findAffectedHandlers",at = @At(value = "INVOKE", target = "Ljava/util/List;clear()V",shift = At.Shift.AFTER), remap = false)
-    public void findWorldAffectedHandlers(CallbackInfo ci,@Local Level level,@Local BlockPos start){
+    private void findWorldAffectedHandlers(CallbackInfo ci,@Local Level level,@Local BlockPos start){
         int limit = (int) (this.maxDistance+1);
         Ship ship = VSGameUtilsKt.getShipManagingPos(level,start);
         for(int i = 1; i <= limit; ++i){
@@ -158,7 +158,7 @@ public abstract class MixinAirCurrent {
             }
         }
     }
-    @WrapOperation(method = "rebuild",at = @At(value = "INVOKE", target = "Lcom/simibubi/create/content/kinetics/fan/AirCurrent;getFlowLimit(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;FLnet/minecraft/core/Direction;)F"), remap = false)
+    @WrapOperation(method = "rebuild",at = @At(value = "INVOKE", target = "Lcom/simibubi/create/content/kinetics/fan/AirCurrent;getFlowLimit(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;FLnet/minecraft/core/Direction;)F"))
     private float clipLimitWithCatalyst(Level world, BlockPos start, float max, Direction facing, Operation<Float> original){
         Ship ship = VSGameUtilsKt.getShipManagingPos(world, start);
         if (ship != null) {
@@ -180,7 +180,7 @@ public abstract class MixinAirCurrent {
         return max;
     }
     @Unique
-    public List<Entity> clipEntities(Level level,Vec3 start,Vec3 end){
+    private List<Entity> clipEntities(Level level,Vec3 start,Vec3 end){
         List<Entity> entityList = level.getEntities(null,aabb);
         List<Entity> entities = new ArrayList<>();
         for(Entity entity:entityList){
@@ -196,7 +196,7 @@ public abstract class MixinAirCurrent {
         return entities;
     }
     @Unique
-    public void transformWorldAABB(){
+    private void transformWorldAABB(){
         Ship ship = VSGameUtilsKt.getShipManagingPos(this.source.getAirCurrentWorld(),this.source.getAirCurrentPos());
         if(ship!=null){
             min = TransformUtils.toWorldVec3(ship,this.source.getAirCurrentPos().getCenter());
