@@ -21,13 +21,13 @@ import kotlin.math.max
 import kotlin.math.min
 
 class ShipHelmPeripheral(
-    val type: String,
+    val peripheralType: String,
     val tileEntity: ShipHelmBlockEntity,
     val level: Level,
     val blockPos: BlockPos
 ) : IPeripheral {
     override fun getType(): String {
-        return type
+        return peripheralType
     }
 
     override fun equals(iPeripheral: IPeripheral?): Boolean {

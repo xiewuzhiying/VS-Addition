@@ -6,11 +6,11 @@ import io.github.xiewuzhiying.vs_addition.forge.mixin.cbcmodernwarfare.CompactCa
 import riftyboi.cbcmodernwarfare.cannon_control.compact_mount.CompactCannonMountBlockEntity
 
 open class CompactCannonMountPeripheral(
-    val type: String,
+    val peripheralType: String,
     val tileEntity: CompactCannonMountBlockEntity
 ) : IPeripheral {
     override fun getType(): String {
-        return type
+        return peripheralType
     }
 
     override fun equals(iPeripheral: IPeripheral?): Boolean {

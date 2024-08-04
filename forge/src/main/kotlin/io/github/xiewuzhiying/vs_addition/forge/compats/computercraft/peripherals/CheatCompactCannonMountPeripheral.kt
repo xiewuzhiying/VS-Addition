@@ -3,8 +3,8 @@ package io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.periphera
 import dan200.computercraft.api.lua.LuaFunction
 import riftyboi.cbcmodernwarfare.cannon_control.compact_mount.CompactCannonMountBlockEntity
 
-class CheatCompactCannonMountPeripheral(type: String, tileEntity: CompactCannonMountBlockEntity
-) : CompactCannonMountPeripheral(type, tileEntity) {
+class CheatCompactCannonMountPeripheral(peripheralType: String, tileEntity: CompactCannonMountBlockEntity
+) : CompactCannonMountPeripheral(peripheralType, tileEntity) {
     @LuaFunction(mainThread = true)
     fun setPitch(value: Double) {
         if (this.isRunning()) tileEntity.setPitch(value.toFloat())
