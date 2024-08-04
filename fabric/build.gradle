@@ -37,7 +37,7 @@ dependencies {
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras}"))
 
     //Mixin Squared
-    include(implementation(annotationProcessor("com.bawnorton.mixinsquared:mixinsquared-fabric:${rootProject.mixin_squared}")))
+    implementation(include("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${rootProject.mixin_squared}"))
 
     // Mod menu
     modImplementation("com.terraformersmc:modmenu:3.2.3")
