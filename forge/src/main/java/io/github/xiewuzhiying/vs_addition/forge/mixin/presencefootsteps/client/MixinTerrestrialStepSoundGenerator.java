@@ -23,6 +23,7 @@ public abstract class MixinTerrestrialStepSoundGenerator {
                     value = "INVOKE",
                     target = "Leu/ha3/presencefootsteps/world/Solver;findAssociation(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/core/BlockPos;Ljava/lang/String;)Leu/ha3/presencefootsteps/world/Association;"
             )
+            ,remap = false
     )
     private Association includeShips1(Solver instance, LivingEntity entity, BlockPos pos, String strategy, Operation<Association> original) {
         Vec3 vec3 = new Vec3(entity.getX(), entity.getBoundingBox().minY -0.001, entity.getZ());
@@ -42,6 +43,7 @@ public abstract class MixinTerrestrialStepSoundGenerator {
                     value = "INVOKE",
                     target = "Leu/ha3/presencefootsteps/world/Solver;findAssociation(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/core/BlockPos;Ljava/lang/String;)Leu/ha3/presencefootsteps/world/Association;"
             )
+            ,remap = false
     )
     private Association includeShips2(Solver instance, LivingEntity entity, BlockPos pos, String strategy, Operation<Association> original) {
         Vec3 vec3 = new Vec3(entity.getX(), entity.getBoundingBox().minY -0.001, entity.getZ());

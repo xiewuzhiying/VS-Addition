@@ -9,7 +9,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollOptionBehaviour;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
-import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.psi.IPSIBehavior;
+import io.github.xiewuzhiying.vs_addition.mixinducks.create.portable_interface.IPSIBehavior;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

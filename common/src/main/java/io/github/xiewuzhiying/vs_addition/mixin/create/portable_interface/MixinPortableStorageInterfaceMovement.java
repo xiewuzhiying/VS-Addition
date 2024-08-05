@@ -9,7 +9,7 @@ import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterf
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.foundation.utility.VecHelper;
-import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.psi.IPSIBehavior;
+import io.github.xiewuzhiying.vs_addition.mixinducks.create.portable_interface.IPSIBehavior;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -79,7 +79,7 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
                     target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"
             )
     )
-    private static Vec3 getCenterOf(Vec3i pos, Operation<Vec3> original, @Local(ordinal = 0) MovementContext context) {
+    private Vec3 getCenterOf(Vec3i pos, Operation<Vec3> original, @Local(ordinal = 0) MovementContext context) {
         Vec3 transfromedPos = VSGameUtilsKt.toWorldCoordinates(context.world, original.call(pos));
         Ship ship = VSGameUtilsKt.getShipManagingPos(context.world, context.position);
         if(ship!=null)

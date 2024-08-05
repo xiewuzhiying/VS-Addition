@@ -9,7 +9,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.simibubi.create.content.kinetics.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.kinetics.deployer.DeployerHandler;
-import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.deployer.IDeployerBehavior;
+import io.github.xiewuzhiying.vs_addition.mixinducks.create.deployer.IDeployerBehavior;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ClipContext;
