@@ -5,7 +5,7 @@ import dan200.computercraft.api.lua.LuaException
 import dan200.computercraft.api.lua.LuaFunction
 import dan200.computercraft.api.peripheral.IPeripheral
 import net.minecraft.core.BlockPos
-import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.Registry
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
@@ -55,7 +55,7 @@ class ShipHelmPeripheral(
                 blockPos
             ) { blockState: BlockState ->
                 !blockState.isAir && !EurekaConfig.SERVER.blockBlacklist.contains(
-                    BuiltInRegistries.BLOCK.getKey(blockState.block).toString()
+                    Registry.BLOCK.getKey(blockState.block).toString()
                 )
             }
             if (builtShip == null) throw LuaException("Ship is too big! Max size is" + EurekaConfig.SERVER.maxShipBlocks + "blocks (changable in the config)")
