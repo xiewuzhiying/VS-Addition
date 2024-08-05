@@ -17,6 +17,7 @@ public abstract class MixinAl {
                     value = "INVOKE",
                     target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;)V"
             ),
+            require = 0,
             remap = false
     )
     private boolean cancelLogging1(Logger instance, String s) {
@@ -29,6 +30,7 @@ public abstract class MixinAl {
                     value = "INVOKE",
                     target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;)V"
             ),
+            require = 0,
             remap = false
     )
     private boolean cancelLogging2(Logger instance, String s) {
@@ -41,6 +43,7 @@ public abstract class MixinAl {
                     value = "INVOKE",
                     target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;)V"
             ),
+            require = 0,
             remap = false
     )
     private boolean cancelLogging3(Logger instance, String s) {

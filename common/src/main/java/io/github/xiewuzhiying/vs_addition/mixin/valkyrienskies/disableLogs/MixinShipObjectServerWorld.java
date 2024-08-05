@@ -18,6 +18,7 @@ public abstract class MixinShipObjectServerWorld {
                     value = "INVOKE",
                     target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;)V"
             ),
+            require = 0,
             remap = false
     )
     private boolean cancelLogging(Logger instance, String string) {

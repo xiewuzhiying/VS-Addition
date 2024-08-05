@@ -22,6 +22,7 @@ public abstract class MixinLevel {
                     value = "INVOKE",
                     target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/Object;)V"
             ),
+            require = 0,
             remap = false
     )
     private static boolean cancelLogging1(Logger instance, Object message) {
@@ -38,6 +39,7 @@ public abstract class MixinLevel {
                     value = "INVOKE",
                     target = "Lorg/apache/logging/log4j/Logger;error(Ljava/lang/Object;)V"
             ),
+            require = 0,
             remap = false
     )
     private static boolean cancelLogging2(Logger instance, Object message) {
