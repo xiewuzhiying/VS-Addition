@@ -22,6 +22,7 @@ import org.valkyrienskies.mod.common.toShipRenderCoordinates
 
 
 object DualLinkRenderer {
+    @JvmStatic
     fun tick() {
         val mc = Minecraft.getInstance()
         val world = mc.level ?: return
@@ -64,6 +65,7 @@ object DualLinkRenderer {
         }
     }
 
+    @JvmStatic
     fun renderOnBlockEntity(
         be: SmartBlockEntity?, partialTicks: Float, ms: PoseStack,
         buffer: MultiBufferSource?, light: Int, overlay: Int

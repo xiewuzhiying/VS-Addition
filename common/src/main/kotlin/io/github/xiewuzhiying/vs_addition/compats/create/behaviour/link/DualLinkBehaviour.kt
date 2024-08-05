@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.Vec3
+import org.apache.commons.lang3.tuple.Pair
 import org.valkyrienskies.core.api.ships.Ship
 import org.valkyrienskies.mod.common.getShipManagingPos
 import org.valkyrienskies.mod.common.util.toJOML
@@ -26,7 +27,7 @@ import java.util.function.IntConsumer
 import java.util.function.IntSupplier
 
 
-class DualLinkBehaviour protected constructor(
+open class DualLinkBehaviour protected constructor(
     be: SmartBlockEntity?,
     slots: Pair<ValueBoxTransform?, ValueBoxTransform?>
 ) :
@@ -50,8 +51,8 @@ class DualLinkBehaviour protected constructor(
     init {
         frequencyFirst = RedstoneLinkNetworkHandler.Frequency.EMPTY
         frequencyLast = RedstoneLinkNetworkHandler.Frequency.EMPTY
-        firstSlot = slots.first!!
-        secondSlot = slots.second!!
+        firstSlot = slots.left!!
+        secondSlot = slots.right!!
         textShift = Vec3.ZERO
     }
 
@@ -227,8 +228,10 @@ class DualLinkBehaviour protected constructor(
     }
 
     companion object {
+        @JvmStatic
         val TYPE: BehaviourType<DualLinkBehaviour> = BehaviourType()
 
+        @JvmStatic
         fun receiver(
             be: SmartBlockEntity?, slots: Pair<ValueBoxTransform?, ValueBoxTransform?>,
             signalCallback: IntConsumer?
@@ -239,6 +242,7 @@ class DualLinkBehaviour protected constructor(
             return behaviour
         }
 
+        @JvmStatic
         fun transmitter(
             be: SmartBlockEntity?, slots: Pair<ValueBoxTransform?, ValueBoxTransform?>,
             transmission: IntSupplier?

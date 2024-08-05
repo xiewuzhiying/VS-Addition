@@ -93,7 +93,7 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
         if (this.needUpdate && this.wasBlockStateExtended) {
 
             Vector3d selfPosOnShip = new Vector3d(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()).add(0.5, 0.5, 0.5);
-            Quaterniondc rotationQuaternion = TransformUtilsKt.directionToQuaterniond(getBlockState().getValue(FACING));
+            Quaterniondc rotationQuaternion = TransformUtilsKt.getDirectionToQuaterniond(getBlockState().getValue(FACING));
             Vector3d attachmentOffset1 = rotationQuaternion.transform(new Vector3d(0.0, 0.5625, 0.0));
             Vector3d attachmentLocalPos1 = selfPosOnShip.add(attachmentOffset1);
 
@@ -105,7 +105,7 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
                 ServerShipWorldCore serverShipWorldCore = VSGameUtilsKt.getShipObjectWorld((ServerLevel) level);
                 ServerShip selfShip = VSGameUtilsKt.getShipManagingPos((ServerLevel) level, getBlockPos());
                 for (Vector3d posOnShip : ships) {
-                    BlockPos blockPos = TransformUtilsKt.floorToBlockPos(posOnShip);
+                    BlockPos blockPos = TransformUtilsKt.getToBlockPos(posOnShip);
                     BlockState state = level.getBlockState(blockPos);
                     if(isAirOrFluid(state))
                         continue;
