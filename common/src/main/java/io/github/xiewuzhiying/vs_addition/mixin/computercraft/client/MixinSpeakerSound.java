@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.fabric.mixin.computercraft.client;
+package io.github.xiewuzhiying.vs_addition.mixin.computercraft.client;
 
 import dan200.computercraft.client.sound.SpeakerSound;
 import dan200.computercraft.shared.peripheral.speaker.SpeakerPosition;

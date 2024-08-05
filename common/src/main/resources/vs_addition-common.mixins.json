@@ -8,8 +8,8 @@
     "computercraft.MixinComputerThread",
     "computercraft.MixinRedstoneAPI",
     "computercraft.MixinWirelessModemPeripheral",
-    "create.MixinHosePulleyBlockEntity",
     "create.MixinContraptionCollider",
+    "create.MixinHosePulleyBlockEntity",
     "create.MixinStickerBlockEntity",
     "create.MixinTreeFertilizerItem",
     "create.deployer.MixinDeployerBlockEntity",
@@ -47,6 +47,7 @@
     "vs_clockwork.phys_bearing.MixinPhysBearingBlockEntity"
   ],
   "client": [
+    "computercraft.client.MixinSpeakerSound",
     "create.client.mechanical_arm.MixinArmInteractionPoint",
     "create.client.mechanical_arm.MixinArmInteractionPointHandler",
     "ftbchunks.client.MixinFTBChunksClient",

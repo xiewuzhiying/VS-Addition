@@ -13,7 +13,6 @@
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [
-    "computercraft.client.MixinSpeakerSound",
     "create.client.MixinClientEvents",
     "sodium.client.MixinDefaultChunkRenderer",
     "voxelmap.client.MixinGameVariableAccessShim"
