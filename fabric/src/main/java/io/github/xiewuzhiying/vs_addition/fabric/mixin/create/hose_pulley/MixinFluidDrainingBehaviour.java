@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.simibubi.create.content.fluids.transfer.FluidDrainingBehaviour;
 import com.simibubi.create.content.fluids.transfer.FluidManipulationBehaviour;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
-import io.github.xiewuzhiying.vs_addition.util.TransformUtils;
+import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,19 +29,19 @@ public abstract class MixinFluidDrainingBehaviour extends FluidManipulationBehav
     }
     @Inject(method = "pullNext",at = @At(value = "HEAD"),remap = false)
     public void pullNext(BlockPos root, TransactionContext ctx, CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) LocalRef<BlockPos> blockPosLocalRef){
-        Vec3 vec3 = TransformUtils.getFront(Direction.DOWN, root);
+        Vec3 vec3 = TransformUtilsKt.front(root, Direction.DOWN);
         Ship ship = VSGameUtilsKt.getShipManagingPos(this.getWorld(),vec3);
         if(ship!=null){
-            vec3= TransformUtils.toWorldVec3(ship,vec3);
+            vec3= TransformUtilsKt.toWorld(vec3, ship);
         }
         List<Vector3d> ships = VSGameUtilsKt.transformToNearbyShipsAndWorld(this.getWorld(),vec3.x,vec3.y,vec3.z,0.1);
         if(!ships.isEmpty()){
             Ship rootShip = VSGameUtilsKt.getShipManagingPos(this.getWorld(),ships.get(0));
             if(rootShip!=null){
-                blockPosLocalRef.set(TransformUtils.floorToBlockPos(TransformUtils.toShipyardCoordinates(rootShip,vec3)));
+                blockPosLocalRef.set(TransformUtilsKt.getToBlockPos(TransformUtilsKt.toShipyardCoordinates(vec3, rootShip)));
                 return;
             }
         }
-        blockPosLocalRef.set(TransformUtils.floorToBlockPos(vec3));
+        blockPosLocalRef.set(TransformUtilsKt.getToBlockPos(vec3));
     }
 }

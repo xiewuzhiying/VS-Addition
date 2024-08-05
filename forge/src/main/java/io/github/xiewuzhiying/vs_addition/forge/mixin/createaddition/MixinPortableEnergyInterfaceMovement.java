@@ -1,7 +1,6 @@
 package io.github.xiewuzhiying.vs_addition.forge.mixin.createaddition;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceBlock;
 import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceBlockEntity;
@@ -10,10 +9,10 @@ import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterf
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.foundation.utility.VecHelper;
+import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
-import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -32,7 +31,7 @@ import java.util.List;
 @Pseudo
 @Mixin(PortableEnergyInterfaceMovement.class)
 public abstract class MixinPortableEnergyInterfaceMovement implements MovementBehaviour {
-    @WrapOperation(
+    @ModifyExpressionValue(
             method = "findInterface",
             at = @At(
                     value = "INVOKE",
@@ -40,15 +39,15 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
             ),
             remap = false
     )
-    private static Vec3 getCenterOf(Vec3i pos, Operation<Vec3> original, @Local(ordinal = 0) MovementContext context) {
-        Vec3 transfromedPos = VSGameUtilsKt.toWorldCoordinates(context.world, original.call(pos));
+    private static Vec3 getCenterOf(Vec3 original, @Local(ordinal = 0) MovementContext context) {
+        Vec3 transfromedPos = VSGameUtilsKt.toWorldCoordinates(context.world, original);
         Ship ship = VSGameUtilsKt.getShipManagingPos(context.world, context.position);
         if (ship != null)
             transfromedPos = VectorConversionsMCKt.toMinecraft(ship.getTransform().getWorldToShip().transformPosition(VectorConversionsMCKt.toJOML(transfromedPos)));
         return transfromedPos;
     }
 
-    @WrapOperation(
+    @Redirect(
             method = "findInterface",
             at = @At(
                     value = "INVOKE",
@@ -56,7 +55,7 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
             ),
             remap = false
     )
-    public PortableEnergyInterfaceBlockEntity findStationaryInterface(PortableEnergyInterfaceMovement instance, Level level, BlockPos blockPos, BlockState world, Direction pos, Operation<PortableEnergyInterfaceBlockEntity> original, @Local(ordinal = 0) MovementContext context) {
+    public PortableEnergyInterfaceBlockEntity findStationaryInterface(PortableEnergyInterfaceMovement instance, Level level, BlockPos blockPos, BlockState world, Direction pos, @Local(ordinal = 0) MovementContext context) {
         Ship selfShip = VSGameUtilsKt.getShipManagingPos(level, blockPos);
         Vector3d selfDirectionVec = VectorConversionsMCKt.toJOML(context.rotation.apply(Vec3.atLowerCornerOf(context.state
                 .getValue(PortableEnergyInterfaceBlock.FACING).getNormal())));
@@ -151,7 +150,7 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
 
     @Unique
     public PortableEnergyInterfaceBlockEntity findPSI(Level level, Vector3d pos) {
-        BlockPos checkThis = new BlockPos(VectorConversionsMCKt.toMinecraft(pos));
+        BlockPos checkThis = new BlockPos(TransformUtilsKt.getToBlockPos(pos));
         if (level.getBlockEntity(checkThis) instanceof PortableEnergyInterfaceBlockEntity psi) {
             if (psi.isPowered())
                 return null;

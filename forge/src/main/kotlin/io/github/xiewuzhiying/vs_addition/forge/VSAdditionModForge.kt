@@ -1,7 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.forge
 
 import com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours
-import dan200.computercraft.api.ComputerCraftAPI
+import dan200.computercraft.impl.Peripherals
 import dev.architectury.platform.forge.EventBuses
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod
@@ -10,9 +10,9 @@ import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkRenderer
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.ForgePeripheralProvider
 import io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.link.DualLinkHandler
-import io.github.xiewuzhiying.vs_addition.forge.content.redstone.display_link.target.FramedSignDisplayTarget
+import io.github.xiewuzhiying.vs_addition.forge.compats.create.redstone.display_link.target.FramedSignDisplayTarget
 import net.minecraft.resources.ResourceLocation
-import net.minecraftforge.client.ConfigGuiHandler
+import net.minecraftforge.client.ConfigScreenHandler
 import net.minecraftforge.event.TickEvent.ClientTickEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock
 import net.minecraftforge.eventbus.api.IEventBus
@@ -27,6 +27,7 @@ import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 import thedarkcolour.kotlinforforge.forge.MOD_CONTEXT
 import xfacthd.framedblocks.common.FBContent
+
 
 @Mod(VSAdditionMod.MOD_ID)
 class VSAdditionModForge {
@@ -52,8 +53,8 @@ class VSAdditionModForge {
 
         init()
 
-        ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory::class.java) {
-            ConfigGuiHandler.ConfigGuiFactory { _, parent ->
+        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory::class.java) {
+            ConfigScreenHandler.ConfigScreenFactory { _, parent ->
                 VSClothConfig.createConfigScreenFor(
                     parent,
                     VSConfigClass.getRegisteredConfig(VSAdditionConfig::class.java)
@@ -82,12 +83,13 @@ class VSAdditionModForge {
                     ResourceLocation(
                         VSAdditionMod.MOD_ID,
                         "framed_sign_display_target"
-                    ), FramedSignDisplayTarget()
-                ), FBContent.blockEntityTypeFramedSign.get()
+                    ),
+                    FramedSignDisplayTarget()
+                ), FBContent.BE_TYPE_FRAMED_SIGN.get()
             )
 
         if(CC_ACTIVE)
-            ComputerCraftAPI.registerPeripheralProvider(ForgePeripheralProvider)
+            Peripherals.register(ForgePeripheralProvider);
     }
 
     private fun rightClickBlock(event: RightClickBlock?) {

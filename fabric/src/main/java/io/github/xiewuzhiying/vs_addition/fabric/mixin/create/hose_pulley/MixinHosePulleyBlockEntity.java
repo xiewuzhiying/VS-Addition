@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.forge.mixin.create.hose_pulley;
+package io.github.xiewuzhiying.vs_addition.fabric.mixin.create.hose_pulley;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
