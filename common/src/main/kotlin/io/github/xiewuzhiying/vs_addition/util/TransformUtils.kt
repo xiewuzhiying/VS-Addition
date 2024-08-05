@@ -3,11 +3,15 @@ package io.github.xiewuzhiying.vs_addition.util
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.Vec3i
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.Vec3
 import org.joml.*
+import org.joml.primitives.AABBd
+import org.joml.primitives.AABBdc
 import org.valkyrienskies.core.api.ships.Ship
 import org.valkyrienskies.mod.common.getShipManagingPos
+import org.valkyrienskies.mod.common.getShipsIntersecting
 import org.valkyrienskies.mod.common.toWorldCoordinates
 import org.valkyrienskies.mod.common.util.toJOML
 import org.valkyrienskies.mod.common.util.toMinecraft
@@ -109,6 +113,60 @@ fun BlockPos.front(direction: Direction): Vec3 {
     }
 }
 
-fun getCenterOf(vec3i: Vec3i): Vec3 {
-    return Vec3(vec3i.x + 0.5, vec3i.y + 0.5, vec3i.z + 0.5)
+val Vector3i.centerM : Vec3
+    get() = Vec3(this.x + 0.5, this.y + 0.5, this.z + 0.5)
+
+val Vector3i.centerD : Vector3d
+    get() = Vector3d(this.x + 0.5, this.y + 0.5, this.z + 0.5)
+
+val Vector3i.centerDF : Vector3f
+    get() = Vector3f(this.x + 0.5f, this.y + 0.5f, this.z + 0.5f)
+
+val Vec3i.centerM : Vec3
+    get() = Vec3(this.x + 0.5, this.y + 0.5, this.z + 0.5)
+
+val Vec3i.centerD : Vector3d
+    get() = Vector3d(this.x + 0.5, this.y + 0.5, this.z + 0.5)
+
+val Vec3i.centerDF : Vector3f
+    get() = Vector3f(this.x + 0.5f, this.y + 0.5f, this.z + 0.5f)
+
+val Entity.isOnShip : Boolean
+    get() = this.level().getShipsIntersecting(this.boundingBox).any()
+
+//form VS base
+fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc): BlockPos? {
+    val radius = 0.5
+    val testAABB: AABBdc = AABBd(
+        blockPosInGlobal.x() - radius, blockPosInGlobal.y() - radius, blockPosInGlobal.z() - radius,
+        blockPosInGlobal.x() + radius, blockPosInGlobal.y() + radius, blockPosInGlobal.z() + radius
+    )
+    val intersectingShips = this.getShipsIntersecting(testAABB)
+    for (ship in intersectingShips) {
+        val blockPosInLocal: Vector3dc =
+            ship.transform.worldToShip.transformPosition(blockPosInGlobal, Vector3d())
+        val blockPos = BlockPos.containing(
+            floor(blockPosInLocal.x()), floor(blockPosInLocal.y()), floor(blockPosInLocal.z())
+        )
+        val blockState = this.getBlockState(blockPos)
+        if (!blockState.isAir) {
+            return blockPos
+        } else {
+            // Check the block below as well, in the cases of fences
+            val blockPosInLocal2: Vector3dc = ship.transform.worldToShip
+                .transformPosition(
+                    Vector3d(blockPosInGlobal.x(), blockPosInGlobal.y() - 1.0, blockPosInGlobal.z())
+                )
+            val blockPos2 = BlockPos.containing(
+                Math.round(blockPosInLocal2.x()).toDouble(),
+                Math.round(blockPosInLocal2.y()).toDouble(),
+                Math.round(blockPosInLocal2.z()).toDouble()
+            )
+            val blockState2 = this.getBlockState(blockPos2)
+            if (!blockState2.isAir) {
+                return blockPos2
+            }
+        }
+    }
+    return BlockPos.containing(blockPosInGlobal.x(), blockPosInGlobal.y(), blockPosInGlobal.z())
 }
