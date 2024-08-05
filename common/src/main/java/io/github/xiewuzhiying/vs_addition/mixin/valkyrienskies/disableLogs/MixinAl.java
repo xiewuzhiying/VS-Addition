@@ -34,4 +34,16 @@ public abstract class MixinAl {
     private boolean cancelLogging2(Logger instance, String s) {
         return !VSAdditionConfig.SERVER.getDisableSomeWarnings();
     }
+
+    @WrapWithCondition(
+            method = "a(Lorg/valkyrienskies/core/impl/shadow/Ap;)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;)V"
+            ),
+            remap = false
+    )
+    private boolean cancelLogging3(Logger instance, String s) {
+        return !VSAdditionConfig.SERVER.getDisableSomeWarnings();
+    }
 }
