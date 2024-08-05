@@ -50,7 +50,7 @@ public class VSAdditionFabricMixinConfigPlugin implements IMixinConfigPlugin {
 
     private static boolean classExists(final String className) {
         try {
-            Class.forName(className, false, ValkyrienCommonMixinConfigPlugin.class.getClassLoader());
+            Class.forName(className);
             return true;
         } catch (final ClassNotFoundException ex) {
             return false;
