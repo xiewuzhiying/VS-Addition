@@ -8,11 +8,12 @@
     "create.hose_pulley.MixinFluidDrainingBehaviour",
     "create.hose_pulley.MixinFluidFillingBehaviour",
     "create.hose_pulley.MixinHosePulleyBlockEntity",
-    "createaddition.MixinPortableEnergyInterfaceMovement",
-    "presencefootsteps.client.MixinPFSolver"
+    "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [
     "create.client.MixinClientEvents",
+    "presencefootsteps.client.MixinPFSolver",
+    "presencefootsteps.client.MixinTerrestrialStepSoundGenerator",
     "sodium.client.MixinDefaultChunkRenderer",
     "voxelmap.client.MixinGameVariableAccessShim"
   ],
