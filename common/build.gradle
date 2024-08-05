@@ -76,9 +76,6 @@ dependencies {
     //Unlimited Peripheral Works
     modCompileOnly("maven.modrinth:peripheralium:1.20.1-0.6.15")
     modCompileOnly("maven.modrinth:unlimitedperipheralworks:llME0vcm")
-
-    //Presence Footsteps
-    modCompileOnly("maven.modrinth:presence-footsteps:1.9.4+1.20.1")
 }
 
 publishing {

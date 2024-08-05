@@ -8,7 +8,8 @@
     "create.hose_pulley.MixinFluidDrainingBehaviour",
     "create.hose_pulley.MixinFluidFillingBehaviour",
     "create.hose_pulley.MixinHosePulleyBlockEntity",
-    "createaddition.MixinPortableEnergyInterfaceMovement"
+    "createaddition.MixinPortableEnergyInterfaceMovement",
+    "presencefootsteps.client.MixinPFSolver"
   ],
   "client": [
     "create.client.MixinClientEvents",

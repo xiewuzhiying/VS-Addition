@@ -11,6 +11,7 @@
     "create.hose_pulley.MixinFluidFillingBehaviour",
     "create.hose_pulley.MixinHosePulleyBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement",
+    "presencefootsteps.client.MixinPFSolver",
     "tacz.MixinEntityKineticBullet"
   ],
   "injectors": {
