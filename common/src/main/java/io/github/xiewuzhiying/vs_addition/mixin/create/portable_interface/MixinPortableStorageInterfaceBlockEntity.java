@@ -10,7 +10,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollOp
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.psi.IPSIBehavior;
-import io.github.xiewuzhiying.vs_addition.util.TransformUtils;
+import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -227,7 +227,7 @@ public abstract class MixinPortableStorageInterfaceBlockEntity extends SmartBloc
 
     @Unique
     public PortableStorageInterfaceBlockEntity findPSI(Level level, Vector3d pos) {
-        BlockPos checkThis = new BlockPos(TransformUtils.floorToBlockPos(pos));
+        BlockPos checkThis = new BlockPos(TransformUtilsKt.getToBlockPos(pos));
         if(level.getBlockEntity(checkThis) instanceof PortableStorageInterfaceBlockEntity psi) {
             if(psi.isPowered() || ((IPSIBehavior)psi).vs_addition$getWorkingMode().get() == WorkigMode.ORIGINAL)
                 return null;

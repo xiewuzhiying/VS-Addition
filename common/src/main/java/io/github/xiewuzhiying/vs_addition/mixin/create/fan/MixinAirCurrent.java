@@ -10,9 +10,8 @@ import com.simibubi.create.content.kinetics.fan.IAirCurrentSource;
 import com.simibubi.create.content.kinetics.fan.processing.AllFanProcessingTypes;
 import com.simibubi.create.content.kinetics.fan.processing.FanProcessingType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.VecHelper;
+import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import io.github.xiewuzhiying.vs_addition.util.RaycastUtils;
-import io.github.xiewuzhiying.vs_addition.util.TransformUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -29,7 +28,6 @@ import org.joml.Vector3d;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.valkyrienskies.core.api.ships.Ship;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
@@ -63,18 +61,18 @@ public abstract class MixinAirCurrent {
     private FanProcessingType getAtInWorld(Level level, BlockPos pos, Operation<FanProcessingType> original){
         Ship ship = VSGameUtilsKt.getShipManagingPos(level,this.source.getAirCurrentPos());
         if(ship!=null && level.getBlockState(pos).isAir()){
-            BlockPos newPos = BlockPos.containing(TransformUtils.toWorldVec3(ship, pos.getCenter()));
+            BlockPos newPos = BlockPos.containing(TransformUtilsKt.toWorld(pos.getCenter(), ship));
             FanProcessingType type = original.call(level,newPos);
             if(!(type.equals(AllFanProcessingTypes.NONE))){
                 return type;
             }
         }
-        Vec3 vec3 = TransformUtils.toWorldVec3(level,pos.getCenter());
+        Vec3 vec3 = TransformUtilsKt.toWorld(pos.getCenter(), level);
         List<Vector3d> vector3dList = VSGameUtilsKt.transformToNearbyShipsAndWorld(level,vec3.x,vec3.y,vec3.z,0.25);
         if(!vector3dList.isEmpty()){
             ship = VSGameUtilsKt.getShipManagingPos(level, vector3dList.get(0));
             if (ship != null) {
-                BlockPos newPos = BlockPos.containing(TransformUtils.toShipyardCoordinates(ship, vec3));
+                BlockPos newPos = BlockPos.containing(TransformUtilsKt.toShipyardCoordinates(vec3, ship));
                 FanProcessingType type = original.call(level,newPos);
                 if(!(type.equals(AllFanProcessingTypes.NONE))){
                     return type;
@@ -85,7 +83,7 @@ public abstract class MixinAirCurrent {
     }
     @ModifyExpressionValue(method = "tickAffectedEntities",at = @At(value = "INVOKE", target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"))
     private Vec3 transformPosToWorld(Vec3 original, @Local(argsOnly = true) Level world){
-        return TransformUtils.toWorldVec3(world,original);
+        return TransformUtilsKt.toWorld(original, world);
     }
     @WrapOperation(method = "tickAffectedEntities",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V"))
     private void harvester(Entity instance, Vec3 pDeltaMovement, Operation<Void> original, @Local(ordinal = 2) float acceleration, @Local Vec3i flow){
@@ -118,7 +116,7 @@ public abstract class MixinAirCurrent {
         Ship ship = VSGameUtilsKt.getShipManagingPos(level,start);
         for(int i = 1; i <= limit; ++i){
             BlockPos currentPos = start.relative(this.direction,i);
-            Vec3 currentVec3 = TransformUtils.toWorldVec3(level,currentPos.getCenter());
+            Vec3 currentVec3 = TransformUtilsKt.toWorld(currentPos.getCenter(), level);
             for(Direction direction:Direction.values()){
                 Vec3i vec3i = direction.getNormal();
                 Vec3 directionVec3 = new Vec3(vec3i.getX(),vec3i.getY(),vec3i.getZ()).scale(1.25);
@@ -199,7 +197,7 @@ public abstract class MixinAirCurrent {
     private void transformWorldAABB(){
         Ship ship = VSGameUtilsKt.getShipManagingPos(this.source.getAirCurrentWorld(),this.source.getAirCurrentPos());
         if(ship!=null){
-            min = TransformUtils.toWorldVec3(ship,this.source.getAirCurrentPos().getCenter());
+            min = TransformUtilsKt.toWorld(this.source.getAirCurrentPos().getCenter(), ship);
             Vector3d directionVec = ship.getTransform().getShipToWorld().transformDirection(VectorConversionsMCKt.toJOMLD(this.direction.getNormal())).mul(this.maxDistance+1F);
             max = min.add(VectorConversionsMCKt.toMinecraft(directionVec));
             this.aabb = VSGameUtilsKt.transformAabbToWorld(this.source.getAirCurrentWorld(),this.bounds).inflate(1);

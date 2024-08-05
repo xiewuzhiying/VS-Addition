@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.simibubi.create.content.fluids.hosePulley.HosePulleyBlockEntity;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
-import io.github.xiewuzhiying.vs_addition.util.TransformUtils;
+import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.ClipContext;
@@ -32,8 +32,8 @@ public abstract class MixinHosePulleyBlockEntity extends KineticBlockEntity {
     public boolean tick(boolean original, @Local(ordinal = 0) float newOffset){
         original = !original;
         Level level = this.level;
-        Vec3 vec3From = TransformUtils.toWorldVec3(level, TransformUtils.vec3Below(TransformUtils.getFront(Direction.DOWN,this.worldPosition),this.offset.getValue()));
-        Vec3 vec3To = TransformUtils.toWorldVec3(level, TransformUtils.vec3Below(TransformUtils.getFront(Direction.DOWN,this.worldPosition),newOffset));
+        Vec3 vec3From = TransformUtilsKt.toWorld(TransformUtilsKt.below(TransformUtilsKt.front(this.worldPosition, Direction.DOWN),this.offset.getValue()), level);
+        Vec3 vec3To = TransformUtilsKt.toWorld(TransformUtilsKt.below(TransformUtilsKt.front(this.worldPosition, Direction.DOWN),newOffset), level);
         boolean unReplaced = !level.getBlockState(level.clip(new ClipContext(vec3From,vec3To, ClipContext.Block.OUTLINE, ClipContext.Fluid.ANY,null)).getBlockPos()).canBeReplaced();
         return !(original||unReplaced);
     }

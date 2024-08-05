@@ -10,7 +10,7 @@ import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkRenderer
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.ForgePeripheralProvider
 import io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.link.DualLinkHandler
-import io.github.xiewuzhiying.vs_addition.forge.content.redstone.display_link.target.FramedSignDisplayTarget
+import io.github.xiewuzhiying.vs_addition.forge.compats.create.redstone.display_link.target.FramedSignDisplayTarget
 import net.minecraft.resources.ResourceLocation
 import net.minecraftforge.client.ConfigScreenHandler
 import net.minecraftforge.event.TickEvent.ClientTickEvent
@@ -83,7 +83,8 @@ class VSAdditionModForge {
                     ResourceLocation(
                         VSAdditionMod.MOD_ID,
                         "framed_sign_display_target"
-                    ), FramedSignDisplayTarget()
+                    ),
+                    FramedSignDisplayTarget()
                 ), FBContent.BE_TYPE_FRAMED_SIGN.get()
             )
 

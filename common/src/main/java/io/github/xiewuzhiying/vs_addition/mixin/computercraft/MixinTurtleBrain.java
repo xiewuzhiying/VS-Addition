@@ -2,7 +2,7 @@ package io.github.xiewuzhiying.vs_addition.mixin.computercraft;
 
 import dan200.computercraft.shared.turtle.blocks.TurtleBlockEntity;
 import dan200.computercraft.shared.turtle.core.TurtleBrain;
-import io.github.xiewuzhiying.vs_addition.util.TransformUtils;
+import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -112,7 +112,7 @@ public abstract class MixinTurtleBrain {
         final Vec3 tPos = VectorConversionsMCKt.toMinecraft(
             VSGameUtilsKt.toWorldCoordinates(ship, pos.getX() + 0.5, pos.getY() + 0.5,
                 pos.getZ() + 0.5));
-        final BlockPos newPos = new BlockPos(TransformUtils.floorToBlockPos(tPos));
+        final BlockPos newPos = new BlockPos(TransformUtilsKt.getToBlockPos(tPos));
         return newPos;
     }
 }

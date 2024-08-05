@@ -10,7 +10,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.simibubi.create.content.kinetics.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.kinetics.deployer.DeployerHandler;
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.deployer.IDeployerBehavior;
-import io.github.xiewuzhiying.vs_addition.util.TransformUtils;
+import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -38,7 +38,7 @@ public abstract class MixinDeployerHandler {
             )
     )
     private static Vec3 setRayOrigin(Vec3 original, @Local(argsOnly = true, ordinal = 0) DeployerFakePlayer player, @Local(argsOnly = true, ordinal = 0) Vec3 vec3, @Share("mode") LocalBooleanRef working_mode) {
-        BlockEntity blockEntity = player.level().getBlockEntity(TransformUtils.floorToBlockPos(vec3));
+        BlockEntity blockEntity = player.level().getBlockEntity(TransformUtilsKt.getToBlockPos(vec3));
         if(blockEntity != null)
             working_mode.set(((IDeployerBehavior)blockEntity).vs_addition$getWorkingMode().get() == IDeployerBehavior.WorkigMode.WITH_SHIP);
         else
