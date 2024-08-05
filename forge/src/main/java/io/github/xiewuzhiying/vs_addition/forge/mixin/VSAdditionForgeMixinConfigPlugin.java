@@ -22,6 +22,9 @@ public class VSAdditionForgeMixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        if(mixinClassName.contains("io.github.xiewuzhiying.vs_addition.forge.mixin.computercraft.client.MixinSpeakerSound") && classExists("org.valkyrienskies.mod.forge.mixin.compat.cc_tweaked.MixinSpeakerSound")) {
+            return false;
+        }
         return true;
     }
 
@@ -43,5 +46,14 @@ public class VSAdditionForgeMixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
 
+    }
+
+    private static boolean classExists(final String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (final ClassNotFoundException ex) {
+            return false;
+        }
     }
 }
