@@ -106,6 +106,9 @@ dependencies {
     //Create Tweaked Controllers
     modImplementation("maven.modrinth:create-tweaked-controllers:1.18.2-1.2.4")
 
+    //TaCZ
+    modImplementation("maven.modrinth:timeless-and-classics-zero:1.0.2")
+
     //Net Music
     modImplementation("maven.modrinth:net-music:FQqAhlVb")
 

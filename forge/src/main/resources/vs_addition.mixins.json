@@ -12,7 +12,8 @@
     "create.MixinPortableItemInterfaceBlockEntity",
     "create.hose_pulley.MixinFluidDrainingBehaviour",
     "create.hose_pulley.MixinFluidFillingBehaviour",
-    "createaddition.MixinPortableEnergyInterfaceMovement"
+    "createaddition.MixinPortableEnergyInterfaceMovement",
+    "tacz.MixinEntityKineticBullet"
   ],
   "injectors": {
     "defaultRequire": 1
