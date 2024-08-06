@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - '1.18.2/**'
+  workflow_dispatch:
+
 env:
   JAVA_VERSION: 17
   MODRINTH_TOKEN: ${{ secrets.PUBLISH_MODRINTH_TOKEN }}
