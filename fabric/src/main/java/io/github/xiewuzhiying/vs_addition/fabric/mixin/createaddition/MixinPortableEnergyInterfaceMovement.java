@@ -3,7 +3,7 @@ package io.github.xiewuzhiying.vs_addition.fabric.mixin.createaddition;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceBlock;
-import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceBlockEntity;
+import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceTileEntity;
 import com.mrh0.createaddition.blocks.portable_energy_interface.PortableEnergyInterfaceMovement;
 import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterfaceBlock;
 import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
@@ -51,10 +51,10 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
             method = "findInterface",
             at = @At(
                     value = "INVOKE",
-                    target = "Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceMovement;findStationaryInterface(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceBlockEntity;"
+                    target = "Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceMovement;findStationaryInterface(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceTileEntity;"
             )
     )
-    public PortableEnergyInterfaceBlockEntity findStationaryInterface(PortableEnergyInterfaceMovement instance, Level level, BlockPos blockPos, BlockState world, Direction pos, @Local MovementContext context) {
+    public PortableEnergyInterfaceTileEntity findStationaryInterface(PortableEnergyInterfaceMovement instance, Level level, BlockPos blockPos, BlockState world, Direction pos, @Local MovementContext context) {
         Ship selfShip = VSGameUtilsKt.getShipManagingPos(level, blockPos);
         Vector3d selfDirectionVec = VectorConversionsMCKt.toJOML(context.rotation.apply(Vec3.atLowerCornerOf(context.state
                 .getValue(PortableEnergyInterfaceBlock.FACING).getNormal())));
@@ -69,7 +69,7 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
             ships.add(VSGameUtilsKt.toWorldCoordinates(level, checkPos));
 
             for(Vector3d eachShipPos : ships) {
-                PortableEnergyInterfaceBlockEntity psi = findPSI(level, eachShipPos);
+                PortableEnergyInterfaceTileEntity psi = findPSI(level, eachShipPos);
                 if (psi != null) {
                     Vector3d selfVec = selfDirectionVec.normalize().negate();
                     if (selfShip!=null)
@@ -113,10 +113,10 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
             method = "tick",
             at = @At(
                     value = "INVOKE",
-                    target = "Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceMovement;getStationaryInterfaceAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceBlockEntity;"
+                    target = "Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceMovement;getStationaryInterfaceAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceTileEntity;"
             )
     )
-    public PortableEnergyInterfaceBlockEntity redirectToFindPSI(PortableEnergyInterfaceMovement instance, Level level, BlockPos pos, BlockState state, Direction direction) {
+    public PortableEnergyInterfaceTileEntity redirectToFindPSI(PortableEnergyInterfaceMovement instance, Level level, BlockPos pos, BlockState state, Direction direction) {
         return findPSI(level, VectorConversionsMCKt.toJOML(VecHelper.getCenterOf(pos)));
     }
 
@@ -144,9 +144,9 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
 
 
     @Unique
-    public PortableEnergyInterfaceBlockEntity findPSI(Level level, Vector3d pos) {
+    public PortableEnergyInterfaceTileEntity findPSI(Level level, Vector3d pos) {
         BlockPos checkThis = new BlockPos(TransformUtilsKt.getToBlockPos(pos));
-        if(level.getBlockEntity(checkThis) instanceof PortableEnergyInterfaceBlockEntity psi) {
+        if(level.getBlockEntity(checkThis) instanceof PortableEnergyInterfaceTileEntity psi) {
             if(psi.isPowered())
                 return null;
             return psi;

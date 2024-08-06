@@ -10,6 +10,7 @@
     "create.MixinCommonEvents",
     "create.hose_pulley.MixinFluidDrainingBehaviour",
     "create.hose_pulley.MixinFluidFillingBehaviour",
+    "create.hose_pulley.MixinHosePulleyBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement"
   ],
   "client": [

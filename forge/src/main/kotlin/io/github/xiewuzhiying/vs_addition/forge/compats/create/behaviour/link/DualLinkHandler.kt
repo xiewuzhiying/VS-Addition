@@ -7,6 +7,8 @@ import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLink
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.phys.Vec3
 import net.minecraftforge.common.util.FakePlayer
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
@@ -15,7 +17,7 @@ import net.minecraftforge.fml.LogicalSide
 object DualLinkHandler {
     @JvmStatic
     fun onBlockActivated(event: PlayerInteractEvent.RightClickBlock) {
-        val world = event.level
+        val world = event.world
         val pos = event.pos
         val player = event.entity
         val hand = event.hand
@@ -25,8 +27,8 @@ object DualLinkHandler {
         val behaviour = BlockEntityBehaviour.get(world, pos, DualLinkBehaviour.TYPE)
             ?: return
 
-        val heldItem = player.getItemInHand(hand)
-        val ray = RaycastHelper.rayTraceRange(world, player, 10.0) ?: return
+        val heldItem: ItemStack = player.getSlot(hand.ordinal).get()
+        val ray = RaycastHelper.rayTraceRange(world, player as Player, 10.0) ?: return
         if (AllItems.LINKED_CONTROLLER.isIn(heldItem)) return
         if (AllItems.WRENCH.isIn(heldItem)) return
 

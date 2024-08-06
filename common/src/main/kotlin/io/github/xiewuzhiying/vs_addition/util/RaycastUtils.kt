@@ -85,7 +85,7 @@ object RaycastUtils {
                 BlockHitResult.miss(
                     end,
                     Direction.getNearest(vec3d.x, vec3d.y, vec3d.z),
-                    BlockPos.containing(end)
+                    end.toBlockPos
                 )
             })
     }
@@ -151,7 +151,7 @@ object RaycastUtils {
                 if (argx.isTargetBlock().test(blockstate)) BlockHitResult(
                     argx.to,
                     Direction.getNearest(vec3.x, vec3.y, vec3.z),
-                    BlockPos.containing(argx.to),
+                    argx.to.toBlockPos,
                     false
                 ) else null
             },
@@ -160,7 +160,7 @@ object RaycastUtils {
                 BlockHitResult.miss(
                     argx.to,
                     Direction.getNearest(vec3.x, vec3.y, vec3.z),
-                    BlockPos.containing(argx.to)
+                    argx.to.toBlockPos
                 )
             }) as BlockHitResult
     }

@@ -8,7 +8,6 @@
     "computercraft.MixinComputerThread",
     "computercraft.MixinRedstoneAPI",
     "computercraft.MixinWirelessModemPeripheral",
-    "create.MixinHosePulleyBlockEntity",
     "create.MixinContraptionCollider",
     "create.MixinStickerBlockEntity",
     "create.MixinTreeFertilizerItem",
