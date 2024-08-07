@@ -86,6 +86,9 @@ dependencies {
 
     //Sodium
     modImplementation("maven.modrinth:sodium:mc1.18.2-0.4.1")
+
+    //Presence Footsteps
+    modImplementation("maven.modrinth:presence-footsteps:1.5.1")
 }
 
 processResources {

@@ -115,7 +115,9 @@ dependencies {
     //Embeddium
     modImplementation("maven.modrinth:embeddium:0.3.18+mc1.18.2")
     modImplementation("maven.modrinth:embeddiumplus:1.18.2-v1.2.14")
-    modImplementation("maven.modrinth:textrues-embeddium-options:0.1.1+mc1.18.2")
+
+    //Presence Footsteps
+    modImplementation files("jars/PresenceFootsteps-1.18.2-1.5.1-forge.jar")
 }
 
 processResources {
