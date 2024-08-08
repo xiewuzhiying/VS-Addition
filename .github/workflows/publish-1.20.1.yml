@@ -79,6 +79,14 @@ jobs:
           localPath: ./common/jars/ftb-chunks-fabric-2001.3.1.jar
           googleFileId: 1syotEGMA2svNL2vaXp35yF7fD9NyDmZp
 
+      - name: Download Presence Footsteps Forge
+        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
+        with:
+          credentials: ${{ secrets.GSA_CREDENTIALS }}
+          actionType: download
+          localPath: ./forge/jars/PresenceFootsteps-1.20.1-1.9.1-beta.1.jar
+          googleFileId: 1p-GREqHqYlaQsIJ7cjEydxJYgqSyHgBb
+
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
