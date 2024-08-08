@@ -33,7 +33,7 @@ public abstract class MixinTerrestrialStepSoundGenerator {
         Vec3 position = entity.position();
         return original.call(
                 instance,
-                getPosStandingOnFromShips(entity.level(), new Vector3d(position.x, position.y - 0.1, position.z), 1),
+                getPosStandingOnFromShips(entity.level(), new Vector3d(position.x, position.y - 0.1 - (this.entity.onGround() ? 0.0 : 0.25), position.z), 1),
                 strategy
         );
     }

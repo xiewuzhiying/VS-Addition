@@ -147,7 +147,7 @@ fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double)
             ship.transform.worldToShip.transformPosition(blockPosInGlobal, Vector3d())
         val blockPos = blockPosInLocal.toBlockPos
         val blockState = this.getBlockState(blockPos)
-        if (blockState != Blocks.AIR.defaultBlockState()) {
+        if (!blockState.isAir) {
             return blockPos
         } else {
             // Check the block below as well, in the cases of fences
