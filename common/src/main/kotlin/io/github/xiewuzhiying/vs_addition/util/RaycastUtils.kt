@@ -33,8 +33,8 @@ object RaycastUtils {
             val worldToShip: Matrix4dc
             val shipToWorld: Matrix4dc
             if (ship is ClientShip) {
-                worldToShip = ship.renderTransform?.worldToShip ?: ship.worldToShip
-                shipToWorld = ship.renderTransform?.shipToWorld ?: ship.shipToWorld
+                worldToShip = ship.renderTransform.worldToShip
+                shipToWorld = ship.renderTransform.shipToWorld
             } else {
                 worldToShip = ship.worldToShip
                 shipToWorld = ship.shipToWorld
@@ -55,7 +55,7 @@ object RaycastUtils {
 
     private fun clip(level: Level, context: ClipContext, realStart: Vec3, realEnd: Vec3): BlockHitResult {
         return BlockGetter.traverseBlocks(realStart, realEnd, context,
-            { context1: ClipContext, blockPos: BlockPos? ->
+            { context1: ClipContext, blockPos: BlockPos ->
                 val blockState = level.getBlockState(blockPos)
                 if (AllTags.AllBlockTags.FAN_TRANSPARENT.matches(blockState)) {
                     return@traverseBlocks null
@@ -120,8 +120,8 @@ object RaycastUtils {
             val worldToShip: Matrix4dc
             val shipToWorld: Matrix4dc
             if (ship is ClientShip) {
-                worldToShip = ship.renderTransform?.worldToShip ?: ship.worldToShip
-                shipToWorld = ship.renderTransform?.shipToWorld ?: ship.shipToWorld
+                worldToShip = ship.renderTransform.worldToShip
+                shipToWorld = ship.renderTransform.shipToWorld
             } else {
                 worldToShip = ship.worldToShip
                 shipToWorld = ship.shipToWorld
@@ -145,10 +145,10 @@ object RaycastUtils {
 
     private fun isBlockInLine(blockGetter: BlockGetter, arg: ClipBlockStateContext): BlockHitResult {
         return BlockGetter.traverseBlocks(arg.from, arg.to, arg,
-            { argx: ClipBlockStateContext, arg2: BlockPos? ->
-                val blockstate = blockGetter.getBlockState(arg2)
+            { argx: ClipBlockStateContext, arg2: BlockPos ->
+                val blockState = blockGetter.getBlockState(arg2)
                 val vec3 = argx.from.subtract(argx.to)
-                if (argx.isTargetBlock().test(blockstate)) BlockHitResult(
+                if (argx.isTargetBlock().test(blockState)) BlockHitResult(
                     argx.to,
                     Direction.getNearest(vec3.x, vec3.y, vec3.z),
                     argx.to.toBlockPos,
