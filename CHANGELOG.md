@@ -3,6 +3,7 @@
 - Fix the issue of unable to get VS Addition peripherals
 - Presence footsteps compat (I don't understand why only carpets and pressure plates etc. work🤔)
 - Basically move to kotlin
+- Fix confusing PSI mode
 ## Fabric
 - Fix the issue of crashing caused by not including mixin squared
 ## Forge
