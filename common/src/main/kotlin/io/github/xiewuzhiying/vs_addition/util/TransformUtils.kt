@@ -2,6 +2,7 @@ package io.github.xiewuzhiying.vs_addition.util
 
 import io.github.xiewuzhiying.vs_addition.mixin.minecraft.HitResultAccessor
 import io.github.xiewuzhiying.vs_addition.mixinducks.minecraft.ClipContextMixinDuck
+import io.github.xiewuzhiying.vs_addition.mixinducks.valkyrienskies.EntityDraggingInformationMixinDuck
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.Vec3i
@@ -21,6 +22,7 @@ import org.valkyrienskies.mod.common.getShipManagingPos
 import org.valkyrienskies.mod.common.getShipsIntersecting
 import org.valkyrienskies.mod.common.shipObjectWorld
 import org.valkyrienskies.mod.common.toWorldCoordinates
+import org.valkyrienskies.mod.common.util.EntityDraggingInformation
 import org.valkyrienskies.mod.common.util.toJOML
 import org.valkyrienskies.mod.common.util.toMinecraft
 import java.lang.Math
@@ -177,6 +179,10 @@ fun ClipContext.setEntity(entity: Entity) {
 fun ClipContext.setCollisionContext(ctx: CollisionContext) {
     (this as ClipContextMixinDuck).collisionContext = ctx
 }
+
+var EntityDraggingInformation.addedPitchRotLastTick : Double
+    get() = (this as EntityDraggingInformationMixinDuck).addedPitchRotLastTick
+    set(value) { (this as EntityDraggingInformationMixinDuck).addedPitchRotLastTick = value }
 
 //form VS base
 @JvmOverloads

@@ -32,6 +32,8 @@
     "minecraft.MixinExplosion",
     "valkyrienskies.MixinBugFixUtils",
     "valkyrienskies.MixinDefaultBlockStateInfoProvider",
+    "valkyrienskies.MixinEntityDragger",
+    "valkyrienskies.MixinEntityDraggingInformation",
     "valkyrienskies.MixinEntityShipCollisionUtils",
     "valkyrienskies.MixinMassDatapackResolver",
     "valkyrienskies.disableLogs.MixinAl",
