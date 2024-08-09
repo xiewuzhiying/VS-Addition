@@ -36,46 +36,57 @@ public abstract class MixinClipContext implements ClipContextMixinDuck {
 
     @Shadow @Final @Mutable private CollisionContext collisionContext;
 
+    @Override
     public void setForm(Vec3 vec3) {
         this.from = vec3;
     }
 
+    @Override
     public void setTo(Vec3 vec3) {
         this.to = vec3;
     }
 
+    @Override
     public ClipContext.Block getBlock() {
         return this.block;
     }
 
+    @Override
     public void setBlock(ClipContext.Block block) {
         this.block = block;
     }
 
+    @Override
     public ClipContext.Fluid getFluid() {
         return this.fluid;
     }
 
+    @Override
     public void setFluid(ClipContext.Fluid fluid) {
         this.fluid = fluid;
     }
 
+    @Override
     public Entity getEntity() {
         return this.entity;
     }
 
+    @Override
     public void setEntity(Entity entity) {
         this.entity = entity;
     }
 
+    @Override
     public CollisionContext getCollisionContext() {
         return this.collisionContext;
     }
 
+    @Override
     public void setCollisionContext(CollisionContext ctx) {
         this.collisionContext = ctx;
     }
 
+    @Override
     public void setCollisionContext(Entity entity) {
         this.collisionContext = CollisionContext.of(entity);
     }
