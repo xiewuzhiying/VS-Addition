@@ -30,7 +30,7 @@ public abstract class MixinPFSolver {
             remap = false
     )
     private void includeShips(LivingEntity ply, double verticalOffsetAsMinus, boolean isRightFoot, CallbackInfoReturnable<Association> cir, @Local(ordinal = 1) double rot, @Local Vec3 pos, @Local float feetDistanceToCenter) {
-        BlockPos blockPos = TransformUtilsKt.getPosStandingOnFromShips(ply.level, (new Vector3d(pos.x  + (Math.cos(rot) * feetDistanceToCenter), (ply.getBoundingBox().min(Direction.Axis.Y) - 0.1) - verticalOffsetAsMinus, pos.z + (Math.sin(rot) * feetDistanceToCenter))));
+        BlockPos blockPos = TransformUtilsKt.getPosStandingOnFromShips(ply.level, (new Vector3d(pos.x  + (Math.cos(rot) * feetDistanceToCenter), (ply.getBoundingBox().min(Direction.Axis.Y) - 0.1) - verticalOffsetAsMinus, pos.z + (Math.sin(rot) * feetDistanceToCenter))), 1);
         cir.setReturnValue(findAssociation(ply, blockPos));
     }
 }

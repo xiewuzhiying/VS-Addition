@@ -30,7 +30,7 @@ public abstract class MixinTerrestrialStepSoundGenerator {
         return original.call(
                 instance,
                 level,
-                getPosStandingOnFromShips(level, new Vector3d(ply.getX(), ply.getY() - 0.1 - ply.getMyRidingOffset() - (ply.isOnGround() ? 0.0 : 0.25), ply.getZ())),
+                getPosStandingOnFromShips(level, new Vector3d(ply.getX(), ply.getY() - 0.1 - ply.getMyRidingOffset() - (ply.isOnGround() ? 0.0 : 0.25), ply.getZ()), 1),
                 s);
     }
 
@@ -46,7 +46,7 @@ public abstract class MixinTerrestrialStepSoundGenerator {
         return original.call(
                 instance,
                 level,
-                getPosStandingOnFromShips(level, new Vector3d(ply.getX(), ply.getY() - 0.1 - ply.getMyRidingOffset() - (ply.isOnGround() ? 0.0 : 0.25), ply.getZ())),
+                getPosStandingOnFromShips(level, new Vector3d(ply.getX(), ply.getY() - 0.1 - ply.getMyRidingOffset() - (ply.isOnGround() ? 0.0 : 0.25), ply.getZ()), 1),
                 s);
     }
 }
