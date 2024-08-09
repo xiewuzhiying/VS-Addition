@@ -27,6 +27,7 @@
     "minecraft.EntityAccessor",
     "minecraft.HitResultAccessor",
     "minecraft.MixinAbstractArrow",
+    "minecraft.MixinClipContext",
     "minecraft.MixinEntity",
     "minecraft.MixinExplosion",
     "valkyrienskies.MixinBugFixUtils",

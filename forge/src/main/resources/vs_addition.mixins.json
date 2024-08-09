@@ -16,7 +16,7 @@
     "createaddition.MixinPortableEnergyInterfaceMovement",
     "presencefootsteps.client.MixinPFSolver",
     "presencefootsteps.client.MixinTerrestrialStepSoundGenerator",
-    "tacz.MixinEntityKineticBullet"
+    "tacz.MixinBlockRayTrace"
   ],
   "injectors": {
     "defaultRequire": 1
