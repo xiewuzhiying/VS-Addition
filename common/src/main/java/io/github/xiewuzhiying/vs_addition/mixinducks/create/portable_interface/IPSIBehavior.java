@@ -1,6 +1,5 @@
 package io.github.xiewuzhiying.vs_addition.mixinducks.create.portable_interface;
 
-import com.simibubi.create.content.contraptions.actors.psi.PortableStorageInterfaceBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.INamedIconOptions;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollOptionBehaviour;
 import com.simibubi.create.foundation.gui.AllIcons;
@@ -11,15 +10,7 @@ public interface IPSIBehavior {
         return null;
     }
 
-    default void vs_addition$startTransferringTo(PortableStorageInterfaceBlockEntity pi, float distance){}
-
-    default void vs_addition$stopTransferring() {}
-
-    default boolean vs_addition$canTransfer() { return false; }
-
-    default PortableStorageInterfaceBlockEntity vs_addition$getConnectedPI() {return null;}
-
-    static enum WorkigMode implements INamedIconOptions {
+    enum WorkigMode implements INamedIconOptions {
 
         ORIGINAL(AllIcons.I_MOVE_PLACE_RETURNED),
         WITH_SHIP(AllIcons.I_MOVE_PLACE),
