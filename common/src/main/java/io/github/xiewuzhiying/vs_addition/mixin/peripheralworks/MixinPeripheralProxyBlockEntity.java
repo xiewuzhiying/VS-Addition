@@ -31,7 +31,7 @@ import java.util.Map;
 public abstract class MixinPeripheralProxyBlockEntity extends MutableNBTBlockEntity<PeripheralProxyPeripheral> {
 
     @Final
-    @Shadow
+    @Shadow(remap = false)
     private Map<BlockPos, PeripheralProxyBlockEntity.RemotePeripheralRecord> remotePeripherals;
 
     public MixinPeripheralProxyBlockEntity(@NotNull BlockEntityType<?> blockEntityType, @NotNull BlockPos blockPos, @NotNull BlockState blockState) {
