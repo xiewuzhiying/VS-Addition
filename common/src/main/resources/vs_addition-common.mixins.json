@@ -39,6 +39,8 @@
     "peripheralworks.MixinPeripheralProxyBlockEntity",
     "valkyrienskies.MixinBugFixUtils",
     "valkyrienskies.MixinDefaultBlockStateInfoProvider",
+    "valkyrienskies.MixinEntityDragger",
+    "valkyrienskies.MixinEntityDraggingInformation",
     "valkyrienskies.MixinEntityShipCollisionUtils",
     "valkyrienskies.MixinMassDatapackResolver",
     "valkyrienskies.MixinVSCommands",
