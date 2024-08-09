@@ -5,6 +5,7 @@ import net.minecraft.core.Direction
 import net.minecraft.core.Vec3i
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.phys.Vec3
 import org.joml.*
 import org.joml.primitives.AABBd
@@ -57,23 +58,23 @@ fun Vec3.toShipyardCoordinates(ship: Ship): Vec3 {
     return vector3d.toMinecraft()
 }
 
-val Vector3d.toVec3i : Vec3i
-    get() = Vec3i(floor(this.x).toInt(), floor(this.y).toInt(), floor(this.z).toInt())
+val Vector3dc.toVec3i : Vec3i
+    get() = Vec3i(floor(this.x()).toInt(), floor(this.y()).toInt(), floor(this.z()).toInt())
 
-val Vector3f.toVec3i : Vec3i
-    get() = Vec3i(floor(this.x).toInt(), floor(this.y).toInt(), floor(this.z).toInt())
+val Vector3fc.toVec3i : Vec3i
+    get() = Vec3i(floor(this.x()).toInt(), floor(this.y()).toInt(), floor(this.z()).toInt())
 
 val Vec3.toVec3i : Vec3i
-    get() = Vec3i(floor(this.x).toInt(), floor(this.y).toInt(), floor(this.z).toInt())
+    get() = Vec3i(floor(this.x()).toInt(), floor(this.y()).toInt(), floor(this.z()).toInt())
 
-val Vector3d.toBlockPos: BlockPos
-    get() = this.toVec3i as BlockPos;
+val Vector3dc.toBlockPos: BlockPos
+    get() = BlockPos(floor(this.x()).toInt(), floor(this.y()).toInt(), floor(this.z()).toInt());
 
-val Vector3f.toBlockPos: BlockPos
-    get() = this.toVec3i as BlockPos;
+val Vector3fc.toBlockPos: BlockPos
+    get() = BlockPos(floor(this.x()).toInt(), floor(this.y()).toInt(), floor(this.z()).toInt());
 
 val Vec3.toBlockPos: BlockPos
-    get() = this.toVec3i as BlockPos;
+    get() = BlockPos(floor(this.x()).toInt(), floor(this.y()).toInt(), floor(this.z()).toInt());
 
 val Vec3i.toVec3: Vec3
     get() = Vec3(this.x.toDouble(), this.y.toDouble(), this.z.toDouble());
@@ -135,8 +136,7 @@ val Entity.isOnShip : Boolean
     get() = this.level().getShipsIntersecting(this.boundingBox).any()
 
 //form VS base
-fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc): BlockPos? {
-    val radius = 0.5
+fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double): BlockPos {
     val testAABB: AABBdc = AABBd(
         blockPosInGlobal.x() - radius, blockPosInGlobal.y() - radius, blockPosInGlobal.z() - radius,
         blockPosInGlobal.x() + radius, blockPosInGlobal.y() + radius, blockPosInGlobal.z() + radius
@@ -145,11 +145,9 @@ fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc): BlockPos? {
     for (ship in intersectingShips) {
         val blockPosInLocal: Vector3dc =
             ship.transform.worldToShip.transformPosition(blockPosInGlobal, Vector3d())
-        val blockPos = BlockPos.containing(
-            floor(blockPosInLocal.x()), floor(blockPosInLocal.y()), floor(blockPosInLocal.z())
-        )
+        val blockPos = blockPosInLocal.toBlockPos
         val blockState = this.getBlockState(blockPos)
-        if (!blockState.isAir) {
+        if (blockState != Blocks.AIR.defaultBlockState()) {
             return blockPos
         } else {
             // Check the block below as well, in the cases of fences
@@ -157,16 +155,12 @@ fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc): BlockPos? {
                 .transformPosition(
                     Vector3d(blockPosInGlobal.x(), blockPosInGlobal.y() - 1.0, blockPosInGlobal.z())
                 )
-            val blockPos2 = BlockPos.containing(
-                Math.round(blockPosInLocal2.x()).toDouble(),
-                Math.round(blockPosInLocal2.y()).toDouble(),
-                Math.round(blockPosInLocal2.z()).toDouble()
-            )
+            val blockPos2 = blockPosInLocal2.toBlockPos
             val blockState2 = this.getBlockState(blockPos2)
             if (!blockState2.isAir) {
                 return blockPos2
             }
         }
     }
-    return BlockPos.containing(blockPosInGlobal.x(), blockPosInGlobal.y(), blockPosInGlobal.z())
+    return blockPosInGlobal.toBlockPos
 }

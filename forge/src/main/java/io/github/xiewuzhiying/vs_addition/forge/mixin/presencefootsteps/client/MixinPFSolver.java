@@ -24,6 +24,6 @@ public abstract class MixinPFSolver {
             )
     )
     private BlockPos includeShips(double d, double e, double f, Operation<BlockPos> original, @Local(argsOnly = true) LivingEntity ply) {
-        return getPosStandingOnFromShips(ply.level(), new Vector3d(d, e, f));
+        return getPosStandingOnFromShips(ply.level(), new Vector3d(d, e, f), 1);
     }
 }
