@@ -1,18 +1,25 @@
 package io.github.xiewuzhiying.vs_addition.util
 
+import io.github.xiewuzhiying.vs_addition.mixin.minecraft.HitResultAccessor
+import io.github.xiewuzhiying.vs_addition.mixinducks.minecraft.ClipContextMixinDuck
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.Vec3i
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.level.ClipContext
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
+import net.minecraft.world.phys.shapes.CollisionContext
 import org.joml.*
 import org.joml.primitives.AABBd
 import org.joml.primitives.AABBdc
 import org.valkyrienskies.core.api.ships.Ship
+import org.valkyrienskies.core.api.ships.properties.ShipId
+import org.valkyrienskies.core.impl.game.ships.ShipObjectClient
 import org.valkyrienskies.mod.common.getShipManagingPos
 import org.valkyrienskies.mod.common.getShipsIntersecting
+import org.valkyrienskies.mod.common.shipObjectWorld
 import org.valkyrienskies.mod.common.toWorldCoordinates
 import org.valkyrienskies.mod.common.util.toJOML
 import org.valkyrienskies.mod.common.util.toMinecraft
@@ -135,8 +142,45 @@ val Vec3i.centerDF : Vector3f
 val Entity.isOnShip : Boolean
     get() = this.level().getShipsIntersecting(this.boundingBox).any()
 
+val ClipContext.block : ClipContext.Block
+    get() = (this as ClipContextMixinDuck).block
+
+val ClipContext.fluid : ClipContext.Fluid
+    get() = (this as ClipContextMixinDuck).fluid
+
+val ClipContext.entity : Entity
+    get() = (this as ClipContextMixinDuck).entity
+
+val ClipContext.collisionContext : CollisionContext
+    get() = (this as ClipContextMixinDuck).collisionContext
+
+fun ClipContext.setForm(vec3: Vec3) {
+    (this as ClipContextMixinDuck).setForm(vec3)
+}
+
+fun ClipContext.setTo(vec3: Vec3) {
+    (this as ClipContextMixinDuck).setTo(vec3)
+}
+
+fun ClipContext.setBlock(block: ClipContext.Block) {
+    (this as ClipContextMixinDuck).block = block
+}
+
+fun ClipContext.setFluid(fluid: ClipContext.Fluid) {
+    (this as ClipContextMixinDuck).fluid = fluid
+}
+
+fun ClipContext.setEntity(entity: Entity) {
+    (this as ClipContextMixinDuck).entity = entity
+}
+
+fun ClipContext.setCollisionContext(ctx: CollisionContext) {
+    (this as ClipContextMixinDuck).collisionContext = ctx
+}
+
 //form VS base
-fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double): BlockPos {
+@JvmOverloads
+fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double = 0.5): BlockPos {
     val testAABB: AABBdc = AABBd(
         blockPosInGlobal.x() - radius, blockPosInGlobal.y() - radius, blockPosInGlobal.z() - radius,
         blockPosInGlobal.x() + radius, blockPosInGlobal.y() + radius, blockPosInGlobal.z() + radius
@@ -163,4 +207,52 @@ fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double)
         }
     }
     return blockPosInGlobal.toBlockPos
+}
+
+typealias RayTraceFunction = (Level, ClipContext) -> HitResult
+
+@JvmOverloads
+fun Level.wrappedClipIncludeShips(ctx: ClipContext, rayTraceFunction: RayTraceFunction,
+                                  shouldTransformHitPos: Boolean = true, skipShip: ShipId? = null): HitResult {
+    val originHit = rayTraceFunction(this, ctx)
+
+    if (shipObjectWorld == null) {
+        return originHit
+    }
+
+    var closestHit = originHit
+    var closestHitPos = originHit.location
+    var closestHitDist = closestHitPos.distanceToSqr(ctx.from)
+
+    val clipAABB: AABBdc = AABBd(ctx.from.toJOML(), ctx.to.toJOML()).correctBounds()
+
+    // Iterate every ship, find do the raycast in ship space,
+    // choose the raycast with the lowest distance to the start position.
+    for (ship in shipObjectWorld.loadedShips.getIntersecting(clipAABB)) {
+        // Skip skipShip
+        if (ship.id == skipShip) {
+            continue
+        }
+        val worldToShip = (ship as? ShipObjectClient)?.renderTransform?.worldToShip ?: ship.worldToShip
+        val shipToWorld = (ship as? ShipObjectClient)?.renderTransform?.shipToWorld ?: ship.shipToWorld
+
+        ctx.setForm(worldToShip.transformPosition(ctx.from.toJOML()).toMinecraft())
+        ctx.setTo(worldToShip.transformPosition(ctx.to.toJOML()).toMinecraft())
+
+        val shipHit = rayTraceFunction(this, ctx)
+        val shipHitPos = shipToWorld.transformPosition(shipHit.location.toJOML()).toMinecraft()
+        val shipHitDist = shipHit.location.distanceToSqr(ctx.from)
+
+        if (shipHitDist < closestHitDist && shipHit.type != HitResult.Type.MISS) {
+            closestHit = shipHit
+            closestHitPos = shipHitPos
+            closestHitDist = shipHitDist
+        }
+    }
+
+    if (shouldTransformHitPos) {
+        (closestHit as HitResultAccessor).setLocation(closestHitPos)
+    }
+
+    return closestHit
 }
