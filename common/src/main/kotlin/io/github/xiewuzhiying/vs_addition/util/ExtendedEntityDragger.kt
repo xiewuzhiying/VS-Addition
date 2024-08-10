@@ -1,6 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.util
 
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.util.Mth
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.projectile.Projectile
 import org.joml.Vector3d
@@ -8,8 +9,10 @@ import org.joml.Vector3dc
 import org.valkyrienskies.core.api.ships.Ship
 import org.valkyrienskies.mod.common.shipObjectWorld
 import org.valkyrienskies.mod.common.util.IEntityDraggingInformationProvider
+import org.valkyrienskies.mod.common.util.toJOML
 import org.valkyrienskies.mod.common.util.toMinecraft
 import kotlin.math.*
+
 
 object ExtendedEntityDragger {
     // How much we decay the addedMovement each tick after player hasn't collided with a ship for at least 10 ticks.
@@ -33,7 +36,7 @@ object ExtendedEntityDragger {
             if (shipDraggingEntity != null && entity.vehicle == null) {
                 if (entityDraggingInformation.isEntityBeingDraggedByAShip()) {
                     // Compute how much we should drag the entity
-                    val shipData = entity.level().shipObjectWorld.allShips.getById(shipDraggingEntity)
+                    val shipData = entity.level.shipObjectWorld.allShips.getById(shipDraggingEntity)
                     if (shipData != null) {
                         dragTheEntity = true
 
@@ -134,21 +137,20 @@ object ExtendedEntityDragger {
     //for projectile
     private fun projectileDragger(entity: Entity, ship: Ship) : Pair<Double, Double> {
         // region Compute look dragging
-        val yViewRot = entity.getViewYRot(1.0f).toDouble()
-        val xViewRot = entity.getViewXRot(1.0f).toDouble()
 
         // Get the look vector of the entity using both x-rotation and y-rotation
-        val entityLook = Vector3d(
-            sin(Math.toRadians(-yViewRot)) * cos(Math.toRadians(-xViewRot)),
-            sin(Math.toRadians(-xViewRot)),
-            cos(Math.toRadians(-yViewRot)) * cos(Math.toRadians(-xViewRot))
-        )
+        val entityLook = entity.getViewVector(1.0f).toJOML()
+        entityLook.x = -entityLook.x
+        entityLook.y = -entityLook.y
 
         val newLookIdeal = ship.shipToWorld.transformDirection(
             ship.prevTickTransform.worldToShip.transformDirection(
                 entityLook
             )
         )
+
+        newLookIdeal.x = -newLookIdeal.x
+        newLookIdeal.y = -newLookIdeal.y
 
         // Get the X and Y rotation from [newLookIdeal]
         val newXRot = asin(-newLookIdeal.y())
@@ -176,26 +178,6 @@ object ExtendedEntityDragger {
         if (addedXRotFromDragging < -180.0) addedXRotFromDragging += 360.0
         if (addedXRotFromDragging > 180.0) addedXRotFromDragging -= 360.0
 
-        return Pair(addedXRotFromDragging, -addedYRotFromDragging)
-    }
-
-    private fun entityRotNormalize(xRot: Double, yRot: Double) : Pair<Double, Double> {
-        var entityXRotCorrected = xRot % 360.0
-        var entityYRotCorrected = yRot
-        // Limit [entityYRotCorrected] to be between -180 to 180 degrees
-
-        if (entityXRotCorrected.absoluteValue > 90.0 && entityXRotCorrected.absoluteValue <= 270.0) {
-            entityXRotCorrected -= -entityXRotCorrected + 180.0 * entityXRotCorrected.sign
-            entityYRotCorrected += 180.0
-        } else if (entityXRotCorrected.absoluteValue > 270.0) {
-            entityXRotCorrected += 360.0 * -entityXRotCorrected.sign
-        }
-        // Limit [entityYRotCorrected] to be between -180 to 180 degrees
-
-        entityYRotCorrected = entityXRotCorrected % 360.0
-        if (entityYRotCorrected < -180.0) entityYRotCorrected += 360.0
-        if (entityYRotCorrected > 180.0) entityYRotCorrected -= 360.0
-
-        return Pair(entityXRotCorrected, entityYRotCorrected)
+        return Pair(addedXRotFromDragging, addedYRotFromDragging)
     }
 }
