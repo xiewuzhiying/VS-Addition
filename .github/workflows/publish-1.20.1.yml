@@ -13,10 +13,13 @@ env:
 permissions:
   contents: write
 
-jobs:                                             
-  build:                                          
-    runs-on: ubuntu-latest                        
-    steps:                                        
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      minecraft_version: ${{ steps.set_output.outputs.minecraft_version }}
+      mod_version: ${{ steps.set_output.outputs.mod_version }}
+    steps:
       - name: Check Environment Variables
         run: env
 
@@ -30,14 +33,6 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 17
-
-      - name: Read mod_version from gradle.properties
-        id: read_mod_version
-        run: |
-          MOD_VERSION=$(grep 'mod_version' gradle.properties | cut -d'=' -f2)
-          echo "VERSION=$MOD_VERSION" >> $GITHUB_ENV
-          MINECRAFT_VERSION=$(grep 'minecraft_version' gradle.properties | cut -d'=' -f2)
-          echo "MINECRAFT_VERSION=$MINECRAFT_VERSION" >> $GITHUB_ENV
 
       - name: Download CBC common
         uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
@@ -93,51 +88,85 @@ jobs:
 
       - name: Build
         run: ./gradlew clean build
-        
-      - name: Publish Fabric (CurseForge/Modrinth/GitHub)
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: |
+            ./common/build/libs/*
+            ./fabric/build/libs/*
+            ./forge/build/libs/*
+            ./CHANGELOG.md
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        platform: [ Fabric, Forge ]
+      fail-fast: false
+    steps:
+      - name: Check Environment Variables
+        run: |
+          env
+          platform=${{ matrix.platform }}
+          lowercase=$(echo "$platform" | tr '[:upper:]' '[:lower:]')
+          echo "LOWERCASE=$lowercase" >> $GITHUB_ENV
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Read mod_version from gradle.properties
+        id: read_mod_version
+        run: |
+          MOD_VERSION=$(grep 'mod_version' gradle.properties | cut -d'=' -f2)
+          echo "MOD_VERSION=$MOD_VERSION" >> $GITHUB_ENV
+          MINECRAFT_VERSION=$(grep 'minecraft_version' gradle.properties | cut -d'=' -f2)
+          echo "MINECRAFT_VERSION=$MINECRAFT_VERSION" >> $GITHUB_ENV
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: artifact
+
+      - name: Publish ${{ matrix.platform }} (CurseForge/Modrinth/GitHub)
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-id: ${{env.CURSEFORGE_ID}}
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
-          
-          modrinth-id: ${{env.MODRINTH_ID}}
-          modrinth-token: "${{env.MODRINTH_TOKEN}}"
-          
-          github-tag: "v${{env.VERSION}}"
+
+          github-tag: "v${{env.MOD_VERSION}}"
           github-token: "${{env.GITHUB_TOKEN}}"
 
-          name: "[${{env.MINECRAFT_VERSION}} Fabric] ${{env.VERSION}}"                             
-          version: "${{env.VERSION}}"
+          name: "[${{env.MINECRAFT_VERSION}} ${{ matrix.platform }}] ${{env.MOD_VERSION}}"
+          version: "${{env.MINECRAFT_VERSION}}-${{ env.LOWERCASE }}-${{env.MOD_VERSION}}"
           version-type: beta
-          changelog-file: CHANGELOG.md                                      
+          changelog-file: CHANGELOG.md
 
           files: |
-            fabric/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
+            ${{ env.LOWERCASE }}/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
 
-          loaders: fabric
+          loaders: ${{ env.LOWERCASE }}
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
 
-      - name: Publish Forge (CurseForge/Modrinth/GitHub)
+      - name: Publish ${{ matrix.platform }} (CurseForge/Modrinth/GitHub)
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          curseforge-id: ${{env.CURSEFORGE_ID}}
-          curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
-          
           modrinth-id: ${{env.MODRINTH_ID}}
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
-          
-          github-tag: "v${{env.VERSION}}"
-          github-token: "${{env.GITHUB_TOKEN}}"
 
-          name: "[${{env.MINECRAFT_VERSION}} Forge] ${{env.VERSION}}"                             
-          version: "${{env.VERSION}}"
+          name: "[${{env.MINECRAFT_VERSION}} ${{ matrix.platform }}] ${{env.MOD_VERSION}}"
+          version: "${{env.MINECRAFT_VERSION}}-${{ env.LOWERCASE }}-${{env.MOD_VERSION}}"
           version-type: beta
-          changelog-file: CHANGELOG.md                                      
+          changelog-file: CHANGELOG.md
 
           files: |
-            forge/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
+            ${{ env.LOWERCASE }}/build/libs/!(*-@(dev|sources|javadoc|dev-shadow)).jar
 
-          loaders: forge
+          loaders: ${{ env.LOWERCASE }}
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
