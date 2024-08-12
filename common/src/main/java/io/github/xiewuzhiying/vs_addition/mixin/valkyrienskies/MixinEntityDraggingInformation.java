@@ -2,8 +2,10 @@ package io.github.xiewuzhiying.vs_addition.mixin.valkyrienskies;
 
 import io.github.xiewuzhiying.vs_addition.mixinducks.valkyrienskies.EntityDraggingInformationMixinDuck;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.valkyrienskies.mod.common.util.EntityDraggingInformation;
 
+@Pseudo
 @Mixin(EntityDraggingInformation.class)
 public abstract class MixinEntityDraggingInformation implements EntityDraggingInformationMixinDuck {
     public double addedPitchRotLastTickv = 0.0;

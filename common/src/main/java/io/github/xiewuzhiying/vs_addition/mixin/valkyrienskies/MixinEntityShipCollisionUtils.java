@@ -6,9 +6,11 @@ import kotlin.Pair;
 import net.minecraft.world.entity.Entity;
 import org.joml.Vector3dc;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.valkyrienskies.mod.common.util.EntityShipCollisionUtils;
 
+@Pseudo
 @Mixin(EntityShipCollisionUtils.class)
 public abstract class MixinEntityShipCollisionUtils {
     @ModifyExpressionValue(

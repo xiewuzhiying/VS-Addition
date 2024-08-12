@@ -61,13 +61,13 @@ public abstract class MixinAirCurrent {
     private FanProcessingType getAtInWorld(Level level, BlockPos pos, Operation<FanProcessingType> original){
         Ship ship = VSGameUtilsKt.getShipManagingPos(level,this.source.getAirCurrentPos());
         if(ship!=null && level.getBlockState(pos).isAir()){
-            BlockPos newPos = TransformUtilsKt.getToBlockPos(TransformUtilsKt.toWorld(TransformUtilsKt.getCenterM(pos), ship));
+            BlockPos newPos = TransformUtilsKt.getToBlockPos(TransformUtilsKt.toWorld(TransformUtilsKt.getCenterMinecraft(pos), ship));
             FanProcessingType type = original.call(level,newPos);
             if(!(type.equals(AllFanProcessingTypes.NONE))){
                 return type;
             }
         }
-        Vec3 vec3 = TransformUtilsKt.toWorld(TransformUtilsKt.getCenterM(pos), level);
+        Vec3 vec3 = TransformUtilsKt.toWorld(TransformUtilsKt.getCenterMinecraft(pos), level);
         List<Vector3d> vector3dList = VSGameUtilsKt.transformToNearbyShipsAndWorld(level,vec3.x,vec3.y,vec3.z,0.25);
         if(!vector3dList.isEmpty()){
             ship = VSGameUtilsKt.getShipManagingPos(level, vector3dList.get(0));
@@ -116,7 +116,7 @@ public abstract class MixinAirCurrent {
         Ship ship = VSGameUtilsKt.getShipManagingPos(level,start);
         for(int i = 1; i <= limit; ++i){
             BlockPos currentPos = start.relative(this.direction,i);
-            Vec3 currentVec3 = TransformUtilsKt.toWorld(TransformUtilsKt.getCenterM(currentPos), level);
+            Vec3 currentVec3 = TransformUtilsKt.toWorld(TransformUtilsKt.getCenterMinecraft(currentPos), level);
             for(Direction direction:Direction.values()){
                 Vec3i vec3i = direction.getNormal();
                 Vec3 directionVec3 = new Vec3(vec3i.getX(),vec3i.getY(),vec3i.getZ()).scale(1.25);
@@ -194,7 +194,7 @@ public abstract class MixinAirCurrent {
     private void transformWorldAABB(){
         Ship ship = VSGameUtilsKt.getShipManagingPos(this.source.getAirCurrentWorld(),this.source.getAirCurrentPos());
         if(ship!=null){
-            min = TransformUtilsKt.toWorld(TransformUtilsKt.getCenterM(this.source.getAirCurrentPos()), ship);
+            min = TransformUtilsKt.toWorld(TransformUtilsKt.getCenterMinecraft(this.source.getAirCurrentPos()), ship);
             Vector3d directionVec = ship.getTransform().getShipToWorld().transformDirection(VectorConversionsMCKt.toJOMLD(this.direction.getNormal())).mul(this.maxDistance+1F);
             max = min.add(VectorConversionsMCKt.toMinecraft(directionVec));
             this.aabb = VSGameUtilsKt.transformAabbToWorld(this.source.getAirCurrentWorld(),this.bounds).inflate(1);

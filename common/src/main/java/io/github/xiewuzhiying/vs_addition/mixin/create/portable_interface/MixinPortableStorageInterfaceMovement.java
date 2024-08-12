@@ -131,8 +131,7 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/simibubi/create/content/contraptions/actors/psi/PortableStorageInterfaceMovement;getStationaryInterfaceAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/simibubi/create/content/contraptions/actors/psi/PortableStorageInterfaceBlockEntity;"
-            ),
-            remap = false
+            )
     )
     public PortableStorageInterfaceBlockEntity redirectToFindPSI(PortableStorageInterfaceMovement instance, Level level, BlockPos pos, BlockState state, Direction direction, Operation<PortableStorageInterfaceBlockEntity> original, @Local(ordinal = 0, argsOnly = true) MovementContext context) {
         if(context.blockEntityData.getInt("ScrollValue") == 1) {

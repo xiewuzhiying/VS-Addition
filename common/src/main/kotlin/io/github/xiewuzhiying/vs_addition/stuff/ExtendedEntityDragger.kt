@@ -1,7 +1,7 @@
-package io.github.xiewuzhiying.vs_addition.util
+package io.github.xiewuzhiying.vs_addition.stuff
 
+import io.github.xiewuzhiying.vs_addition.util.addedPitchRotLastTick
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.util.Mth
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.projectile.Projectile
 import org.joml.Vector3d
