@@ -82,8 +82,7 @@ public abstract class MixinPortableStorageInterfaceMovement implements MovementB
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/simibubi/create/foundation/utility/VecHelper;getCenterOf(Lnet/minecraft/core/Vec3i;)Lnet/minecraft/world/phys/Vec3;"
-            ),
-            remap = false
+            )
     )
     private Vec3 getCenterOf(Vec3 original, @Local(ordinal = 0, argsOnly = true) MovementContext context) {
         if(context.blockEntityData.getInt("ScrollValue") == 1) {

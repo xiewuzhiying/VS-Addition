@@ -18,6 +18,6 @@ public abstract class MixinBlockRayTrace {
             remap = false
     )
     private static BlockHitResult wrap(Level level, ClipContext context, Operation<BlockHitResult> original) {
-        return (BlockHitResult) TransformUtilsKt.wrappedClipIncludeShips(level, context, original::call);
+        return (BlockHitResult) TransformUtilsKt.clipIncludeShipsWrapper(level, context, original::call);
     }
 }

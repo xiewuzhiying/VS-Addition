@@ -10,8 +10,8 @@ import com.simibubi.create.content.kinetics.fan.IAirCurrentSource;
 import com.simibubi.create.content.kinetics.fan.processing.AllFanProcessingTypes;
 import com.simibubi.create.content.kinetics.fan.processing.FanProcessingType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import io.github.xiewuzhiying.vs_addition.compats.create.content.kinetics.fan.AirCurrentUtils;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
-import io.github.xiewuzhiying.vs_addition.util.RaycastUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -165,17 +165,14 @@ public abstract class MixinAirCurrent {
             startVec.add(direction.x, direction.y, direction.z);
             direction.mul(max);
             Vec3 mcStart = VectorConversionsMCKt.toMinecraft(startVec);
-            BlockHitResult result = RaycastUtils.clipIncludeShips(world, new ClipContext(mcStart, VectorConversionsMCKt.toMinecraft(startVec.add(direction.x, direction.y, direction.z)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null));
+            BlockHitResult result = (BlockHitResult) TransformUtilsKt.clipIncludeShipsWrapper(world, new ClipContext(mcStart, VectorConversionsMCKt.toMinecraft(startVec.add(direction.x, direction.y, direction.z)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null), AirCurrentUtils::clip);
             return (float)result.getLocation().distanceTo(mcStart);
         } else {
             BlockPos end = start.relative(facing, (int)max);
-            if (VSGameUtilsKt.getShipsIntersecting(world, new AABB(start.getX(), start.getY(), start.getZ(), (double)end.getX() + 1.0, (double)end.getY() + 1.0, (double)end.getZ() + 1.0)).iterator().hasNext()) {
-                Vec3 centerStart = Vec3.atCenterOf(start);
-                BlockHitResult result = RaycastUtils.clipIncludeShips(world, new ClipContext(centerStart.add(facing.getStepX(), facing.getStepY(), facing.getStepZ()), Vec3.atCenterOf(end), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null));
-                return (float)result.getLocation().distanceTo(centerStart);
-            }
+            Vec3 centerStart = Vec3.atCenterOf(start);
+            BlockHitResult result = (BlockHitResult) TransformUtilsKt.clipIncludeShipsWrapper(world, new ClipContext(centerStart.add(facing.getStepX(), facing.getStepY(), facing.getStepZ()), Vec3.atCenterOf(end), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null), AirCurrentUtils::clip);
+            return (float)result.getLocation().distanceTo(centerStart);
         }
-        return max;
     }
     @Unique
     private List<Entity> clipEntities(Level level,Vec3 start,Vec3 end){

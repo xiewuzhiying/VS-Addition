@@ -17,11 +17,10 @@ import org.joml.primitives.AABBd
 import org.joml.primitives.AABBdc
 import org.valkyrienskies.core.api.ships.Ship
 import org.valkyrienskies.core.api.ships.properties.ShipId
+import org.valkyrienskies.core.api.util.functions.DoubleTernaryConsumer
 import org.valkyrienskies.core.impl.game.ships.ShipObjectClient
-import org.valkyrienskies.mod.common.getShipManagingPos
-import org.valkyrienskies.mod.common.getShipsIntersecting
-import org.valkyrienskies.mod.common.shipObjectWorld
-import org.valkyrienskies.mod.common.toWorldCoordinates
+import org.valkyrienskies.core.util.expand
+import org.valkyrienskies.mod.common.*
 import org.valkyrienskies.mod.common.util.EntityDraggingInformation
 import org.valkyrienskies.mod.common.util.toJOML
 import org.valkyrienskies.mod.common.util.toMinecraft
@@ -215,12 +214,10 @@ fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double 
     return blockPosInGlobal.toBlockPos
 }
 
-typealias RayTraceFunction = (Level, ClipContext) -> HitResult
-
 @JvmOverloads
-fun Level.wrappedClipIncludeShips(ctx: ClipContext, rayTraceFunction: RayTraceFunction,
-                                  shouldTransformHitPos: Boolean = true, skipShip: ShipId? = null): HitResult {
-    val originHit = rayTraceFunction(this, ctx)
+fun Level.clipIncludeShipsWrapper(ctx: ClipContext, clipFunction: (Level, ClipContext) -> HitResult,
+                                  shouldTransformHitPos: Boolean = true, skipShips: List<ShipId>? = null): HitResult {
+    val originHit = clipFunction(this, ctx)
 
     if (shipObjectWorld == null) {
         return originHit
@@ -236,7 +233,7 @@ fun Level.wrappedClipIncludeShips(ctx: ClipContext, rayTraceFunction: RayTraceFu
     // choose the raycast with the lowest distance to the start position.
     for (ship in shipObjectWorld.loadedShips.getIntersecting(clipAABB)) {
         // Skip skipShip
-        if (ship.id == skipShip) {
+        if (skipShips != null && skipShips.contains(ship.id)) {
             continue
         }
         val worldToShip = (ship as? ShipObjectClient)?.renderTransform?.worldToShip ?: ship.worldToShip
@@ -245,7 +242,7 @@ fun Level.wrappedClipIncludeShips(ctx: ClipContext, rayTraceFunction: RayTraceFu
         ctx.setForm(worldToShip.transformPosition(ctx.from.toJOML()).toMinecraft())
         ctx.setTo(worldToShip.transformPosition(ctx.to.toJOML()).toMinecraft())
 
-        val shipHit = rayTraceFunction(this, ctx)
+        val shipHit = clipFunction(this, ctx)
         val shipHitPos = shipToWorld.transformPosition(shipHit.location.toJOML()).toMinecraft()
         val shipHitDist = shipHit.location.distanceToSqr(ctx.from)
 
