@@ -35,7 +35,6 @@
     "minecraft.MixinAbstractArrow",
     "minecraft.MixinClipContext",
     "minecraft.MixinEntity",
-    "minecraft.MixinExplosion",
     "peripheralworks.MixinPeripheralProxyBlockEntity",
     "valkyrienskies.MixinBugFixUtils",
     "valkyrienskies.MixinDefaultBlockStateInfoProvider",
