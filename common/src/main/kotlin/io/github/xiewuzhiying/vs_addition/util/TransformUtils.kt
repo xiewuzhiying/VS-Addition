@@ -7,8 +7,12 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.Vec3i
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.item.ItemEntity
+import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.level.Level
+import net.minecraft.world.phys.AABB
+import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.CollisionContext
@@ -17,10 +21,11 @@ import org.joml.primitives.AABBd
 import org.joml.primitives.AABBdc
 import org.valkyrienskies.core.api.ships.Ship
 import org.valkyrienskies.core.api.ships.properties.ShipId
-import org.valkyrienskies.core.api.util.functions.DoubleTernaryConsumer
 import org.valkyrienskies.core.impl.game.ships.ShipObjectClient
-import org.valkyrienskies.core.util.expand
-import org.valkyrienskies.mod.common.*
+import org.valkyrienskies.mod.common.getShipManagingPos
+import org.valkyrienskies.mod.common.getShipsIntersecting
+import org.valkyrienskies.mod.common.shipObjectWorld
+import org.valkyrienskies.mod.common.toWorldCoordinates
 import org.valkyrienskies.mod.common.util.EntityDraggingInformation
 import org.valkyrienskies.mod.common.util.toJOML
 import org.valkyrienskies.mod.common.util.toMinecraft
@@ -122,22 +127,22 @@ fun BlockPos.front(direction: Direction): Vec3 {
     }
 }
 
-val Vector3i.centerM : Vec3
+val Vector3i.centerMinecraft : Vec3
     get() = Vec3(this.x + 0.5, this.y + 0.5, this.z + 0.5)
 
-val Vector3i.centerD : Vector3d
+val Vector3i.centerJOMLD : Vector3d
     get() = Vector3d(this.x + 0.5, this.y + 0.5, this.z + 0.5)
 
-val Vector3i.centerDF : Vector3f
+val Vector3i.centerJOMLF : Vector3f
     get() = Vector3f(this.x + 0.5f, this.y + 0.5f, this.z + 0.5f)
 
-val Vec3i.centerM : Vec3
+val Vec3i.centerMinecraft : Vec3
     get() = Vec3(this.x + 0.5, this.y + 0.5, this.z + 0.5)
 
-val Vec3i.centerD : Vector3d
+val Vec3i.centerJOMLD : Vector3d
     get() = Vector3d(this.x + 0.5, this.y + 0.5, this.z + 0.5)
 
-val Vec3i.centerDF : Vector3f
+val Vec3i.centerDJOMLF : Vector3f
     get() = Vector3f(this.x + 0.5f, this.y + 0.5f, this.z + 0.5f)
 
 val Entity.isOnShip : Boolean
@@ -183,6 +188,27 @@ var EntityDraggingInformation.addedPitchRotLastTick : Double
     get() = (this as EntityDraggingInformationMixinDuck).addedPitchRotLastTick
     set(value) { (this as EntityDraggingInformationMixinDuck).addedPitchRotLastTick = value }
 
+data class EntityHit(val entity: Entity, val vec3: Vec3)
+
+@JvmOverloads
+fun Level.clipEntities(start: Vec3, end: Vec3, aabb: AABB, skipEntities: List<Entity>? = null): EntityHit? {
+    var closestEntity: Entity? = null
+    var closestVec3: Vec3 = end
+    var closestDis: Double = start.distanceToSqr(end)
+    this.getEntities(null, aabb).filter { skipEntities == null || !skipEntities.contains(it) }.forEach {
+        val entityAABB = it.boundingBox
+        if (it is ItemEntity) {
+            entityAABB.inflate(0.75)
+        }
+        val hitVec3 = entityAABB.clip(start, end)
+        if (hitVec3.isPresent && closestDis < start.distanceToSqr(hitVec3.get())) {
+            closestEntity = it
+            closestVec3 = hitVec3.get()
+        }
+    }
+    return closestEntity?.let { EntityHit(it, closestVec3) }
+}
+
 //form VS base
 @JvmOverloads
 fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double = 0.5): BlockPos {
@@ -215,7 +241,7 @@ fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double 
 }
 
 @JvmOverloads
-fun Level.clipIncludeShipsWrapper(ctx: ClipContext, clipFunction: (Level, ClipContext) -> HitResult,
+fun Level.clipIncludeShipsWrapper(ctx: ClipContext, clipFunction: (Level, ClipContext) -> HitResult = { _: Level, c: ClipContext -> vanillaClip(c) },
                                   shouldTransformHitPos: Boolean = true, skipShips: List<ShipId>? = null): HitResult {
     val originHit = clipFunction(this, ctx)
 
@@ -259,3 +285,37 @@ fun Level.clipIncludeShipsWrapper(ctx: ClipContext, clipFunction: (Level, ClipCo
 
     return closestHit
 }
+
+fun BlockGetter.vanillaClip(context: ClipContext): BlockHitResult =
+    BlockGetter.traverseBlocks(context.from, context.to, context,
+        { clipContext: ClipContext, blockPos: BlockPos ->
+            val blockState = getBlockState(blockPos)
+            val fluidState = getFluidState(blockPos)
+            val vec3 = clipContext.from
+            val vec32 = clipContext.to
+            val voxelShape = clipContext.getBlockShape(blockState, this, blockPos)
+            val blockHitResult = clipWithInteractionOverride(vec3, vec32, blockPos, voxelShape, blockState)
+            val voxelShape2 = clipContext.getFluidShape(fluidState, this, blockPos)
+            val blockHitResult2 = voxelShape2.clip(vec3, vec32, blockPos)
+
+            val d = if (blockHitResult == null)
+                Double.MAX_VALUE
+            else
+                clipContext.from.distanceToSqr(blockHitResult.location)
+
+            val e = if (blockHitResult2 == null)
+                Double.MAX_VALUE
+            else
+                clipContext.from.distanceToSqr(blockHitResult2.location)
+
+            if (d <= e)
+                blockHitResult
+            else
+                blockHitResult2
+        }, { ctx ->
+            val vec3 = ctx.from.subtract(ctx.to)
+            BlockHitResult.miss(
+                ctx.to, Direction.getNearest(vec3.x, vec3.y, vec3.z),
+                BlockPos.containing(ctx.to)
+            )
+        })

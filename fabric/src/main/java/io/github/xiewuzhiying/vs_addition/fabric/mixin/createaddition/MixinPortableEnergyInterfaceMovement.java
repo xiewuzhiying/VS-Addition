@@ -132,8 +132,7 @@ public abstract class MixinPortableEnergyInterfaceMovement implements MovementBe
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceMovement;getStationaryInterfaceAt(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Lcom/mrh0/createaddition/blocks/portable_energy_interface/PortableEnergyInterfaceBlockEntity;"
-            ),
-            remap = false
+            )
     )
     public PortableEnergyInterfaceBlockEntity redirectToFindPSI(PortableEnergyInterfaceMovement instance, Level level, BlockPos pos, BlockState state, Direction direction, Operation<PortableEnergyInterfaceBlockEntity> original, @Local(ordinal = 0, argsOnly = true) MovementContext context) {
         if(context.blockEntityData.getInt("ScrollValue") == 1) {
