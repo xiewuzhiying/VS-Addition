@@ -4,7 +4,7 @@ import com.simibubi.create.AllItems
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.utility.AdventureUtil
 import com.simibubi.create.foundation.utility.RaycastHelper
-import io.github.fabricators_of_create.porting_lib.fake_players.FakePlayer
+import net.fabricmc.fabric.api.entity.FakePlayer
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkBehaviour
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
@@ -20,7 +20,7 @@ object DualLinkHandler {
     fun onBlockActivated(
         player: Player,
         world: Level,
-        hand: InteractionHand?,
+        hand: InteractionHand,
         blockRayTraceResult: BlockHitResult
     ): InteractionResult {
         val pos = blockRayTraceResult.blockPos
@@ -54,7 +54,7 @@ object DualLinkHandler {
                 .distanceToSqr(behaviour.secondSlot.getLocalOffset(blockState))
         }
 
-        for (first in mutableListOf<Boolean>(false, true)) {
+        for (first in mutableListOf(false, true)) {
             if (behaviour.testHit(first, ray.location) || fakePlayer && fakePlayerChoice == first) {
                 if (!world.isClientSide) behaviour.setFrequency(first, heldItem)
                 world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, .25f, .1f)
