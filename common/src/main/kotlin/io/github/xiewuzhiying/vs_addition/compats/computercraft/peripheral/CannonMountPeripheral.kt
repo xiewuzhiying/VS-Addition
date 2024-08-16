@@ -63,6 +63,21 @@ open class CannonMountPeripheral(
     }
 
     @LuaFunction
+    fun getX(): Int {
+        return tileEntity.controllerBlockPos.x
+    }
+
+    @LuaFunction
+    fun getY(): Int {
+        return tileEntity.controllerBlockPos.y
+    }
+
+    @LuaFunction
+    fun getZ(): Int {
+        return tileEntity.controllerBlockPos.z
+    }
+
+    @LuaFunction
     fun getMaxDepress(): Any {
         return tileEntity.contraption!!.maximumDepression().toDouble()
     }
