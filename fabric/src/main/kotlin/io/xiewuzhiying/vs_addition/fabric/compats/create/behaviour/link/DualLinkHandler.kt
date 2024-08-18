@@ -20,7 +20,7 @@ object DualLinkHandler {
     fun onBlockActivated(
         player: Player,
         world: Level,
-        hand: InteractionHand?,
+        hand: InteractionHand,
         blockRayTraceResult: BlockHitResult
     ): InteractionResult {
         val pos = blockRayTraceResult.blockPos
