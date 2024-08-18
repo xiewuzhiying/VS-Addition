@@ -38,37 +38,13 @@ jobs:
           distribution: "temurin"
           java-version: 17
 
-      - name: Download CBC common
-        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
-        with:
-          credentials: ${{ secrets.GSA_CREDENTIALS }}
-          actionType: download
-          localPath: ./common/jars/createbigcannons-5.5.0-dev+mc.1.20.1-fabric-build.50.jar
-          googleFileId: 1Nj1TlU_PC_mZuEj6e5lCR3EwRTitOxt-
-
-      - name: Download CBC fabric
-        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
-        with:
-          credentials: ${{ secrets.GSA_CREDENTIALS }}
-          actionType: download
-          localPath: ./fabric/jars/createbigcannons-5.5.0-dev+mc.1.20.1-fabric-build.50.jar
-          googleFileId: 1Nj1TlU_PC_mZuEj6e5lCR3EwRTitOxt-
-
-      - name: Download CBC forge
-        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
-        with:
-          credentials: ${{ secrets.GSA_CREDENTIALS }}
-          actionType: download
-          localPath: ./forge/jars/createbigcannons-5.5.0-dev+mc.1.20.1-forge-build.50.jar
-          googleFileId: 1jKit9IvnzyucbGzooDP0tPWUAux6NYsl
-
       - name: Download Modern Warfare
         uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
         with:
           credentials: ${{ secrets.GSA_CREDENTIALS }}
           actionType: download
-          localPath: ./forge/jars/cbcmodernwarfare-0.0.5b+mc.1.20.1-forge.jar
-          googleFileId: 1wBoucGOURq5dkLx1IvQ_DP29uxB7iQd8
+          localPath: ./forge/jars/cbcmodernwarfare-0.0.5e+mc.1.20.1-forge.jar
+          googleFileId: 1TJbrEHrX5RQcEkOHHKn6sU1rBWfltues
 
       - name: Download FTB Chunks
         uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
