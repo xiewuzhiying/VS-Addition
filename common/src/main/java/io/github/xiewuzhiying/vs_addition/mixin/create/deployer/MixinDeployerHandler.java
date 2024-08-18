@@ -12,6 +12,7 @@ import com.simibubi.create.content.kinetics.deployer.DeployerHandler;
 import io.github.xiewuzhiying.vs_addition.mixinducks.create.deployer.IDeployerBehavior;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -38,7 +39,7 @@ public abstract class MixinDeployerHandler {
             )
     )
     private static Vec3 setRayOrigin(Vec3 original, @Local(argsOnly = true, ordinal = 0) DeployerFakePlayer player, @Local(argsOnly = true, ordinal = 0) Vec3 vec3, @Share("mode") LocalBooleanRef working_mode) {
-        BlockEntity blockEntity = player.getLevel().getBlockEntity(TransformUtilsKt.getToBlockPos(vec3));
+        BlockEntity blockEntity = player.level.getBlockEntity(TransformUtilsKt.getToBlockPos(vec3));
         if(blockEntity != null)
             working_mode.set(((IDeployerBehavior)blockEntity).vs_addition$getWorkingMode().get() == IDeployerBehavior.WorkigMode.WITH_SHIP);
         else
@@ -66,11 +67,11 @@ public abstract class MixinDeployerHandler {
             method = "activateInner",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
+                    target = "Lnet/minecraft/server/level/ServerLevel;getEntitiesOfClass(Ljava/lang/Class;Lnet/minecraft/world/phys/AABB;)Ljava/util/List;"
             ),
             index = 1
     )
-    private static AABB aabbToWorld(AABB par2, @Local(ordinal = 0) Level world, @Share("mode") LocalBooleanRef working_mode) {
+    private static AABB aabbToWorld(AABB par2, @Local(ordinal = 0) ServerLevel world, @Share("mode") LocalBooleanRef working_mode) {
         if(working_mode.get())
             return VSGameUtilsKt.transformAabbToWorld(world, par2);
         return par2;
@@ -94,10 +95,10 @@ public abstract class MixinDeployerHandler {
             method = "activateInner",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;clip(Lnet/minecraft/world/level/ClipContext;)Lnet/minecraft/world/phys/BlockHitResult;"
+                    target = "Lnet/minecraft/server/level/ServerLevel;clip(Lnet/minecraft/world/level/ClipContext;)Lnet/minecraft/world/phys/BlockHitResult;"
             )
     )
-    private static BlockHitResult clip(Level instance, ClipContext clipContext, Operation<BlockHitResult> original, @Local(argsOnly = true, ordinal = 0) Vec3 vec, @Local(argsOnly = true, ordinal = 1) Vec3 extensionVector, @Share("mode") LocalBooleanRef working_mode) {
+    private static BlockHitResult clip(ServerLevel instance, ClipContext clipContext, Operation<BlockHitResult> original, @Local(argsOnly = true, ordinal = 0) Vec3 vec, @Local(argsOnly = true, ordinal = 1) Vec3 extensionVector, @Share("mode") LocalBooleanRef working_mode) {
         if(working_mode.get()) {
             BlockHitResult result = RaycastUtilsKt.clipIncludeShips(instance, clipContext, true);
             if (result.getType() == HitResult.Type.MISS) {
@@ -125,7 +126,7 @@ public abstract class MixinDeployerHandler {
             method = "activateInner",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;",
+                    target = "Lnet/minecraft/server/level/ServerLevel;getBlockState(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;",
                     ordinal = 0
             ),
             index = 0
@@ -140,7 +141,7 @@ public abstract class MixinDeployerHandler {
             method = "activateInner",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;mayInteract(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;)Z",
+                    target = "Lnet/minecraft/server/level/ServerLevel;mayInteract(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;)Z",
                     ordinal = 0
             ),
             index = 1
@@ -215,7 +216,7 @@ public abstract class MixinDeployerHandler {
             method = "activateInner",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V",
+                    target = "Lnet/minecraft/server/level/ServerLevel;playSound(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V",
                     ordinal = 0
             ),
             index = 1
@@ -245,7 +246,7 @@ public abstract class MixinDeployerHandler {
             method = "activateInner",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;destroyBlockProgress(ILnet/minecraft/core/BlockPos;I)V",
+                    target = "Lnet/minecraft/server/level/ServerLevel;destroyBlockProgress(ILnet/minecraft/core/BlockPos;I)V",
                     ordinal = 0
             ),
             index = 1
@@ -260,7 +261,7 @@ public abstract class MixinDeployerHandler {
             method = "activateInner",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;destroyBlockProgress(ILnet/minecraft/core/BlockPos;I)V",
+                    target = "Lnet/minecraft/server/level/ServerLevel;destroyBlockProgress(ILnet/minecraft/core/BlockPos;I)V",
                     ordinal = 1
             ),
             index = 1
