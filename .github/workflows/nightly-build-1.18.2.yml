@@ -38,30 +38,6 @@ jobs:
           distribution: "temurin"
           java-version: 17
 
-      - name: Download CBC common
-        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
-        with:
-          credentials: ${{ secrets.GSA_CREDENTIALS }}
-          actionType: download
-          localPath: ./common/jars/createbigcannons-5.5.0-dev+mc.1.18.2-fabric-build.48.jar
-          googleFileId: 1gcKE75TdDFl_dJW9dcY-EGwODgjZcXEX
-
-      - name: Download CBC fabric
-        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
-        with:
-          credentials: ${{ secrets.GSA_CREDENTIALS }}
-          actionType: download
-          localPath: ./fabric/jars/createbigcannons-5.5.0-dev+mc.1.18.2-fabric-build.48.jar
-          googleFileId: 1gcKE75TdDFl_dJW9dcY-EGwODgjZcXEX
-
-      - name: Download CBC forge
-        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
-        with:
-          credentials: ${{ secrets.GSA_CREDENTIALS }}
-          actionType: download
-          localPath: ./forge/jars/createbigcannons-5.5.0-dev+mc.1.18.2-forge-build.48.jar
-          googleFileId: 1R0Qp1WwiaE2bama7OvlL_17iQs3kvfsK
-
       - name: Download Modern Warfare
         uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
         with:
