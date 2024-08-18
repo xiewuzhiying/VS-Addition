@@ -99,7 +99,7 @@ dependencies {
     modImplementation("maven.modrinth:create-big-cannons:${rootProject.createbigcannons_forge_id}")
 
     //CBC Modern Warfare
-    modCompileOnly files("jars/cbcmodernwarfare-0.0.5b+mc.1.20.1-forge.jar")
+    modCompileOnly files("jars/cbcmodernwarfare-0.0.5e+mc.1.20.1-forge.jar")
 
     //CC&A
     modImplementation("maven.modrinth:createaddition:1.20.1-1.2.4d")
