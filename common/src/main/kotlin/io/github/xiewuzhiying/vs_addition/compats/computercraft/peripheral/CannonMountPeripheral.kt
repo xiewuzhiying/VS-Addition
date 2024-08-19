@@ -3,7 +3,10 @@ package io.github.xiewuzhiying.vs_addition.compats.computercraft.peripheral
 import dan200.computercraft.api.lua.LuaFunction
 import dan200.computercraft.api.peripheral.IPeripheral
 import io.github.xiewuzhiying.vs_addition.mixin.createbigcannons.CannonMountBlockEntityAccessor
+import io.github.xiewuzhiying.vs_addition.mixinducks.createbigcannons.MountedAutocannonContraptionMixinDuck
+import net.minecraft.server.level.ServerLevel
 import rbasamoyai.createbigcannons.cannon_control.cannon_mount.CannonMountBlockEntity
+import rbasamoyai.createbigcannons.cannon_control.contraption.AbstractMountedCannonContraption
 
 open class CannonMountPeripheral(
     val peripheralType: String,
@@ -24,7 +27,7 @@ open class CannonMountPeripheral(
     @LuaFunction(mainThread = true)
     fun assemble(): Any {
         if (!tileEntity.isRunning) {
-            (tileEntity as CannonMountBlockEntityAccessor?)!!.Assemble()
+            (tileEntity as CannonMountBlockEntityAccessor?)?.Assemble()
             return true
         }
         return false
@@ -42,8 +45,9 @@ open class CannonMountPeripheral(
 
     @LuaFunction(mainThread = true)
     fun fire() {
-        if (tileEntity.isRunning) {
-            tileEntity.contraption!!.tryFiringShot()
+        if (this.tileEntity.contraption?.level is ServerLevel) {
+            (this.tileEntity.contraption?.contraption as? MountedAutocannonContraptionMixinDuck)?.setIsCalledByComputer()
+            (this.tileEntity.contraption?.contraption as AbstractMountedCannonContraption).fireShot(tileEntity.contraption?.level as ServerLevel, this.tileEntity.contraption)
         }
     }
 
@@ -78,12 +82,12 @@ open class CannonMountPeripheral(
     }
 
     @LuaFunction
-    fun getMaxDepress(): Any {
-        return tileEntity.contraption!!.maximumDepression().toDouble()
+    fun getMaxDepress(): Double? {
+        return tileEntity.contraption?.maximumDepression()?.toDouble()
     }
 
     @LuaFunction
-    fun getMaxElevate(): Any {
-        return tileEntity.contraption!!.maximumElevation().toDouble()
+    fun getMaxElevate(): Double? {
+        return tileEntity.contraption?.maximumElevation()?.toDouble()
     }
 }

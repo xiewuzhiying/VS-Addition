@@ -1,9 +1,11 @@
 package io.github.xiewuzhiying.vs_addition.mixin.createbigcannons;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import io.github.xiewuzhiying.vs_addition.mixin.minecraft.EntityAccessor;
+import io.github.xiewuzhiying.vs_addition.mixinducks.createbigcannons.MountedAutocannonContraptionMixinDuck;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +19,6 @@ import org.valkyrienskies.mod.common.VSGameUtilsKt;
 import org.valkyrienskies.mod.common.util.GameTickForceApplier;
 import org.valkyrienskies.mod.common.util.VectorConversionsMCKt;
 import rbasamoyai.createbigcannons.cannon_control.contraption.AbstractMountedCannonContraption;
-import rbasamoyai.createbigcannons.cannon_control.contraption.ItemCannon;
 import rbasamoyai.createbigcannons.cannon_control.contraption.MountedAutocannonContraption;
 import rbasamoyai.createbigcannons.cannon_control.contraption.PitchOrientedContraptionEntity;
 import rbasamoyai.createbigcannons.cannons.autocannon.breech.AbstractAutocannonBreechBlockEntity;
@@ -27,7 +28,7 @@ import java.util.List;
 
 @Pseudo
 @Mixin(MountedAutocannonContraption.class)
-public abstract class MixinMountedAutoCannonContraption extends AbstractMountedCannonContraption implements ItemCannon {
+public abstract class MixinMountedAutoCannonContraption extends AbstractMountedCannonContraption implements MountedAutocannonContraptionMixinDuck {
 
     @Unique
     private float vs_addition$speed;
@@ -40,6 +41,9 @@ public abstract class MixinMountedAutoCannonContraption extends AbstractMountedC
 
     @Unique
     private final List<Integer> FIRE_RATES = VSAdditionConfig.SERVER.getCreateBigCannons().getCustomAutoCannonFireRates();
+
+    @Unique
+    private boolean vs_addition$isCalledByComputer = false;
 
     @Inject(
             method = "fireShot",
@@ -110,5 +114,29 @@ public abstract class MixinMountedAutoCannonContraption extends AbstractMountedC
             ((AbstractAutocannonBreechBlockEntityAccessor)instance).setFiringCooldown(FIRE_RATES.get(((AbstractAutocannonBreechBlockEntityAccessor)instance).getFireRate() - 1));
             ((AbstractAutocannonBreechBlockEntityAccessor)instance).setAnimateTicks(0);
         }
+    }
+
+    @ModifyExpressionValue(
+            method = "fireShot",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lrbasamoyai/createbigcannons/cannons/autocannon/breech/AbstractAutocannonBreechBlockEntity;canFire()Z"
+            )
+    )
+    public boolean checkIsCalledByComputer(boolean original) {
+        return original || this.vs_addition$isCalledByComputer;
+    }
+
+    @Inject(
+            method = "fireShot",
+            at = @At("RETURN")
+    )
+    public void reset(ServerLevel level, PitchOrientedContraptionEntity entity, CallbackInfo ci) {
+        this.vs_addition$isCalledByComputer = false;
+    }
+
+    @Override
+    public void setIsCalledByComputer() {
+        this.vs_addition$isCalledByComputer = true;
     }
 }
