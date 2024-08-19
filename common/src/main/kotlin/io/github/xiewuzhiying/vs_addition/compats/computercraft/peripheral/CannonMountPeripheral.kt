@@ -28,6 +28,13 @@ open class CannonMountPeripheral(
     fun assemble(): Any {
         if (!tileEntity.isRunning) {
             (tileEntity as CannonMountBlockEntityAccessor?)?.Assemble()
+            (this.tileEntity.contraption?.contraption as AbstractMountedCannonContraption).onRedstoneUpdate(
+                this.tileEntity.level as ServerLevel,
+                this.tileEntity.contraption,
+                false,
+                0,
+                this.tileEntity
+            )
             return true
         }
         return false
