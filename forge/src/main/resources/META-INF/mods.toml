@@ -103,17 +103,6 @@ ignore=false
 modrinth="create-clockwork"
 curseforge="create-clockwork"
 
-[[dependencies.vs_addition]]
-modId = "copycats"
-mandatory = false
-versionRange = "[1.2.5,)"
-ordering = "AFTER"
-side = "BOTH"
-[dependencies.vs_addition.mc-publish]
-ignore=true
-modrinth="copycats"
-curseforge="copycats"
-
 [mc-publish]
 # This dependency declaration will be merged with everything written above.
 # It's useful if you want to provide information about dependency types not supported by Forge.
@@ -123,5 +112,6 @@ dependencies=[
     "kotlin-for-forge@>=3.12.0(required)",
     "architectury-api@>=4.10.86(embedded)",
     "create-clockwork@>=0.5.1(optional)",
-    "create-big-cannons@>=5.5.0(optional)"
+    "create-big-cannons@>=5.5.0(optional)",
+    "copycats@>=1.2.5(optional)"
 ]
