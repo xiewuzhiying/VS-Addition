@@ -35,6 +35,7 @@ dependencies {
 
     //Mixin Extras
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras}"))
+    include("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras}:slim")
 
     //Mixin Squared
     implementation(include("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${rootProject.mixin_squared}"))
