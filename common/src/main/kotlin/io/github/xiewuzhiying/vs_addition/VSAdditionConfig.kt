@@ -44,9 +44,6 @@ object VSAdditionConfig {
 
             @JsonSchema(description = "Max Force of sticker's constraints")
             val stickerMaxForce : Double = 1e300
-
-            @JsonSchema(description = "Multiplier of Clockwork encased fan force")
-            val fanForceMultiplier: Double = 1.0
         }
 
         val createBigCannons = CREATEBIGCANNONS()
@@ -55,11 +52,14 @@ object VSAdditionConfig {
             @JsonSchema(description = "The force of recoil produced by big cannon fire on a ship")
             val bigCannonRecoilForce: Double = 100000.0
 
+            @JsonSchema(description = "The force of recoil produced by auto cannon fire on a ship")
+            val autoCannonRecoilForce: Double = 800.0
+
             @JsonSchema(description = "The force of recoil produced by medium cannon fire on a ship")
             val mediumCannonRecoilForce: Double = 21600.0
 
-            @JsonSchema(description = "The force of recoil produced by auto cannon fire on a ship")
-            val autoCannonRecoilForce: Double = 800.0
+            @JsonSchema(description = "The force of recoil produced by medium cannon fire on a ship")
+            val rotaryCannonRecoilForce: Double = 800.0
 
             @JsonSchema(description = "Custom autocannon breech fire rates")
             val customAutoCannonFireRates = listOf(120, 80, 60, 48, 40, 30, 24, 20, 15, 12, 10, 8, 6, 5, 4)
@@ -68,21 +68,27 @@ object VSAdditionConfig {
             val spreadMultiplier : Double = 1.0
         }
 
+        val clockwork = CLOCKWORK()
 
-        val physBearing = PHYSBEARING()
+        class CLOCKWORK {
+            val physBearing = PHYSBEARING()
 
-        class PHYSBEARING {
-            @JsonSchema(description = "Compliance of phys bearing's constraints")
-            val physBearingCompliance : Double = 1e-10
+            class PHYSBEARING {
+                @JsonSchema(description = "Compliance of phys bearing's constraints")
+                val physBearingCompliance : Double = 1e-10
 
-            @JsonSchema(description = "Max Force of phys bearing's constraints")
-            val physBearingMaxForce : Double = 1e10
+                @JsonSchema(description = "Max Force of phys bearing's constraints")
+                val physBearingMaxForce : Double = 1e10
 
-            @JsonSchema(description = "Omega error multiplier of phys bearing's force")
-            val physBearingOmegaErrorMultiplier : Double = 1.0
+                @JsonSchema(description = "Omega error multiplier of phys bearing's force")
+                val physBearingOmegaErrorMultiplier : Double = 1.0
 
-            @JsonSchema(description = "Angle error multiplier of locked mode phys bearing's force")
-            val physBearingAngleErrorMultiplier : Double = 1.0
+                @JsonSchema(description = "Angle error multiplier of locked mode phys bearing's force")
+                val physBearingAngleErrorMultiplier : Double = 1.0
+            }
+
+            @JsonSchema(description = "Multiplier of Clockwork encased fan force")
+            val fanForceMultiplier: Double = 1.0
         }
 
         val computercraft = COMPUTERCRAFT()
