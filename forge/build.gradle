@@ -52,7 +52,8 @@ dependencies {
 
     //Mixin Extras
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras}"))
-    implementation(include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras}"))
+    implementation("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras}")
+    include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras}:slim")
 
     //Mixin Squared
     compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${rootProject.mixin_squared}"))
