@@ -20,6 +20,6 @@ public abstract class MixinEncasedFanUpdateData {
             remap = false
     )
     private void fanSpeedMultiplier(double fanSpeed, CallbackInfo ci) {
-        this.fanSpeed = fanSpeed * VSAdditionConfig.SERVER.getCreate().getFanForceMultiplier();
+        this.fanSpeed = fanSpeed * VSAdditionConfig.SERVER.getClockwork().getFanForceMultiplier();
     }
 }

@@ -35,7 +35,7 @@ public abstract class MixinPhysBearingBlockEntity extends GeneratingKineticBlock
             remap = false
     )
     private double customCompliance(double constant) {
-        return VSAdditionConfig.SERVER.getPhysBearing().getPhysBearingCompliance();
+        return VSAdditionConfig.SERVER.getClockwork().getPhysBearing().getPhysBearingCompliance();
     }
 
     @ModifyExpressionValue(
@@ -47,7 +47,7 @@ public abstract class MixinPhysBearingBlockEntity extends GeneratingKineticBlock
             remap = false
     )
     private double customMaxForce(double constant) {
-        return VSAdditionConfig.SERVER.getPhysBearing().getPhysBearingMaxForce();
+        return VSAdditionConfig.SERVER.getClockwork().getPhysBearing().getPhysBearingMaxForce();
     }
 
     @WrapOperation(

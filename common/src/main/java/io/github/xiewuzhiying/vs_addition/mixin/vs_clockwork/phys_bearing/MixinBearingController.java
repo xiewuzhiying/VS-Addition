@@ -42,7 +42,7 @@ public abstract class MixinBearingController implements UpdateIsFacingNegativeDi
             remap = false
     )
     private double lockedModeMultiplier(double value, @Local(index = 6) double torqueMassMultiplier, @Local(index = 17) double angleErr, @Local(index = 22) double omegaErr) {
-        return angleErr * torqueMassMultiplier * VSAdditionConfig.SERVER.getPhysBearing().getPhysBearingAngleErrorMultiplier() * 50 + omegaErr * torqueMassMultiplier * VSAdditionConfig.SERVER.getPhysBearing().getPhysBearingOmegaErrorMultiplier() * 50;
+        return angleErr * torqueMassMultiplier * VSAdditionConfig.SERVER.getClockwork().getPhysBearing().getPhysBearingAngleErrorMultiplier() * 50 + omegaErr * torqueMassMultiplier * VSAdditionConfig.SERVER.getClockwork().getPhysBearing().getPhysBearingOmegaErrorMultiplier() * 50;
     }
 
     @ModifyVariable(
@@ -52,7 +52,7 @@ public abstract class MixinBearingController implements UpdateIsFacingNegativeDi
             remap = false
     )
     private double unlockedModeMultiplier(double value) {
-        return value * VSAdditionConfig.SERVER.getPhysBearing().getPhysBearingOmegaErrorMultiplier();
+        return value * VSAdditionConfig.SERVER.getClockwork().getPhysBearing().getPhysBearingOmegaErrorMultiplier();
     }
 
     @Override
