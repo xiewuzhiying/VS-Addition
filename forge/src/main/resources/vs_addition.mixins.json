@@ -5,6 +5,8 @@
   "plugin": "io.github.xiewuzhiying.vs_addition.forge.mixin.VSAdditionForgeMixinConfigPlugin",
   "mixins": [
     "cbcmodernwarfare.CompactCannonMountBlockEntityAccessor",
+    "cbcmodernwarfare.MixinCannonMountPoint",
+    "cbcmodernwarfare.MixinCompactCannonMountPoint",
     "cbcmodernwarfare.MixinMountedMediumcannonContraption",
     "cbcmodernwarfare.MixinMountedRotarycannonContraption",
     "create.hose_pulley.MixinFluidDrainingBehaviour",
