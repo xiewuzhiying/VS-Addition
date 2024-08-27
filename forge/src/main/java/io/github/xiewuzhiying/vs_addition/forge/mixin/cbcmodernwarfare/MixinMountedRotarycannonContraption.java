@@ -17,9 +17,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import org.valkyrienskies.core.api.ships.ServerShip;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 import org.valkyrienskies.mod.common.util.GameTickForceApplier;
@@ -94,7 +92,7 @@ public abstract class MixinMountedRotarycannonContraption {
         return projectile != null && original;
     }
 
-    @ModifyArgs(
+    @WrapOperation(
             method = "fireShot",
             at = @At(
                     value = "INVOKE",
@@ -103,9 +101,8 @@ public abstract class MixinMountedRotarycannonContraption {
             require = 0,
             remap = false
     )
-    private void fix2(Args args, @Local AbstractAutocannonProjectile projectile) {
+    private void fix2(ServerLevel level, int chunkX, int chunkZ, Operation<Void> original, @Local AbstractAutocannonProjectile projectile) {
         ChunkPos cpos1 = new ChunkPos(BlockPos.containing(projectile.position()));
-        args.set(1, cpos1.x);
-        args.set(2, cpos1.z);
+        original.call(level, cpos1.x, cpos1.z);
     }
 }
