@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.MixinExtrasBootstrap;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+import org.valkyrienskies.mod.mixin.ValkyrienCommonMixinConfigPlugin;
 
 import java.util.List;
 import java.util.Set;
@@ -43,5 +44,14 @@ public class VSAdditionFabricMixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
 
+    }
+
+    private static boolean classExists(final String className) {
+        try {
+            Class.forName(className, false, ValkyrienCommonMixinConfigPlugin.class.getClassLoader());
+            return true;
+        } catch (final ClassNotFoundException ex) {
+            return false;
+        }
     }
 }
