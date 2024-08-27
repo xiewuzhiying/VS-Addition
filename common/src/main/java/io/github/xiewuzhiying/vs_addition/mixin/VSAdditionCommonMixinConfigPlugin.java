@@ -24,9 +24,9 @@ public class VSAdditionCommonMixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (mixinClassName.contains("io.github.xiewuzhiying.vs_addition.mixin.create.deployer")) {
-            return !(VSAdditionMod.getINTERACTIVE_ACTIVE() && !VSAdditionConfig.COMMON.getInsteadCreateInteractiveDeployer());
+            return !VSAdditionMod.getINTERACTIVE_ACTIVE() && !VSAdditionConfig.COMMON.getInsteadCreateInteractiveDeployer();
         }
-        if (mixinClassName.contains("io.github.xiewuzhiying.vs_addition.mixin.create.vs_clockwork")) {
+        if (mixinClassName.contains("io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork")) {
             return VSAdditionMod.getCLOCKWORK_ACTIVE();
         }
         return true;

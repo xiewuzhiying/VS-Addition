@@ -9,6 +9,9 @@ public class VSAdditionForgeMixinCanceller implements MixinCanceller {
     public boolean shouldCancel(List<String> targetClassNames, String mixinClassName) {
         if(mixinClassName.contains("org.valkyrienskies.mod.forge.mixin.compat.cc_tweaked.MixinSpeakerPosition"))
             return true;
+        if (mixinClassName.contains("riftyboi.cbcmodernwarfare.forge.mixin.CannonMountPointMixin")) {
+            return true;
+        }
         return false;
     }
 }
