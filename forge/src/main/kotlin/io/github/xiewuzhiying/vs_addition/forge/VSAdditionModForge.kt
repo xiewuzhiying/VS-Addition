@@ -30,12 +30,8 @@ import xfacthd.framedblocks.common.FBContent
 
 @Mod(VSAdditionMod.MOD_ID)
 class VSAdditionModForge {
-
     init {
-        CREATE_ACTIVE = ModList.get().isLoaded("create")
-        CC_ACTIVE = ModList.get().isLoaded("computercraft")
-        FRAMEDBLOCKS_ACTIVE = ModList.get().isLoaded("framedblocks")
-        CBCMW_ACTIVE = ModList.get().isLoaded("cbcmodernwarfare")
+        init()
 
         getModBus().addListener { event: FMLClientSetupEvent? ->
             clientSetup(
@@ -49,8 +45,6 @@ class VSAdditionModForge {
         }
 
         EventBuses.registerModEventBus(VSAdditionMod.MOD_ID, MOD_CONTEXT.getKEventBus())
-
-        init()
 
         ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory::class.java) {
             ConfigGuiHandler.ConfigGuiFactory { _, parent ->
@@ -76,7 +70,7 @@ class VSAdditionModForge {
     }
 
     private fun serverSetup(event: FMLCommonSetupEvent?) {
-        if(FRAMEDBLOCKS_ACTIVE && CREATE_ACTIVE)
+        if(VSAdditionMod.FRAMEDBLOCKS_ACTIVE && VSAdditionMod.CREATE_ACTIVE)
             AllDisplayBehaviours.assignBlockEntity(
                 AllDisplayBehaviours.register(
                     ResourceLocation(
@@ -86,31 +80,27 @@ class VSAdditionModForge {
                 ), FBContent.blockEntityTypeFramedSign.get()
             )
 
-        if(CC_ACTIVE)
+        if(VSAdditionMod.CC_ACTIVE)
             ComputerCraftAPI.registerPeripheralProvider(ForgePeripheralProvider)
     }
 
     private fun rightClickBlock(event: RightClickBlock?) {
         if(event==null)
             return
-        if(CREATE_ACTIVE)
+        if(VSAdditionMod.CREATE_ACTIVE)
             DualLinkHandler.onBlockActivated(event)
     }
 
     private fun clientTick(event: ClientTickEvent?) {
         if(event==null)
             return
-        if(CREATE_ACTIVE)
+        if(VSAdditionMod.CREATE_ACTIVE)
             DualLinkRenderer.tick()
     }
 
     companion object {
         fun getModBus(): IEventBus = MOD_BUS
         fun getForgeBus(): IEventBus = FORGE_BUS
-        var CREATE_ACTIVE = false
-        var CC_ACTIVE = false
-        var FRAMEDBLOCKS_ACTIVE = false
-        var CBCMW_ACTIVE = false
     }
 
 }

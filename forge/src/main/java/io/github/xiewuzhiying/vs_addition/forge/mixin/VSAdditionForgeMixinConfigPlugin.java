@@ -1,11 +1,9 @@
 package io.github.xiewuzhiying.vs_addition.forge.mixin;
 
 import com.llamalad7.mixinextras.MixinExtrasBootstrap;
-import io.github.xiewuzhiying.vs_addition.forge.VSAdditionModForge;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-import org.valkyrienskies.mod.mixin.ValkyrienCommonMixinConfigPlugin;
 
 import java.util.List;
 import java.util.Set;
@@ -25,9 +23,6 @@ public class VSAdditionForgeMixinConfigPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if(mixinClassName.contains("io.github.xiewuzhiying.vs_addition.forge.mixin.computercraft.client.MixinSpeakerSound") && classExists("org.valkyrienskies.mod.forge.mixin.compat.cc_tweaked.MixinSpeakerSound")) {
             return false;
-        }
-        if (mixinClassName.contains("io.github.xiewuzhiying.vs_addition.forge.mixin.cbcmodernwarfare")) {
-            VSAdditionModForge.Companion.getCBCMW_ACTIVE();
         }
         return true;
     }
