@@ -2,7 +2,7 @@ package io.github.xiewuzhiying.vs_addition.forge.compats.computercraft
 
 import dan200.computercraft.api.peripheral.IPeripheral
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig
-import io.github.xiewuzhiying.vs_addition.forge.VSAdditionModForge.Companion.CBCMW_ACTIVE
+import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.peripherals.CheatCompactCannonMountPeripheral
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.peripherals.CompactCannonMountPeripheral
 import net.minecraft.core.BlockPos
@@ -21,7 +21,7 @@ object PeripheralForge {
     fun getPeripheralForge(level: Level, blockPos: BlockPos, direction: Direction?): IPeripheral? {
         val s = level.getBlockState(blockPos)
         val be = level.getBlockEntity(blockPos)
-        return if (CBCMW_ACTIVE && c(s, CBCModernWarfareBlocks.COMPACT_MOUNT.get())) {
+        return if (VSAdditionMod.CBCMW_ACTIVE && c(s, CBCModernWarfareBlocks.COMPACT_MOUNT.get())) {
             if (VSAdditionConfig.SERVER.computercraft.enableCheatCannonMountPeripheral) CheatCompactCannonMountPeripheral(
                 "cbcmf_compact_cannon_mount",
                 be as CompactCannonMountBlockEntity

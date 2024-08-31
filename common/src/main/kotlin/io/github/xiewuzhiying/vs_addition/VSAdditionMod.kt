@@ -14,6 +14,8 @@ object VSAdditionMod {
     @JvmStatic var EUREKA_ACTIVE = false
     @JvmStatic var INTERACTIVE_ACTIVE = false
     @JvmStatic var COMPUTERCRAT_ACTIVE = false
+    @JvmStatic var FRAMEDBLOCKS_ACTIVE = false
+    @JvmStatic var CBCMW_ACTIVE = false
 
     @JvmStatic
     fun init() {
@@ -24,6 +26,8 @@ object VSAdditionMod {
         EUREKA_ACTIVE = Platform.isModLoaded("vs_eureka")
         INTERACTIVE_ACTIVE = Platform.isModLoaded("create_interactive")
         COMPUTERCRAT_ACTIVE = Platform.isModLoaded("computercraft")
+        FRAMEDBLOCKS_ACTIVE = Platform.isModLoaded("framedblocks")
+        CBCMW_ACTIVE = Platform.isModLoaded("cbcmodernwarfare")
 
         VSConfigClass.registerConfig("vs_addition", VSAdditionConfig::class.java)
     }
