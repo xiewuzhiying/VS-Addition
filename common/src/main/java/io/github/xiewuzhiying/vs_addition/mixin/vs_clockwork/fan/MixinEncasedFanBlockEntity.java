@@ -3,6 +3,8 @@ package io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork.fan;
 import com.bawnorton.mixinsquared.TargetHandler;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.fan.EncasedFanBlockEntity;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -17,6 +19,9 @@ import org.valkyrienskies.clockwork.content.propulsion.singleton.fan.EncasedFanC
 import org.valkyrienskies.mod.common.util.VectorConversionsMCKt;
 
 @Pseudo
+@Restriction(
+        require = @Condition("vs_clockwork")
+)
 @Mixin(value = EncasedFanBlockEntity.class, priority = 1500)
 public abstract class MixinEncasedFanBlockEntity extends KineticBlockEntity {
     public MixinEncasedFanBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {

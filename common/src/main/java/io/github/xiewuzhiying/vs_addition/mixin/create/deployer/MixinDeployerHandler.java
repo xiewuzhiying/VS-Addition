@@ -10,7 +10,10 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.simibubi.create.content.kinetics.deployer.DeployerFakePlayer;
 import com.simibubi.create.content.kinetics.deployer.DeployerHandler;
 import io.github.xiewuzhiying.vs_addition.mixinducks.create.deployer.IDeployerBehavior;
+import io.github.xiewuzhiying.vs_addition.stuff.InteractiveConditionTester;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -27,6 +30,11 @@ import org.valkyrienskies.mod.common.VSGameUtilsKt;
 import org.valkyrienskies.mod.common.world.RaycastUtilsKt;
 
 @Pseudo
+@Restriction(
+        conflict = {
+                @Condition(type = Condition.Type.TESTER, tester = InteractiveConditionTester.class)
+        }
+)
 @Mixin(DeployerHandler.class)
 public abstract class MixinDeployerHandler {
     @ModifyExpressionValue(
