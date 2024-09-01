@@ -50,14 +50,17 @@ dependencies {
     // Architectury API
     include(modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}")
 
-    //Mixin Extras
+    // Mixin Extras
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras}"))
     implementation("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras}")
     include("io.github.llamalad7:mixinextras-forge:${rootProject.mixin_extras}:slim")
 
-    //Mixin Squared
+    // Mixin Squared
     compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${rootProject.mixin_squared}"))
     implementation(include("com.github.bawnorton.mixinsquared:mixinsquared-forge:${rootProject.mixin_squared}"))
+
+    // Conditional Mixin
+    implementation(include("com.github.Fallen-Breath.conditional-mixin:conditional-mixin-forge:${rootProject.conditional_mixin}"))
 
     // Valkyrien Skies 2
     modApi("org.valkyrienskies:valkyrienskies-118-forge:$vs2_version") { transitive = false }
@@ -82,43 +85,43 @@ dependencies {
     // CC Tweaked
     modImplementation("maven.modrinth:cc-tweaked:1.18.2-1.101.3")
 
-    //Eureka
+    // Eureka
     modImplementation("maven.modrinth:eureka:1.18.2-forge-1.5.1-beta.1")
 
-    //Clockwork
+    // Clockwork
     modImplementation("maven.modrinth:create-clockwork:1.18.2-0.1.16")
 
-    //Framed blocks
+    // Framed blocks
     modImplementation("maven.modrinth:framedblocks:5.11.5")
 
-    //Copycat+
+    // Copycat+
     modImplementation("maven.modrinth:copycats:2.0.4+mc.1.18.2-forge")
 
-    //CBC
+    // CBC
     String rplSuffix = Boolean.valueOf(use_local_rpl_build) ? "" : "-build.${rpl_build}";
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:${rpl_version}+mc.${minecraft_version}-forge" + rplSuffix) { transitive = false }
     modImplementation("maven.modrinth:create-big-cannons:${rootProject.createbigcannons_forge_id}")
 
-    //CBC Modern Warfare
+    // CBC Modern Warfare
     modImplementation files("jars/cbcmodernwarfare-0.0.5b+mc.1.18.2-forge.jar")
 
-    //CC&A
+    // CC&A
     modImplementation("maven.modrinth:createaddition:1.18.2-1.0.0")
 
-    //Create Tweaked Controllers
+    // Create Tweaked Controllers
     modImplementation("maven.modrinth:create-tweaked-controllers:1.18.2-1.2.4")
 
-    //TaCZ
+    // TaCZ
     modImplementation("maven.modrinth:timeless-and-classics-zero:1.0.2")
 
-    //Net Music
+    // Net Music
     modImplementation("maven.modrinth:net-music:FQqAhlVb")
 
-    //Embeddium
+    // Embeddium
     modImplementation("maven.modrinth:embeddium:0.3.18+mc1.18.2")
     modImplementation("maven.modrinth:embeddiumplus:1.18.2-v1.2.14")
 
-    //Presence Footsteps
+    // Presence Footsteps
     modImplementation files("jars/PresenceFootsteps-1.18.2-1.5.1-forge.jar")
 }
 

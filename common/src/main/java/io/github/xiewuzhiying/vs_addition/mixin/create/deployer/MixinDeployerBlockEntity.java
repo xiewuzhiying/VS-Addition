@@ -9,6 +9,9 @@ import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollOp
 import com.simibubi.create.foundation.utility.Lang;
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.deployer.DeployerScrollOptionSlot;
 import io.github.xiewuzhiying.vs_addition.mixinducks.create.deployer.IDeployerBehavior;
+import io.github.xiewuzhiying.vs_addition.stuff.InteractiveConditionTester;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -23,6 +26,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Pseudo
+@Restriction(
+        conflict = {
+                @Condition(type = Condition.Type.TESTER, tester = InteractiveConditionTester.class)
+        }
+)
 @Mixin(DeployerBlockEntity.class)
 public abstract class MixinDeployerBlockEntity extends KineticBlockEntity implements IDeployerBehavior {
 

@@ -16,11 +16,14 @@ dependencies {
     // Architectury API
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 
-    //Mixin Extras
+    // Mixin Extras
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras}"))
 
-    //Mixin Squared
+    // Mixin Squared
     implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${rootProject.mixin_squared}"))
+
+    // Conditional Mixin
+    implementation 'com.github.Fallen-Breath.conditional-mixin:conditional-mixin-fabric:0.6.2'
 
     // Valkyrien Skies 2
     modApi("org.valkyrienskies:valkyrienskies-118-common:${rootProject.vs2_version}")

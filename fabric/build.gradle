@@ -33,12 +33,15 @@ dependencies {
     // Architectury API
     include(modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}")
 
-    //Mixin Extras
+    // Mixin Extras
     implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras}"))
     include("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras}:slim")
 
-    //Mixin Squared
+    // Mixin Squared
     implementation(include("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${rootProject.mixin_squared}"))
+
+    // Conditional Mixin
+    implementation(include("com.github.Fallen-Breath.conditional-mixin:conditional-mixin-fabric:${rootProject.conditional_mixin}"))
 
     // Mod menu
     modImplementation("com.terraformersmc:modmenu:3.2.3")
@@ -53,10 +56,10 @@ dependencies {
     // CC Restitched
     modImplementation("maven.modrinth:cc-restitched:1.100.8+1.18.2")
 
-    //Eureka
+    // Eureka
     modImplementation("maven.modrinth:eureka:1.18.2-fabric-1.4.0-beta.1")
 
-    //Clockwork
+    // Clockwork
     modImplementation("maven.modrinth:create-clockwork:8JdnD9wo")
 
     // Create compats
@@ -77,19 +80,19 @@ dependencies {
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:${rpl_version}+mc.${minecraft_version}-fabric" + rplSuffix) { transitive = false }
     modImplementation("maven.modrinth:create-big-cannons:${rootProject.createbigcannons_fabric_id}")
 
-    //Copycat+
+    // Copycat+
     modImplementation("maven.modrinth:copycats:2.0.4+mc.1.18.2-fabric")
 
-    //CC&A
+    // CC&A
     modImplementation("maven.modrinth:createaddition:1.18.2-20230704a")
 
-    //VoxelMap Updated
+    // VoxelMap Updated
     modImplementation("maven.modrinth:voxelmap-updated:1.18.2-1.11.2")
 
-    //Sodium
+    // Sodium
     modImplementation("maven.modrinth:sodium:mc1.18.2-0.4.1")
 
-    //Presence Footsteps
+    // Presence Footsteps
     modImplementation("maven.modrinth:presence-footsteps:1.5.1")
 }
 
