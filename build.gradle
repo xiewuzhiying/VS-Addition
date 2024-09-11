@@ -11,6 +11,7 @@ plugins {
 
     id 'com.matthewprenger.cursegradle' version '1.4.0' apply false
     id "com.modrinth.minotaur" version "2.4.5" apply false
+    id "io.github.pacifistmc.forgix" version "1.2.9"
 }
 
 // Determine the version
@@ -76,7 +77,10 @@ subprojects {
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         // The following line declares the mojmap mappings, you may use other mappings as well
-        mappings loom.officialMojangMappings()
+        mappings(loom.layered {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-1.20.1:2023.09.03@zip")
+        })
 
         implementation("org.joml:joml:1.10.4") { transitive = false }
         implementation("org.joml:joml-primitives:1.10.0") { transitive = false }
@@ -110,6 +114,9 @@ subprojects {
     //        reporter "checkstyle"
     //    }
     //}
+
+    build.finalizedBy(mergeJars)
+    assemble.finalizedBy(mergeJars)
 }
 
 allprojects {
@@ -148,5 +155,24 @@ allprojects {
 
     java {
         withSourcesJar()
+    }
+}
+
+
+String gitRevision = "git rev-parse HEAD".execute().text.trim()
+version = minecraft_version + "-" + mod_version + "+" + gitRevision.substring(0, 10)
+forgix {
+    group = "io.github.xiewuzhiying.vs_addition"
+    mergedJarName = "vs_addition-" + version + ".jar"
+    outputDir = "build/libs/merged"
+
+    forge {
+        projectName = "forge"
+        jarLocation = "build/libs/vs_addition-" + minecraft_version + "-" + "forge" + "-" + mod_version + "+" + gitRevision.substring(0, 10) + ".jar"
+    }
+
+    fabric {
+        projectName = "fabric"
+        jarLocation = "build/libs/vs_addition-" + minecraft_version + "-" + "fabric" + "-" + mod_version + "+" + gitRevision.substring(0, 10) + ".jar"
     }
 }
