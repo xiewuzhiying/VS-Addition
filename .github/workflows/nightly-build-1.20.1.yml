@@ -20,10 +20,10 @@ env:
 permissions:
   contents: write
 
-jobs:                                             
-  build:                                          
-    runs-on: ubuntu-latest                        
-    steps:                                        
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
       - name: Check Environment Variables
         run: env
 
@@ -61,11 +61,13 @@ jobs:
       - name: Build
         run: ./gradlew clean build
 
-      - name: Artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: artifact
           path: |
+            ./build/libs/merged/*
             ./common/build/libs/*
             ./fabric/build/libs/*
             ./forge/build/libs/*
+            ./CHANGELOG.md
