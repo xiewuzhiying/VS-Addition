@@ -6,6 +6,8 @@ import com.simibubi.create.content.contraptions.glue.SuperGlueItem;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
@@ -152,15 +154,13 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
             }
             if(level.isClientSide && ships.size() > 0) {
                 SuperGlueItem.spawnParticles(level, worldPosition, getBlockState().getValue(StickerBlock.FACING), true);
-                playSound(true);
+                playClientSound(true);
             }
             this.needUpdate = false;
         }
         if (this.needUpdate) {
             clearConstraint();
-            if(level.isClientSide) {
-                playSound(false);
-            }
+            playClientSound(false);
             this.needUpdate = false;
         }
     }
@@ -190,7 +190,17 @@ public abstract class MixinStickerBlockEntity extends SmartBlockEntity {
         return state.isAir() || state.getFluidState() != Fluids.EMPTY.defaultFluidState();
     }
 
+    /**
+     * Safe wrapper for 'playSound', which is removed at runtime on fabric servers.
+     */
+    public void playClientSound(boolean attach) {
+        if(level.isClientSide) {
+            playSound(attach);
+        }
+    }
+
+    @Environment(EnvType.CLIENT)
     @Shadow(remap = false)
-    public abstract void playSound(boolean attach);
+    protected abstract void playSound(boolean attach);
 }
 
