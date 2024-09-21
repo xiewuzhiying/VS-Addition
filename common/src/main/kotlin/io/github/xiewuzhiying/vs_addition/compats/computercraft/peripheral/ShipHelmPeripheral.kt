@@ -30,11 +30,11 @@ class ShipHelmPeripheral(
         return peripheralType
     }
 
-    override fun equals(iPeripheral: IPeripheral?): Boolean {
-        return iPeripheral === this
+    override fun equals(p0: IPeripheral?): Boolean {
+        return p0 === this
     }
 
-    override fun getTarget(): Any? {
+    override fun getTarget(): Any {
         return this.tileEntity
     }
 
@@ -65,7 +65,7 @@ class ShipHelmPeripheral(
     @LuaFunction
     @Throws(LuaException::class)
     fun align() {
-        if (tileEntity!!.assembled) {
+        if (tileEntity.assembled) {
             tileEntity.align()
         } else throw LuaException("Not assembled yet")
     }
@@ -73,137 +73,61 @@ class ShipHelmPeripheral(
     @LuaFunction
     @Throws(LuaException::class)
     fun move(args: IArguments) {
-        if (level.isClientSide()) {
-            throw LuaException("client")
+        if (level.isClientSide()) throw LuaException("client")
+        val ship = level.getShipManagingPos(blockPos) as ServerShip? ?: throw LuaException("No ship")
+        if (ship.getAttachment(EurekaShipControl::class.java) == null) throw LuaException("Not Eureka ship")
+        var fakePlayer = ship.getAttachment(SeatedControllingPlayer::class.java)
+        val direction = level.getBlockState(this.blockPos).getValue(BlockStateProperties.HORIZONTAL_FACING).opposite
+        if (fakePlayer == null || fakePlayer.seatInDirection != direction) {
+            fakePlayer = SeatedControllingPlayer(direction)
+            ship.saveAttachment(SeatedControllingPlayer::class.java, fakePlayer)
         }
-        val ship = level.getShipManagingPos(
-            blockPos
-        ) as ServerShip?
-        if (ship == null) {
-            throw LuaException("No ship")
-        }
-        if (ship.getAttachment(
-                EurekaShipControl::class.java
-            ) == null
-        ) {
-            throw LuaException("Not Eureka ship")
-        }
-        var fakePlayer = ship.getAttachment(
-            SeatedControllingPlayer::class.java
-        )
-        if (fakePlayer == null) fakePlayer = SeatedControllingPlayer(
-            level.getBlockState(this.blockPos).getValue(
-                BlockStateProperties.HORIZONTAL_FACING
-            ).opposite
-        )
-        ship.saveAttachment(SeatedControllingPlayer::class.java, fakePlayer)
-        fakePlayer.leftImpulse = min(max(args.getDouble(0).toFloat().toDouble(), -1.0), 1.0).toFloat()
-        fakePlayer.upImpulse = min(max(args.getDouble(1).toFloat().toDouble(), -1.0), 1.0).toFloat()
-        fakePlayer.forwardImpulse = min(max(args.getDouble(2).toFloat().toDouble(), -1.0), 1.0).toFloat()
+        fakePlayer.leftImpulse = min(max(args.getDouble(0), -1.0), 1.0).toFloat()
+        fakePlayer.upImpulse = min(max(args.getDouble(1), -1.0), 1.0).toFloat()
+        fakePlayer.forwardImpulse = min(max(args.getDouble(2), -1.0), 1.0).toFloat()
+    }
+
+    @LuaFunction
+    fun fakePlayerKill() {
+        if (level.isClientSide()) throw LuaException("client")
+        val ship = level.getShipManagingPos(blockPos) as ServerShip? ?: throw LuaException("No ship")
+        ship.saveAttachment(SeatedControllingPlayer::class.java, null)
     }
 
     @LuaFunction
     @Throws(LuaException::class)
     fun getBalloonAmount(): Int {
-        if (level.isClientSide()) {
-            throw LuaException("client")
-        }
-        val ship = level.getShipManagingPos(
-            blockPos
-        ) as ServerShip?
-        if (ship == null) {
-            throw LuaException("No ship")
-        }
-        val control = ship.getAttachment(
-            EurekaShipControl::class.java
-        )
-        if (control == null) {
-            throw LuaException("Not Eureka ship")
-        }
-        return control.balloons
+        return check().balloons
     }
 
     @LuaFunction
     @Throws(LuaException::class)
     fun getAnchorAmount(): Int {
-        if (level.isClientSide()) {
-            throw LuaException("client")
-        }
-        val ship = level.getShipManagingPos(
-            blockPos
-        ) as ServerShip?
-        if (ship == null) {
-            throw LuaException("No ship")
-        }
-        val control = ship.getAttachment(
-            EurekaShipControl::class.java
-        )
-        if (control == null) {
-            throw LuaException("Not Eureka ship")
-        }
-        return control.anchors
+        return check().anchors
     }
 
     @LuaFunction
     @Throws(LuaException::class)
     fun getActiveAnchorAmount(): Int {
-        if (level.isClientSide()) {
-            throw LuaException("client")
-        }
-        val ship = level.getShipManagingPos(
-            blockPos
-        ) as ServerShip?
-        if (ship == null) {
-            throw LuaException("No ship")
-        }
-        val control = ship.getAttachment(
-            EurekaShipControl::class.java
-        )
-        if (control == null) {
-            throw LuaException("Not Eureka ship")
-        }
-        return control.anchorsActive
+        return check().anchorsActive
     }
 
     @LuaFunction
     @Throws(LuaException::class)
     fun areAnchorsActive(): Boolean {
-        if (level.isClientSide()) {
-            throw LuaException("client")
-        }
-        val ship = level.getShipManagingPos(
-            blockPos
-        ) as ServerShip?
-        if (ship == null) {
-            throw LuaException("No ship")
-        }
-        val control = ship.getAttachment(
-            EurekaShipControl::class.java
-        )
-        if (control == null) {
-            throw LuaException("Not Eureka ship")
-        }
-        return control.anchorsActive > 0
+        return check().anchorsActive > 0
     }
 
     @LuaFunction
     @Throws(LuaException::class)
     fun getShipHelmAmount(): Int {
-        if (level.isClientSide()) {
-            throw LuaException("client")
-        }
-        val ship = level.getShipManagingPos(
-            blockPos
-        ) as ServerShip?
-        if (ship == null) {
-            throw LuaException("No ship")
-        }
-        val control = ship.getAttachment(
-            EurekaShipControl::class.java
-        )
-        if (control == null) {
-            throw LuaException("Not Eureka ship")
-        }
-        return control.helms
+        return check().helms
+    }
+    
+    private fun check() : EurekaShipControl {
+        if (level.isClientSide()) throw LuaException("client")
+        val ship = level.getShipManagingPos(blockPos) as ServerShip? ?: throw LuaException("No ship")
+        val control = ship.getAttachment(EurekaShipControl::class.java) ?: throw LuaException("Not Eureka ship")
+        return control;
     }
 }
