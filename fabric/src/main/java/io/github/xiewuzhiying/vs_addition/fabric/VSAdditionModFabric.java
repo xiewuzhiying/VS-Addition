@@ -7,6 +7,7 @@ import net.fabricmc.api.ModInitializer;
 import org.valkyrienskies.mod.fabric.common.ValkyrienSkiesModFabric;
 
 import static io.github.xiewuzhiying.vs_addition.VSAdditionMod.init;
+import static io.github.xiewuzhiying.vs_addition.compats.computercraft.PeripheralCommon.registerGenericPeripheralCommon;
 
 public class VSAdditionModFabric implements ModInitializer {
     @Override
@@ -16,7 +17,9 @@ public class VSAdditionModFabric implements ModInitializer {
 
         init();
 
-        if(VSAdditionMod.getCC_ACTIVE())
+        if(VSAdditionMod.getCC_ACTIVE()) {
+            registerGenericPeripheralCommon();
             PeripheralLookup.get().registerFallback((level, blockPos, blockState, blockEntity, direction) -> FabricPeripheralLookup.INSTANCE.peripheralProvider(level, blockPos));
+        }
     }
 }
