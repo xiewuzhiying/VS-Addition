@@ -11,7 +11,10 @@ import com.simibubi.create.content.kinetics.fan.processing.AllFanProcessingTypes
 import com.simibubi.create.content.kinetics.fan.processing.FanProcessingType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import io.github.xiewuzhiying.vs_addition.compats.create.content.kinetics.fan.AirCurrentUtils;
+import io.github.xiewuzhiying.vs_addition.stuff.EncasedFanConditionTester;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -38,6 +41,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Pseudo
+@Restriction(
+        require = {
+                @Condition(type = Condition.Type.TESTER, tester = EncasedFanConditionTester.class)
+        }
+)
 @Mixin(AirCurrent.class)
 public abstract class MixinAirCurrent {
     @Shadow public AABB bounds;

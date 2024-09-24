@@ -3,7 +3,10 @@ package io.github.xiewuzhiying.vs_addition.mixin.create.fan;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.simibubi.create.content.kinetics.fan.NozzleBlockEntity;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import io.github.xiewuzhiying.vs_addition.stuff.EncasedFanConditionTester;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,6 +16,11 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Pseudo
+@Restriction(
+        require = {
+                @Condition(type = Condition.Type.TESTER, tester = EncasedFanConditionTester.class)
+        }
+)
 @Mixin(NozzleBlockEntity.class)
 public abstract class MixinNozzleBlockEntity extends SmartBlockEntity {
     public MixinNozzleBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
