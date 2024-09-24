@@ -10,7 +10,10 @@ import net.minecraftforge.common.util.LazyOptional
 
 object ForgePeripheralProvider: IPeripheralProvider {
     override fun getPeripheral(level: Level, blockPos: BlockPos, direction: Direction): LazyOptional<IPeripheral> {
-        val peripheral = PeripheralCommon.getPeripheralCommon(level, blockPos) ?: PeripheralForge.getPeripheralForge(level, blockPos, direction) ?: return LazyOptional.empty()
+        val peripheral =
+            PeripheralCommon.getPeripheralCommon(level, blockPos) ?:
+            PeripheralForge.getPeripheralForge(level, blockPos, direction) ?:
+            return LazyOptional.empty()
         return LazyOptional.of { peripheral }
     }
 }

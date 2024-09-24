@@ -10,6 +10,6 @@ import net.minecraft.world.level.Level
 class FabricPeripheralProvider : IPeripheralProvider {
     override fun getPeripheral(level: Level, blockPos: BlockPos,direction: Direction
     ): IPeripheral? {
-        return PeripheralCommon.getPeripheralCommon(level, blockPos)
+        return PeripheralCommon.getPeripheralCommon(level, blockPos) ?: PeripheralFabric.getPeripheralFarbic(level, blockPos)
     }
 }

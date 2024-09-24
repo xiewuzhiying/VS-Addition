@@ -11,6 +11,7 @@
     "computercraft.TileComputerMixin",
     "computercraft.TileTurtleMixin",
     "cbcmodernwarfare.MixinMountedRotarycannonContraption",
+    "computercraft.InventoryMethodsAccessor",
     "create.hose_pulley.MixinFluidDrainingBehaviour",
     "create.hose_pulley.MixinFluidFillingBehaviour",
     "create.hose_pulley.MixinHosePulleyBlockEntity",

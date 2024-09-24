@@ -8,6 +8,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import org.valkyrienskies.mod.fabric.common.ValkyrienSkiesModFabric;
 
 import static io.github.xiewuzhiying.vs_addition.VSAdditionMod.init;
+import static io.github.xiewuzhiying.vs_addition.compats.computercraft.PeripheralCommon.registerGenericPeripheralCommon;
 
 public class VSAdditionModFabric implements ModInitializer {
     private static  boolean VS2_ACTIVE = false;
@@ -22,7 +23,9 @@ public class VSAdditionModFabric implements ModInitializer {
 
         init();
 
-        if(VSAdditionMod.getCC_ACTIVE())
+        if(VSAdditionMod.getCC_ACTIVE()) {
+            registerGenericPeripheralCommon();
             ComputerCraftAPI.registerPeripheralProvider(new FabricPeripheralProvider());
+        }
     }
 }

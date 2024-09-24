@@ -1,42 +1,31 @@
 package io.github.xiewuzhiying.vs_addition.compats.computercraft
 
+import dan200.computercraft.api.ComputerCraftAPI
 import dan200.computercraft.api.peripheral.IPeripheral
+import dan200.computercraft.impl.Peripherals
+import dan200.computercraft.shared.peripheral.generic.methods.InventoryMethods
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig
-import io.github.xiewuzhiying.vs_addition.VSAdditionMod.CBC_ACTIVE
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.CLOCKWORK_ACTIVE
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.EUREKA_ACTIVE
+import io.github.xiewuzhiying.vs_addition.compats.computercraft.PeripheralCommon.PeripheralSupplier
 import io.github.xiewuzhiying.vs_addition.compats.computercraft.peripheral.*
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.world.level.block.state.BlockState
 import org.valkyrienskies.clockwork.ClockworkBlocks
 import org.valkyrienskies.clockwork.content.contraptions.flap.FlapBearingBlockEntity
 import org.valkyrienskies.eureka.EurekaBlocks
 import org.valkyrienskies.eureka.blockentity.ShipHelmBlockEntity
 import rbasamoyai.createbigcannons.cannon_control.cannon_mount.CannonMountBlockEntity
-import rbasamoyai.createbigcannons.index.CBCBlocks
 
 object PeripheralCommon {
     private val peripheralMap: MutableMap<Block, PeripheralSupplier> = HashMap()
 
     init {
-        if (CBC_ACTIVE) {
-            peripheralMap[CBCBlocks.CANNON_MOUNT.get()] =
-                PeripheralSupplier { be: BlockEntity, _: Level, _: BlockPos ->
-                    if (VSAdditionConfig.SERVER.computercraft.enableCheatCannonMountPeripheral) {
-                        CheatCannonMountPeripheral(
-                            "cbc_cannon_mount",
-                            be as CannonMountBlockEntity
-                        )
-                    } else {
-                        CannonMountPeripheral(
-                            "cbc_cannon_mount",
-                            be as CannonMountBlockEntity
-                        )
-                    }
-                }
-        }
         if (CLOCKWORK_ACTIVE) {
             peripheralMap[ClockworkBlocks.FLAP_BEARING.get()] =
                 PeripheralSupplier { be: BlockEntity, _: Level, _: BlockPos ->
@@ -133,7 +122,28 @@ object PeripheralCommon {
         return be?.let { supplier?.get(it, level, blockPos) }
     }
 
+    @JvmStatic
+    fun registerGenericPeripheralCommon() {
+        ComputerCraftAPI.registerGenericSource(CannonMountMethods());
+        ComputerCraftAPI.registerGenericSource(CheatCannonMountMethods());
+    }
+
     fun interface PeripheralSupplier {
         fun get(be: BlockEntity, level: Level, pos: BlockPos): IPeripheral?
+    }
+
+    fun cannonMOuntExtractContainer(
+        level: Level,
+        pos: BlockPos,
+        state: BlockState,
+        blockEntity: BlockEntity?,
+        direction: Direction?
+    ): CannonMountBlockEntity? {
+        val be = level.getBlockEntity(pos)
+        return if(be is CannonMountBlockEntity) {
+            be
+        } else {
+            null
+        }
     }
 }
