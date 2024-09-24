@@ -6,8 +6,11 @@ import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.compats.computercraft.PeripheralCommon.PeripheralSupplier
 import io.github.xiewuzhiying.vs_addition.compats.computercraft.peripheral.CannonMountPeripheral
 import io.github.xiewuzhiying.vs_addition.compats.computercraft.peripheral.CheatCannonMountPeripheral
+import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.peripherals.CannonMountPeripheralWithInventory
+import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.peripherals.CheatCannonMountPeripheralWithInventory
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.peripherals.CheatCompactCannonMountPeripheral
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.peripherals.CompactCannonMountPeripheral
+import io.github.xiewuzhiying.vs_addition.forge.mixin.computercraft.InventoryMethodsAccessor
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.level.Level
@@ -25,16 +28,33 @@ object PeripheralForge {
         if (VSAdditionMod.CBC_ACTIVE) {
             peripheralMap[CBCBlocks.CANNON_MOUNT.get()] =
                 PeripheralSupplier { be: BlockEntity, _: Level, _: BlockPos ->
+                    val storage = InventoryMethodsAccessor.extractHandler(be as IPeripheral)
                     if (VSAdditionConfig.SERVER.computercraft.enableCheatCannonMountPeripheral) {
-                        CheatCannonMountPeripheral(
-                            "cbc_cannon_mount",
-                            be as CannonMountBlockEntity
-                        )
+                        if (storage != null) {
+                            CheatCannonMountPeripheralWithInventory(
+                                "cbc_cannon_mount",
+                                be as CannonMountBlockEntity,
+                                storage
+                            )
+                        } else {
+                            CheatCannonMountPeripheral(
+                                "cbc_cannon_mount",
+                                be as CannonMountBlockEntity
+                            )
+                        }
                     } else {
-                        CannonMountPeripheral(
-                            "cbc_cannon_mount",
-                            be as CannonMountBlockEntity
-                        )
+                        if (storage != null) {
+                            CannonMountPeripheralWithInventory(
+                                "cbc_cannon_mount",
+                                be as CannonMountBlockEntity,
+                                storage
+                            )
+                        } else {
+                            CannonMountPeripheral(
+                                "cbc_cannon_mount",
+                                be as CannonMountBlockEntity
+                            )
+                        }
                     }
                 }
         }

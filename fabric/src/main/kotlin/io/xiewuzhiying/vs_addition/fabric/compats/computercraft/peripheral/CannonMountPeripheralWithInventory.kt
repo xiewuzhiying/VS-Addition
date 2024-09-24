@@ -33,7 +33,6 @@ class CannonMountPeripheralWithInventory(peripheralType: String, tileEntity: Can
     }
 
     @LuaFunction(mainThread = true)
-    @Throws(LuaException::class)
     fun getItemDetail(slot: Int): Map<String, *>? {
         ArgumentHelpers.assertBetween(slot, 1, inventory.storage.slotCount, "Slot out of range (%s)")
 
@@ -42,14 +41,12 @@ class CannonMountPeripheralWithInventory(peripheralType: String, tileEntity: Can
     }
 
     @LuaFunction(mainThread = true)
-    @Throws(LuaException::class)
     fun getItemLimit(slot: Int): Long {
         ArgumentHelpers.assertBetween(slot, 1, inventory.storage.slotCount, "Slot out of range (%s)")
         return inventory.storage.getSlot(slot - 1).capacity
     }
 
     @LuaFunction(mainThread = true)
-    @Throws(LuaException::class)
     fun pushItems(
         computer: IComputerAccess,
         toName: String, fromSlot: Int, limit: Optional<Int>, toSlot: Optional<Int>
@@ -73,7 +70,6 @@ class CannonMountPeripheralWithInventory(peripheralType: String, tileEntity: Can
     }
 
     @LuaFunction(mainThread = true)
-    @Throws(LuaException::class)
     fun pullItems(
         computer: IComputerAccess,
         fromName: String, fromSlot: Int, limit: Optional<Int>, toSlot: Optional<Int>

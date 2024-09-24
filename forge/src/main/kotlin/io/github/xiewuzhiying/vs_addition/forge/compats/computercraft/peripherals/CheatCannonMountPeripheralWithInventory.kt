@@ -32,7 +32,6 @@ class CheatCannonMountPeripheralWithInventory(peripheralType: String, tileEntity
     }
 
     @LuaFunction(mainThread = true)
-    @Throws(LuaException::class)
     fun getItemDetail(slot: Int): Map<String, *>? {
         ArgumentHelpers.assertBetween(slot, 1, inventory.slots, "Slot out of range (%s)")
 
@@ -41,14 +40,12 @@ class CheatCannonMountPeripheralWithInventory(peripheralType: String, tileEntity
     }
 
     @LuaFunction(mainThread = true)
-    @Throws(LuaException::class)
     fun getItemLimit(slot: Int): Long {
         ArgumentHelpers.assertBetween(slot, 1, inventory.slots, "Slot out of range (%s)")
         return inventory.getSlotLimit(slot - 1).toLong()
     }
 
-    @LuaFunction(mainThread = true)
-    @Throws(LuaException::class)
+    /*@LuaFunction(mainThread = true)
     fun pushItems(
         computer: IComputerAccess,
         toName: String, fromSlot: Int, limit: Optional<Int>, toSlot: Optional<Int>
@@ -71,7 +68,6 @@ class CheatCannonMountPeripheralWithInventory(peripheralType: String, tileEntity
     }
 
     @LuaFunction(mainThread = true)
-    @Throws(LuaException::class)
     fun pullItems(
         computer: IComputerAccess,
         fromName: String, fromSlot: Int, limit: Optional<Int>, toSlot: Optional<Int>
@@ -91,5 +87,5 @@ class CheatCannonMountPeripheralWithInventory(peripheralType: String, tileEntity
 
         if (actualLimit <= 0) return 0
         return InventoryMethodsAccessor.moveItem(from, fromSlot - 1, inventory, toSlot.orElse(0) - 1, actualLimit)
-    }
+    }*/
 }
