@@ -8,6 +8,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkBehaviour;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.flap_bearing.FlapBearingLinkFrequencySlot;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.flap_bearing.FlapBearingLinkFrequencySlotNegative;
+import io.github.xiewuzhiying.vs_addition.mixinducks.vs_clockwork.flap_bearing.FlapBearingBlockEntityMixinDuck;
 import kotlin.jvm.internal.Intrinsics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,7 +32,7 @@ import java.util.List;
 
 @Pseudo
 @Mixin(FlapBearingBlockEntity.class)
-public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
+public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity implements FlapBearingBlockEntityMixinDuck {
 
     @Shadow(remap = false) private BlockPos redstonePos;
     @Shadow(remap = false) private float clientAngleDiff;
@@ -50,6 +51,10 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
     protected boolean receivedSignalPositiveActive;
     @Unique
     protected boolean receivedSignalNegativeActive;
+    @Unique
+    protected float lockedFlapAngle = 0.0f;
+    @Unique
+    protected boolean isLocked = false;
 
 
     public MixinFlapBearingBlockEntity(BlockEntityType<?> typeIn, BlockPos pos, BlockState state) {
@@ -129,6 +134,38 @@ public abstract class MixinFlapBearingBlockEntity extends KineticBlockEntity {
                 this.sendData();
             }
         }
+    }
+
+    @Inject(
+            method = "getFlapTarget",
+            at = @At("HEAD"),
+            cancellable = true,
+            remap = false
+    )
+    private void getFlapTarget(boolean negativeActivated, boolean positiveActivated, CallbackInfoReturnable<Float> cir) {
+        if (this.isLocked) {
+            cir.setReturnValue(this.lockedFlapAngle);
+        }
+    }
+
+    @Override
+    public void setLockedFlapAngle(float angle) {
+        this.lockedFlapAngle = angle;
+    }
+
+    @Override
+    public float getLockedFlapAngle() {
+        return this.lockedFlapAngle;
+    }
+
+    @Override
+    public void setIsLocked(boolean bl) {
+        this.isLocked = bl;
+    }
+
+    @Override
+    public boolean getIsLocked() {
+        return this.isLocked;
     }
 
     @Unique

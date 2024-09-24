@@ -7,6 +7,6 @@ import net.minecraft.world.level.Level
 
 object FabricPeripheralLookup {
     fun peripheralProvider(level: Level, blockPos: BlockPos): IPeripheral? {
-        return PeripheralCommon.getPeripheralCommon(level, blockPos)
+        return PeripheralCommon.getPeripheralCommon(level, blockPos) ?: PeripheralFabric.getPeripheralFarbic(level, blockPos)
     }
 }
