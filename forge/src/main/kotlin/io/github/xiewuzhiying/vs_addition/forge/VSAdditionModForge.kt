@@ -7,8 +7,10 @@ import io.github.xiewuzhiying.vs_addition.VSAdditionConfig
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.init
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
+import io.github.xiewuzhiying.vs_addition.compats.computercraft.PeripheralCommon.registerGenericPeripheralCommon
 import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkRenderer
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.ForgePeripheralProvider
+import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.PeripheralForge.registerGenericPeripheralForge
 import io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.link.DualLinkHandler
 import io.github.xiewuzhiying.vs_addition.forge.compats.create.redstone.display_link.target.FramedSignDisplayTarget
 import net.minecraft.resources.ResourceLocation
@@ -16,7 +18,6 @@ import net.minecraftforge.client.ConfigScreenHandler
 import net.minecraftforge.event.TickEvent.ClientTickEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock
 import net.minecraftforge.eventbus.api.IEventBus
-import net.minecraftforge.fml.ModList
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
@@ -82,8 +83,11 @@ class VSAdditionModForge {
                 ), FBContent.BE_TYPE_FRAMED_SIGN.get()
             )
 
-        if(VSAdditionMod.CC_ACTIVE)
+        if(VSAdditionMod.CC_ACTIVE) {
+            registerGenericPeripheralCommon()
+            registerGenericPeripheralForge()
             Peripherals.register(ForgePeripheralProvider);
+        }
     }
 
     private fun rightClickBlock(event: RightClickBlock?) {
