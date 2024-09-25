@@ -9,11 +9,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import org.joml.Vector3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.valkyrienskies.core.api.ships.ClientShip;
 import org.valkyrienskies.mod.common.VSClientGameUtils;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
 
+@Pseudo
 @Mixin(Particle.class)
 public abstract class MixinParticle {
     @Shadow protected double x;
@@ -29,8 +31,10 @@ public abstract class MixinParticle {
         if(par1 instanceof BufferBuilder bufferbuilder && VSGameUtilsKt.isBlockInShipyard(Minecraft.getInstance().level, this.x, this.y, this.z)) {
             ClientShip ship = VSClientGameUtils.getClientShip(this.x, this.y, this.z);
             Vector3d vec = ship.getRenderTransform().getShipToWorld().transformPosition(new Vector3d());
-            par1.vertex(1f, 2f, 3f);
-            bufferbuilder.nextElement();
+            bufferbuilder.vertex(vec.x, vec.y, vec.z)
+                    .color(1.0F, 1.0F, 1.0F, 1.0F) // 设置颜色
+                    .endVertex();
+            original.call(bufferbuilder, par2, par3);
         }
     }
 }

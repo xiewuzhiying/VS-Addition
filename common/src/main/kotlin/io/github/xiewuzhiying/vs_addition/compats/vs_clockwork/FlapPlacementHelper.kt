@@ -17,7 +17,7 @@ import java.util.function.Predicate
 @MethodsReturnNonnullByDefault
 class FlapPlacementHelper : IPlacementHelper {
     override fun getItemPredicate(): Predicate<ItemStack> {
-        return Predicate { i -> ClockworkBlocks.FLAP.isIn(i) || ClockworkBlocks.FLAP.isIn(i) }
+        return Predicate { i -> ClockworkBlocks.FLAP.isIn(i) }
     }
 
     override fun getStatePredicate(): Predicate<BlockState> {
