@@ -1,39 +1,35 @@
 package io.github.xiewuzhiying.vs_addition.compats.computercraft.peripheral
 
 import dan200.computercraft.api.lua.LuaFunction
-import dan200.computercraft.api.peripheral.IPeripheral
+import dan200.computercraft.api.peripheral.GenericPeripheral
+import dan200.computercraft.api.peripheral.PeripheralType
+import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.mixin.createbigcannons.CannonMountBlockEntityAccessor
 import io.github.xiewuzhiying.vs_addition.mixinducks.createbigcannons.MountedAutocannonContraptionMixinDuck
 import net.minecraft.server.level.ServerLevel
 import rbasamoyai.createbigcannons.cannon_control.cannon_mount.CannonMountBlockEntity
 import rbasamoyai.createbigcannons.cannon_control.contraption.AbstractMountedCannonContraption
 
-open class CannonMountPeripheral(
-    val peripheralType: String,
-    val tileEntity: CannonMountBlockEntity
-) : IPeripheral{
-    override fun getType(): String {
-        return peripheralType
+
+open class CannonMountMethods : GenericPeripheral {
+    override fun id(): String {
+        return "${VSAdditionMod.MOD_ID}:cbc_cannon_mount"
     }
 
-    override fun equals(iPeripheral: IPeripheral?): Boolean {
-        return iPeripheral === this
-    }
-
-    override fun getTarget(): Any {
-        return this.tileEntity
+    override fun getType(): PeripheralType {
+        return PeripheralType.ofAdditional("cbc_cannon_mount")
     }
 
     @LuaFunction(mainThread = true)
-    fun assemble(): Any {
+    fun assemble(tileEntity: CannonMountBlockEntity): Any {
         if (!tileEntity.isRunning) {
             (tileEntity as CannonMountBlockEntityAccessor?)?.Assemble()
-            (this.tileEntity.contraption?.contraption as AbstractMountedCannonContraption).onRedstoneUpdate(
-                this.tileEntity.level as ServerLevel,
-                this.tileEntity.contraption,
+            (tileEntity.contraption?.contraption as AbstractMountedCannonContraption).onRedstoneUpdate(
+                tileEntity.level as ServerLevel,
+                tileEntity.contraption,
                 false,
                 0,
-                this.tileEntity
+                tileEntity
             )
             return true
         }
@@ -41,7 +37,7 @@ open class CannonMountPeripheral(
     }
 
     @LuaFunction(mainThread = true)
-    fun disassemble(): Any {
+    fun disassemble(tileEntity: CannonMountBlockEntity): Any {
         if (tileEntity.isRunning) {
             tileEntity.disassemble()
             tileEntity.sendData()
@@ -51,50 +47,50 @@ open class CannonMountPeripheral(
     }
 
     @LuaFunction(mainThread = true)
-    fun fire() {
-        if (this.tileEntity.contraption?.level() is ServerLevel) {
-            (this.tileEntity.contraption?.contraption as? MountedAutocannonContraptionMixinDuck)?.setIsCalledByComputer()
-            (this.tileEntity.contraption?.contraption as AbstractMountedCannonContraption).fireShot(tileEntity.contraption?.level() as ServerLevel, this.tileEntity.contraption)
+    fun fire(tileEntity: CannonMountBlockEntity) {
+        if (tileEntity.contraption?.level() is ServerLevel) {
+            (tileEntity.contraption?.contraption as? MountedAutocannonContraptionMixinDuck)?.setIsCalledByComputer()
+            (tileEntity.contraption?.contraption as AbstractMountedCannonContraption).fireShot(tileEntity.contraption?.level() as ServerLevel, tileEntity.contraption)
         }
     }
 
     @LuaFunction(mainThread = true)
-    fun isRunning(): Boolean {
+    fun isRunning(tileEntity: CannonMountBlockEntity): Boolean {
         return tileEntity.isRunning
     }
 
     @LuaFunction
-    fun getPitch(): Double {
+    fun getPitch(tileEntity: CannonMountBlockEntity): Double {
         return (tileEntity as CannonMountBlockEntityAccessor).cannonPitch.toDouble()
     }
 
     @LuaFunction
-    fun getYaw(): Double {
+    fun getYaw(tileEntity: CannonMountBlockEntity): Double {
         return (tileEntity as CannonMountBlockEntityAccessor).cannonYaw.toDouble()
     }
 
     @LuaFunction
-    fun getX(): Int {
+    fun getX(tileEntity: CannonMountBlockEntity): Int {
         return tileEntity.controllerBlockPos.x
     }
 
     @LuaFunction
-    fun getY(): Int {
+    fun getY(tileEntity: CannonMountBlockEntity): Int {
         return tileEntity.controllerBlockPos.y
     }
 
     @LuaFunction
-    fun getZ(): Int {
+    fun getZ(tileEntity: CannonMountBlockEntity): Int {
         return tileEntity.controllerBlockPos.z
     }
 
     @LuaFunction
-    fun getMaxDepress(): Double? {
+    fun getMaxDepress(tileEntity: CannonMountBlockEntity): Double? {
         return tileEntity.contraption?.maximumDepression()?.toDouble()
     }
 
     @LuaFunction
-    fun getMaxElevate(): Double? {
+    fun getMaxElevate(tileEntity: CannonMountBlockEntity): Double? {
         return tileEntity.contraption?.maximumElevation()?.toDouble()
     }
 }
