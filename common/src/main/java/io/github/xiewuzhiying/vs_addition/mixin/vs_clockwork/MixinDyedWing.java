@@ -37,13 +37,15 @@ public abstract class MixinDyedWing {
             cancellable = true
     )
     private void onUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir) {
-        IPlacementHelper placementHelper = null;
-        if(((DyedWing)(Object)this) instanceof WingBlock) {
+        final IPlacementHelper placementHelper;
+        if((DyedWing)(Object)this instanceof WingBlock) {
             placementHelper = PlacementHelpers.get(vs_addition$wingPlacementHelperId);
-        } else if(((DyedWing)(Object)this) instanceof FlapBlock) {
+        } else if((DyedWing)(Object)this instanceof FlapBlock) {
             placementHelper = PlacementHelpers.get(vs_addition$flapPlacementHelperId);
+        } else {
+            return;
         }
-        if (placementHelper != null && !player.isShiftKeyDown() && player.mayBuild()) {
+        if (!player.isShiftKeyDown() && player.mayBuild()) {
             ItemStack heldItem = player.getItemInHand(hand);
             if (placementHelper.matchesItem(heldItem)) {
                 placementHelper.getOffset(player, level, state, pos, hit)

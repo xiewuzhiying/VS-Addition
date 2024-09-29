@@ -90,13 +90,13 @@ dependencies {
     modImplementation("maven.modrinth:createaddition:vV4bZmhm")
 
     // VoxelMap Updated
-    modImplementation("maven.modrinth:voxelmap-updated:1.20.1-1.12.13")
+    modCompileOnly("maven.modrinth:voxelmap-updated:1.20.1-1.12.13")
 
     // Sodium
-    modImplementation("maven.modrinth:sodium:mc1.20.1-0.5.11")
+    modCompileOnly("maven.modrinth:sodium:mc1.20.1-0.5.11")
 
     // Presence Footsteps
-    modImplementation("maven.modrinth:presence-footsteps:1.9.4+1.20.1")
+    modCompileOnly("maven.modrinth:presence-footsteps:1.9.4+1.20.1")
 }
 
 processResources {
