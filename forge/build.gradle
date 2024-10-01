@@ -4,9 +4,9 @@ buildscript {
     }
     dependencies {
         // Make sure this version matches the one included in Kotlin for Forge
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
         // OPTIONAL Gradle plugin for Kotlin Serialization
-        classpath 'org.jetbrains.kotlin:kotlin-serialization:2.0.0'
+        classpath 'org.jetbrains.kotlin:kotlin-serialization:1.6.10'
     }
 }
 
@@ -118,11 +118,11 @@ dependencies {
     modImplementation("maven.modrinth:net-music:FQqAhlVb")
 
     // Embeddium
-    modImplementation("maven.modrinth:embeddium:0.3.18+mc1.18.2")
-    modImplementation("maven.modrinth:embeddiumplus:1.18.2-v1.2.14")
+    modCompileOnly("maven.modrinth:embeddium:0.3.18+mc1.18.2")
+    modCompileOnly("maven.modrinth:embeddiumplus:1.18.2-v1.2.14")
 
     // Presence Footsteps
-    modImplementation files("jars/PresenceFootsteps-1.18.2-1.5.1-forge.jar")
+    modCompileOnly files("jars/PresenceFootsteps-1.18.2-1.5.1-forge.jar")
 }
 
 processResources {
