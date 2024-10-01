@@ -2,8 +2,6 @@ package io.github.xiewuzhiying.vs_addition.compats.computercraft
 
 import dan200.computercraft.api.ComputerCraftAPI
 import dan200.computercraft.api.peripheral.IPeripheral
-import dan200.computercraft.impl.Peripherals
-import dan200.computercraft.shared.peripheral.generic.methods.InventoryMethods
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.CLOCKWORK_ACTIVE
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.EUREKA_ACTIVE
@@ -11,7 +9,6 @@ import io.github.xiewuzhiying.vs_addition.compats.computercraft.PeripheralCommon
 import io.github.xiewuzhiying.vs_addition.compats.computercraft.peripheral.*
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
