@@ -43,8 +43,32 @@ jobs:
         with:
           credentials: ${{ secrets.GSA_CREDENTIALS }}
           actionType: download
-          localPath: ./forge/jars/cbcmodernwarfare-0.0.5e+mc.1.20.1-forge.jar
-          googleFileId: 1TJbrEHrX5RQcEkOHHKn6sU1rBWfltues
+          localPath: ./forge/jars/cbcmodernwarfare-0.0.5f+mc.1.20.1-forge.jar
+          googleFileId: 15KCNyGuQKrEgxLQ0tSdnper99MO-CEyv
+
+      - name: Download Modern Warfare (Common)
+        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
+        with:
+          credentials: ${{ secrets.GSA_CREDENTIALS }}
+          actionType: download
+          localPath: ./fabric/jars/createbigcannons-5.6.0-dev-mc.1.20.1-fabric-build.87.jar
+          googleFileId: 1e_HE8RAPTTIpMtmHp4n1VsoGumqyFlzG
+
+      - name: Download Modern Warfare (Fabric)
+        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
+        with:
+          credentials: ${{ secrets.GSA_CREDENTIALS }}
+          actionType: download
+          localPath: ./forge/jars/createbigcannons-5.6.0-dev-mc.1.20.1-fabric-build.87.jar
+          googleFileId: 1e_HE8RAPTTIpMtmHp4n1VsoGumqyFlzG
+
+      - name: Download Modern Warfare (Forge)
+        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
+        with:
+          credentials: ${{ secrets.GSA_CREDENTIALS }}
+          actionType: download
+          localPath: ./common/jars/createbigcannons-5.6.0-dev-mc.1.20.1-forge-build.87.jar
+          googleFileId: 1eaFIoPYUcroNHynGEgTK-gg5t1n_OHyl
 
       - name: Download FTB Chunks
         uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0

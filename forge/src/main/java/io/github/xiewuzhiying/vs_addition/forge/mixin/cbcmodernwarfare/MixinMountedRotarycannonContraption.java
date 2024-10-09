@@ -8,6 +8,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 import io.github.xiewuzhiying.vs_addition.mixin.minecraft.EntityAccessor;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.ChunkPos;
@@ -27,6 +29,11 @@ import rbasamoyai.createbigcannons.munitions.autocannon.AbstractAutocannonProjec
 import riftyboi.cbcmodernwarfare.cannon_control.contraption.MountedRotarycannonContraption;
 
 @Pseudo
+@Restriction(
+        conflict = {
+            @Condition(value = "cbcmodernwarfare", versionPredicates = "0.0.5f+mc.1.20.1-forge")
+        }
+)
 @Mixin(MountedRotarycannonContraption.class)
 public abstract class MixinMountedRotarycannonContraption {
     @Unique

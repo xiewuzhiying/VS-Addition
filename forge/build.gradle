@@ -100,10 +100,11 @@ dependencies {
     // CBC
     String rplSuffix = Boolean.valueOf(use_local_rpl_build) ? "" : "-build.${rpl_build}";
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:${rpl_version}+mc.${minecraft_version}-forge" + rplSuffix) { transitive = false }
-    modImplementation("maven.modrinth:create-big-cannons:${rootProject.createbigcannons_forge_id}")
+    modImplementation files("jars/createbigcannons-5.6.0-dev-mc.1.20.1-forge-build.87.jar")
+    modImplementation("maven.modrinth:create-unify:Np3KoD0u")
 
     // CBC Modern Warfare
-    modCompileOnly files("jars/cbcmodernwarfare-0.0.5e+mc.1.20.1-forge.jar")
+    modCompileOnly files("jars/cbcmodernwarfare-0.0.5f+mc.1.20.1-forge.jar")
 
     // CC&A
     modImplementation("maven.modrinth:createaddition:1.20.1-1.2.4d")

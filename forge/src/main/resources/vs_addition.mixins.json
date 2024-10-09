@@ -6,7 +6,9 @@
   "mixins": [
     "cbcmodernwarfare.CompactCannonMountBlockEntityAccessor",
     "cbcmodernwarfare.MixinCompactCannonMountPoint",
+    "cbcmodernwarfare.MixinCreateCompat",
     "cbcmodernwarfare.MixinMountedMediumcannonContraption",
+    "cbcmodernwarfare.MixinMountedMunitionsLauncherContraption",
     "cbcmodernwarfare.MixinMountedRotarycannonContraption",
     "computercraft.InventoryMethodsAccessor",
     "create.hose_pulley.MixinFluidDrainingBehaviour",

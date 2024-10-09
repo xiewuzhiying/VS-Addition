@@ -81,7 +81,7 @@ dependencies {
     // CBC
     String rplSuffix = Boolean.valueOf(use_local_rpl_build) ? "" : "-build.${rpl_build}";
     modImplementation("com.rbasamoyai:ritchiesprojectilelib:${rpl_version}+mc.${minecraft_version}-fabric" + rplSuffix) { transitive = false }
-    modImplementation("maven.modrinth:create-big-cannons:${rootProject.createbigcannons_fabric_id}")
+    modImplementation files("jars/createbigcannons-5.6.0-dev-mc.1.20.1-fabric-build.87.jar")
 
     // Copycat+
     modImplementation("maven.modrinth:copycats:2.0.4+mc.1.20.1-fabric")
