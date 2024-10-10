@@ -19,7 +19,7 @@ public abstract class MixinComputerThread {
             index = 0,
             remap = false
     )
-    private static long man(long duration) {
+    private static long customDefaultMinPeriod(long duration) {
         return VSAdditionConfig.SERVER.getComputercraft().getDefaultMinPeriod();
     }
 }

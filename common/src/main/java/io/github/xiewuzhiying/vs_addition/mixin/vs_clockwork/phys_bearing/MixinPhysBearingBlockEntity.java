@@ -58,7 +58,7 @@ public abstract class MixinPhysBearingBlockEntity extends GeneratingKineticBlock
             ),
             remap = false
     )
-    private void man(BearingController instance, int id, PhysBearingUpdateData data, Operation<Void> original) {
+    private void fix(BearingController instance, int id, PhysBearingUpdateData data, Operation<Void> original) {
         Direction direction = (Direction)this.getBlockState().getValue((Property) BearingBlock.FACING);
         ((UpdateIsFacingNegativeDirection)(Object)instance).vs_addition$updateIsFacingNegativeDirection(
                 direction == Direction.DOWN || direction == Direction.WEST || direction == Direction.NORTH

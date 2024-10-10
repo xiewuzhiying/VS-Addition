@@ -59,7 +59,7 @@ public abstract class MixinPeripheralProxyBlockEntity extends MutableNBTBlockEnt
             at = @At("HEAD"),
             remap = false
     )
-    private void man(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, CallbackInfo ci) {
+    private void remove(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, CallbackInfo ci) {
         final List<BlockPos> needToRemove = new ArrayList<>();
         remotePeripherals.forEach((blockPos, remotePeripheralRecord) -> {
             if(!isPosApplicable(blockPos)){

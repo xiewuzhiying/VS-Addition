@@ -1,7 +1,6 @@
 package io.github.xiewuzhiying.vs_addition
 
 import dev.architectury.platform.Platform
-import io.github.xiewuzhiying.vs_addition.compats.computercraft.PeripheralCommon
 import org.valkyrienskies.core.impl.config.VSConfigClass
 
 object VSAdditionMod {
