@@ -18,7 +18,11 @@
     "netmusic.MusicToClientMessageAccessor",
     "presencefootsteps.client.MixinPFSolver",
     "presencefootsteps.client.MixinTerrestrialStepSoundGenerator",
-    "tacz.MixinBlockRayTrace"
+    "tacz.MixinBlockRayTrace",
+    "tallyho.MixinBearingController",
+    "tallyho.MixinClockworkPeripheralProvider",
+    "tallyho.MixinPhysBearingBlockEntity",
+    "tallyho.MixinTallyhoMod"
   ],
   "client": [
     "embeddium.client.MixinDefaultChunkRenderer",

@@ -49,8 +49,7 @@ public abstract class MixinMountedAutoCannonContraption extends AbstractMountedC
             method = "fireShot",
             at = @At(
                     value = "INVOKE",
-                    target = "Lrbasamoyai/createbigcannons/munitions/autocannon/AbstractAutocannonProjectile;shoot(DDDFF)V",
-                    shift = At.Shift.BEFORE
+                    target = "Lrbasamoyai/createbigcannons/munitions/autocannon/AbstractAutocannonProjectile;shoot(DDDFF)V"
             )
     )
     public void getShip(ServerLevel level, PitchOrientedContraptionEntity entity, CallbackInfo ci){

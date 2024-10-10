@@ -42,6 +42,9 @@ dependencies {
     // Conditional Mixin
     implementation(include("com.github.Fallen-Breath.conditional-mixin:conditional-mixin-fabric:${rootProject.conditional_mixin}"))
 
+    // Fabric ASM
+    implementation(include("com.github.Chocohead:Fabric-ASM:v2.3"))
+
     // Mod menu
     modImplementation("com.terraformersmc:modmenu:3.2.3")
     modImplementation("me.shedaniel.cloth:cloth-config:${cloth_config_version}")
