@@ -13,9 +13,12 @@ import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.ForgePerip
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.PeripheralForge.registerGenericPeripheralForge
 import io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.link.DualLinkHandler
 import io.github.xiewuzhiying.vs_addition.forge.compats.create.redstone.display_link.target.FramedSignDisplayTarget
+import io.github.xiewuzhiying.vs_addition.stuff.EntityFreshCaller
 import net.minecraft.resources.ResourceLocation
 import net.minecraftforge.client.ConfigGuiHandler
+import net.minecraft.server.level.ServerLevel
 import net.minecraftforge.event.TickEvent.ClientTickEvent
+import net.minecraftforge.event.entity.EntityJoinWorldEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock
 import net.minecraftforge.eventbus.api.IEventBus
 import net.minecraftforge.fml.ModLoadingContext
@@ -56,13 +59,17 @@ class VSAdditionModForge {
             }
         }
 
-        getForgeBus().addListener { event: RightClickBlock? ->
+        getForgeBus().addListener { event: RightClickBlock ->
             rightClickBlock(
                 event
             )
         }
-        getForgeBus().addListener { event: ClientTickEvent? ->
+        getForgeBus().addListener { event: ClientTickEvent ->
             clientTick(event)
+        }
+
+        getForgeBus().addListener { event: EntityJoinWorldEvent ->
+            entityJoinLevel(event)
         }
     }
 
@@ -100,6 +107,10 @@ class VSAdditionModForge {
             return
         if(VSAdditionMod.CREATE_ACTIVE)
             DualLinkRenderer.tick()
+    }
+
+    private fun entityJoinLevel(event: EntityJoinWorldEvent) {
+        (event.world as? ServerLevel)?.let { EntityFreshCaller.freshEntityInShipyard(event.entity, it) }
     }
 
     companion object {

@@ -1,7 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.forge.mixin.netmusic;
 
 import com.github.tartaricacid.netmusic.network.message.MusicToClientMessage;
-import io.github.xiewuzhiying.vs_addition.forge.compats.NetMusicSoundOnShip;
+import io.github.xiewuzhiying.vs_addition.forge.compats.netmusic.NetMusicSoundOnShip;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
