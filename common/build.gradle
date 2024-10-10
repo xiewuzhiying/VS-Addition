@@ -66,7 +66,7 @@ dependencies {
     modImplementation("maven.modrinth:createaddition:vV4bZmhm")
 
     //Xaero's minimap
-    modCompileOnly("maven.modrinth:xaeros-minimap:24.1.1_Fabric_1.20")
+    modCompileOnly("maven.modrinth:xaeros-minimap:24.4.0_Fabric_1.20")
 
     //JourneyMap
     modCompileOnly("maven.modrinth:journeymap:1.20.1-5.10.0-fabric")
