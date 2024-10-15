@@ -15,6 +15,7 @@
     "create.hose_pulley.MixinFluidFillingBehaviour",
     "create.hose_pulley.MixinHosePulleyBlockEntity",
     "createaddition.MixinPortableEnergyInterfaceMovement",
+    "netmusic.MusicToClientMessageAccessor",
     "presencefootsteps.client.MixinPFSolver",
     "presencefootsteps.client.MixinTerrestrialStepSoundGenerator",
     "tacz.MixinBlockRayTrace"
@@ -22,8 +23,7 @@
   "client": [
     "embeddium.client.MixinDefaultChunkRenderer",
     "embeddiumplus.client.MixinEmbyTools",
-    "netmusic.MixinMusicToClientMessage",
-    "netmusic.MusicToClientMessageAccessor",
+    "netmusic.client.MixinMusicToClientMessage",
     "presencefootsteps.client.MixinPFSolver",
     "presencefootsteps.client.MixinTerrestrialStepSoundGenerator"
   ],

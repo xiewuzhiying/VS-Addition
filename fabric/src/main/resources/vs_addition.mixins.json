@@ -9,10 +9,12 @@
     "create.hose_pulley.MixinFluidDrainingBehaviour",
     "create.hose_pulley.MixinFluidFillingBehaviour",
     "create.hose_pulley.MixinHosePulleyBlockEntity",
-    "createaddition.MixinPortableEnergyInterfaceMovement"
+    "createaddition.MixinPortableEnergyInterfaceMovement",
+    "netmusic.MusicToClientMessageAccessor"
   ],
   "client": [
     "create.client.MixinClientEvents",
+    "netmusic.client.MixinMusicToClientMessageReceiver",
     "presencefootsteps.client.MixinPFSolver",
     "presencefootsteps.client.MixinTerrestrialStepSoundGenerator",
     "sodium.client.MixinDefaultChunkRenderer",
