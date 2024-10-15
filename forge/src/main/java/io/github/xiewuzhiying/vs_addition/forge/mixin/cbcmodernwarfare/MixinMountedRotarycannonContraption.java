@@ -1,7 +1,5 @@
 package io.github.xiewuzhiying.vs_addition.forge.mixin.cbcmodernwarfare;
 
-import com.llamalad7.mixinextras.expression.Definition;
-import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -86,17 +84,17 @@ public abstract class MixinMountedRotarycannonContraption {
         }
     }
 
-    @Definition(id = "get", method = "Lcom/simibubi/create/foundation/config/ConfigBase$ConfigBool;get()Ljava/lang/Object;")
-    @Definition(id = "Boolean", type = Boolean.class)
-    @Expression("(Boolean) ?.get")
     @ModifyExpressionValue(
             method = "fireShot",
-            at = @At("MIXINEXTRAS:EXPRESSION"),
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/simibubi/create/foundation/config/ConfigBase$ConfigBool;get()Ljava/lang/Object;"
+            ),
             require = 0,
             remap = false
     )
-    private boolean fix1(boolean original, @Local AbstractAutocannonProjectile projectile) {
-        return projectile != null && original;
+    private Object fix1(Object original, @Local AbstractAutocannonProjectile projectile) {
+        return (projectile != null && (Boolean) original);
     }
 
     @WrapOperation(

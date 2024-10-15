@@ -34,8 +34,7 @@ dependencies {
     include(modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}")
 
     // Mixin Extras
-    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras}"))
-    include("io.github.llamalad7:mixinextras-fabric:${rootProject.mixin_extras}:slim")
+    implementation(include(annotationProcessor("io.github.llamalad7:mixinextras-common:${rootProject.mixin_extras}")))
 
     // Mixin Squared
     implementation(include("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${rootProject.mixin_squared}"))
