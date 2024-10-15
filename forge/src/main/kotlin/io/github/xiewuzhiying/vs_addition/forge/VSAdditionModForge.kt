@@ -38,16 +38,9 @@ class VSAdditionModForge {
     init {
         init()
 
-        getModBus().addListener { event: FMLClientSetupEvent? ->
-            clientSetup(
-                event
-            )
-        }
-        getModBus().addListener { event: FMLCommonSetupEvent? ->
-            serverSetup(
-                event
-            )
-        }
+        getModBus().addListener(this::clientSetup)
+
+        getModBus().addListener(this::serverSetup)
 
         EventBuses.registerModEventBus(VSAdditionMod.MOD_ID, MOD_CONTEXT.getKEventBus())
 
@@ -60,25 +53,18 @@ class VSAdditionModForge {
             }
         }
 
-        getForgeBus().addListener { event: RightClickBlock ->
-            rightClickBlock(
-                event
-            )
-        }
-        getForgeBus().addListener { event: ClientTickEvent ->
-            clientTick(event)
-        }
+        getForgeBus().addListener(this::rightClickBlock)
 
-        getForgeBus().addListener { event: EntityJoinLevelEvent ->
-            entityJoinLevel(event)
-        }
+        getForgeBus().addListener(this::clientTick)
+
+        getForgeBus().addListener(this::entityJoinLevel)
     }
 
-    private fun clientSetup(event: FMLClientSetupEvent?) {
+    private fun clientSetup(event: FMLClientSetupEvent) {
         initClient()
     }
 
-    private fun serverSetup(event: FMLCommonSetupEvent?) {
+    private fun serverSetup(event: FMLCommonSetupEvent) {
         if(VSAdditionMod.FRAMEDBLOCKS_ACTIVE && VSAdditionMod.CREATE_ACTIVE)
             AllDisplayBehaviours.assignBlockEntity(
                 AllDisplayBehaviours.register(
@@ -119,5 +105,4 @@ class VSAdditionModForge {
         fun getModBus(): IEventBus = MOD_BUS
         fun getForgeBus(): IEventBus = FORGE_BUS
     }
-
 }

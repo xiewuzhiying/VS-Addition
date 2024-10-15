@@ -133,16 +133,15 @@ open class DualLinkBehaviour protected constructor(
     }
 
     fun setFrequency(first: Boolean, stack: ItemStack) {
-        var stack = stack
-        stack = stack.copy()
-        stack.count = 1
+        val stack2 = stack.copy()
+        stack2.count = 1
         val toCompare = if (first) frequencyFirst.stack else frequencyLast.stack
-        val changed = !ItemStack.isSameItemSameTags(stack, toCompare)
+        val changed = !ItemStack.isSameItemSameTags(stack2, toCompare)
 
         if (changed) handler.removeFromNetwork(world, this)
 
-        if (first) frequencyFirst = RedstoneLinkNetworkHandler.Frequency.of(stack)
-        else frequencyLast = RedstoneLinkNetworkHandler.Frequency.of(stack)
+        if (first) frequencyFirst = RedstoneLinkNetworkHandler.Frequency.of(stack2)
+        else frequencyLast = RedstoneLinkNetworkHandler.Frequency.of(stack2)
 
         if (!changed) return
 

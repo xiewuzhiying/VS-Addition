@@ -131,19 +131,4 @@ object PeripheralCommon {
     fun interface PeripheralSupplier {
         fun get(be: BlockEntity, level: Level, pos: BlockPos): IPeripheral?
     }
-
-    fun cannonMOuntExtractContainer(
-        level: Level,
-        pos: BlockPos,
-        state: BlockState,
-        blockEntity: BlockEntity?,
-        direction: Direction?
-    ): CannonMountBlockEntity? {
-        val be = level.getBlockEntity(pos)
-        return if(be is CannonMountBlockEntity) {
-            be
-        } else {
-            null
-        }
-    }
 }
