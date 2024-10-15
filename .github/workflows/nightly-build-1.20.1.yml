@@ -86,6 +86,14 @@ jobs:
           localPath: ./forge/jars/PresenceFootsteps-1.20.1-1.9.1-beta.1.jar
           googleFileId: 1p-GREqHqYlaQsIJ7cjEydxJYgqSyHgBb
 
+      - name: Download Tallyho
+        uses: Fork-on-the-Table-Collective/upload-to-download-from-gdrive@v2.0.0
+        with:
+          credentials: ${{ secrets.GSA_CREDENTIALS }}
+          actionType: download
+          localPath: ./forge/jars/tallyho-3.0.8.jar
+          googleFileId: 1B0JbYHXQOj_g666pOvs-FmDvK6hUd7LK
+
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
