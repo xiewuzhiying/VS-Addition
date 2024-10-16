@@ -4,6 +4,7 @@ import dan200.computercraft.api.ComputerCraftAPI
 import dan200.computercraft.api.peripheral.IPeripheral
 import dan200.computercraft.impl.Peripherals
 import dan200.computercraft.shared.peripheral.generic.methods.InventoryMethods
+import dev.architectury.platform.Platform
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.CLOCKWORK_ACTIVE
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.EUREKA_ACTIVE
@@ -124,8 +125,10 @@ object PeripheralCommon {
 
     @JvmStatic
     fun registerGenericPeripheralCommon() {
-        ComputerCraftAPI.registerGenericSource(CannonMountMethods());
-        ComputerCraftAPI.registerGenericSource(CheatCannonMountMethods());
+        if (Platform.isModLoaded("createbigcannons")) {
+            ComputerCraftAPI.registerGenericSource(CannonMountMethods());
+            ComputerCraftAPI.registerGenericSource(CheatCannonMountMethods());
+        }
     }
 
     fun interface PeripheralSupplier {
