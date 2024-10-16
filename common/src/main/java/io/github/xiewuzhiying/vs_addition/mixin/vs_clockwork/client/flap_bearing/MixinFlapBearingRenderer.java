@@ -3,7 +3,7 @@ package io.github.xiewuzhiying.vs_addition.mixin.vs_clockwork.client.flap_bearin
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.redstone.link.LinkRenderer;
-import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkRenderer;
+import io.github.xiewuzhiying.vs_addition.compats.create.content.redstone.link.DualLinkRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;

@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.compats.create.behaviour.deployer
+package io.github.xiewuzhiying.vs_addition.compats.create.content.kinetics.deployer
 
 import com.simibubi.create.content.contraptions.DirectionalExtenderScrollOptionSlot
 import net.minecraft.core.Direction

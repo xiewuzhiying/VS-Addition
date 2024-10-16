@@ -8,11 +8,11 @@ import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.init
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
 import io.github.xiewuzhiying.vs_addition.compats.computercraft.PeripheralCommon.registerGenericPeripheralCommon
-import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkRenderer
+import io.github.xiewuzhiying.vs_addition.compats.create.content.redstone.link.DualLinkRenderer
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.ForgePeripheralProvider
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.PeripheralForge.registerGenericPeripheralForge
-import io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.link.DualLinkHandler
-import io.github.xiewuzhiying.vs_addition.forge.compats.create.redstone.display_link.target.FramedSignDisplayTarget
+import io.github.xiewuzhiying.vs_addition.forge.compats.create.content.redstone.link.DualLinkHandler
+import io.github.xiewuzhiying.vs_addition.forge.compats.create.content.redstone.display_link.target.FramedSignDisplayTarget
 import io.github.xiewuzhiying.vs_addition.stuff.EntityFreshCaller
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel

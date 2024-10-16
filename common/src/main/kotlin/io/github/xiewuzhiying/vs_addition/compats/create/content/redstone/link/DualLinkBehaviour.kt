@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link
+package io.github.xiewuzhiying.vs_addition.compats.create.content.redstone.link
 
 import com.simibubi.create.Create
 import com.simibubi.create.content.equipment.clipboard.ClipboardCloneable

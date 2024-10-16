@@ -5,7 +5,7 @@ import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.redstone.link.LinkBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
-import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkBehaviour;
+import io.github.xiewuzhiying.vs_addition.compats.create.content.redstone.link.DualLinkBehaviour;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.flap_bearing.FlapBearingLinkFrequencySlot;
 import io.github.xiewuzhiying.vs_addition.compats.vs_clockwork.behaviour.flap_bearing.FlapBearingLinkFrequencySlotNegative;
 import io.github.xiewuzhiying.vs_addition.mixinducks.vs_clockwork.flap_bearing.FlapBearingBlockEntityMixinDuck;

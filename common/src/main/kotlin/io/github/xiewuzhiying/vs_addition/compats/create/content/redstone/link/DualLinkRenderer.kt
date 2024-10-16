@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link
+package io.github.xiewuzhiying.vs_addition.compats.create.content.redstone.link
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.simibubi.create.CreateClient

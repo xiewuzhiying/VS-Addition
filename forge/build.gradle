@@ -47,8 +47,8 @@ version = minecraft_version + "-" + String.valueOf(loader_platform).toLowerCase(
 dependencies {
     forge "net.minecraftforge:forge:$forge_version"
 
-    implementation 'org.ow2.asm:asm:9.2'
-    implementation 'org.ow2.asm:asm-commons:9.2'
+//    implementation 'org.ow2.asm:asm:9.2'
+//    implementation 'org.ow2.asm:asm-commons:9.2'
 
     // Architectury API
     include(modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}")

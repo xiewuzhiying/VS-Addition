@@ -1,4 +1,4 @@
-package io.github.xiewuzhiying.vs_addition.forge.compats.create.redstone.display_link.target
+package io.github.xiewuzhiying.vs_addition.forge.compats.create.content.redstone.display_link.target
 
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext
 import com.simibubi.create.content.redstone.displayLink.target.DisplayTarget

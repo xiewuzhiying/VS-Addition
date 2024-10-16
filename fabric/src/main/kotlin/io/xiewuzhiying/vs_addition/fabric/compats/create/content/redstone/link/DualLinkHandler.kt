@@ -1,34 +1,40 @@
-package io.github.xiewuzhiying.vs_addition.forge.compats.create.behaviour.link
+package io.xiewuzhiying.vs_addition.fabric.compats.create.content.redstone.link
 
 import com.simibubi.create.AllItems
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
+import com.simibubi.create.foundation.utility.AdventureUtil
 import com.simibubi.create.foundation.utility.RaycastHelper
-import io.github.xiewuzhiying.vs_addition.compats.create.behaviour.link.DualLinkBehaviour
+import net.fabricmc.fabric.api.entity.FakePlayer
+import io.github.xiewuzhiying.vs_addition.compats.create.content.redstone.link.DualLinkBehaviour
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
+import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.Level
+import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.Vec3
-import net.minecraftforge.common.util.FakePlayer
-import net.minecraftforge.event.entity.player.PlayerInteractEvent
-import net.minecraftforge.fml.LogicalSide
 
 object DualLinkHandler {
     @JvmStatic
-    fun onBlockActivated(event: PlayerInteractEvent.RightClickBlock) {
-        val world = event.level
-        val pos = event.pos
-        val player = event.entity
-        val hand = event.hand
-
-        if (player.isShiftKeyDown || player.isSpectator) return
+    fun onBlockActivated(
+        player: Player,
+        world: Level,
+        hand: InteractionHand,
+        blockRayTraceResult: BlockHitResult
+    ): InteractionResult {
+        val pos = blockRayTraceResult.blockPos
+        if (player.isShiftKeyDown || player.isSpectator) return InteractionResult.PASS
 
         val behaviour = BlockEntityBehaviour.get(world, pos, DualLinkBehaviour.TYPE)
-            ?: return
+            ?: return InteractionResult.PASS
+        if (AdventureUtil.isAdventure(player)) return InteractionResult.PASS
 
         val heldItem = player.getItemInHand(hand)
-        val ray = RaycastHelper.rayTraceRange(world, player, 10.0) ?: return
-        if (AllItems.LINKED_CONTROLLER.isIn(heldItem)) return
-        if (AllItems.WRENCH.isIn(heldItem)) return
+        val ray = RaycastHelper.rayTraceRange(world, player, 10.0)
+            ?: return InteractionResult.PASS
+        if (AllItems.LINKED_CONTROLLER.isIn(heldItem)) return InteractionResult.PASS
+        if (AllItems.WRENCH.isIn(heldItem)) return InteractionResult.PASS
 
         val fakePlayer = player is FakePlayer
         var fakePlayerChoice = false
@@ -48,13 +54,13 @@ object DualLinkHandler {
                 .distanceToSqr(behaviour.secondSlot.getLocalOffset(blockState))
         }
 
-        for (first in mutableListOf<Boolean>(false, true)) {
+        for (first in mutableListOf(false, true)) {
             if (behaviour.testHit(first, ray.location) || fakePlayer && fakePlayerChoice == first) {
-                if (event.side != LogicalSide.CLIENT) behaviour.setFrequency(first, heldItem)
-                event.isCanceled = true
-                event.cancellationResult = InteractionResult.SUCCESS
+                if (!world.isClientSide) behaviour.setFrequency(first, heldItem)
                 world.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, .25f, .1f)
+                return InteractionResult.SUCCESS
             }
         }
+        return InteractionResult.PASS
     }
 }
