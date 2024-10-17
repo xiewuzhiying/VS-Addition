@@ -8,6 +8,7 @@ import org.valkyrienskies.mod.common.getShipObjectManagingPos
 import org.valkyrienskies.mod.common.util.toJOML
 
 object EntityFreshCaller {
+    @JvmStatic
     fun freshEntityInShipyard(entity: Entity, serverLevel: ServerLevel) {
         val ship: LoadedShip? = serverLevel.getShipObjectManagingPos(entity.position().toJOML())
         if (ship != null) {

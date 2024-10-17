@@ -6,10 +6,12 @@ import org.valkyrienskies.core.api.ships.ServerShip
 import org.valkyrienskies.mod.common.getShipManagingPos
 
 object ShipUtils {
+    @JvmStatic
     fun ServerLevel?.addMass(x: Double, y: Double, z: Double, mass: Double) {
         this.getShipManagingPos(x, y, z)?.addMass(x, y, z, mass)
     }
 
+    @JvmStatic
     fun ServerShip?.addMass(x: Double, y: Double, z: Double, mass: Double) {
         (this?.inertiaData as? ShipInertiaDataImplMixinDuck)?.addMassAt(x, y, z, mass)
     }

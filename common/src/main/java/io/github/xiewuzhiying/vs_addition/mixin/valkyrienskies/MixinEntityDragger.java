@@ -16,6 +16,6 @@ public abstract class MixinEntityDragger {
             remap = false
     )
     private void replace(Iterable<? extends Entity> entities, Operation<Void> original) {
-        ExtendedEntityDragger.INSTANCE.dragEntitiesWithShips(entities);
+        ExtendedEntityDragger.dragEntitiesWithShips(entities);
     }
 }

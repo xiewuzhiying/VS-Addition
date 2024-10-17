@@ -1,7 +1,5 @@
 package io.github.xiewuzhiying.vs_addition.forge.mixin.cbcmodernwarfare;
 
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -9,11 +7,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import riftyboi.cbcmodernwarfare.cannon_control.compact_mount.CompactCannonMountBlockEntity;
 
 @Pseudo
-@Restriction(
-        conflict = {
-                @Condition(value = "cbcmodernwarfare", versionPredicates = "0.0.5f+mc.1.20.1-forge")
-        }
-)
 @Mixin(CompactCannonMountBlockEntity.class)
 public interface CompactCannonMountBlockEntityAccessor {
 

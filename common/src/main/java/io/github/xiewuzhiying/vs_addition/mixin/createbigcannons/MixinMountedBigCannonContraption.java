@@ -24,6 +24,6 @@ public abstract class MixinMountedBigCannonContraption extends AbstractMountedCa
             )
     )
     public void shoot(AbstractBigCannonProjectile instance, double x, double y, double z, float velocity, float inaccuracy, Operation<Void> original, @Local(argsOnly = true) PitchOrientedContraptionEntity entity) {
-        CannonUtils.INSTANCE.recoil(instance, x, y, z, velocity, inaccuracy, entity, VSAdditionConfig.SERVER.getCreateBigCannons().getBigCannonRecoilForce(), original::call);
+        CannonUtils.recoil(instance, x, y, z, velocity, inaccuracy, entity, VSAdditionConfig.SERVER.getCreateBigCannons().getBigCannonRecoilForce(), original::call);
     }
 }

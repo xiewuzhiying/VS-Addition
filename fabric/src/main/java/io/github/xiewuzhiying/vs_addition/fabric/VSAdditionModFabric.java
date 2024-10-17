@@ -24,6 +24,6 @@ public class VSAdditionModFabric implements ModInitializer {
             PeripheralLookup.get().registerFallback((level, blockPos, blockState, blockEntity, direction) -> FabricPeripheralLookup.INSTANCE.peripheralProvider(level, blockPos));
         }
 
-        ServerEntityEvents.ENTITY_LOAD.register((EntityFreshCaller.INSTANCE::freshEntityInShipyard));
+        ServerEntityEvents.ENTITY_LOAD.register((EntityFreshCaller::freshEntityInShipyard));
     }
 }

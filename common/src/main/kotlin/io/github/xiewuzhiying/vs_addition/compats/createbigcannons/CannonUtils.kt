@@ -11,6 +11,7 @@ import org.valkyrienskies.mod.common.util.toJOML
 import rbasamoyai.createbigcannons.munitions.AbstractCannonProjectile
 
 object CannonUtils {
+    @JvmStatic
     fun recoil(
         instance: AbstractCannonProjectile,
         x: Double, y: Double, z: Double,

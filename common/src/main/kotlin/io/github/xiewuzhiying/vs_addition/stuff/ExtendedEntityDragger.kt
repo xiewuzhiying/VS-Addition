@@ -21,6 +21,7 @@ object ExtendedEntityDragger {
     /**
      * Drag these entities with the ship they're standing on.
      */
+    @JvmStatic
     fun dragEntitiesWithShips(entities: Iterable<Entity>) {
         entities.forEach { entity ->
             val entityDraggingInformation = (entity as IEntityDraggingInformationProvider).draggingInformation
@@ -135,6 +136,7 @@ object ExtendedEntityDragger {
         return Pair(0.0, addedYRotFromDragging)
     }
     //for projectile
+    @JvmStatic
     private fun projectileDragger(entity: Entity, ship: Ship) : Pair<Double, Double> {
         // region Compute look dragging
 

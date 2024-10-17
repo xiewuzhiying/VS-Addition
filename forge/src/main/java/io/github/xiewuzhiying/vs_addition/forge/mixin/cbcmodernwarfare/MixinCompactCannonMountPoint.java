@@ -20,7 +20,7 @@ import riftyboi.cbcmodernwarfare.index.CBCModernWarfareItem;
 @Pseudo
 @Restriction(
         conflict = {
-                @Condition(value = "cbcmodernwarfare", versionPredicates = "0.0.5e+mc.1.20.1-forge")
+                @Condition(value = "cbcmodernwarfare", versionPredicates = "0.0.5f+mc.1.20.1-forge")
         }
 )
 @Mixin(CompactCannonMountPoint.class)
