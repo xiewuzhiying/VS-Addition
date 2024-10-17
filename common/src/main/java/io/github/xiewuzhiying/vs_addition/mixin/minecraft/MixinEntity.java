@@ -1,5 +1,8 @@
 package io.github.xiewuzhiying.vs_addition.mixin.minecraft;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import org.joml.Matrix4d;
@@ -22,6 +25,14 @@ public abstract class MixinEntity {
     @Shadow public abstract void setYRot(float yRot);
 
     @Shadow public Level level;
+
+    @Shadow public abstract Level level();
+
+    @Shadow public abstract double getX();
+
+    @Shadow public abstract double getY();
+
+    @Shadow public abstract double getZ();
 
     @Inject(
             method = "removeVehicle",
@@ -56,4 +67,25 @@ public abstract class MixinEntity {
         this.setYRot((float) (this.getYRot() - yaw) % 360);
     }
 
+    @ModifyExpressionValue(
+            method = "move",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/entity/Entity;getOnPosLegacy()Lnet/minecraft/core/BlockPos;"
+            )
+    )
+    private BlockPos getPosStandingOnFromShipsLegacy(BlockPos original) {
+        return TransformUtilsKt.getPosStandingOnFromShips(this.level, new Vector3d(this.getX(), this.getY() - 0.2, this.getZ()));
+    }
+
+    @ModifyExpressionValue(
+            method = "move",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/entity/Entity;getOnPos()Lnet/minecraft/core/BlockPos;"
+            )
+    )
+    private BlockPos getPosStandingOnFromShips(BlockPos original) {
+        return TransformUtilsKt.getPosStandingOnFromShips(this.level, new Vector3d(this.getX(), this.getY(), this.getZ()));
+    }
 }

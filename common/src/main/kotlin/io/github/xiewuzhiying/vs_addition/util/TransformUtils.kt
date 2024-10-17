@@ -22,6 +22,7 @@ import org.joml.primitives.AABBdc
 import org.valkyrienskies.core.api.ships.Ship
 import org.valkyrienskies.core.api.ships.properties.ShipId
 import org.valkyrienskies.core.impl.game.ships.ShipObjectClient
+import org.valkyrienskies.core.util.expand
 import org.valkyrienskies.mod.common.getShipManagingPos
 import org.valkyrienskies.mod.common.getShipsIntersecting
 import org.valkyrienskies.mod.common.shipObjectWorld
@@ -213,11 +214,11 @@ fun Level.clipEntities(start: Vec3, end: Vec3, aabb: AABB, skipEntities: List<En
 @JvmOverloads
 fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double = 0.5): BlockPos {
     val testAABB: AABBdc = AABBd(
-        blockPosInGlobal.x() - radius, blockPosInGlobal.y() - radius, blockPosInGlobal.z() - radius,
-        blockPosInGlobal.x() + radius, blockPosInGlobal.y() + radius, blockPosInGlobal.z() + radius
-    )
+        blockPosInGlobal.x(), blockPosInGlobal.y(), blockPosInGlobal.z() ,
+        blockPosInGlobal.x(), blockPosInGlobal.y(), blockPosInGlobal.z()
+    ).expand(radius)
     val intersectingShips = this.getShipsIntersecting(testAABB)
-    for (ship in intersectingShips) {
+    intersectingShips.forEach { ship: Ship ->
         val blockPosInLocal: Vector3dc =
             ship.transform.worldToShip.transformPosition(blockPosInGlobal, Vector3d())
         val blockPos = blockPosInLocal.toBlockPos
@@ -227,9 +228,7 @@ fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double 
         } else {
             // Check the block below as well, in the cases of fences
             val blockPosInLocal2: Vector3dc = ship.transform.worldToShip
-                .transformPosition(
-                    Vector3d(blockPosInGlobal.x(), blockPosInGlobal.y() - 1.0, blockPosInGlobal.z())
-                )
+                .transformPosition(Vector3d(blockPosInGlobal.x(), blockPosInGlobal.y() - 1.0, blockPosInGlobal.z()))
             val blockPos2 = blockPosInLocal2.toBlockPos
             val blockState2 = this.getBlockState(blockPos2)
             if (!blockState2.isAir) {
@@ -237,7 +236,13 @@ fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double 
             }
         }
     }
-    return blockPosInGlobal.toBlockPos
+    val blockPos = blockPosInGlobal.toBlockPos
+    val blockState = this.getBlockState(blockPos)
+    return if (!blockState.isAir) {
+        blockPos
+    } else {
+        Vector3d(blockPosInGlobal.x(), blockPosInGlobal.y() - 1.0, blockPosInGlobal.z()).toBlockPos
+    }
 }
 
 @JvmOverloads
