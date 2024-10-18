@@ -11,6 +11,9 @@ public class VSAdditionCommonMixinCanceller implements MixinCanceller {
         if (mixinClassName.contains("org.valkyrienskies.create_interactive.mixin.deployer")) {
             return VSAdditionConfig.COMMON.getInsteadCreateInteractiveDeployer();
         }
+        if (mixinClassName.contains("org.valkyrienskies.mod.mixin.feature.explosions.MixinExplosion")) {
+            return true;
+        }
         return false;
     }
 }

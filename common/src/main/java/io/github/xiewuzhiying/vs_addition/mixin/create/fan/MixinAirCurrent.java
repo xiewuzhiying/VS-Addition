@@ -12,6 +12,7 @@ import com.simibubi.create.content.kinetics.fan.processing.FanProcessingType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import io.github.xiewuzhiying.vs_addition.compats.create.content.kinetics.fan.AirCurrentUtils;
 import io.github.xiewuzhiying.vs_addition.stuff.EncasedFanConditionTester;
+import io.github.xiewuzhiying.vs_addition.util.ShipUtils;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -173,12 +174,12 @@ public abstract class MixinAirCurrent {
             startVec.add(direction.x, direction.y, direction.z);
             direction.mul(max);
             Vec3 mcStart = VectorConversionsMCKt.toMinecraft(startVec);
-            BlockHitResult result = (BlockHitResult) TransformUtilsKt.clipIncludeShipsWrapper(world, new ClipContext(mcStart, VectorConversionsMCKt.toMinecraft(startVec.add(direction.x, direction.y, direction.z)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null), AirCurrentUtils::clip);
+            BlockHitResult result = (BlockHitResult) ShipUtils.clipIncludeShipsWrapper(world, new ClipContext(mcStart, VectorConversionsMCKt.toMinecraft(startVec.add(direction.x, direction.y, direction.z)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null), AirCurrentUtils::clip);
             return (float)result.getLocation().distanceTo(mcStart);
         } else {
             BlockPos end = start.relative(facing, (int)max);
             Vec3 centerStart = Vec3.atCenterOf(start);
-            BlockHitResult result = (BlockHitResult) TransformUtilsKt.clipIncludeShipsWrapper(world, new ClipContext(centerStart.add(facing.getStepX(), facing.getStepY(), facing.getStepZ()), Vec3.atCenterOf(end), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null), AirCurrentUtils::clip);
+            BlockHitResult result = (BlockHitResult) ShipUtils.clipIncludeShipsWrapper(world, new ClipContext(centerStart.add(facing.getStepX(), facing.getStepY(), facing.getStepZ()), Vec3.atCenterOf(end), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, null), AirCurrentUtils::clip);
             return (float)result.getLocation().distanceTo(centerStart);
         }
     }

@@ -1,7 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.mixin.minecraft;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
+import io.github.xiewuzhiying.vs_addition.util.ShipUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -75,7 +75,7 @@ public abstract class MixinEntity {
             )
     )
     private BlockPos getPosStandingOnFromShipsLegacy(BlockPos original) {
-        return TransformUtilsKt.getPosStandingOnFromShips(this.level, new Vector3d(this.getX(), this.getY() - 0.2, this.getZ()));
+        return ShipUtils.getPosStandingOnFromShips(this.level, new Vector3d(this.getX(), this.getY() - 0.2, this.getZ()));
     }
 
     @ModifyExpressionValue(
@@ -86,6 +86,6 @@ public abstract class MixinEntity {
             )
     )
     private BlockPos getPosStandingOnFromShips(BlockPos original) {
-        return TransformUtilsKt.getPosStandingOnFromShips(this.level, new Vector3d(this.getX(), this.getY(), this.getZ()));
+        return ShipUtils.getPosStandingOnFromShips(this.level, new Vector3d(this.getX(), this.getY(), this.getZ()));
     }
 }
