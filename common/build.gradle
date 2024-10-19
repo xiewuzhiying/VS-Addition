@@ -23,7 +23,10 @@ dependencies {
     implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${rootProject.mixin_squared}"))
 
     // Conditional Mixin
-    implementation 'com.github.Fallen-Breath.conditional-mixin:conditional-mixin-fabric:0.6.2'
+    implementation("com.github.Fallen-Breath.conditional-mixin:conditional-mixin-fabric:0.6.2")
+
+    // Fabric ASM
+    implementation("com.github.Chocohead:Fabric-ASM:v2.3")
 
     // Valkyrien Skies 2
     modApi("org.valkyrienskies:valkyrienskies-120-common:${rootProject.vs2_version}")

@@ -1,5 +1,5 @@
 modLoader = "kotlinforforge"
-loaderVersion = "[3.12.0,)"
+loaderVersion = "[4,)"
 issueTrackerURL = "https://github.com/xiewuzhiying/VS-Addition/issues"
 license = "Apache-2.0"
 

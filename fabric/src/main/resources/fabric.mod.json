@@ -26,6 +26,9 @@
     ],
     "modmenu": [
       "io.xiewuzhiying.vs_addition.fabric.compats.modmenu.VSAdditionModMenu"
+    ],
+    "mm:early_risers": [
+      "io.github.xiewuzhiying.vs_addition.fabric.asm.EarlyRiser"
     ]
   },
   "mixins": [
