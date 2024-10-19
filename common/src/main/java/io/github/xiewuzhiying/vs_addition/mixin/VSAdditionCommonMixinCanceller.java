@@ -1,6 +1,7 @@
 package io.github.xiewuzhiying.vs_addition.mixin;
 
 import com.bawnorton.mixinsquared.api.MixinCanceller;
+import dev.architectury.platform.Platform;
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig;
 
 import java.util.List;
@@ -11,9 +12,9 @@ public class VSAdditionCommonMixinCanceller implements MixinCanceller {
         if (mixinClassName.contains("org.valkyrienskies.create_interactive.mixin.deployer")) {
             return VSAdditionConfig.COMMON.getInsteadCreateInteractiveDeployer();
         }
-        if (mixinClassName.contains("org.valkyrienskies.mod.mixin.feature.explosions.MixinExplosion")) {
-            return true;
-        }
+        /*if (mixinClassName.contains("org.valkyrienskies.mod.mixin.feature.explosions.MixinExplosion")) {
+            return !(Platform.isModLoaded("lithium") || Platform.isModLoaded("radium") || Platform.isModLoaded("canary"));
+        }*/
         return false;
     }
 }

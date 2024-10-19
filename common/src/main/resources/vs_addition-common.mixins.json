@@ -60,6 +60,7 @@
     "computercraft.client.MixinSpeakerSound",
     "create.client.mechanical_arm.MixinArmInteractionPoint",
     "create.client.mechanical_arm.MixinArmInteractionPointHandler",
+    "create.client.steamWhistle.MixinWhistleBlockEntity",
     "ftbchunks.client.MixinFTBChunksClient",
     "journeymap.client.MixinMiniMap",
     "kontraption.client.MixinKontraptionClientTickHandler",
