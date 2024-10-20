@@ -5,12 +5,16 @@ import io.github.xiewuzhiying.vs_addition.mixinducks.valkyrienskies.ShipInertiaD
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.HitResult
+import net.minecraft.world.phys.Vec3
 import org.joml.Vector3d
 import org.joml.Vector3dc
 import org.joml.primitives.AABBd
@@ -27,6 +31,7 @@ import org.valkyrienskies.mod.common.shipObjectWorld
 import org.valkyrienskies.mod.common.util.DimensionIdProvider
 import org.valkyrienskies.mod.common.util.toJOML
 import org.valkyrienskies.mod.common.util.toMinecraft
+import kotlin.math.floor
 
 object ShipUtils {
     @JvmStatic
@@ -52,37 +57,39 @@ object ShipUtils {
     //form VS base
     @JvmStatic
     @JvmOverloads
-    fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double = 0.5): BlockPos {
+    fun Level.getPosStandingOnFromShips(blockPosInGlobal: Vector3dc, radius: Double = 0.5): BlockPos? {
         val testAABB: AABBdc = AABBd(
-            blockPosInGlobal.x(), blockPosInGlobal.y(), blockPosInGlobal.z() ,
-            blockPosInGlobal.x(), blockPosInGlobal.y(), blockPosInGlobal.z()
-        ).expand(radius)
-        val intersectingShips = this.getShipsIntersecting(testAABB)
-        intersectingShips.forEach { ship: Ship ->
+            blockPosInGlobal.x() - radius, blockPosInGlobal.y() - radius, blockPosInGlobal.z() - radius,
+            blockPosInGlobal.x() + radius, blockPosInGlobal.y() + radius, blockPosInGlobal.z() + radius
+        )
+        val intersectingShips: Iterable<Ship> = this.getLoadedShipsIntersecting(testAABB)
+        for (ship in intersectingShips) {
             val blockPosInLocal: Vector3dc =
                 ship.transform.worldToShip.transformPosition(blockPosInGlobal, Vector3d())
-            val blockPos = blockPosInLocal.toBlockPos
-            val blockState = this.getBlockState(blockPos)
+            val blockPos = BlockPos.containing(
+                floor(blockPosInLocal.x()), floor(blockPosInLocal.y()), floor(blockPosInLocal.z())
+            )
+            val blockState: BlockState = this.getBlockState(blockPos)
             if (!blockState.isAir) {
                 return blockPos
             } else {
                 // Check the block below as well, in the cases of fences
                 val blockPosInLocal2: Vector3dc = ship.transform.worldToShip
-                    .transformPosition(Vector3d(blockPosInGlobal.x(), blockPosInGlobal.y() - 1.0, blockPosInGlobal.z()))
-                val blockPos2 = blockPosInLocal2.toBlockPos
-                val blockState2 = this.getBlockState(blockPos2)
+                    .transformPosition(
+                        Vector3d(blockPosInGlobal.x(), blockPosInGlobal.y() - 1.0, blockPosInGlobal.z())
+                    )
+                val blockPos2 = BlockPos.containing(
+                    Math.round(blockPosInLocal2.x()).toDouble(),
+                    Math.round(blockPosInLocal2.y()).toDouble(),
+                    Math.round(blockPosInLocal2.z()).toDouble()
+                )
+                val blockState2: BlockState = this.getBlockState(blockPos2)
                 if (!blockState2.isAir) {
                     return blockPos2
                 }
             }
         }
-        val blockPos = blockPosInGlobal.toBlockPos
-        val blockState = this.getBlockState(blockPos)
-        return if (!blockState.isAir) {
-            blockPos
-        } else {
-            Vector3d(blockPosInGlobal.x(), blockPosInGlobal.y() - 1.0, blockPosInGlobal.z()).toBlockPos
-        }
+        return null;
     }
 
     @JvmStatic
@@ -165,4 +172,25 @@ object ShipUtils {
                     BlockPos.containing(ctx.to)
                 )
             })
+
+    data class EntityHit(val entity: Entity, val vec3: Vec3)
+
+    @JvmOverloads
+    fun Level.clipEntities(start: Vec3, end: Vec3, aabb: AABB, skipEntities: List<Entity>? = null): EntityHit? {
+        var closestEntity: Entity? = null
+        var closestVec3: Vec3 = end
+        var closestDis: Double = start.distanceToSqr(end)
+        this.getEntities(null, aabb).filter { skipEntities == null || !skipEntities.contains(it) }.forEach {
+            val entityAABB = it.boundingBox
+            if (it is ItemEntity) {
+                entityAABB.inflate(0.75)
+            }
+            val hitVec3 = entityAABB.clip(start, end)
+            if (hitVec3.isPresent && closestDis < start.distanceToSqr(hitVec3.get())) {
+                closestEntity = it
+                closestVec3 = hitVec3.get()
+            }
+        }
+        return closestEntity?.let { EntityHit(it, closestVec3) }
+    }
 }

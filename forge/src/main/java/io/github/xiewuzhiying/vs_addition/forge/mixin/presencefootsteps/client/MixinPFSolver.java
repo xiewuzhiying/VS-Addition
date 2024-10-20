@@ -23,6 +23,7 @@ public abstract class MixinPFSolver {
             )
     )
     private BlockPos includeShips(double d, double e, double f, Operation<BlockPos> original, @Local(argsOnly = true) LivingEntity ply) {
-        return ShipUtils.getPosStandingOnFromShips(ply.level(), new Vector3d(d, e, f), 1);
+        final BlockPos pos = ShipUtils.getPosStandingOnFromShips(ply.level(), new Vector3d(d, e - 0.2, f), 1);
+        return pos == null ? original.call(d, e, f) : pos ;
     }
 }

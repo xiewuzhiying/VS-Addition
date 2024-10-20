@@ -28,10 +28,11 @@ public abstract class MixinTerrestrialStepSoundGenerator {
             )
     )
     private Association includeShips1(AssociationPool instance, BlockPos pos, String strategy, Operation<Association> original) {
-        Vec3 position = entity.position();
+        final Vec3 position = entity.position();
+        final BlockPos blockPos = ShipUtils.getPosStandingOnFromShips(entity.level(), new Vector3d(position.x, position.y - 1, position.z), 1);
         return original.call(
                 instance,
-                ShipUtils.getPosStandingOnFromShips(entity.level(), new Vector3d(position.x, position.y - 0.1 - (this.entity.onGround() ? 0.0 : 0.25), position.z), 1),
+                blockPos == null ? pos : blockPos,
                 strategy
         );
     }
@@ -44,10 +45,11 @@ public abstract class MixinTerrestrialStepSoundGenerator {
             )
     )
     private Association includeShips2(AssociationPool instance, BlockPos pos, String strategy, Operation<Association> original) {
-        Vec3 position = entity.position();
+        final Vec3 position = entity.position();
+        final BlockPos blockPos = ShipUtils.getPosStandingOnFromShips(entity.level(), new Vector3d(position.x, position.y - 0.3 - (this.entity.onGround() ? 0.0 : 0.25), position.z), 1);
         return original.call(
                 instance,
-                ShipUtils.getPosStandingOnFromShips(entity.level(), new Vector3d(position.x, position.y - 0.1 - (this.entity.onGround() ? 0.0 : 0.25), position.z), 1),
+                blockPos == null ? pos : blockPos,
                 strategy
         );
     }

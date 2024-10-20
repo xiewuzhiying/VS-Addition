@@ -75,17 +75,7 @@ public abstract class MixinEntity {
             )
     )
     private BlockPos getPosStandingOnFromShipsLegacy(BlockPos original) {
-        return ShipUtils.getPosStandingOnFromShips(this.level, new Vector3d(this.getX(), this.getY() - 0.2, this.getZ()));
-    }
-
-    @ModifyExpressionValue(
-            method = "move",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/entity/Entity;getOnPos()Lnet/minecraft/core/BlockPos;"
-            )
-    )
-    private BlockPos getPosStandingOnFromShips(BlockPos original) {
-        return ShipUtils.getPosStandingOnFromShips(this.level, new Vector3d(this.getX(), this.getY(), this.getZ()));
+        final BlockPos pos = ShipUtils.getPosStandingOnFromShips(this.level, new Vector3d(this.getX(), this.getY() - 0.2, this.getZ()));
+        return pos == null ? original : pos ;
     }
 }
