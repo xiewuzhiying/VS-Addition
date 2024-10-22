@@ -13,12 +13,6 @@ public interface CompactCannonMountBlockEntityAccessor {
     @Invoker(value = "assemble", remap = false)
     void Assemble();
 
-    @Invoker(value = "getMaxDepress", remap = false)
-    float GetMaxDepress();
-
-    @Invoker(value = "getMaxElevate", remap = false)
-    float GetMaxElevate();
-
     @Accessor(remap = false)
     float getCannonYaw();
 

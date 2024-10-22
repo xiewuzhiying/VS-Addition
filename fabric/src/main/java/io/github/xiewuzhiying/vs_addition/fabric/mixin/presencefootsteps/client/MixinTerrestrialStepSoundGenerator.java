@@ -41,8 +41,10 @@ public abstract class MixinTerrestrialStepSoundGenerator {
             method = "simulateBrushes",
             at = @At(
                     value = "INVOKE",
-                    target = "Leu/ha3/presencefootsteps/world/AssociationPool;findAssociation(Lnet/minecraft/core/BlockPos;Ljava/lang/String;)Leu/ha3/presencefootsteps/world/Association;"
-            )
+                    target = "Leu/ha3/presencefootsteps/world/AssociationPool;findAssociation(Lnet/minecraft/core/BlockPos;Ljava/lang/String;)Leu/ha3/presencefootsteps/world/Association;",
+                    remap = true
+            ),
+            remap = false
     )
     private Association includeShips2(AssociationPool instance, BlockPos pos, String strategy, Operation<Association> original) {
         final Vec3 position = entity.position();

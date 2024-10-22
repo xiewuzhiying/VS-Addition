@@ -33,6 +33,7 @@
     "minecraft.MixinAbstractArrow",
     "minecraft.MixinClipContext",
     "minecraft.MixinEntity",
+    "minecraft.MixinExplosion",
     "minecraft.MixinServerLevel",
     "peripheralworks.MixinPeripheralProxyBlockEntity",
     "valkyrienskies.MixinBugFixUtils",

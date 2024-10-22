@@ -91,11 +91,8 @@ fun Vec3.toWorld(level: Level): Vec3 {
     return this
 }
 
-fun Vec3.toWorld(ship: Ship?): Vec3 {
-    if (ship != null) {
-        return ship.toWorldCoordinates(this)
-    }
-    return this
+fun Vec3.toWorld(ship: Ship): Vec3 {
+    return ship.toWorldCoordinates(this)
 }
 
 fun Vec3.below(distance: Double): Vec3 {
@@ -175,28 +172,9 @@ fun ClipContext.setCollisionContext(ctx: CollisionContext) {
     (this as ClipContextMixinDuck).collisionContext = ctx
 }
 
-fun Level.getBodyId(pos: BlockPos) : ShipId? {
-    return this.getShipManagingPos(pos)?.id ?: (this.shipObjectWorld as? ServerShipWorldCore)?.dimensionToGroundBodyIdImmutable?.get(this.dimensionId)
-}
-
-fun Level.getBodyId(pos: Position) : ShipId? {
-    return this.getShipManagingPos(pos)?.id ?: (this.shipObjectWorld as? ServerShipWorldCore)?.dimensionToGroundBodyIdImmutable?.get(this.dimensionId)
-}
-
-fun Level.getBodyId(pos: Vector3dc) : ShipId? {
-    return this.getShipManagingPos(pos)?.id ?: (this.shipObjectWorld as? ServerShipWorldCore)?.dimensionToGroundBodyIdImmutable?.get(this.dimensionId)
-}
-
-fun ServerLevel.getBodyId(pos: BlockPos) : ShipId {
-    return this.getShipManagingPos(pos)?.id ?: this.shipObjectWorld.dimensionToGroundBodyIdImmutable[this.dimensionId]!!
-}
-
-fun ServerLevel.getBodyId(pos: Position) : ShipId {
-    return this.getShipManagingPos(pos)?.id ?: this.shipObjectWorld.dimensionToGroundBodyIdImmutable[this.dimensionId]!!
-}
-
-fun ServerLevel.getBodyId(pos: Vector3dc) : ShipId {
-    return this.getShipManagingPos(pos)?.id ?: this.shipObjectWorld.dimensionToGroundBodyIdImmutable[this.dimensionId]!!
+fun ServerLevel.getBodyId(pos: Any) : ShipId {
+    val vector = toVector3dc(pos)
+    return this.getShipManagingPos(vector.x().toInt() shr 4, vector.z().toInt() shr  4)?.id ?: this.shipObjectWorld.dimensionToGroundBodyIdImmutable[this.dimensionId]!!
 }
 
 var EntityDraggingInformation.addedPitchRotLastTick : Double
@@ -204,20 +182,22 @@ var EntityDraggingInformation.addedPitchRotLastTick : Double
     set(value) { (this as EntityDraggingInformationMixinDuck).addedPitchRotLastTick = value }
 
 fun Level.squaredDistanceBetweenInclShips(inputPos1: Any, inputPos2: Any) : Double {
-    val vector1 = toVector3d(inputPos1)
-    val vector2 = toVector3d(inputPos2)
-    return this.squaredDistanceBetweenInclShips(vector1.x ,vector1.y, vector1.z, vector2.x, vector2.y, vector2.z)
+    val vector1 = toVector3dc(inputPos1)
+    val vector2 = toVector3dc(inputPos2)
+    return this.squaredDistanceBetweenInclShips(vector1.x(),vector1.y(), vector1.z(), vector2.x(), vector2.y(), vector2.z())
 }
 
 data class Quadruple<A,B,C,D>(var first: A, var second: B, var third: C, var fourth: D): Serializable {
     override fun toString(): String = "($first, $second, $third, $fourth)"
 }
 
-private fun toVector3d(inputPos: Any) : Vector3d {
+private fun toVector3dc(inputPos: Any) : Vector3dc {
     return when (inputPos) {
         is Vec3i -> inputPos.centerJOMLD
         is Position -> inputPos.toJOML()
-        is Vector3d -> inputPos
+        is Vector3i -> inputPos.centerJOMLD
+        is Vector3fc -> Vector3d(inputPos.x().toDouble(), inputPos.y().toDouble(), inputPos.z().toDouble())
+        is Vector3dc -> inputPos
         else -> throw IllegalArgumentException("Unsupported type: ${inputPos::class.simpleName}")
     }
 }

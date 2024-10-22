@@ -120,7 +120,8 @@ public abstract class MixinBulletHoleParticle extends TextureSheetParticle {
             method = "render",
             at = @At(
                     value = "INVOKE",
-                    target = "Lorg/joml/Vector3f;mul(F)Lorg/joml/Vector3f;"
+                    target = "Lorg/joml/Vector3f;mul(F)Lorg/joml/Vector3f;",
+                    remap = false
             )
     )
     private Vector3f inclShipScale(Vector3f instance, float scalar, Operation<Vector3f> original, @Share("modified") LocalBooleanRef modified) {

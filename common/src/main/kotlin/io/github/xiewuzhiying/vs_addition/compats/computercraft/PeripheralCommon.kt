@@ -127,7 +127,9 @@ object PeripheralCommon {
     fun registerGenericPeripheralCommon() {
         if (Platform.isModLoaded("createbigcannons")) {
             ComputerCraftAPI.registerGenericSource(CannonMountMethods());
-            ComputerCraftAPI.registerGenericSource(CheatCannonMountMethods());
+            if (VSAdditionConfig.SERVER.computercraft.enableCheatCannonMountPeripheral) {
+                ComputerCraftAPI.registerGenericSource(CheatCannonMountMethods());
+            }
         }
     }
 

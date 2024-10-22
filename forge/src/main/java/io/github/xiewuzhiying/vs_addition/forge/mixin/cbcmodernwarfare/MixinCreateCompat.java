@@ -12,7 +12,7 @@ import riftyboi.cbcmodernwarfare.cannon_control.contraption.MountedMunitionsLaun
 
 @Pseudo
 @Restriction(
-        conflict = @Condition(value = "cbcmodernwarfare", versionPredicates = "0.0.5f+mc.1.20.1-forge")
+        require = @Condition(value = "cbcmodernwarfare", versionPredicates = "0.0.5f+mc.1.20.1-forge")
 )
 @Mixin(CreateCompat.class)
 public abstract class MixinCreateCompat {

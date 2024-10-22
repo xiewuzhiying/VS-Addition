@@ -50,9 +50,11 @@ public abstract class MixinMixinLevelRenderer {
         // Return and re-call this method with new coords
 
         Particle particle = original.call(options, force, decreased, p.x, p.y, p.z, v.x, v.y, v.z);
-        ((ParticleMixinDuck)particle).vs_addition$setOriginalPosition(new Vector3d(x, y, z));
-        ((ParticleMixinDuck)particle).vs_addition$setShip(ship);
-        ((ParticleMixinDuck)particle).vs_addition$setFirstTimeScale(ship.getRenderTransform().getShipToWorld().getScale(new Vector3d()).z);
+        if (particle != null) {
+            ((ParticleMixinDuck)particle).vs_addition$setOriginalPosition(new Vector3d(x, y, z));
+            ((ParticleMixinDuck)particle).vs_addition$setShip(ship);
+            ((ParticleMixinDuck)particle).vs_addition$setFirstTimeScale(ship.getRenderTransform().getShipToWorld().getScale(new Vector3d()).z);
+        }
         return particle;
     }
 }

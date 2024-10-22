@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalFloatRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import io.github.xiewuzhiying.vs_addition.stuff.ExplosionConditionTester;
 import io.github.xiewuzhiying.vs_addition.util.ShipUtils;
 import io.github.xiewuzhiying.vs_addition.util.TransformUtilsKt;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
@@ -36,6 +37,7 @@ import java.util.*;
 
 @Pseudo
 @Restriction(
+        require = @Condition(type = Condition.Type.TESTER, tester = ExplosionConditionTester.class),
         conflict = { @Condition("lithium"), @Condition("radium"), @Condition("canary") }
 )
 @Mixin(Explosion.class)

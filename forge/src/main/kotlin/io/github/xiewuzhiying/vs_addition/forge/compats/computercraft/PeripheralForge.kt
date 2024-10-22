@@ -3,6 +3,7 @@ package io.github.xiewuzhiying.vs_addition.forge.compats.computercraft
 import dan200.computercraft.api.ComputerCraftAPI
 import dan200.computercraft.api.peripheral.IPeripheral
 import dev.architectury.platform.Platform
+import io.github.xiewuzhiying.vs_addition.VSAdditionConfig
 import io.github.xiewuzhiying.vs_addition.compats.computercraft.PeripheralCommon.PeripheralSupplier
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.peripherals.CheatCompactCannonMountMethods
 import io.github.xiewuzhiying.vs_addition.forge.compats.computercraft.peripherals.CompactCannonMountMethods
@@ -25,7 +26,9 @@ object PeripheralForge {
     fun registerGenericPeripheralForge() {
         if (Platform.isModLoaded("cbcmodernwarfare")) {
             ComputerCraftAPI.registerGenericSource(CompactCannonMountMethods());
-            ComputerCraftAPI.registerGenericSource(CheatCompactCannonMountMethods());
+            if (VSAdditionConfig.SERVER.computercraft.enableCheatCannonMountPeripheral) {
+                ComputerCraftAPI.registerGenericSource(CheatCompactCannonMountMethods());
+            }
         }
     }
 }

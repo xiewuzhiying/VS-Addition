@@ -10,7 +10,6 @@
     "cbcmodernwarfare.MixinMountedMediumcannonContraption",
     "cbcmodernwarfare.MixinMountedMunitionsLauncherContraption",
     "cbcmodernwarfare.MixinMountedRotarycannonContraption",
-    "computercraft.InventoryMethodsAccessor",
     "create.hose_pulley.MixinFluidDrainingBehaviour",
     "create.hose_pulley.MixinFluidFillingBehaviour",
     "create.hose_pulley.MixinHosePulleyBlockEntity",

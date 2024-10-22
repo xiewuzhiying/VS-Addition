@@ -109,6 +109,13 @@ object VSAdditionConfig {
             @JsonSchema(description = "Enable cheat functions on flap bearing peripheral")
             var enableCheatFlapBearingPeripheral = false
         }
+
+        val experimental = EXPERIMENTAL()
+
+        class EXPERIMENTAL {
+            @JsonSchema(description = "Enable another explosion for ships. (Needs reboot & may have an impact on performance)")
+            var explosion = false
+        }
     }
 
     class Common {
