@@ -23,7 +23,7 @@ dependencies {
     implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${rootProject.mixin_squared}"))
 
     // Conditional Mixin
-    implementation("com.github.Fallen-Breath.conditional-mixin:conditional-mixin-fabric:0.6.2")
+    implementation("com.github.Fallen-Breath.conditional-mixin:conditional-mixin-fabric:${rootProject.conditional_mixin}")
 
     // Fabric ASM
     implementation("com.github.Chocohead:Fabric-ASM:v2.3")
