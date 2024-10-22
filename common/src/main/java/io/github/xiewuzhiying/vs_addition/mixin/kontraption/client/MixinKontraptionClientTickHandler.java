@@ -14,6 +14,7 @@ public class MixinKontraptionClientTickHandler {
             method = "onTick",
             at = @At("HEAD"),
             cancellable = true,
+            require = 0,
             remap = false
     )
     public void cancelThisSpam(CallbackInfo ci) {

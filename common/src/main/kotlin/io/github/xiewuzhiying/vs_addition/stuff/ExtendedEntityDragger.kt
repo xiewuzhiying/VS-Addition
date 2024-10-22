@@ -18,87 +18,94 @@ object ExtendedEntityDragger {
     // How much we decay the addedMovement each tick after player hasn't collided with a ship for at least 10 ticks.
     private const val ADDED_MOVEMENT_DECAY = 0.9
 
+
+
     /**
      * Drag these entities with the ship they're standing on.
      */
     @JvmStatic
     fun dragEntitiesWithShips(entities: Iterable<Entity>) {
         entities.forEach { entity ->
-            val entityDraggingInformation = (entity as IEntityDraggingInformationProvider).draggingInformation
-
-            var dragTheEntity = false
-            var addedMovement: Vector3dc? = null
-            var addedXRot = 0.0
-            var addedYRot = 0.0
-
-            val shipDraggingEntity = entityDraggingInformation.lastShipStoodOn
-
-            // Only drag entities that aren't mounted to vehicles
-            if (shipDraggingEntity != null && entity.vehicle == null) {
-                if (entityDraggingInformation.isEntityBeingDraggedByAShip()) {
-                    // Compute how much we should drag the entity
-                    val shipData = entity.level().shipObjectWorld.allShips.getById(shipDraggingEntity)
-                    if (shipData != null) {
-                        dragTheEntity = true
-
-                        // region Compute position dragging
-                        val newPosIdeal = shipData.shipToWorld.transformPosition(
-                            shipData.prevTickTransform.worldToShip.transformPosition(
-                                Vector3d(entity.x, entity.y, entity.z)
-                            )
-                        )
-                        addedMovement = Vector3d(
-                            newPosIdeal.x - entity.x,
-                            newPosIdeal.y - entity.y,
-                            newPosIdeal.z - entity.z
-                        )
-                        // endregion
-
-
-                        val pair = when (entity) {
-                            is Projectile -> projectileDragger(entity, shipData)
-                            else -> defaultDragger(entity, shipData)
-                        }
-
-                        addedXRot = pair.first
-                        addedYRot = pair.second
-                        // endregion
-                    }
-                } else {
-                    dragTheEntity = true
-                    addedMovement = entityDraggingInformation.addedMovementLastTick
-                        .mul(ADDED_MOVEMENT_DECAY, Vector3d())
-                    addedXRot = entityDraggingInformation.addedPitchRotLastTick * ADDED_MOVEMENT_DECAY
-                    addedYRot = entityDraggingInformation.addedYawRotLastTick * ADDED_MOVEMENT_DECAY
-                }
-            }
-
-            if (dragTheEntity && addedMovement != null && addedMovement.isFinite && addedYRot.isFinite() && addedXRot.isFinite()) {
-                // TODO: Do collision on [addedMovement], as currently this can push players into
-                //       blocks
-                // Apply [addedMovement]
-                val newBB = entity.boundingBox.move(addedMovement.toMinecraft())
-                entity.boundingBox = newBB
-                entity.setPos(
-                    entity.x + addedMovement.x(),
-                    entity.y + addedMovement.y(),
-                    entity.z + addedMovement.z()
-                )
-                entityDraggingInformation.addedMovementLastTick = addedMovement
-
-                // Apply [addedYRot] & [addedXRot]
-                // Don't apply it to server players to fix rotation of placed blocks
-                if (addedYRot.isFinite() && addedXRot.isFinite() && entity !is ServerPlayer) {
-                    entity.yRot += addedYRot.toFloat()
-                    entity.yHeadRot += addedYRot.toFloat()
-                    entity.xRot += addedXRot.toFloat()
-                    entityDraggingInformation.addedYawRotLastTick = addedYRot
-                    entityDraggingInformation.addedPitchRotLastTick = addedXRot
-                }
-            }
-            entityDraggingInformation.ticksSinceStoodOnShip++
-            entityDraggingInformation.mountedToEntity = entity.vehicle != null
+            doDragEntityWithShip(entity)
         }
+    }
+
+    @JvmStatic
+    fun doDragEntityWithShip(entity: Entity) {
+        val entityDraggingInformation = (entity as IEntityDraggingInformationProvider).draggingInformation
+
+        var dragTheEntity = false
+        var addedMovement: Vector3dc? = null
+        var addedXRot = 0.0
+        var addedYRot = 0.0
+
+        val shipDraggingEntity = entityDraggingInformation.lastShipStoodOn
+
+        // Only drag entities that aren't mounted to vehicles
+        if (shipDraggingEntity != null && entity.vehicle == null) {
+            if (entityDraggingInformation.isEntityBeingDraggedByAShip()) {
+                // Compute how much we should drag the entity
+                val shipData = entity.level().shipObjectWorld.allShips.getById(shipDraggingEntity)
+                if (shipData != null) {
+                    dragTheEntity = true
+
+                    // region Compute position dragging
+                    val newPosIdeal = shipData.shipToWorld.transformPosition(
+                        shipData.prevTickTransform.worldToShip.transformPosition(
+                            Vector3d(entity.x, entity.y, entity.z)
+                        )
+                    )
+                    addedMovement = Vector3d(
+                        newPosIdeal.x - entity.x,
+                        newPosIdeal.y - entity.y,
+                        newPosIdeal.z - entity.z
+                    )
+                    // endregion
+
+
+                    val pair = when (entity) {
+                        is Projectile -> projectileDragger(entity, shipData)
+                        else -> defaultDragger(entity, shipData)
+                    }
+
+                    addedXRot = pair.first
+                    addedYRot = pair.second
+                    // endregion
+                }
+            } else {
+                dragTheEntity = true
+                addedMovement = entityDraggingInformation.addedMovementLastTick
+                    .mul(ADDED_MOVEMENT_DECAY, Vector3d())
+                addedXRot = entityDraggingInformation.addedPitchRotLastTick * ADDED_MOVEMENT_DECAY
+                addedYRot = entityDraggingInformation.addedYawRotLastTick * ADDED_MOVEMENT_DECAY
+            }
+        }
+
+        if (dragTheEntity && addedMovement != null && addedMovement.isFinite && addedYRot.isFinite() && addedXRot.isFinite()) {
+            // TODO: Do collision on [addedMovement], as currently this can push players into
+            //       blocks
+            // Apply [addedMovement]
+            val newBB = entity.boundingBox.move(addedMovement.toMinecraft())
+            entity.boundingBox = newBB
+            entity.setPos(
+                entity.x + addedMovement.x(),
+                entity.y + addedMovement.y(),
+                entity.z + addedMovement.z()
+            )
+            entityDraggingInformation.addedMovementLastTick = addedMovement
+
+            // Apply [addedYRot] & [addedXRot]
+            // Don't apply it to server players to fix rotation of placed blocks
+            if (addedYRot.isFinite() && addedXRot.isFinite() && entity !is ServerPlayer) {
+                entity.yRot += addedYRot.toFloat()
+                entity.yHeadRot += addedYRot.toFloat()
+                entity.xRot += addedXRot.toFloat()
+                entityDraggingInformation.addedYawRotLastTick = addedYRot
+                entityDraggingInformation.addedPitchRotLastTick = addedXRot
+            }
+        }
+        entityDraggingInformation.ticksSinceStoodOnShip++
+        entityDraggingInformation.mountedToEntity = entity.vehicle != null
     }
 
     //for mob

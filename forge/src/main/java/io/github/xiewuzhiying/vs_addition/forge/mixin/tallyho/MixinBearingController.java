@@ -15,7 +15,7 @@ import org.valkyrienskies.clockwork.content.forces.contraption.BearingController
 @Restriction(
         require = @Condition("tallyho")
 )
-@Mixin(BearingController.class)
+@Mixin(value = BearingController.class, priority = 1500)
 public abstract class MixinBearingController {
     @TargetHandler(
             mixin = "edn.stratodonut.tallyho.mixin.cw.MixinBearingController",

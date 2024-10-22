@@ -18,7 +18,10 @@ classes
 .settings
 *.launch
 
-jars/cbcmodernwarfare*.jar
+common/jars/
+fabric/jars/
+forge/jars/
+jars/
 .architectury-transformer
 
 reports

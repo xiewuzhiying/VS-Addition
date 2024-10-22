@@ -1,37 +1,27 @@
 package io.github.xiewuzhiying.vs_addition.util
 
-import io.github.xiewuzhiying.vs_addition.mixin.minecraft.HitResultAccessor
 import io.github.xiewuzhiying.vs_addition.mixinducks.minecraft.ClipContextMixinDuck
 import io.github.xiewuzhiying.vs_addition.mixinducks.valkyrienskies.EntityDraggingInformationMixinDuck
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.core.Position
 import net.minecraft.core.Vec3i
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.item.ItemEntity
-import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.level.Level
-import net.minecraft.world.phys.AABB
-import net.minecraft.world.phys.BlockHitResult
-import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import net.minecraft.world.phys.shapes.CollisionContext
 import org.joml.*
-import org.joml.primitives.AABBd
-import org.joml.primitives.AABBdc
 import org.valkyrienskies.core.api.ships.Ship
 import org.valkyrienskies.core.api.ships.properties.ShipId
-import org.valkyrienskies.core.impl.game.ships.ShipObjectClient
-import org.valkyrienskies.core.util.expand
-import org.valkyrienskies.mod.common.getShipManagingPos
-import org.valkyrienskies.mod.common.getShipsIntersecting
-import org.valkyrienskies.mod.common.shipObjectWorld
-import org.valkyrienskies.mod.common.toWorldCoordinates
+import org.valkyrienskies.core.apigame.world.ServerShipWorldCore
+import org.valkyrienskies.mod.common.*
 import org.valkyrienskies.mod.common.util.EntityDraggingInformation
 import org.valkyrienskies.mod.common.util.toJOML
 import org.valkyrienskies.mod.common.util.toMinecraft
+import java.io.Serializable
 import java.lang.Math
-import kotlin.math.floor
 
 val Direction.directionToQuaterniond : Quaterniond
     get() =
@@ -185,27 +175,45 @@ fun ClipContext.setCollisionContext(ctx: CollisionContext) {
     (this as ClipContextMixinDuck).collisionContext = ctx
 }
 
+fun Level.getBodyId(pos: BlockPos) : ShipId? {
+    return this.getShipManagingPos(pos)?.id ?: (this.shipObjectWorld as? ServerShipWorldCore)?.dimensionToGroundBodyIdImmutable?.get(this.dimensionId)
+}
+
+fun Level.getBodyId(pos: Position) : ShipId? {
+    return this.getShipManagingPos(pos)?.id ?: (this.shipObjectWorld as? ServerShipWorldCore)?.dimensionToGroundBodyIdImmutable?.get(this.dimensionId)
+}
+
+fun Level.getBodyId(pos: Vector3dc) : ShipId? {
+    return this.getShipManagingPos(pos)?.id ?: (this.shipObjectWorld as? ServerShipWorldCore)?.dimensionToGroundBodyIdImmutable?.get(this.dimensionId)
+}
+
+fun ServerLevel.getBodyId(pos: BlockPos) : ShipId {
+    return this.getShipManagingPos(pos)?.id ?: this.shipObjectWorld.dimensionToGroundBodyIdImmutable[this.dimensionId]!!
+}
+
+fun ServerLevel.getBodyId(pos: Position) : ShipId {
+    return this.getShipManagingPos(pos)?.id ?: this.shipObjectWorld.dimensionToGroundBodyIdImmutable[this.dimensionId]!!
+}
+
+fun ServerLevel.getBodyId(pos: Vector3dc) : ShipId {
+    return this.getShipManagingPos(pos)?.id ?: this.shipObjectWorld.dimensionToGroundBodyIdImmutable[this.dimensionId]!!
+}
+
 var EntityDraggingInformation.addedPitchRotLastTick : Double
     get() = (this as EntityDraggingInformationMixinDuck).addedPitchRotLastTick
     set(value) { (this as EntityDraggingInformationMixinDuck).addedPitchRotLastTick = value }
 
-data class EntityHit(val entity: Entity, val vec3: Vec3)
+fun Level.squaredDistanceBetweenInclShips(blockPos1: Vec3i, blockPos2: Vec3i) : Double {
+    val blockPos1Center = blockPos1.centerMinecraft
+    val blockPos2Center = blockPos2.centerMinecraft
+    return this.squaredDistanceBetweenInclShips(blockPos1Center.x ,blockPos1Center.y, blockPos1Center.z, blockPos2Center.x, blockPos2Center.y, blockPos1Center.z)
+}
 
-@JvmOverloads
-fun Level.clipEntities(start: Vec3, end: Vec3, aabb: AABB, skipEntities: List<Entity>? = null): EntityHit? {
-    var closestEntity: Entity? = null
-    var closestVec3: Vec3 = end
-    var closestDis: Double = start.distanceToSqr(end)
-    this.getEntities(null, aabb).filter { skipEntities == null || !skipEntities.contains(it) }.forEach {
-        val entityAABB = it.boundingBox
-        if (it is ItemEntity) {
-            entityAABB.inflate(0.75)
-        }
-        val hitVec3 = entityAABB.clip(start, end)
-        if (hitVec3.isPresent && closestDis < start.distanceToSqr(hitVec3.get())) {
-            closestEntity = it
-            closestVec3 = hitVec3.get()
-        }
-    }
-    return closestEntity?.let { EntityHit(it, closestVec3) }
+fun Level.squaredDistanceBetweenInclShips(blockPos: Vec3i, position: Position) : Double {
+    val blockPosCenter = blockPos.centerMinecraft
+    return this.squaredDistanceBetweenInclShips(blockPosCenter.x ,blockPosCenter.y, blockPosCenter.z, position.x(), position.y(), position.z())
+}
+
+data class Quadruple<A,B,C,D>(var first: A, var second: B, var third: C, var fourth: D): Serializable {
+    override fun toString(): String = "($first, $second, $third, $fourth)"
 }

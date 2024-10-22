@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Pseudo
-@Mixin(ServerLevel.class)
+@Mixin(value = ServerLevel.class, priority = 1500)
 public abstract class MixinServerLevel {
     @TargetHandler(
             mixin = "org.valkyrienskies.mod.mixin.server.world.MixinServerLevel",

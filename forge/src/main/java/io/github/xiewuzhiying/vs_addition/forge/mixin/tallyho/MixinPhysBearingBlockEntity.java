@@ -21,7 +21,7 @@ import org.valkyrienskies.clockwork.content.forces.contraption.BearingController
 @Restriction(
         require = @Condition("tallyho")
 )
-@Mixin(PhysBearingBlockEntity.class)
+@Mixin(value = PhysBearingBlockEntity.class, priority = 1500)
 public abstract class MixinPhysBearingBlockEntity extends GeneratingKineticBlockEntity {
     public MixinPhysBearingBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
