@@ -33,7 +33,7 @@
     "minecraft.MixinAbstractArrow",
     "minecraft.MixinClipContext",
     "minecraft.MixinEntity",
-    "minecraft.MixinExplosion",
+    "minecraft.MixinServerLevel",
     "peripheralworks.MixinPeripheralProxyBlockEntity",
     "valkyrienskies.MixinBugFixUtils",
     "valkyrienskies.MixinDefaultBlockStateInfoProvider",
@@ -64,6 +64,8 @@
     "ftbchunks.client.MixinFTBChunksClient",
     "journeymap.client.MixinMiniMap",
     "kontraption.client.MixinKontraptionClientTickHandler",
+    "valkyrienskies.client.MixinMixinLevelRenderer",
+    "valkyrienskies.client.MixinParticle",
     "vs_clockwork.client.flap_bearing.MixinFlapBearingRenderer",
     "xaeros_minimap.client.MixinMinimapRenderer"
   ],

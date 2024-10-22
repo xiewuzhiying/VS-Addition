@@ -19,18 +19,20 @@ import org.joml.Vector3d
 import org.joml.Vector3dc
 import org.joml.primitives.AABBd
 import org.joml.primitives.AABBdc
+import org.valkyrienskies.core.api.ships.ClientShip
 import org.valkyrienskies.core.api.ships.LoadedShip
 import org.valkyrienskies.core.api.ships.ServerShip
 import org.valkyrienskies.core.api.ships.Ship
 import org.valkyrienskies.core.api.ships.properties.ShipId
+import org.valkyrienskies.core.impl.collision.n
 import org.valkyrienskies.core.impl.game.ships.ShipObjectClient
-import org.valkyrienskies.core.util.expand
 import org.valkyrienskies.mod.common.getShipManagingPos
-import org.valkyrienskies.mod.common.getShipsIntersecting
 import org.valkyrienskies.mod.common.shipObjectWorld
+import org.valkyrienskies.mod.common.squaredDistanceBetweenInclShips
 import org.valkyrienskies.mod.common.util.DimensionIdProvider
 import org.valkyrienskies.mod.common.util.toJOML
 import org.valkyrienskies.mod.common.util.toMinecraft
+import org.valkyrienskies.mod.util.scale
 import kotlin.math.floor
 
 object ShipUtils {
@@ -98,7 +100,7 @@ object ShipUtils {
                                       shouldTransformHitPos: Boolean = true, skipShips: List<ShipId>? = null): HitResult {
         val originHit = clipFunction(this, ctx)
 
-        if (shipObjectWorld == null) {
+        if (this.shipObjectWorld == null) {
             return originHit
         }
 
@@ -108,6 +110,19 @@ object ShipUtils {
 
         val clipAABB: AABBdc = AABBd(ctx.from.toJOML(), ctx.to.toJOML()).correctBounds()
 
+        val originalAabb = if (ctx.entity != null) {
+            AABB(
+                ctx.entity.boundingBox.minX,
+                ctx.entity.boundingBox.minY,
+                ctx.entity.boundingBox.minZ,
+                ctx.entity.boundingBox.maxX,
+                ctx.entity.boundingBox.maxY,
+                ctx.entity.boundingBox.maxZ
+            )
+        } else {
+            null
+        }
+
         // Iterate every ship, find do the raycast in ship space,
         // choose the raycast with the lowest distance to the start position.
         for (ship in shipObjectWorld.loadedShips.getIntersecting(clipAABB)) {
@@ -115,21 +130,27 @@ object ShipUtils {
             if (skipShips != null && skipShips.contains(ship.id)) {
                 continue
             }
-            val worldToShip = (ship as? ShipObjectClient)?.renderTransform?.worldToShip ?: ship.worldToShip
-            val shipToWorld = (ship as? ShipObjectClient)?.renderTransform?.shipToWorld ?: ship.shipToWorld
+            val worldToShip = (ship as? ClientShip)?.renderTransform?.worldToShip ?: ship.worldToShip
+            val shipToWorld = (ship as? ClientShip)?.renderTransform?.shipToWorld ?: ship.shipToWorld
 
-            ctx.setForm(worldToShip.transformPosition(ctx.from.toJOML()).toMinecraft())
-            ctx.setTo(worldToShip.transformPosition(ctx.to.toJOML()).toMinecraft())
+            if (ctx.entity != null) {
+                ctx.entity.boundingBox = ctx.entity.boundingBox.scale(1 / worldToShip.getScale(Vector3d()).z)
+            }
+            val ctx2 = ClipContext(worldToShip.transformPosition(ctx.from.toJOML()).toMinecraft(), worldToShip.transformPosition(ctx.to.toJOML()).toMinecraft(), ctx.block, ctx.fluid, ctx.entity)
 
-            val shipHit = clipFunction(this, ctx)
+            val shipHit = clipFunction(this, ctx2)
             val shipHitPos = shipToWorld.transformPosition(shipHit.location.toJOML()).toMinecraft()
-            val shipHitDist = shipHit.location.distanceToSqr(ctx.from)
+            val shipHitDist = this.squaredDistanceBetweenInclShips(shipHit.location, ctx.from)
 
             if (shipHitDist < closestHitDist && shipHit.type != HitResult.Type.MISS) {
                 closestHit = shipHit
                 closestHitPos = shipHitPos
                 closestHitDist = shipHitDist
             }
+        }
+
+        if (ctx.entity != null) {
+            ctx.entity.boundingBox = originalAabb!!
         }
 
         if (shouldTransformHitPos) {
@@ -139,7 +160,7 @@ object ShipUtils {
         return closestHit
     }
 
-    fun BlockGetter.vanillaClip(context: ClipContext): BlockHitResult =
+    private fun BlockGetter.vanillaClip(context: ClipContext): BlockHitResult =
         BlockGetter.traverseBlocks(context.from, context.to, context,
             { clipContext: ClipContext, blockPos: BlockPos ->
                 val blockState = getBlockState(blockPos)

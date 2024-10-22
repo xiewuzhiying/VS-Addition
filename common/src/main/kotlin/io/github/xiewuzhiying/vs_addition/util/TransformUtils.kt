@@ -203,17 +203,21 @@ var EntityDraggingInformation.addedPitchRotLastTick : Double
     get() = (this as EntityDraggingInformationMixinDuck).addedPitchRotLastTick
     set(value) { (this as EntityDraggingInformationMixinDuck).addedPitchRotLastTick = value }
 
-fun Level.squaredDistanceBetweenInclShips(blockPos1: Vec3i, blockPos2: Vec3i) : Double {
-    val blockPos1Center = blockPos1.centerMinecraft
-    val blockPos2Center = blockPos2.centerMinecraft
-    return this.squaredDistanceBetweenInclShips(blockPos1Center.x ,blockPos1Center.y, blockPos1Center.z, blockPos2Center.x, blockPos2Center.y, blockPos1Center.z)
-}
-
-fun Level.squaredDistanceBetweenInclShips(blockPos: Vec3i, position: Position) : Double {
-    val blockPosCenter = blockPos.centerMinecraft
-    return this.squaredDistanceBetweenInclShips(blockPosCenter.x ,blockPosCenter.y, blockPosCenter.z, position.x(), position.y(), position.z())
+fun Level.squaredDistanceBetweenInclShips(inputPos1: Any, inputPos2: Any) : Double {
+    val vector1 = toVector3d(inputPos1)
+    val vector2 = toVector3d(inputPos2)
+    return this.squaredDistanceBetweenInclShips(vector1.x ,vector1.y, vector1.z, vector2.x, vector2.y, vector2.z)
 }
 
 data class Quadruple<A,B,C,D>(var first: A, var second: B, var third: C, var fourth: D): Serializable {
     override fun toString(): String = "($first, $second, $third, $fourth)"
+}
+
+private fun toVector3d(inputPos: Any) : Vector3d {
+    return when (inputPos) {
+        is Vec3i -> inputPos.centerJOMLD
+        is Position -> inputPos.toJOML()
+        is Vector3d -> inputPos
+        else -> throw IllegalArgumentException("Unsupported type: ${inputPos::class.simpleName}")
+    }
 }

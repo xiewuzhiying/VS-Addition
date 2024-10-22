@@ -29,7 +29,8 @@
     "embeddiumplus.client.MixinEmbyTools",
     "netmusic.client.MixinMusicToClientMessage",
     "presencefootsteps.client.MixinPFSolver",
-    "presencefootsteps.client.MixinTerrestrialStepSoundGenerator"
+    "presencefootsteps.client.MixinTerrestrialStepSoundGenerator",
+    "tacz.client.MixinBulletHoleParticle"
   ],
   "injectors": {
     "defaultRequire": 1
