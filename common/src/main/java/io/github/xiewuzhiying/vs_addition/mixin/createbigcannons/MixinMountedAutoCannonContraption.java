@@ -90,7 +90,7 @@ public abstract class MixinMountedAutoCannonContraption extends AbstractMountedC
     }
 
     @Override
-    public void setIsCalledByComputer() {
+    public void vs_addition$setIsCalledByComputer() {
         this.vs_addition$isCalledByComputer = true;
     }
 }

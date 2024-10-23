@@ -49,7 +49,7 @@ open class CannonMountMethods : GenericPeripheral {
     @LuaFunction(mainThread = true)
     fun fire(tileEntity: CannonMountBlockEntity) {
         if (tileEntity.contraption?.level() is ServerLevel) {
-            (tileEntity.contraption?.contraption as? MountedAutocannonContraptionMixinDuck)?.setIsCalledByComputer()
+            (tileEntity.contraption?.contraption as? MountedAutocannonContraptionMixinDuck)?.`vs_addition$setIsCalledByComputer`()
             (tileEntity.contraption?.contraption as AbstractMountedCannonContraption).fireShot(tileEntity.contraption?.level() as ServerLevel, tileEntity.contraption)
         }
     }
