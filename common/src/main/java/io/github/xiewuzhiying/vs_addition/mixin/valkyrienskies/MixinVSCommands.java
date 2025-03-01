@@ -33,7 +33,7 @@ public abstract class MixinVSCommands {
             remap = false
     )
     private static ShipTeleportData replaceShipTeleportData1(ShipTeleportData oldData, @Local(argsOnly = true) CommandContext<?> it, @Share("shipTeleportData") LocalRef<ShipTeleportData> shipTeleportData) {
-        shipTeleportData.set(new ShipTeleportDataImpl(oldData.getNewPos(), oldData.getNewRot(), oldData.getNewVel(), oldData.getNewOmega(), VSGameUtilsKt.getDimensionId(((CommandSourceStack)it.getSource()).getLevel()), oldData.getNewScale()));
+        shipTeleportData.set(new ShipTeleportDataImpl(oldData.getNewPos(), oldData.getNewRot(), oldData.getNewVel(), oldData.getNewOmega(), VSGameUtilsKt.getDimensionId(((CommandSourceStack)it.getSource()).getLevel()), oldData.getNewScale(), oldData.getNewPosInShip()));
         return shipTeleportData.get();
     }
 

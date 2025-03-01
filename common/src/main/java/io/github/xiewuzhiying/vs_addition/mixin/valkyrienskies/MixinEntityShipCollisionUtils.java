@@ -22,7 +22,7 @@ public abstract class MixinEntityShipCollisionUtils {
             method = "getShipPolygonsCollidingWithEntity",
             at = @At(
                     value = "INVOKE",
-                    target = "Lorg/valkyrienskies/core/api/ships/QueryableShipData;getIntersecting(Lorg/joml/primitives/AABBdc;)Ljava/lang/Iterable;",
+                    target = "Lorg/valkyrienskies/core/api/ships/QueryableShipData;getIntersecting(Lorg/joml/primitives/AABBdc;Ljava/lang/String;)Ljava/lang/Iterable;",
                     remap = false
             )
     )

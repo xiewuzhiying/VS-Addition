@@ -4,9 +4,9 @@ import io.github.xiewuzhiying.vs_addition.VSAdditionMod
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap
 import net.minecraft.nbt.CompoundTag
 import org.valkyrienskies.core.apigame.constraints.VSConstraint
+import org.valkyrienskies.core.apigame.constraints.VSConstraintAndId
+import org.valkyrienskies.core.apigame.constraints.VSConstraintId
 import org.valkyrienskies.core.apigame.world.ServerShipWorldCore
-import org.valkyrienskies.physics_api.ConstraintId
-import org.valkyrienskies.physics_api.constraints.ConstraintAndId
 
 abstract class ConstraintManager(open val core: ServerShipWorldCore) {
 
@@ -53,11 +53,11 @@ abstract class ConstraintManager(open val core: ServerShipWorldCore) {
         return ConstraintGroup.createFromTag(tag)
     }
 
-    open fun onBodiesBeDeleted(core: ServerShipWorldCore, constraintAndId: ConstraintAndId) {
+    open fun onBodiesBeDeleted(core: ServerShipWorldCore, constraintAndId: VSConstraintAndId) {
 
     }
 
-    open fun onBroken(core: ServerShipWorldCore, constraintAndId: ConstraintAndId) {
+    open fun onBroken(core: ServerShipWorldCore, constraintAndId: VSConstraintAndId) {
 
     }
 
@@ -65,7 +65,7 @@ abstract class ConstraintManager(open val core: ServerShipWorldCore) {
         this.core.removeConstraint(id)
     }
 
-    fun VSConstraint.createConstraint() : ConstraintId? {
+    fun VSConstraint.createConstraint() : VSConstraintId? {
         return core.createNewConstraint(this)
     }
 

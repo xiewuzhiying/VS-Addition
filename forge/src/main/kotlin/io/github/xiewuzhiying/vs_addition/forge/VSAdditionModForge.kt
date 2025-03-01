@@ -23,8 +23,11 @@ import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
+import net.minecraftforge.fml.loading.FMLEnvironment
+import org.valkyrienskies.core.apigame.VSCoreFactory
 import org.valkyrienskies.core.impl.config.VSConfigClass
 import org.valkyrienskies.mod.compat.clothconfig.VSClothConfig
+import org.valkyrienskies.mod.forge.common.ForgeHooksImpl
 import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 import thedarkcolour.kotlinforforge.forge.MOD_CONTEXT
@@ -35,7 +38,14 @@ import xfacthd.framedblocks.common.FBContent
 object VSAdditionModForge {
     init {
         EventBuses.registerModEventBus(VSAdditionMod.MOD_ID, MOD_CONTEXT.getKEventBus())
-        init()
+        val isClient = FMLEnvironment.dist.isClient
+        val vsCore = if (isClient) {
+            VSCoreFactory.instance.newVsCoreClient(ForgeHooksImpl)
+        } else {
+            VSCoreFactory.instance.newVsCoreServer(ForgeHooksImpl)
+        }
+
+        init(vsCore)
 
         getModBus().addListener(this::clientSetup)
 
@@ -45,7 +55,7 @@ object VSAdditionModForge {
             ConfigScreenHandler.ConfigScreenFactory { _, parent ->
                 VSClothConfig.createConfigScreenFor(
                     parent,
-                    VSConfigClass.getRegisteredConfig(VSAdditionConfig::class.java)
+                    vsCore.getRegisteredConfigLegacy(VSAdditionConfig::class.java).clazz
                 )
             }
         }

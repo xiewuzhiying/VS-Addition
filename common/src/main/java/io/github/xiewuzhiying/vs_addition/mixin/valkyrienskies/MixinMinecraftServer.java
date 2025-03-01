@@ -5,17 +5,15 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import io.github.xiewuzhiying.vs_addition.context.VSAdditionMassDatapackResolver;
-import kotlin.Triple;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
+import org.valkyrienskies.core.apigame.physics.blockstates.VsBlockState;
 import org.valkyrienskies.mod.common.config.MassDatapackResolver;
-import org.valkyrienskies.physics_api.voxel.Lod1LiquidBlockState;
-import org.valkyrienskies.physics_api.voxel.Lod1SolidBlockState;
 
-import java.util.List;
+import java.util.Collection;
 
 @Pseudo
 @Mixin(value = MinecraftServer.class, priority = 1500)
@@ -60,43 +58,11 @@ public abstract class MixinMinecraftServer {
             method = "@MixinSquared:Handler",
             at = @At(
                     value = "INVOKE",
-                    target = "Lorg/valkyrienskies/mod/common/config/MassDatapackResolver;getSolidBlockStates()Ljava/util/List;",
+                    target = "Lorg/valkyrienskies/mod/common/config/MassDatapackResolver;getBlockStateData()Ljava/util/Collection;",
                     remap = false
             )
     )
-    private List<Lod1SolidBlockState> modify2(List<Lod1SolidBlockState> original) {
-        return VSAdditionMassDatapackResolver.INSTANCE.getSolidBlockStates();
-    }
-
-    @TargetHandler(
-            mixin = "org.valkyrienskies.mod.mixin.server.MixinMinecraftServer",
-            name = "postCreateLevels"
-    )
-    @ModifyExpressionValue(
-            method = "@MixinSquared:Handler",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lorg/valkyrienskies/mod/common/config/MassDatapackResolver;getLiquidBlockStates()Ljava/util/List;",
-                    remap = false
-            )
-    )
-    private List<Lod1LiquidBlockState> modify3(List<Lod1LiquidBlockState> original) {
-        return VSAdditionMassDatapackResolver.INSTANCE.getLiquidBlockStates();
-    }
-
-    @TargetHandler(
-            mixin = "org.valkyrienskies.mod.mixin.server.MixinMinecraftServer",
-            name = "postCreateLevels"
-    )
-    @ModifyExpressionValue(
-            method = "@MixinSquared:Handler",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lorg/valkyrienskies/mod/common/config/MassDatapackResolver;getBlockStateData()Ljava/util/List;",
-                    remap = false
-            )
-    )
-    private List<Triple<Integer, Integer, Integer>> modify4(List<Triple<Integer, Integer, Integer>> original) {
+    private Collection<VsBlockState> modify4(Collection<VsBlockState> original) {
         return VSAdditionMassDatapackResolver.INSTANCE.getBlockStateData();
     }
 }

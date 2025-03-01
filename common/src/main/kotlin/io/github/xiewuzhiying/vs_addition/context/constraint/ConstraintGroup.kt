@@ -2,9 +2,9 @@ package io.github.xiewuzhiying.vs_addition.context.constraint
 
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.ListTag
-import org.valkyrienskies.physics_api.ConstraintId
+import org.valkyrienskies.core.apigame.constraints.VSConstraintId
 
-open class ConstraintGroup(open val constraintIds: Iterable<ConstraintId>) {
+open class ConstraintGroup(open val constraintIds: Iterable<VSConstraintId>) {
     open val compoundTag : CompoundTag
         get() {
             val tag = CompoundTag()
@@ -25,7 +25,7 @@ open class ConstraintGroup(open val constraintIds: Iterable<ConstraintId>) {
         }
 
         @JvmStatic
-        fun getConstraintsFromTag(tag: CompoundTag): Iterable<ConstraintId> {
+        fun getConstraintsFromTag(tag: CompoundTag): Iterable<VSConstraintId> {
             return (tag.get("constraintGroup") as ListTag).map { (it as CompoundTag).getInt("constraintId") }
         }
     }

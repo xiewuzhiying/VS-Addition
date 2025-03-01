@@ -3,9 +3,9 @@ package io.github.xiewuzhiying.vs_addition.compats.create.content.contraptions.c
 import io.github.xiewuzhiying.vs_addition.context.constraint.ConstraintGroup
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
-import org.valkyrienskies.physics_api.ConstraintId
+import org.valkyrienskies.core.apigame.constraints.VSConstraintId
 
-open class StickerConstraintGroup(override val constraintIds: Iterable<ConstraintId>, open val blockPos: BlockPos) : ConstraintGroup(constraintIds) {
+open class StickerConstraintGroup(override val constraintIds: Iterable<VSConstraintId>, open val blockPos: BlockPos) : ConstraintGroup(constraintIds) {
     override val compoundTag : CompoundTag
         get() {
             val tag = super.compoundTag

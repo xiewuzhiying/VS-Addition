@@ -11,10 +11,10 @@ import org.valkyrienskies.mod.util.BugFixUtil;
 @Mixin(BugFixUtil.class)
 public abstract class MixinBugFixUtils {
     @ModifyExpressionValue(
-            method = "isCollisionBoxToBig",
+            method = "isCollisionBoxTooBig",
             at = @At(
                     value = "CONSTANT",
-                    args = "doubleValue=1000.0"
+                    args = "doubleValue=100000000.0"
             ),
             remap = false
     )

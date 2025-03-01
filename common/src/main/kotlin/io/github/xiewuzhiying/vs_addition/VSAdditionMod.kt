@@ -20,7 +20,7 @@ import io.github.xiewuzhiying.vs_addition.context.registerCommands
 import io.github.xiewuzhiying.vs_addition.networking.VSAdditionMessage
 import io.github.xiewuzhiying.vs_addition.networking.airpocket.SyncAllPocketsC2SPacket
 import net.spaceeye.vmod.compat.schem.SchemCompatObj
-import org.valkyrienskies.core.impl.config.VSConfigClass
+import org.valkyrienskies.core.apigame.VSCore
 import org.valkyrienskies.core.impl.hooks.VSEvents
 import org.valkyrienskies.mod.common.BlockStateInfo
 
@@ -42,7 +42,7 @@ object VSAdditionMod {
 
 
     @JvmStatic
-    fun init() {
+    fun init(core: VSCore) {
         CREATE_ACTIVE = Platform.isModLoaded("create")
         CREATE_ADDITION_ACTIVE = Platform.isModLoaded("create_addition")
         CC_ACTIVE = Platform.isModLoaded("computercraft")
@@ -55,7 +55,7 @@ object VSAdditionMod {
         CBCMW_ACTIVE = Platform.isModLoaded("cbcmodernwarfare")
         VMOD_ACTIVE = Platform.isModLoaded("valkyrien_mod")
 
-        VSConfigClass.registerConfig("vs_addition", VSAdditionConfig::class.java)
+        core.registerConfigLegacy("vs_addition", VSAdditionConfig::class.java)
 
         VSAdditionMessage.registerC2SPackets()
 

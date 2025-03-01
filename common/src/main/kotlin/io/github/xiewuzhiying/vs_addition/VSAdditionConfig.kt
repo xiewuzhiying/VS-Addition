@@ -61,7 +61,7 @@ object VSAdditionConfig {
         var defaultFluidDragCoefficient : Double = 0.3
 
         @JsonSchema(description = "Disable some annoying console logs :)")
-        var getEntitiesAabbSizeLimit = 1000.0
+        var getEntitiesAabbSizeLimit = 100000000.0
 
         @JsonSchema(description = "Set of non-collider blocks on the ship that are excluded from collision detection.")
         var nonColliderBlocks = setOf(

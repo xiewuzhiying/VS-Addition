@@ -24,10 +24,10 @@ import net.spaceeye.valkyrien_ship_schematics.containers.CompoundTagSerializable
 import net.spaceeye.valkyrien_ship_schematics.interfaces.ISerializable
 import net.spaceeye.vmod.compat.schem.SchemCompatItem
 import org.valkyrienskies.core.api.ships.ServerShip
-import org.valkyrienskies.core.impl.util.serialization.FastUtilModule
-import org.valkyrienskies.core.impl.util.serialization.GuaveSerializationModule
-import org.valkyrienskies.core.impl.util.serialization.JOMLSerializationModule
-import org.valkyrienskies.core.impl.util.serialization.VSSerializationModule
+import org.valkyrienskies.core.impl.shadow.FK
+import org.valkyrienskies.core.impl.shadow.FW
+import org.valkyrienskies.core.impl.shadow.FI
+import org.valkyrienskies.core.impl.shadow.FH
 import org.valkyrienskies.mod.common.shipObjectWorld
 
 class VSAdditionSchemCompat : SchemCompatItem {
@@ -39,10 +39,10 @@ class VSAdditionSchemCompat : SchemCompatItem {
     fun getMapper(): ObjectMapper {
         val mapper = ObjectMapper()
         return mapper
-            .registerModule(JOMLSerializationModule())
-            .registerModule(VSSerializationModule())
-            .registerModule(GuaveSerializationModule())
-            .registerModule(FastUtilModule())
+            .registerModule(FK())
+            .registerModule(FW())
+            .registerModule(FI())
+            .registerModule(FH())
             .registerKotlinModule()
             .setVisibility(
                 mapper.visibilityChecker
