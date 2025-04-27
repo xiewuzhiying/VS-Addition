@@ -1,7 +1,6 @@
 package io.github.xiewuzhiying.vs_addition.forge
 
 import com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours
-import dan200.computercraft.impl.Peripherals
 import dev.architectury.platform.forge.EventBuses
 import io.github.xiewuzhiying.vs_addition.VSAdditionConfig
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod
@@ -71,7 +70,7 @@ object VSAdditionModForge {
         if (VSAdditionMod.CC_ACTIVE) {
             registerGenericPeripheralCommon()
             registerGenericPeripheralForge()
-            Peripherals.register(ForgePeripheralProvider);
+            VSAdditionModForgePeripheralLookup.registerFallback()
         }
     }
 
