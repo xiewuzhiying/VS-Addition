@@ -1,5 +1,7 @@
 package io.github.xiewuzhiying.vs_addition
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.module.SimpleModule
 import com.simibubi.create.content.redstone.displayLink.AllDisplayBehaviours
 import dev.architectury.event.events.client.ClientCommandRegistrationEvent
 import dev.architectury.event.events.client.ClientTickEvent
@@ -16,13 +18,17 @@ import io.github.xiewuzhiying.vs_addition.context.EntityFreshCaller
 import io.github.xiewuzhiying.vs_addition.context.NonColliderBlockStateProvider
 import io.github.xiewuzhiying.vs_addition.context.airpocket.FakeAirPocket
 import io.github.xiewuzhiying.vs_addition.context.airpocket.FakeAirPocketClient
+import io.github.xiewuzhiying.vs_addition.context.jackson.AABBdcDeserializer
+import io.github.xiewuzhiying.vs_addition.context.jackson.AABBdcSerializer
 import io.github.xiewuzhiying.vs_addition.context.registerCommands
 import io.github.xiewuzhiying.vs_addition.networking.VSAdditionMessage
 import io.github.xiewuzhiying.vs_addition.networking.airpocket.SyncAllPocketsC2SPacket
 import net.spaceeye.vmod.compat.schem.SchemCompatObj
+import org.joml.primitives.AABBdc
 import org.valkyrienskies.core.impl.config.VSConfigClass
 import org.valkyrienskies.core.impl.hooks.VSEvents
 import org.valkyrienskies.mod.common.BlockStateInfo
+
 
 object VSAdditionMod {
     const val MOD_ID = "vs_addition"
@@ -86,6 +92,14 @@ object VSAdditionMod {
         if (VMOD_ACTIVE) {
             SchemCompatObj.safeAdd("vs_addition") { VSAdditionSchemCompat() }
         }
+
+        // Register AABBdc so it can be serialized
+        val aabbModule = SimpleModule()
+        aabbModule.addSerializer(AABBdc::class.java, AABBdcSerializer())
+        aabbModule.addDeserializer(AABBdc::class.java, AABBdcDeserializer())
+
+        val mapper = ObjectMapper()
+        mapper.registerModule(aabbModule)
     }
 
 
