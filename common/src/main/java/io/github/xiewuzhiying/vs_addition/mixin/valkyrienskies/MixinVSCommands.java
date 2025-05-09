@@ -20,10 +20,10 @@ public abstract class MixinVSCommands {
 
     @ModifyArg(
             method = {
-                    "registerServerCommands$lambda$4",
-                    "registerServerCommands$lambda$6",
-                    "registerServerCommands$lambda$8",
-                    "registerServerCommands$lambda$10"
+                    "registerServerCommands$lambda$5",
+                    "registerServerCommands$lambda$7",
+                    "registerServerCommands$lambda$9",
+                    "registerServerCommands$lambda$11"
             },
             at = @At(
                     value = "INVOKE",
@@ -39,10 +39,10 @@ public abstract class MixinVSCommands {
 
     @ModifyArg(
             method = {
-                    "registerServerCommands$lambda$4",
-                    "registerServerCommands$lambda$6",
-                    "registerServerCommands$lambda$8",
-                    "registerServerCommands$lambda$10"
+                    "registerServerCommands$lambda$5",
+                    "registerServerCommands$lambda$7",
+                    "registerServerCommands$lambda$9",
+                    "registerServerCommands$lambda$11"
             },
             at = @At(
                     value = "INVOKE",

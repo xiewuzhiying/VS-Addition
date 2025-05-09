@@ -2,8 +2,6 @@ package io.github.xiewuzhiying.vs_addition.context.airpocket
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect
 import io.github.xiewuzhiying.vs_addition.PlatformUtils
-import it.unimi.dsi.fastutil.longs.Long2ObjectMap
-import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap
 import net.minecraft.server.level.ServerLevel
 import org.joml.primitives.AABBdc
 import org.valkyrienskies.core.api.ships.*
@@ -12,6 +10,7 @@ import org.valkyrienskies.core.apigame.world.properties.DimensionId
 import org.valkyrienskies.mod.common.dimensionId
 import org.valkyrienskies.mod.common.getLevelFromDimensionId
 import org.valkyrienskies.mod.common.shipObjectWorld
+import java.util.*
 
 typealias PocketId = Long
 
@@ -24,7 +23,7 @@ typealias PocketId = Long
 class FakeAirPocketController {
     var nextId : PocketId = 0
     var level : DimensionId = "minecraft:overworld"
-    val map : Long2ObjectMap<AABBdc> = Long2ObjectOpenHashMap()
+    val map : MutableMap<Long, AABBdc> = mutableMapOf()
 
     fun addAirPocket(aabb: AABBdc) : PocketId {
         val id = nextId++

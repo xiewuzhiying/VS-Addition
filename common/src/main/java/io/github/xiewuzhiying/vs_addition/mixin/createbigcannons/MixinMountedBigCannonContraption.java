@@ -14,7 +14,7 @@ import rbasamoyai.createbigcannons.cannon_control.contraption.PitchOrientedContr
 import rbasamoyai.createbigcannons.munitions.big_cannon.AbstractBigCannonProjectile;
 
 @Pseudo
-@Mixin(MountedBigCannonContraption.class)
+@Mixin(value = MountedBigCannonContraption.class, priority = 1001)
 public abstract class MixinMountedBigCannonContraption extends AbstractMountedCannonContraption {
     @WrapOperation(
             method = "fireShot",

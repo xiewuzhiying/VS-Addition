@@ -1,6 +1,5 @@
 package io.github.xiewuzhiying.vs_addition.fabric
 
-import dan200.computercraft.api.peripheral.PeripheralLookup
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.CC_ACTIVE
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.init
 import io.github.xiewuzhiying.vs_addition.VSAdditionMod.initClient
@@ -22,7 +21,7 @@ object VSAdditionModFabric {
         init()
         if (CC_ACTIVE) {
             registerGenericPeripheralCommon()
-            PeripheralLookup.get().registerFallback { level: Level, blockPos: BlockPos, _: BlockState, _: BlockEntity?, _: Direction -> peripheralProvider(level, blockPos) }
+            VSAdditionModFabricPeripheralLookup.registerFallback()
         }
         ServerLifecycleEvents.SERVER_STARTING.register { server ->
             PlatformUtilsImpl.minecraft = server
