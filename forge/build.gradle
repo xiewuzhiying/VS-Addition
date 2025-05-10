@@ -122,7 +122,8 @@ dependencies {
 
     // Embeddium
     modCompileOnly("maven.modrinth:embeddium:0.3.18+mc1.20.1")
-    modCompileOnly("maven.modrinth:embeddiumplus:1.20.1-v1.2.13")
+    //modCompileOnly("maven.modrinth:embeddiumplus:1.20.1-v1.2.13")
+    modCompileOnly("maven.modrinth:chloride:1.20.1-v1.2.13")
 
     // Presence Footsteps
     modCompileOnly("curse.maven:presence-footsteps-forge-433068:5015286")
